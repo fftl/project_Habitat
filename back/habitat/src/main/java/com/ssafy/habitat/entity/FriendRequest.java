@@ -24,6 +24,6 @@ public class FriendRequest extends BaseTime{
     @JoinColumn(name = "to_key")
     private User to;
 
+    @Column(columnDefinition = "TINYINT(1)")
     private int status;
-
 }
