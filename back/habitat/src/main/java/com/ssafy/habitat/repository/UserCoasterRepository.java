@@ -1,8 +1,8 @@
 package com.ssafy.habitat.repository;
 
-import com.ssafy.habitat.entity.User;
+import com.ssafy.habitat.entity.UserCoaster;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserCoasterRepository extends JpaRepository<User, String> {
+public interface UserCoasterRepository extends JpaRepository<UserCoaster, String> {
 
 }
