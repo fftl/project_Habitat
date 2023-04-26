@@ -1,4 +1,4 @@
 package com.ssafy.habitat.entity;
 
-public class entity {
+public class DrinkType {
 }

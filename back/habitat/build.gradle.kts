@@ -27,6 +27,7 @@ dependencies {
 	runtimeOnly("com.mysql:mysql-connector-j")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 }
 
 tasks.withType<Test> {
