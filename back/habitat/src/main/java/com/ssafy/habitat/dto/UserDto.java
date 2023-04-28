@@ -19,4 +19,14 @@ public class UserDto {
         private String imgUrl; // 프로필사진
         private LocalDateTime recent; // 마지막 음수시간
     }
+
+    @Setter
+    @Getter
+    @Builder
+    public static class FriendRequest {
+        private int friendRequestKey;
+        private String userKey;
+        private String nickname; // 닉네임
+        private String imgUrl; // 프로필사진
+    }
 }
