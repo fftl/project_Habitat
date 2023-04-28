@@ -1,14 +1,12 @@
 package com.ssafy.habitat.controller;
 
-import com.ssafy.habitat.dto.UserDto;
+import com.ssafy.habitat.dto.ResponseUserDto;
 import com.ssafy.habitat.entity.Friend;
 import com.ssafy.habitat.entity.FriendRequest;
 import com.ssafy.habitat.entity.User;
-import com.ssafy.habitat.exception.CustomException;
-import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.service.FriendRequestService;
 import com.ssafy.habitat.service.FriendService;
-import com.ssafy.habitat.service.LogService;
+import com.ssafy.habitat.service.DrinkLogService;
 import com.ssafy.habitat.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +20,19 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "/friends")
+@RequestMapping("/friends")
 public class FriendController {
     private FriendService friendService;
     private FriendRequestService friendRequestService;
     private UserService userService;
-    private LogService logService;
+    private DrinkLogService drinkLogService;
 
     @Autowired
-    public FriendController(FriendService friendService, FriendRequestService friendRequestService, UserService userService, LogService logService) {
+    public FriendController(FriendService friendService, FriendRequestService friendRequestService, UserService userService, DrinkLogService drinkLogService) {
         this.friendService = friendService;
         this.friendRequestService = friendRequestService;
         this.userService = userService;
-        this.logService = logService;
+        this.drinkLogService = drinkLogService;
     }
 
     @GetMapping("/all")
@@ -45,11 +43,11 @@ public class FriendController {
         List<User> friendList = friendService.getFriendList(user); // 유저의 친구목록을 불러옵니다.
 
         // Entity -> Dto 변환
-        List<UserDto.Friend> friendDtoList = new ArrayList<>();
+        List<ResponseUserDto.Friend> friendDtoList = new ArrayList<>();
         for (int i = 0; i < friendList.size(); i++) {
             User curUser = friendList.get(i);
-            LocalDateTime last = logService.getRecentLog(curUser);
-            friendDtoList.add(UserDto.Friend.builder()
+            LocalDateTime last = drinkLogService.getRecentLog(curUser);
+            friendDtoList.add(ResponseUserDto.Friend.builder()
                     .userKey(curUser.getUserKey())
                     .nickname(curUser.getNickname())
                     .imgUrl(curUser.getImgUrl())
@@ -155,12 +153,12 @@ public class FriendController {
         List<FriendRequest> friendRequestList = friendRequestService.getFriendRequestList(user); // 유저의 친구신청 목록을 불러옵니다.
 
         // Entity -> Dto 변환
-        List<UserDto.FriendRequest> friendRequestDtoList = new ArrayList<>();
+        List<ResponseUserDto.FriendRequest> friendRequestDtoList = new ArrayList<>();
         for (int i = 0; i < friendRequestList.size(); i++) {
             FriendRequest friendRequest = friendRequestList.get(i);
             User curUser = friendRequest.getFrom();
-            LocalDateTime last = logService.getRecentLog(curUser);
-            friendRequestDtoList.add(UserDto.FriendRequest.builder()
+            LocalDateTime last = drinkLogService.getRecentLog(curUser);
+            friendRequestDtoList.add(ResponseUserDto.FriendRequest.builder()
                             .friendRequestKey(friendRequest.getFriendRequestKey())
                             .userKey(curUser.getUserKey())
                             .nickname(curUser.getNickname())
