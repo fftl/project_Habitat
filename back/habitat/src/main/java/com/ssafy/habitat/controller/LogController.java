@@ -1,7 +1,8 @@
 package com.ssafy.habitat.controller;
 
+import com.ssafy.habitat.exception.ErrorCode;
+import com.ssafy.habitat.exception.CustomException;
 import com.ssafy.habitat.service.LogService;
-import com.ssafy.habitat.util.FailResponse;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,6 +38,10 @@ public class LogController {
     @ApiOperation(value = "스웨거 실패 테스트", notes="스웨거가 작동하는지 테스트합니다.")
     public ResponseEntity getTest2(){
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        return new ResponseEntity<>(new FailResponse("잘못된 입력 형식입니다.", status.value()), status);
+        boolean test =  true;
+        if(test){
+            throw new CustomException(ErrorCode.FRIEND_CODE_NOT_FOUND);
+        }
+        return new ResponseEntity<>("하하", status);
     }
 }
