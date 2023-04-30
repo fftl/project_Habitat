@@ -28,4 +28,8 @@ public class DrinkLogService {
         List<DrinkLog> drinkLogList = drinkLogRepository.findAllByUserAndIsRemoved(user, false);
         return drinkLogList;
     }
+
+    public void addDrinkLog(DrinkLog newDrinkLog) {
+        drinkLogRepository.save(newDrinkLog);
+    }
 }

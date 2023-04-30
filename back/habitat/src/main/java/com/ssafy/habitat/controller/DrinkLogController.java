@@ -1,5 +1,6 @@
 package com.ssafy.habitat.controller;
 
+import com.ssafy.habitat.dto.RequestDrinkLogDto;
 import com.ssafy.habitat.dto.ResponseDrinkLogDto;
 import com.ssafy.habitat.dto.ResponseUserDto;
 import com.ssafy.habitat.entity.DrinkLog;
@@ -79,10 +80,38 @@ public class DrinkLogController {
 
     @PostMapping("/add")
     @ApiOperation(value = "섭취량 증가(수동)", notes="수동으로 유저의 음수량을 입력합니다.")
-    public ResponseEntity addDrinkLog(@RequestParam("userKey") String userKey, @RequestBody int drink) {
+    public ResponseEntity addDrinkLog(@RequestParam("userKey") String userKey, @RequestBody RequestDrinkLogDto requestDrinkLog) {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
+        // Dto -> Entity
+        DrinkLog newDrinkLog = DrinkLog.builder()
+                .drink(requestDrinkLog.getDrink())
+                .drinkType(requestDrinkLog.getDrinkType())
+                .isCoaster(false)
+                .isRemoved(false)
+                .user(user)
+                .build();
 
+        drinkLogService.addDrinkLog(newDrinkLog);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/auto")
+    @ApiOperation(value = "섭취량 증가(코스터)", notes="코스터로 섭취한 음수량을 입력합니다.")
+    public ResponseEntity addAutoDrinkLog(@RequestParam("userKey") String userKey, @RequestBody RequestDrinkLogDto requestDrinkLog) {
+        User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
+
+        // Dto -> Entity
+        DrinkLog newDrinkLog = DrinkLog.builder()
+                .drink(requestDrinkLog.getDrink())
+                .drinkType(requestDrinkLog.getDrinkType())
+                .isCoaster(true)
+                .isRemoved(false)
+                .user(user)
+                .build();
+
+        drinkLogService.addDrinkLog(newDrinkLog);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
