@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Setter
 @Builder
 @Entity
-public class Log extends BaseTime{
+public class DrinkLog extends BaseTime{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

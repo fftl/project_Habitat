@@ -39,7 +39,7 @@ public class User extends BaseTime{
 
     //ok
     @OneToMany(mappedBy = "user")
-    private List<Log> logList = new ArrayList<>();
+    private List<DrinkLog> drinkLogList = new ArrayList<>();
 
     //좀 어려움
     @OneToMany(mappedBy = "to")

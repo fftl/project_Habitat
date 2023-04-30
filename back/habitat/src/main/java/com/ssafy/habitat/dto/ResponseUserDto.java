@@ -1,14 +1,12 @@
 package com.ssafy.habitat.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-public class UserDto {
+public class ResponseUserDto {
 
     @Setter
     @Getter
