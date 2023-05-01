@@ -23,7 +23,7 @@ public class ExceptionController {
      */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<FailResponse> handleException(Exception ex){
-        FailResponse response = new FailResponse(ErrorCode.OTHER_ERROR);
+        FailResponse response = new FailResponse(ErrorCode.OTHER_ERROR, ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.valueOf(ErrorCode.OTHER_ERROR.getStatus()));
     }
 }
