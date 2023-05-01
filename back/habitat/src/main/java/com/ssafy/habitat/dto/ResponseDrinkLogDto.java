@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 public class ResponseDrinkLogDto {
-    private int logKey;
+    private int drinkLogKey;
     private int drink;
     private Boolean isCoaster;
     private char drinkType;
