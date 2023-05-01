@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping("/logs")
+@RequestMapping("/drinkLogs")
 public class DrinkLogController {
     private DrinkLogService drinkLogService;
     private UserService userService;
@@ -70,6 +70,30 @@ public class DrinkLogController {
                             .drink_type(drinkLog.getDrinkType())
                             .is_coaster(drinkLog.isCoaster())
                             .created_at(drinkLog.getCreatedAt())
+                    .build());
+        }
+
+        return new ResponseEntity<>(drinkLogDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/day")
+    @ApiOperation(value = "일일 섭취로그 조회", notes="유저의 오늘의 섭취로그를 조회합니다.")
+    public ResponseEntity getDailyDrinkLog(@RequestParam("userKey") String userKey) {
+        User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
+
+        List<DrinkLog> drinkLogList = drinkLogService.getDailyLogs(user); //찾아낸 유저의 오늘 섭취로그를 가져옵니다.
+
+        // Entity -> Dto 변환
+        List<ResponseDrinkLogDto> drinkLogDtoList = new ArrayList<>();
+        for (int i = 0; i < drinkLogList.size(); i++) {
+            DrinkLog drinkLog = drinkLogList.get(i);
+
+            drinkLogDtoList.add(ResponseDrinkLogDto.builder()
+                    .logKey(drinkLog.getLogKey())
+                    .drink(drinkLog.getDrink())
+                    .drinkType(drinkLog.getDrinkType())
+                    .isCoaster(drinkLog.isCoaster())
+                    .createdAt(drinkLog.getCreatedAt())
                     .build());
         }
 
