@@ -2,7 +2,6 @@ package com.ssafy.habitat.controller;
 
 import com.ssafy.habitat.dto.RequestDrinkLogDto;
 import com.ssafy.habitat.dto.ResponseDrinkLogDto;
-import com.ssafy.habitat.dto.ResponseUserDto;
 import com.ssafy.habitat.entity.DrinkLog;
 import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.exception.ErrorCode;
@@ -15,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -56,7 +54,7 @@ public class DrinkLogController {
 
     @GetMapping("/all")
     @ApiOperation(value = "섭취로그 조회", notes="유저의 섭취로그를 조회합니다.")
-    public ResponseEntity getDrinkLog(@RequestParam("userKey") String userKey) {
+    public ResponseEntity getDrinkLog(@RequestParam("user_key") String userKey) {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         List<DrinkLog> drinkLogList = drinkLogService.getAllLogs(user);
@@ -67,11 +65,11 @@ public class DrinkLogController {
             DrinkLog drinkLog = drinkLogList.get(i);
 
             drinkLogDtoList.add(ResponseDrinkLogDto.builder()
-                            .logKey(drinkLog.getLogKey())
+                            .log_key(drinkLog.getLogKey())
                             .drink(drinkLog.getDrink())
-                            .drinkType(drinkLog.getDrinkType())
-                            .isCoaster(drinkLog.isCoaster())
-                            .createdAt(drinkLog.getCreatedAt())
+                            .drink_type(drinkLog.getDrinkType())
+                            .is_coaster(drinkLog.isCoaster())
+                            .created_at(drinkLog.getCreatedAt())
                     .build());
         }
 
@@ -80,13 +78,13 @@ public class DrinkLogController {
 
     @PostMapping("/add")
     @ApiOperation(value = "섭취량 증가(수동)", notes="수동으로 유저의 음수량을 입력합니다.")
-    public ResponseEntity addDrinkLog(@RequestParam("userKey") String userKey, @RequestBody RequestDrinkLogDto requestDrinkLog) {
+    public ResponseEntity addDrinkLog(@RequestParam("user_key") String userKey, @RequestBody RequestDrinkLogDto requestDrinkLog) {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         // Dto -> Entity
         DrinkLog newDrinkLog = DrinkLog.builder()
                 .drink(requestDrinkLog.getDrink())
-                .drinkType(requestDrinkLog.getDrinkType())
+                .drinkType(requestDrinkLog.getDrink_type())
                 .isCoaster(false)
                 .isRemoved(false)
                 .user(user)
@@ -99,13 +97,13 @@ public class DrinkLogController {
 
     @PostMapping("/auto")
     @ApiOperation(value = "섭취량 증가(코스터)", notes="코스터로 섭취한 음수량을 입력합니다.")
-    public ResponseEntity addAutoDrinkLog(@RequestParam("userKey") String userKey, @RequestBody RequestDrinkLogDto requestDrinkLog) {
+    public ResponseEntity addAutoDrinkLog(@RequestParam("user_key") String userKey, @RequestBody RequestDrinkLogDto requestDrinkLog) {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         // Dto -> Entity
         DrinkLog newDrinkLog = DrinkLog.builder()
                 .drink(requestDrinkLog.getDrink())
-                .drinkType(requestDrinkLog.getDrinkType())
+                .drinkType(requestDrinkLog.getDrink_type())
                 .isCoaster(true)
                 .isRemoved(false)
                 .user(user)

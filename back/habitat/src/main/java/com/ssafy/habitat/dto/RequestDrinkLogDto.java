@@ -10,6 +10,6 @@ import lombok.Setter;
 @Builder
 public class RequestDrinkLogDto {
     private int drink;
-    private char drinkType;
+    private char drink_type;
 
 }
