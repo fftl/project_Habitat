@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 public class ResponseDrinkLogDto {
-    private int log_key;
+    private int logKey;
     private int drink;
-    private boolean is_coaster;
-    private char drink_type;
-    private LocalDateTime created_at;
+    private Boolean isCoaster;
+    private char drinkType;
+    private LocalDateTime createdAt;
 }
