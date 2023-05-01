@@ -19,6 +19,8 @@ public class Flower extends BaseTime{
     private int flowerKey;
     private String name;
     private String story;
+    private String getCondition;
+    private int maxExp;
     private boolean streak;
     private int streakValue;
     private boolean friend;

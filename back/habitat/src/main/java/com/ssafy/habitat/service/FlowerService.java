@@ -1,5 +1,6 @@
 package com.ssafy.habitat.service;
 
+import com.ssafy.habitat.entity.Flower;
 import com.ssafy.habitat.repository.FlowerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,5 +13,9 @@ public class FlowerService {
     @Autowired
     public FlowerService(FlowerRepository flowerRepository) {
         this.flowerRepository = flowerRepository;
+    }
+
+    public void addFlower(Flower flower) {
+        flowerRepository.save(flower);
     }
 }
