@@ -1,10 +1,10 @@
 package com.ssafy.habitat.dto;
 
 import com.ssafy.habitat.entity.Flower;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Getter
 @Setter

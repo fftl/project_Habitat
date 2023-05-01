@@ -14,5 +14,5 @@ import java.util.List;
 public interface DrinkLogRepository extends JpaRepository<DrinkLog, Integer> {
     DrinkLog findTop1ByUserOrderByCreatedAtDesc(User curUser);
     List<DrinkLog> findAllByUserAndIsRemoved(User user, boolean isRemoved);
-    List<DrinkLog> findAllByUserAndModifiedAtBetween(User user, LocalDateTime start, LocalDateTime end);
+    List<DrinkLog> findAllByUserAndAndIsRemovedAndModifiedAtBetween(User user, boolean isRemoved, LocalDateTime start, LocalDateTime end);
 }

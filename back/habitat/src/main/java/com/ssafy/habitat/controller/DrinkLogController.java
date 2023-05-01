@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/drinkLogs")
@@ -89,11 +90,11 @@ public class DrinkLogController {
             DrinkLog drinkLog = drinkLogList.get(i);
 
             drinkLogDtoList.add(ResponseDrinkLogDto.builder()
-                    .logKey(drinkLog.getLogKey())
+                    .log_key(drinkLog.getDrinkLogKey())
                     .drink(drinkLog.getDrink())
-                    .drinkType(drinkLog.getDrinkType())
-                    .isCoaster(drinkLog.isCoaster())
-                    .createdAt(drinkLog.getCreatedAt())
+                    .drink_type(drinkLog.getDrinkType())
+                    .is_coaster(drinkLog.isCoaster())
+                    .created_at(drinkLog.getCreatedAt())
                     .build());
         }
 
@@ -137,4 +138,26 @@ public class DrinkLogController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PatchMapping
+    @ApiOperation(value = "섭취량 수정", notes="섭취량을 수정합니다.")
+    public ResponseEntity modifiedDrinkLog(@RequestParam("drinkLog_key") int drinkLogKey, @RequestBody Map<String, Integer> map) {
+        DrinkLog drinkLog = drinkLogService.getLog(drinkLogKey);
+        drinkLog.setDrink(map.get("drink"));
+        drinkLogService.addDrinkLog(drinkLog);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    @ApiOperation(value = "섭취량 삭제", notes="섭취량을 삭제처리 합니다.")
+    public ResponseEntity deleteDrinkLog(@RequestParam(name="drinkLog_key") int drinkLogKey) {
+        System.out.println(drinkLogKey);
+        DrinkLog drinkLog = drinkLogService.getLog(drinkLogKey);
+        drinkLog.setRemoved(true);
+        drinkLogService.addDrinkLog(drinkLog);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }
