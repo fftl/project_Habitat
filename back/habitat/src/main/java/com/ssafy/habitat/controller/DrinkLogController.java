@@ -89,11 +89,11 @@ public class DrinkLogController {
             DrinkLog drinkLog = drinkLogList.get(i);
 
             drinkLogDtoList.add(ResponseDrinkLogDto.builder()
-                    .logKey(drinkLog.getLogKey())
+                    .log_key(drinkLog.getLogKey())
                     .drink(drinkLog.getDrink())
-                    .drinkType(drinkLog.getDrinkType())
-                    .isCoaster(drinkLog.isCoaster())
-                    .createdAt(drinkLog.getCreatedAt())
+                    .drink_type(drinkLog.getDrinkType())
+                    .is_coaster(drinkLog.isCoaster())
+                    .created_at(drinkLog.getCreatedAt())
                     .build());
         }
 
