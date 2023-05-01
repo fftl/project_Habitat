@@ -15,11 +15,12 @@ public enum ErrorCode {
 
     ALREADY_FRIEND(400,-400001,"이미 친구 관계입니다."),
     ALREADY_SENT_FRIEND_REQUEST(400,-400002,"이미 친구신청을 보냈습니다."),
+    FRIEND_REQUEST_NOT_FOR_MYSELF(400, -400003, "나는 나 자신의 영원한 친구입니다."),
+
     FRIEND_REQUEST_NOT_FOR_USER(401,-401001,"해당 유저에게 귀속된 친구신청이 아닙니다."),
 
+    OTHER_ERROR(500, -500000, "서버 에러, 서버에서 아직 정의되지 않은 에러입니다.");
 
-    OTHER_ERROR(500, -500000, "서버 에러, 서버에서 아직 정의되지 않은 에러입니다.")
-    ;
 
     private int status;
     private int code;
