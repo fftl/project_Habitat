@@ -64,6 +64,23 @@ public class FlowerController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    @GetMapping("/{flower_key}")
+    @ApiOperation(value = "꽃 상세", notes="꽃 하나에 대한 상세 내용을 조회합니다.")
+    public ResponseEntity getDrinkLog(@PathVariable("flower_key") int flowerKey) {
+
+        Flower flower = flowerService.getFlower(flowerKey);
+
+        // Entity -> Dto
+        ResponseFlowerDto responseFlowerDto = ResponseFlowerDto.builder()
+                .flower_key(flower.getFlowerKey())
+                .name(flower.getName())
+                .story(flower.getStory())
+                .get_condition(flower.getGetCondition())
+                .build();
+
+        return new ResponseEntity<>(responseFlowerDto, HttpStatus.OK);
+    }
+
 
     @PostMapping("/flower")
     @ApiOperation(value = "꽃 등록", notes="DB에 꽃을 등록합니다.")
