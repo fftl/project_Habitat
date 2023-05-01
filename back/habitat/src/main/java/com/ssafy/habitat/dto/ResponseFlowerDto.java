@@ -8,9 +8,9 @@ import lombok.Setter;
 @Getter
 @Builder
 public class ResponseFlowerDto {
-    private int flower_key;
+    private int flowerKey;
     private String name;
     private String story;
-    private String get_condition;
+    private String getCondition;
 
 }

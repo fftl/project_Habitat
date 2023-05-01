@@ -9,5 +9,6 @@ import lombok.*;
 @Builder
 public class RequestDrinkLogDto {
     private int drink;
-    private char drink_type;
+    private char drinkType;
+
 }

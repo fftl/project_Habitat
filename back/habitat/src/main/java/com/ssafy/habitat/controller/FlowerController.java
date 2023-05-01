@@ -36,7 +36,7 @@ public class FlowerController {
 
     @GetMapping("/exp")
     @ApiOperation(value = "리워드 페이지 조회(꽃, 경험치, 레벨)", notes="현재 유저의 꽃, 경험치, 레벨을 조회합니다.")
-    public ResponseEntity getDrinkLog(@RequestParam("user_key") String userKey) {
+    public ResponseEntity getDrinkLog(@RequestParam("userKey") String userKey) {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         Planting planting = plantingService.getPlant(user);
@@ -44,16 +44,16 @@ public class FlowerController {
 
         // Entity -> Dto
         ResponseExpDto responseExpDto = ResponseExpDto.builder()
-                .flower_key(flower.getFlowerKey())
+                .flowerKey(flower.getFlowerKey())
                 .exp(planting.getExp())
-                .max_exp(planting.getMax())
+                .maxExp(planting.getMax())
                 .lv(planting.getLv())
                 .build();
         ResponseFlowerDto responseFlowerDto = ResponseFlowerDto.builder()
-                .flower_key(flower.getFlowerKey())
+                .flowerKey(flower.getFlowerKey())
                 .name(flower.getName())
                 .story(flower.getStory())
-                .get_condition(flower.getGetCondition())
+                .getCondition(flower.getGetCondition())
                 .build();
 
         // Result 담을 HashMap
@@ -62,6 +62,23 @@ public class FlowerController {
         map.put("flower", responseFlowerDto);
 
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @GetMapping("/{flower_key}")
+    @ApiOperation(value = "꽃 상세", notes="꽃 하나에 대한 상세 내용을 조회합니다.")
+    public ResponseEntity getDrinkLog(@PathVariable("flowerKey") int flowerKey) {
+
+        Flower flower = flowerService.getFlower(flowerKey);
+
+        // Entity -> Dto
+        ResponseFlowerDto responseFlowerDto = ResponseFlowerDto.builder()
+                .flowerKey(flower.getFlowerKey())
+                .name(flower.getName())
+                .story(flower.getStory())
+                .getCondition(flower.getGetCondition())
+                .build();
+
+        return new ResponseEntity<>(responseFlowerDto, HttpStatus.OK);
     }
 
 

@@ -11,6 +11,7 @@ public enum ErrorCode {
     FRIEND_REQUEST_NOT_FOUND(404, -404003, "해당 친구신청은 존재하지 않습니다."),
     PLANTING_NOT_FOUND(404, -404004, "유저의 꽃이 생성되지 않았습니다."),
     DRINK_LOG_NOT_FOUND(404, -404005, "해당 키로 찾을 수 있는 섭취기록이 없습니다."),
+    FLOWER_NOT_FOUND(404,-404006, "존재하지 않는 꽃입니다."),
 
     ALREADY_FRIEND(400,-400001,"이미 친구 관계입니다."),
     ALREADY_SENT_FRIEND_REQUEST(400,-400002,"이미 친구신청을 보냈습니다."),

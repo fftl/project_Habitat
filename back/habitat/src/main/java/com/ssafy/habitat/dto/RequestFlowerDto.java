@@ -11,27 +11,27 @@ import lombok.*;
 public class RequestFlowerDto {
     private String name;
     private String story;
-    private String get_condition;
-    private int max_exp;
+    private String getCondition;
+    private int maxExp;
     private boolean streak;
-    private int streak_value;
+    private int streakValue;
     private boolean friend;
-    private int friend_value;
+    private int friendValue;
     private boolean drink;
-    private int drink_value;
+    private int drinkValue;
     private boolean connect;
 
     public Flower toEntity() {
         Flower flower = Flower.builder()
                 .name(this.name)
                 .story(this.story)
-                .getCondition(this.get_condition)
+                .getCondition(this.getCondition)
                 .streak(this.streak)
-                .streakValue(this.streak_value)
+                .streakValue(this.streakValue)
                 .friend(this.friend)
-                .friendValue(this.friend_value)
+                .friendValue(this.friendValue)
                 .drink(this.drink)
-                .drinkValue(this.drink_value)
+                .drinkValue(this.drinkValue)
                 .connect(this.connect)
                 .build();
 
