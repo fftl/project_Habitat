@@ -8,8 +8,8 @@ import lombok.Setter;
 @Getter
 @Builder
 public class ResponseExpDto {
-    private int flower_key;
+    private int flowerKey;
     private int exp;
-    private int max_exp;
+    private int maxExp;
     private int lv;
 }

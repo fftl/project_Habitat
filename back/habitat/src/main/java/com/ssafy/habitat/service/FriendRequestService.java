@@ -44,12 +44,7 @@ public class FriendRequestService {
     }
 
     public FriendRequest getFriendRequestByRequestKey(int requestKey) {
-        FriendRequest findFriendRequest = friendRequestRepository.findById(requestKey).orElse(null);
-
-        // 해당 친구신청 내역이 존재하지 않는 경우
-        if(findFriendRequest == null) {
-            throw new CustomException(ErrorCode.FRIEND_REQUEST_NOT_FOUND);
-        }
+        FriendRequest findFriendRequest = friendRequestRepository.findById(requestKey).orElseThrow(()->new CustomException(ErrorCode.FRIEND_REQUEST_NOT_FOUND));
 
         return findFriendRequest;
     }

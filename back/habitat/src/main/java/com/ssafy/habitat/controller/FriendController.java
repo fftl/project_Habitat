@@ -37,7 +37,7 @@ public class FriendController {
 
     @GetMapping("/all")
     @ApiOperation(value = "친구목록 조회", notes="유저의 친구목록을 조회합니다.")
-    public ResponseEntity getFriendList(@RequestParam("user_key") String userKey) {
+    public ResponseEntity getFriendList(@RequestParam("userKey") String userKey) {
 
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         List<User> friendList = friendService.getFriendList(user); // 유저의 친구목록을 불러옵니다.
@@ -48,9 +48,9 @@ public class FriendController {
             User curUser = friendList.get(i);
             LocalDateTime last = drinkLogService.getRecentLog(curUser);
             friendDtoList.add(ResponseUserDto.Friend.builder()
-                    .user_key(curUser.getUserKey())
+                    .userKey(curUser.getUserKey())
                     .nickname(curUser.getNickname())
-                    .img_url(curUser.getImgUrl())
+                    .imgUrl(curUser.getImgUrl())
                     .recent(last)
                     .build());
         }
@@ -60,7 +60,7 @@ public class FriendController {
 
     @GetMapping("/code")
     @ApiOperation(value = "친구코드 조회", notes="유저의 친구코드를 조회합니다.")
-    public ResponseEntity getFriendCode(@RequestParam("user_key") String userKey) {
+    public ResponseEntity getFriendCode(@RequestParam("userKey") String userKey) {
 
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
@@ -75,7 +75,7 @@ public class FriendController {
 
     @PostMapping("/request/userkey")
     @ApiOperation(value = "친구신청 보내기(유저키)", notes="해당 유저키의 유저에게 친구신청을 보냅니다.")
-    public ResponseEntity sendFriendListByUserKey(@RequestParam("user_key") String userKey, @RequestBody String friendUserKey) {
+    public ResponseEntity sendFriendListByUserKey(@RequestParam("userKey") String userKey, @RequestBody String friendUserKey) {
         User fromUser = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         User toUser = userService.getUser(friendUserKey); // 친구신청할 userKey의 유저를 찾습니다.
 
@@ -93,7 +93,7 @@ public class FriendController {
 
     @PostMapping("/request/code")
     @ApiOperation(value = "친구신청 보내기(친구코드)", notes="해당 친구코드로 친구신청을 보냅니다.")
-    public ResponseEntity sendFriendListByCode(@RequestParam("user_key") String userKey, @RequestBody String code) {
+    public ResponseEntity sendFriendListByCode(@RequestParam("userKey") String userKey, @RequestBody String code) {
         User fromUser = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         User toUser = userService.getByFriendCode(code); // 친구코드에 해당하는 유저를 찾습니다.
 
@@ -111,7 +111,7 @@ public class FriendController {
 
     @PutMapping("/request/ok")
     @ApiOperation(value = "친구신청 수락", notes="해당 친구신청을 수락합니다.")
-    public ResponseEntity acceptFriendList(@RequestParam("user_key") String userKey, @RequestBody int requestKey) {
+    public ResponseEntity acceptFriendList(@RequestParam("userKey") String userKey, @RequestBody int requestKey) {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         FriendRequest friendRequest = friendRequestService.getFriendRequestByRequestKey(requestKey); // requestKey의 친구신청 내역을 찾습니다.
 
@@ -119,6 +119,8 @@ public class FriendController {
         friendRequestService.checkFriendRequestAuthorization(user, friendRequest);
         // 해당 친구신청 내역을 수락으로 변경
         friendRequestService.modifyFriendRequest(friendRequest, 1);
+        // 이미 친구인지 확인
+        friendService.checkFriendRequestPossible(friendRequest.getFrom(), friendRequest.getTo());
 
         // 친구 내역 입력
         friendService.addFriend(Friend.builder().myId(friendRequest.getFrom()).friendId(friendRequest.getTo()).build());
@@ -132,7 +134,7 @@ public class FriendController {
 
     @PutMapping("/request/cancel")
     @ApiOperation(value = "친구신청 거절", notes="해당 친구신청을 거절(삭제)합니다.")
-    public ResponseEntity refuseFriendList(@RequestParam("user_key") String userKey, @RequestBody int requestKey) {
+    public ResponseEntity refuseFriendList(@RequestParam("userKey") String userKey, @RequestBody int requestKey) {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         FriendRequest friendRequest = friendRequestService.getFriendRequestByRequestKey(requestKey);
 
@@ -147,7 +149,7 @@ public class FriendController {
 
     @GetMapping("/request/all")
     @ApiOperation(value = "친구신청 목록", notes="유저에게 전송된 친구신청 목록을 조회합니다.")
-    public ResponseEntity getFriendRequestList(@RequestParam("user_key") String userKey) {
+    public ResponseEntity getFriendRequestList(@RequestParam("userKey") String userKey) {
 
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         List<FriendRequest> friendRequestList = friendRequestService.getFriendRequestList(user); // 유저의 친구신청 목록을 불러옵니다.
@@ -159,10 +161,10 @@ public class FriendController {
             User curUser = friendRequest.getFrom();
             LocalDateTime last = drinkLogService.getRecentLog(curUser);
             friendRequestDtoList.add(ResponseUserDto.FriendRequest.builder()
-                            .friend_request_key(friendRequest.getFriendRequestKey())
-                            .user_key(curUser.getUserKey())
+                            .friendRequestKey(friendRequest.getFriendRequestKey())
+                            .userKey(curUser.getUserKey())
                             .nickname(curUser.getNickname())
-                            .img_url(curUser.getImgUrl())
+                            .imgUrl(curUser.getImgUrl())
                             .build());
         }
 
