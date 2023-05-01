@@ -119,6 +119,8 @@ public class FriendController {
         friendRequestService.checkFriendRequestAuthorization(user, friendRequest);
         // 해당 친구신청 내역을 수락으로 변경
         friendRequestService.modifyFriendRequest(friendRequest, 1);
+        // 이미 친구인지 확인
+        friendService.checkFriendRequestPossible(friendRequest.getFrom(), friendRequest.getTo());
 
         // 친구 내역 입력
         friendService.addFriend(Friend.builder().myId(friendRequest.getFrom()).friendId(friendRequest.getTo()).build());

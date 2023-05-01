@@ -14,7 +14,7 @@ public class DrinkLog extends BaseTime{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int logKey;
+    private int drinkLogKey;
     private int drink;
     private boolean isCoaster;
     private char drinkType;

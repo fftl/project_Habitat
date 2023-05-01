@@ -22,10 +22,7 @@ public class FlowerService {
     }
 
     public Flower getFlower(int flowerKey) {
-        Flower findFlower = flowerRepository.findById(flowerKey).orElse(null);
-        if(findFlower == null) {
-            throw new CustomException(ErrorCode.FLOWER_NOT_FOUND);
-        }
+        Flower findFlower = flowerRepository.findById(flowerKey).orElseThrow(()->new CustomException(ErrorCode.FLOWER_NOT_FOUND));
         return findFlower;
     }
 }

@@ -30,23 +30,11 @@ public class FriendService {
         return friendList;
     }
 
-    public Friend getFriendByMyIdAndFriendId(User fromUser, User toUser) {
-        Friend findFriend = friendRepository.findByMyIdAndFriendId(fromUser, toUser);
-
-        return findFriend;
-    }
-
-    public void checkFriendAlreadyExist(User fromUser, User toUser) {
-        Friend findFriend = friendRepository.findByMyIdAndFriendId(fromUser, toUser);
-
-        if(findFriend == null) {
-            throw new CustomException(ErrorCode.FRIEND_REQUEST_NOT_FOUND);
-        }
-    }
 
     public void checkFriendRequestPossible(User fromUser, User toUser) {
-        Friend findFriend = friendRepository.findByMyIdAndFriendId(fromUser, toUser);
+        Friend findFriend = friendRepository.findByMyIdAndFriendId(fromUser, toUser).orElse(null);
 
+        // 이미 친구 관계에 있음을 확인했다면 친구신청 불가
         if(findFriend != null) {
             throw new CustomException(ErrorCode.ALREADY_FRIEND);
         }
