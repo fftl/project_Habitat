@@ -22,6 +22,11 @@ public class FriendRequestService {
     }
 
     public void addFriendRequest(FriendRequest newFriendRequest) {
+        // 나 자신에게 친구신청을 하는 경우
+        if(newFriendRequest.getTo() == newFriendRequest.getFrom()) {
+            throw new CustomException(ErrorCode.FRIEND_REQUEST_NOT_FOR_MYSELF);
+        }
+
         // 이미 전송한 친구신청이 있는 경우
         if(friendRequestRepository.findByFromAndToAndStatus(newFriendRequest.getFrom(), newFriendRequest.getTo(), 0) != null) {
             throw new CustomException(ErrorCode.ALREADY_SENT_FRIEND_REQUEST);
