@@ -3,9 +3,7 @@ package com.ssafy.habitat.controller;
 import com.ssafy.habitat.dto.RequestFlowerDto;
 import com.ssafy.habitat.dto.ResponseExpDto;
 import com.ssafy.habitat.dto.ResponseFlowerDto;
-import com.ssafy.habitat.entity.Flower;
-import com.ssafy.habitat.entity.Planting;
-import com.ssafy.habitat.entity.User;
+import com.ssafy.habitat.entity.*;
 import com.ssafy.habitat.service.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 @RestController
 @RequestMapping("/flowers")
@@ -64,7 +65,7 @@ public class FlowerController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @GetMapping("/{flower_key}")
+    @GetMapping("/{flowerKey}")
     @ApiOperation(value = "꽃 상세", notes="꽃 하나에 대한 상세 내용을 조회합니다.")
     public ResponseEntity getDrinkLog(@PathVariable("flowerKey") int flowerKey) {
 
@@ -91,4 +92,59 @@ public class FlowerController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/available")
+    @ApiOperation(value = "획득할 수 있는(해금) 꽃 목록", notes="유저가 획득할 수 있는 꽃 목록을 조회합니다.")
+    public ResponseEntity getAvailableFlowerList(@RequestParam("userKey") String userKey) {
+        User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
+
+        // user가 해금한 꽃
+        List<AvailableFlower> availableFlowerList = availableFlowerService.getAvailableFlowerList(user);
+
+        // Entity -> Dto
+        List<ResponseFlowerDto> responseFlowerDtoList = new ArrayList<>();
+        for(int i = 0; i < availableFlowerList.size(); i++) {
+            Flower flower = availableFlowerList.get(i).getFlower();
+            ResponseFlowerDto responseFlowerDto = ResponseFlowerDto.builder()
+                    .flowerKey(flower.getFlowerKey())
+                    .name(flower.getName())
+                    .story(flower.getStory())
+                    .getCondition(flower.getGetCondition())
+                    .build();
+            responseFlowerDtoList.add(responseFlowerDto);
+        }
+
+        return new ResponseEntity<>(responseFlowerDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/get")
+    @ApiOperation(value = "수확한 꽃 목록", notes="유저가 수확한 꽃 목록을 중복없이 조회합니다.")
+    public ResponseEntity getGetFlowerList(@RequestParam("userKey") String userKey) {
+        User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
+
+        // user가 획득한 꽃
+        List<Collection> collectionList = collectionService.getGetFlowerList(user);
+
+        // Entity -> Dto
+        HashSet<Integer> flowerCheck = new HashSet<>(); // 중복없이 조회하기 위하여
+        List<ResponseFlowerDto> responseFlowerDtoList = new ArrayList<>();
+        for(int i = 0; i < collectionList.size(); i++) {
+            Flower flower = collectionList.get(i).getFlower();
+
+            // 이미 리스트에 있는 꽃이라면 중복제거를 위해 continue
+            if(flowerCheck.contains(flower.getFlowerKey())) continue;
+            flowerCheck.add(flower.getFlowerKey());
+
+            ResponseFlowerDto responseFlowerDto = ResponseFlowerDto.builder()
+                    .flowerKey(flower.getFlowerKey())
+                    .name(flower.getName())
+                    .story(flower.getStory())
+                    .getCondition(flower.getGetCondition())
+                    .build();
+            responseFlowerDtoList.add(responseFlowerDto);
+        }
+
+        return new ResponseEntity<>(responseFlowerDtoList, HttpStatus.OK);
+    }
+
 }
