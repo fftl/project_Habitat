@@ -1,8 +1,6 @@
 package com.ssafy.habitat.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +9,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
+@Builder
 @Entity
 public class User extends BaseTime{
 
@@ -39,7 +39,11 @@ public class User extends BaseTime{
 
     //ok
     @OneToMany(mappedBy = "user")
-    private List<Log> logList = new ArrayList<>();
+    private List<DrinkLog> drinkLogList = new ArrayList<>();
+
+    //ok
+    @OneToMany(mappedBy = "user")
+    private List<StreakLog> streakLogList = new ArrayList<>();
 
     //좀 어려움
     @OneToMany(mappedBy = "to")

@@ -1,8 +1,6 @@
 package com.ssafy.habitat.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,6 +9,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
+@Builder
 @Entity
 public class Flower extends BaseTime{
 
@@ -19,6 +19,8 @@ public class Flower extends BaseTime{
     private int flowerKey;
     private String name;
     private String story;
+    private String getCondition;
+    private int maxExp;
     private boolean streak;
     private int streakValue;
     private boolean friend;
