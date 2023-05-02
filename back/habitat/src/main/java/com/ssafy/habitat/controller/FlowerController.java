@@ -24,16 +24,17 @@ public class FlowerController {
     private CollectionService collectionService;
     private PlantingService plantingService;
     private UserService userService;
+    private StreakLogService streakLogService;
 
     @Autowired
-    public FlowerController(FlowerService flowerService, AvailableFlowerService availableFlowerService, CollectionService collectionService, PlantingService plantingService, UserService userService) {
+    public FlowerController(FlowerService flowerService, AvailableFlowerService availableFlowerService, CollectionService collectionService, PlantingService plantingService, UserService userService, StreakLogService streakLogService) {
         this.flowerService = flowerService;
         this.availableFlowerService = availableFlowerService;
         this.collectionService = collectionService;
         this.plantingService = plantingService;
         this.userService = userService;
+        this.streakLogService = streakLogService;
     }
-
 
     @GetMapping("/exp")
     @ApiOperation(value = "리워드 페이지 조회(꽃, 경험치, 레벨)", notes="현재 유저의 꽃, 경험치, 레벨을 조회합니다.")
@@ -145,6 +146,65 @@ public class FlowerController {
         }
 
         return new ResponseEntity<>(responseFlowerDtoList, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/collection")
+    @ApiOperation(value = "꽃 목록", notes="모든 꽃에 대하여 유저의 상태(획득, 획득가능, 미획득)를 조회합니다.")
+    public ResponseEntity getFlowerList(@RequestParam("userKey") String userKey) {
+        User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
+
+        List<Flower> flowerList = flowerService.getFlowerList();
+
+        // user가 획득한 꽃
+        List<Collection> collectionList = collectionService.getGetFlowerList(user);
+        HashSet<Integer> collectionHashSet = new HashSet<>();
+        for(int i = 0; i < collectionList.size(); i++) {
+            collectionHashSet.add(collectionList.get(i).getFlower().getFlowerKey());
+        }
+
+        // user가 획득가능한 꽃
+        List<AvailableFlower> availableFlowerList = availableFlowerService.getAvailableFlowerList(user);
+        HashSet<Integer> availableFlowerHashSet = new HashSet<>();
+        for(int i = 0; i < availableFlowerList.size(); i++) {
+            availableFlowerHashSet.add(availableFlowerList.get(i).getFlower().getFlowerKey());
+        }
+
+        // Entity -> Dto
+        List<ResponseFlowerDto.Collection> responseFlowerDtoList = new ArrayList<>();
+        for(int i = 0; i < flowerList.size(); i++) {
+            Flower flower = flowerList.get(i);
+
+            int userStatus = 0;
+
+            // 획득가능한 꽃인지 확인
+            if(availableFlowerHashSet.contains(flower.getFlowerKey())) userStatus = 1;
+
+            // 획득한 꽃인지 확인
+            if(collectionHashSet.contains(flower.getFlowerKey())) userStatus = 2;
+
+            ResponseFlowerDto.Collection responseFlowerDto = ResponseFlowerDto.Collection.builder()
+                    .flowerKey(flower.getFlowerKey())
+                    .name(flower.getName())
+                    .story(flower.getStory())
+                    .getCondition(flower.getGetCondition())
+                    .userStatus(userStatus)
+                    .build();
+            responseFlowerDtoList.add(responseFlowerDto);
+        }
+
+        return new ResponseEntity<>(responseFlowerDtoList, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/test")
+    @ApiOperation(value = "스트릭 추가", notes="유저의 스트릭을 추가합니다")
+    public ResponseEntity testAddStreak(@RequestParam("userKey") String userKey) {
+        User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
+
+        streakLogService.addStreakLog(user);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

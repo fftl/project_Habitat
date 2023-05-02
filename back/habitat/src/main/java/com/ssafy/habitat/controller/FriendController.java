@@ -4,10 +4,7 @@ import com.ssafy.habitat.dto.ResponseUserDto;
 import com.ssafy.habitat.entity.Friend;
 import com.ssafy.habitat.entity.FriendRequest;
 import com.ssafy.habitat.entity.User;
-import com.ssafy.habitat.service.FriendRequestService;
-import com.ssafy.habitat.service.FriendService;
-import com.ssafy.habitat.service.DrinkLogService;
-import com.ssafy.habitat.service.UserService;
+import com.ssafy.habitat.service.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,13 +23,15 @@ public class FriendController {
     private FriendRequestService friendRequestService;
     private UserService userService;
     private DrinkLogService drinkLogService;
+    private RewardService rewardService;
 
     @Autowired
-    public FriendController(FriendService friendService, FriendRequestService friendRequestService, UserService userService, DrinkLogService drinkLogService) {
+    public FriendController(FriendService friendService, FriendRequestService friendRequestService, UserService userService, DrinkLogService drinkLogService, RewardService rewardService) {
         this.friendService = friendService;
         this.friendRequestService = friendRequestService;
         this.userService = userService;
         this.drinkLogService = drinkLogService;
+        this.rewardService = rewardService;
     }
 
     @GetMapping("/all")
@@ -125,6 +124,11 @@ public class FriendController {
         // 친구 내역 입력
         friendService.addFriend(Friend.builder().myId(friendRequest.getFrom()).friendId(friendRequest.getTo()).build());
         friendService.addFriend(Friend.builder().myId(friendRequest.getTo()).friendId(friendRequest.getFrom()).build());
+
+
+        // 친구 추가에 따른 해금 확인
+        rewardService.checkFriendAvailable(friendRequest.getFrom());
+        rewardService.checkFriendAvailable(friendRequest.getTo());
 
         // 친구 신청했던 유저(fromUser)에게 친구가 되었음 웹소켓 보내기 필요
 
