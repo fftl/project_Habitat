@@ -11,6 +11,15 @@ public class ResponseUserDto {
     @Setter
     @Getter
     @Builder
+    public static class User {
+        private String userKey;
+        private String nickname; // 닉네임
+        private String imgUrl; // 프로필  사진
+    }
+
+    @Setter
+    @Getter
+    @Builder
     public static class Friend {
         private String userKey;
         private String nickname; // 닉네임
