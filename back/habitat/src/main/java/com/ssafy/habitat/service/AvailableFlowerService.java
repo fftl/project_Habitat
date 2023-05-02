@@ -21,14 +21,15 @@ public class AvailableFlowerService {
         this.availableFlowerRepository = availableFlowerRepository;
     }
 
-    public void addAvailableFlower(AvailableFlower availableFlower) {
+    public boolean addAvailableFlower(AvailableFlower availableFlower) {
         // 이미 가능한 꽃으로 등록되어 있다면 등록 안함
         if(availableFlowerRepository.findByUserAndFlower(availableFlower.getUser(), availableFlower.getFlower()) != null) {
-            throw new CustomException(ErrorCode.ALREADY_AVAILABLE_FLOWER);
+            return false;
         }
 
-        // 획득 꽃으로 등록
+        // 가능한 꽃 리스트에 추가
         availableFlowerRepository.save(availableFlower);
+        return true;
     }
 
     public List<AvailableFlower> getAvailableFlowerList(User user) {
