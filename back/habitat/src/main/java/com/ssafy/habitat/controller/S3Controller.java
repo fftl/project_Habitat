@@ -14,9 +14,9 @@ public class S3Controller {
     private final S3Uploader s3Uploader;
 
     @PostMapping("/image")
-    public ResponseEntity updateUserImage(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity updateUserImage(@RequestParam("file") MultipartFile file, @RequestParam("userKey") String userKey) {
         try {
-            s3Uploader.upload(file, "static");
+            String imgUrl = s3Uploader.uploadFile(file, userKey);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return new ResponseEntity(HttpStatus.BAD_REQUEST);

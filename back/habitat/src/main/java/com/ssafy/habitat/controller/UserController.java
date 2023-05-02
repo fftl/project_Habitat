@@ -1,26 +1,40 @@
 package com.ssafy.habitat.controller;
 
 import com.ssafy.habitat.dto.ResponseUserDto;
+import com.ssafy.habitat.entity.Coaster;
 import com.ssafy.habitat.entity.User;
+import com.ssafy.habitat.entity.UserCoaster;
 import com.ssafy.habitat.exception.CustomException;
 import com.ssafy.habitat.exception.ErrorCode;
+import com.ssafy.habitat.service.CoasterService;
+import com.ssafy.habitat.service.S3Uploader;
+import com.ssafy.habitat.service.UserCoasterService;
 import com.ssafy.habitat.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
     private UserService userService;
+    private S3Uploader s3Uploader;
+    private CoasterService coasterService;
+    private UserCoasterService userCoasterService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, S3Uploader s3Uploader, CoasterService coasterService, UserCoasterService userCoasterService) {
         this.userService = userService;
+        this.s3Uploader = s3Uploader;
+        this.coasterService = coasterService;
+        this.userCoasterService = userCoasterService;
     }
 
     @PatchMapping("/modify")
@@ -42,7 +56,6 @@ public class UserController {
 
     @PatchMapping("/modify/goal")
     @ApiOperation(value = "유저 목표 섭취량 수정", notes="유저의 목표섭취량을 수정합니다.")
-
     public ResponseEntity modifiedUserGoal(@RequestParam("userKey") String userKey, @RequestBody Map<String, Integer> map){
         User user = userService.getUser(userKey);
         int newGoal = map.get("goal");
@@ -58,6 +71,22 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PatchMapping("/modify/img")
+    @ApiOperation(value = "유저 이미지 수정", notes="유저의 프로필 이미지를 수정합니다.")
+    public ResponseEntity modifiedUserImg(@RequestParam("userKey") String userKey, @RequestParam("file") MultipartFile file) throws IOException {
+
+        User user = userService.getUser(userKey);
+
+        //파일의 확장자를 탐색합니다. ( 일단 후 순위 )
+        String imgUrl = s3Uploader.uploadFile(file, userKey);
+
+        user.setImgUrl(imgUrl);
+        userService.addUser(user);
+
+        System.out.println("test");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping
     @ApiOperation(value = "유저 조회", notes="유저 키를 통해 유저를 조회합니다.")
     public ResponseEntity getUser(@RequestParam("userKey") String userKey){
@@ -70,5 +99,21 @@ public class UserController {
                 .build();
 
         return new ResponseEntity<>(responseUser, HttpStatus.OK);
+    }
+
+    @PostMapping("/coaster")
+    @ApiOperation(value = "유저 코스터 등록", notes="유저의 코스터를 등록합니다.")
+    public ResponseEntity getUser(@RequestParam("userKey") String userKey, @RequestBody Map<String, String> map){
+        User user = userService.getUser(userKey);
+        Coaster coaster = coasterService.getCoaster(map.get("coasterKey"));
+
+        UserCoaster userCoaster = UserCoaster.builder()
+                .coaster(coaster)
+                .user(user)
+                .build();
+
+        userCoasterService.addUserCoaster(userCoaster);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
