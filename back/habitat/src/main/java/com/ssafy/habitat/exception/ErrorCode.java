@@ -16,7 +16,7 @@ public enum ErrorCode {
     ALREADY_FRIEND(400,-400001,"이미 친구 관계입니다."),
     ALREADY_SENT_FRIEND_REQUEST(400,-400002,"이미 친구신청을 보냈습니다."),
     FRIEND_REQUEST_NOT_FOR_MYSELF(400, -400003, "나는 나 자신의 영원한 친구입니다."),
-    NICKNAME_UNAVAILABLE(400, -400004, "NULL 값이나 공백은 아이디로 사용할 수 없습니다."),
+    NICKNAME_UNAVAILABLE(400, -400004, "NULL 값이나 공백은 닉네임으로 사용할 수 없습니다."),
     GOAL_UNAVAILABLE(400, -400005, "목표 음수량은 음수로 설정할 수 없습니다."),
 
 

@@ -30,7 +30,7 @@ public class UserController {
         String newNickname = map.get("nickname");
 
         //일단은 null과 공백만 사용할 수 없도록 설정하였습니다.
-        if(newNickname == null && newNickname.trim().isEmpty()) {
+        if(newNickname == null || newNickname.trim().isEmpty() || newNickname.equals("")) {
             throw new CustomException(ErrorCode.NICKNAME_UNAVAILABLE);
         }
 
@@ -41,6 +41,8 @@ public class UserController {
     }
 
     @PatchMapping("/modify/goal")
+    @ApiOperation(value = "유저 목표 섭취량 수정", notes="유저의 목표섭취량을 수정합니다.")
+
     public ResponseEntity modifiedUserGoal(@RequestParam("userKey") String userKey, @RequestBody Map<String, Integer> map){
         User user = userService.getUser(userKey);
         int newGoal = map.get("goal");
@@ -57,6 +59,7 @@ public class UserController {
     }
 
     @GetMapping
+    @ApiOperation(value = "유저 조회", notes="유저 키를 통해 유저를 조회합니다.")
     public ResponseEntity getUser(@RequestParam("userKey") String userKey){
         User user = userService.getUser(userKey);
 
