@@ -20,6 +20,8 @@ public enum ErrorCode {
     GOAL_UNAVAILABLE(400, -400005, "목표 음수량은 음수로 설정할 수 없습니다."),
 
 
+    ALREADY_AVAILABLE_FLOWER(400, -400004, "이미 가능한 꽃 목록에 있는 꽃입니다."),
+
     FRIEND_REQUEST_NOT_FOR_USER(401,-401001,"해당 유저에게 귀속된 친구신청이 아닙니다."),
 
     OTHER_ERROR(500, -500000, "서버 에러, 서버에서 아직 정의되지 않은 에러입니다.");
