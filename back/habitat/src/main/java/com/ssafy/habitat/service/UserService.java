@@ -28,10 +28,14 @@ public class UserService {
 
     public User getByFriendCode(String code) {
         User findUser = userRepository.findByFriendCode(code);
-        if(findUser == null) { // 존재하지 않는 친구코드
+        if(findUser ==  null) { // 존재하지 않는 친구코드
             throw new CustomException(ErrorCode.FRIEND_CODE_NOT_FOUND);
         }
         return findUser;
+    }
+
+    public void addUser(User user){
+        User saveUser = userRepository.save(user);
     }
 
 }
