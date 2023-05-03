@@ -6,10 +6,7 @@ import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.entity.UserCoaster;
 import com.ssafy.habitat.exception.CustomException;
 import com.ssafy.habitat.exception.ErrorCode;
-import com.ssafy.habitat.service.CoasterService;
-import com.ssafy.habitat.service.S3Uploader;
-import com.ssafy.habitat.service.UserCoasterService;
-import com.ssafy.habitat.service.UserService;
+import com.ssafy.habitat.service.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,13 +25,15 @@ public class UserController {
     private S3Uploader s3Uploader;
     private CoasterService coasterService;
     private UserCoasterService userCoasterService;
+    private RewardService rewardService;
 
     @Autowired
-    public UserController(UserService userService, S3Uploader s3Uploader, CoasterService coasterService, UserCoasterService userCoasterService) {
+    public UserController(UserService userService, S3Uploader s3Uploader, CoasterService coasterService, UserCoasterService userCoasterService, RewardService rewardService) {
         this.userService = userService;
         this.s3Uploader = s3Uploader;
         this.coasterService = coasterService;
         this.userCoasterService = userCoasterService;
+        this.rewardService = rewardService;
     }
 
     @PatchMapping("/modify")
@@ -113,7 +112,11 @@ public class UserController {
                 .user(user)
                 .build();
 
+        // 유저 코스터 등록
         userCoasterService.addUserCoaster(userCoaster);
+
+        // 코스터 등록에 따른 해금 확인
+        rewardService.checkCoasterUnlock(user);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
