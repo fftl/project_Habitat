@@ -107,6 +107,16 @@ public class DrinkLogController {
         return new ResponseEntity<>(drinkLogDtoList, HttpStatus.OK);
     }
 
+    @GetMapping("/day/total")
+    @ApiOperation(value = "일일 누적음수량 조회", notes="유저의 오늘의 누적 음수량을 조회합니다.")
+    public ResponseEntity getDailyTotalDrinkLog(@RequestParam("userKey") String userKey) {
+        User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
+
+        int totalDrink = drinkLogService.getDailyTotalDrink(user);
+        return new ResponseEntity<>(totalDrink, HttpStatus.OK);
+    }
+
+
     @PostMapping("/add")
     @ApiOperation(value = "섭취량 증가(수동)", notes="수동으로 유저의 음수량을 입력합니다.")
     public ResponseEntity addDrinkLog(@RequestParam("userKey") String userKey, @RequestBody RequestDrinkLogDto requestDrinkLog) {
