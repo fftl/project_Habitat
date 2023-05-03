@@ -25,4 +25,9 @@ public class UserFlowerService {
     public void addUserFlower(UserFlower newUserFlower) {
         userFlowerRepository.save(newUserFlower);
     }
+
+    public List<UserFlower> getUnlockedFlowerList(User user) {
+        List<UserFlower> findUserUnlockedFlowerList = userFlowerRepository.findByUserAndIsUnlocked(user, true);
+        return findUserUnlockedFlowerList;
+    }
 }

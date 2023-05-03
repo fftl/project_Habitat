@@ -137,9 +137,14 @@ public class DrinkLogController {
         // 누적섭취량 증가에 따른 해금 확인
         rewardService.checkDrinkUnlock(user);
 
-        // 누적섭취량 증가에 따른 스트릭증가 확인
+        // 누적섭취량 증가에 따른 오늘의 목표달성 확인
+        if(rewardService.checkStreakSuccess(user)) {
+            // 스트릭 증가
+            streakLogService.addStreakLog(user);
+            // 스트릭 변화에 따른 해금 확인
+            rewardService.checkStreakUnlock(user);
+        }
 
-        // 스트릭 변화에 따른 해금 확인
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

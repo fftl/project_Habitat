@@ -25,15 +25,17 @@ public class FlowerController {
     private PlantingService plantingService;
     private UserService userService;
     private StreakLogService streakLogService;
+    private UserFlowerService userFlowerService;
 
     @Autowired
-    public FlowerController(FlowerService flowerService, AvailableFlowerService availableFlowerService, CollectionService collectionService, PlantingService plantingService, UserService userService, StreakLogService streakLogService) {
+    public FlowerController(FlowerService flowerService, AvailableFlowerService availableFlowerService, CollectionService collectionService, PlantingService plantingService, UserService userService, StreakLogService streakLogService, UserFlowerService userFlowerService) {
         this.flowerService = flowerService;
         this.availableFlowerService = availableFlowerService;
         this.collectionService = collectionService;
         this.plantingService = plantingService;
         this.userService = userService;
         this.streakLogService = streakLogService;
+        this.userFlowerService = userFlowerService;
     }
 
     @GetMapping("/exp")
@@ -100,12 +102,12 @@ public class FlowerController {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         // user가 해금한 꽃
-        List<AvailableFlower> availableFlowerList = availableFlowerService.getAvailableFlowerList(user);
+        List<UserFlower> unlockedUserFlowerList = userFlowerService.getUnlockedFlowerList(user);
 
         // Entity -> Dto
         List<ResponseFlowerDto> responseFlowerDtoList = new ArrayList<>();
-        for(int i = 0; i < availableFlowerList.size(); i++) {
-            Flower flower = availableFlowerList.get(i).getFlower();
+        for (int i = 0; i < unlockedUserFlowerList.size(); i++) {
+            Flower flower = unlockedUserFlowerList.get(i).getFlower();
             ResponseFlowerDto responseFlowerDto = ResponseFlowerDto.builder()
                     .flowerKey(flower.getFlowerKey())
                     .name(flower.getName())
@@ -163,11 +165,11 @@ public class FlowerController {
             collectionHashSet.add(collectionList.get(i).getFlower().getFlowerKey());
         }
 
-        // user가 획득가능한 꽃
-        List<AvailableFlower> availableFlowerList = availableFlowerService.getAvailableFlowerList(user);
-        HashSet<Integer> availableFlowerHashSet = new HashSet<>();
-        for(int i = 0; i < availableFlowerList.size(); i++) {
-            availableFlowerHashSet.add(availableFlowerList.get(i).getFlower().getFlowerKey());
+        // user가 해금한 꽃
+        List<UserFlower> unlockedUserFlowerList = userFlowerService.getUnlockedFlowerList(user);
+        HashSet<Integer> unlockedFlowerHashSet = new HashSet<>();
+        for(int i = 0; i < unlockedUserFlowerList.size(); i++) {
+            unlockedFlowerHashSet.add(unlockedUserFlowerList.get(i).getFlower().getFlowerKey());
         }
 
         // Entity -> Dto
@@ -178,7 +180,7 @@ public class FlowerController {
             int userStatus = 0;
 
             // 획득가능한 꽃인지 확인
-            if(availableFlowerHashSet.contains(flower.getFlowerKey())) userStatus = 1;
+            if(unlockedFlowerHashSet.contains(flower.getFlowerKey())) userStatus = 1;
 
             // 획득한 꽃인지 확인
             if(collectionHashSet.contains(flower.getFlowerKey())) userStatus = 2;
