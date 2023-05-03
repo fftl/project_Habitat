@@ -15,6 +15,7 @@ public class ResponseUserDto {
         private String userKey;
         private String nickname; // 닉네임
         private String imgUrl; // 프로필  사진
+        private int goal;
     }
 
     @Setter
