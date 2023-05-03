@@ -126,6 +126,37 @@ public class RewardService {
         }
     }
 
+    public void checkCoasterUnlock(User user) {
+        // 코스터 등록에 따른 달성여부 확인
+
+        List<UserFlower> userFlowerList = userFlowerService.getLockedFlowerList(user); // 해당 유저의 해금안된 꽃 리스트
+
+        for (int i = 0; i < userFlowerList.size(); i++) { // 아직 해금 되지 않은 꽃들에 대하여
+            UserFlower userFlower = userFlowerList.get(i);
+            Flower flower = userFlower.getFlower();
+
+            // 이전에는 코스터 조건을 달성하지 못했었다면
+            if(userFlower.isConnect() == false) {
+                // 해당 꽃의 스트릭 조건 해금
+                userFlower.setConnect(true);
+                userFlowerService.addUserFlower(userFlower);
+
+                // 해금 기록 저장
+                UserFlowerLog newUserFlowerLog = UserFlowerLog.builder().user(user).flower(flower).mission('c').build();
+                userFlowerLogService.addUserFlowerLog(newUserFlowerLog);
+
+                // 다른 조건들까지 모두 해금되었다면
+                if(isFullyUnlocked(userFlower)) {
+                    // 유저의 해당 꽃 완전 해금
+                    unlockUserFlower(user, flower, userFlower);
+
+                    // 웹소켓 전송
+                    System.out.println(user.getNickname()+" 님 코스터 등록으로 " + flower.getName() + " 꽃이 해금되었습니다!!!");
+                }
+            }
+        }
+    }
+
 
     public boolean checkStreakSuccess(User user) {
         int totalDailyDrink = drinkLogService.getDailyTotalDrink(user); // 유저의 오늘 누적음수량 조회
@@ -157,6 +188,5 @@ public class RewardService {
         UserFlowerLog newUserFlowerLog = UserFlowerLog.builder().user(user).flower(flower).mission('t').build();
         userFlowerLogService.addUserFlowerLog(newUserFlowerLog);
     }
-
 
 }
