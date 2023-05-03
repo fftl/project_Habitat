@@ -7,6 +7,8 @@ import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.exception.CustomException;
 import com.ssafy.habitat.service.DrinkLogService;
+import com.ssafy.habitat.service.RewardService;
+import com.ssafy.habitat.service.StreakLogService;
 import com.ssafy.habitat.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,15 @@ import java.util.Map;
 public class DrinkLogController {
     private DrinkLogService drinkLogService;
     private UserService userService;
+    private RewardService rewardService;
+    private StreakLogService streakLogService;
 
     @Autowired
-    public DrinkLogController(DrinkLogService drinkLogService, UserService userService) {
+    public DrinkLogController(DrinkLogService drinkLogService, UserService userService, RewardService rewardService, StreakLogService streakLogService) {
         this.drinkLogService = drinkLogService;
         this.userService = userService;
+        this.rewardService = rewardService;
+        this.streakLogService = streakLogService;
     }
 
     @GetMapping("/success")
@@ -115,7 +121,15 @@ public class DrinkLogController {
                 .user(user)
                 .build();
 
+        // 섭취량 로그 등록
         drinkLogService.addDrinkLog(newDrinkLog);
+
+        // 누적섭취량 증가에 따른 해금 확인
+        rewardService.checkDrinkUnlock(user);
+
+        // 누적섭취량 증가에 따른 스트릭증가 확인
+
+        // 스트릭 변화에 따른 해금 확인
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -134,7 +148,12 @@ public class DrinkLogController {
                 .user(user)
                 .build();
 
+        // 섭취량 로그 등록
         drinkLogService.addDrinkLog(newDrinkLog);
+
+        // 누적섭취량 증가에 따른 해금 확인
+        rewardService.checkDrinkUnlock(user);
+
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

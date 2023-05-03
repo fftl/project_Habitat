@@ -51,4 +51,24 @@ public class DrinkLogService {
     public void addDrinkLog(DrinkLog newDrinkLog) {
         drinkLogRepository.save(newDrinkLog);
     }
+
+    public int getDailyTotalDrink(User user) {
+        List<DrinkLog> dailyDrinkLogList = getDailyLogs(user);
+        int total = 0;
+        for (int i = 0; i < dailyDrinkLogList.size(); i++) {
+            DrinkLog drinkLog = dailyDrinkLogList.get(i);
+            total += drinkLog.getDrink();
+        }
+        return total;
+    }
+
+    public int getTotalDrink(User user) {
+        List<DrinkLog> drinkLogList = getAllLogs(user);
+        int total = 0;
+        for (int i = 0; i < drinkLogList.size(); i++) {
+            DrinkLog drinkLog = drinkLogList.get(i);
+            total += drinkLog.getDrink();
+        }
+        return total;
+    }
 }
