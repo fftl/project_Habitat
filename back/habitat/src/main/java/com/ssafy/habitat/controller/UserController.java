@@ -96,6 +96,7 @@ public class UserController {
                 .userKey(user.getUserKey())
                 .nickname(user.getNickname())
                 .imgUrl(user.getImgUrl())
+                .goal(user.getGoal())
                 .build();
 
         return new ResponseEntity<>(responseUser, HttpStatus.OK);
@@ -113,6 +114,13 @@ public class UserController {
                 .build();
 
         userCoasterService.addUserCoaster(userCoaster);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    @ApiOperation(value = "유저 로그인", notes="유저 로그인 처리를 합니다.")
+    public ResponseEntity login(@RequestParam("socialKey") String socialKey){
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
