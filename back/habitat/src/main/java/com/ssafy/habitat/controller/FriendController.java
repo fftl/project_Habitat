@@ -127,8 +127,8 @@ public class FriendController {
 
 
         // 친구 추가에 따른 해금 확인
-        rewardService.checkFriendAvailable(friendRequest.getFrom());
-        rewardService.checkFriendAvailable(friendRequest.getTo());
+        rewardService.checkFriendUnlock(friendRequest.getFrom());
+        rewardService.checkFriendUnlock(friendRequest.getTo());
 
         // 친구 신청했던 유저(fromUser)에게 친구가 되었음 웹소켓 보내기 필요
 

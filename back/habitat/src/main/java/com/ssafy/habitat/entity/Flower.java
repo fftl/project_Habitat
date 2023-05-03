@@ -29,6 +29,4 @@ public class Flower extends BaseTime{
     private int drinkValue;
     private boolean connect;
 
-    @OneToMany(mappedBy = "flower")
-    private List<AvailableFlower> availableFlowerList = new ArrayList<>();
 }
