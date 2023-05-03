@@ -1,6 +1,7 @@
 package com.ssafy.habitat.service;
 
 import com.ssafy.habitat.entity.Collection;
+import com.ssafy.habitat.entity.DrinkLog;
 import com.ssafy.habitat.entity.StreakLog;
 import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.repository.CoasterRepository;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -84,5 +87,13 @@ public class StreakLogService {
             streakLogRepository.save(newStreakLog);
         }
 
+    }
+
+    public StreakLog getDailyStreakLog(User user) {
+        LocalDateTime startDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0)); //오늘 00:00:00
+        LocalDateTime endDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59)); //오늘 23:59:59
+        StreakLog streakLog = streakLogRepository.findByUserAndCreatedAtBetween(user, startDatetime, endDatetime).orElse(null);
+
+        return streakLog;
     }
 }
