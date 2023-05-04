@@ -1,5 +1,7 @@
 package com.ssafy.habitat.controller;
 
+import com.ssafy.habitat.dto.RequestCoasterDto;
+import com.ssafy.habitat.dto.RequestUserDto;
 import com.ssafy.habitat.dto.ResponseUserDto;
 import com.ssafy.habitat.entity.Coaster;
 import com.ssafy.habitat.entity.User;
@@ -38,9 +40,9 @@ public class UserController {
 
     @PatchMapping("/modify")
     @ApiOperation(value = "유저 닉네임 수정", notes="유저의 닉네임을 수정합니다.")
-    public ResponseEntity modifiedUser(@RequestParam("userKey") String userKey, @RequestBody Map<String, String> map){
+    public ResponseEntity modifiedUser(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.ModifyNickname requestUserDto){
         User user = userService.getUser(userKey);
-        String newNickname = map.get("nickname");
+        String newNickname = requestUserDto.getNickname();
 
         //일단은 null과 공백만 사용할 수 없도록 설정하였습니다.
         if(newNickname == null || newNickname.trim().isEmpty() || newNickname.equals("")) {
@@ -55,9 +57,9 @@ public class UserController {
 
     @PatchMapping("/modify/goal")
     @ApiOperation(value = "유저 목표 섭취량 수정", notes="유저의 목표섭취량을 수정합니다.")
-    public ResponseEntity modifiedUserGoal(@RequestParam("userKey") String userKey, @RequestBody Map<String, Integer> map){
+    public ResponseEntity modifiedUserGoal(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.ModifyGoal requestUserDto){
         User user = userService.getUser(userKey);
-        int newGoal = map.get("goal");
+        int newGoal = requestUserDto.getGoal();
 
         //새로운 목표 음수량을 설정합니다. 현재는 음수만 불가능하도록 만들었습니다.
         if(newGoal < 0) {
@@ -103,9 +105,9 @@ public class UserController {
 
     @PostMapping("/coaster")
     @ApiOperation(value = "유저 코스터 등록", notes="유저의 코스터를 등록합니다.")
-    public ResponseEntity getUser(@RequestParam("userKey") String userKey, @RequestBody Map<String, String> map){
+    public ResponseEntity getUser(@RequestParam("userKey") String userKey, @RequestBody RequestCoasterDto requestCoasterDto){
         User user = userService.getUser(userKey);
-        Coaster coaster = coasterService.getCoaster(map.get("coasterKey"));
+        Coaster coaster = coasterService.getCoaster(requestCoasterDto.getCoasterKey());
 
         UserCoaster userCoaster = UserCoaster.builder()
                 .coaster(coaster)

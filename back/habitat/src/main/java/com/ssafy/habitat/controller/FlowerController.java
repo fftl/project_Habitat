@@ -197,16 +197,6 @@ public class FlowerController {
 
         return new ResponseEntity<>(responseFlowerDtoList, HttpStatus.OK);
     }
-
-
-    @GetMapping("/test")
-    @ApiOperation(value = "스트릭 추가", notes="유저의 스트릭을 추가합니다")
-    public ResponseEntity testAddStreak(@RequestParam("userKey") String userKey) {
-        User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
-
-        streakLogService.addStreakLog(user);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+    
 
 }
