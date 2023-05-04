@@ -175,9 +175,9 @@ public class DrinkLogController {
 
     @PatchMapping
     @ApiOperation(value = "섭취량 수정", notes="섭취량을 수정합니다.")
-    public ResponseEntity modifiedDrinkLog(@RequestParam("drinkLog_key") int drinkLogKey, @RequestBody Map<String, Integer> map) {
+    public ResponseEntity modifiedDrinkLog(@RequestParam("drinkLogKey") int drinkLogKey, @RequestBody RequestDrinkLogDto.ModifyDrink requestDrinkLogDto) {
         DrinkLog drinkLog = drinkLogService.getLog(drinkLogKey);
-        drinkLog.setDrink(map.get("drink"));
+        drinkLog.setDrink(requestDrinkLogDto.getDrink());
         drinkLogService.addDrinkLog(drinkLog);
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -185,7 +185,7 @@ public class DrinkLogController {
 
     @DeleteMapping
     @ApiOperation(value = "섭취량 삭제", notes="섭취량을 삭제처리 합니다.")
-    public ResponseEntity deleteDrinkLog(@RequestParam(name="drinkLog_key") int drinkLogKey) {
+    public ResponseEntity deleteDrinkLog(@RequestParam(name="drinkLogKey") int drinkLogKey) {
         System.out.println(drinkLogKey);
         DrinkLog drinkLog = drinkLogService.getLog(drinkLogKey);
         drinkLog.setRemoved(true);

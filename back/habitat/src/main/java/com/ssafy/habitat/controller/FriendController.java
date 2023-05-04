@@ -1,5 +1,7 @@
 package com.ssafy.habitat.controller;
 
+import com.ssafy.habitat.dto.RequestFriendRequestDto;
+import com.ssafy.habitat.dto.RequestUserDto;
 import com.ssafy.habitat.dto.ResponseUserDto;
 import com.ssafy.habitat.entity.Friend;
 import com.ssafy.habitat.entity.FriendRequest;
@@ -74,9 +76,9 @@ public class FriendController {
 
     @PostMapping("/request/userkey")
     @ApiOperation(value = "친구신청 보내기(유저키)", notes="해당 유저키의 유저에게 친구신청을 보냅니다.")
-    public ResponseEntity sendFriendListByUserKey(@RequestParam("userKey") String userKey, @RequestBody String friendUserKey) {
+    public ResponseEntity sendFriendListByUserKey(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.RequestFriend requestFriendDto) {
         User fromUser = userService.getUser(userKey); // userKey의 유저를 찾습니다.
-        User toUser = userService.getUser(friendUserKey); // 친구신청할 userKey의 유저를 찾습니다.
+        User toUser = userService.getUser(requestFriendDto.getFriendUserKey()); // 친구신청할 userKey의 유저를 찾습니다.
 
         // 친구신청의 유효성(이미 친구 관계에 있진 않은지)을 확인합니다.
         friendService.checkFriendRequestPossible(fromUser, toUser);
@@ -92,9 +94,9 @@ public class FriendController {
 
     @PostMapping("/request/code")
     @ApiOperation(value = "친구신청 보내기(친구코드)", notes="해당 친구코드로 친구신청을 보냅니다.")
-    public ResponseEntity sendFriendListByCode(@RequestParam("userKey") String userKey, @RequestBody String code) {
+    public ResponseEntity sendFriendListByCode(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.FriendCode requestFriendDto) {
         User fromUser = userService.getUser(userKey); // userKey의 유저를 찾습니다.
-        User toUser = userService.getByFriendCode(code); // 친구코드에 해당하는 유저를 찾습니다.
+        User toUser = userService.getByFriendCode(requestFriendDto.getFriendCode()); // 친구코드에 해당하는 유저를 찾습니다.
 
         // 친구신청의 유효성(이미 친구 관계에 있진 않은지)을 확인합니다.
         friendService.checkFriendRequestPossible(fromUser, toUser);
@@ -110,9 +112,9 @@ public class FriendController {
 
     @PutMapping("/request/ok")
     @ApiOperation(value = "친구신청 수락", notes="해당 친구신청을 수락합니다.")
-    public ResponseEntity acceptFriendList(@RequestParam("userKey") String userKey, @RequestBody int requestKey) {
+    public ResponseEntity acceptFriendList(@RequestParam("userKey") String userKey, @RequestBody RequestFriendRequestDto requestFriendRequestDto) {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
-        FriendRequest friendRequest = friendRequestService.getFriendRequestByRequestKey(requestKey); // requestKey의 친구신청 내역을 찾습니다.
+        FriendRequest friendRequest = friendRequestService.getFriendRequestByRequestKey(requestFriendRequestDto.getFriendRequestKey()); // requestKey의 친구신청 내역을 찾습니다.
 
         // 해당 유저에게 도착한 친구신청내역인지 확인
         friendRequestService.checkFriendRequestAuthorization(user, friendRequest);
@@ -138,9 +140,9 @@ public class FriendController {
 
     @PutMapping("/request/cancel")
     @ApiOperation(value = "친구신청 거절", notes="해당 친구신청을 거절(삭제)합니다.")
-    public ResponseEntity refuseFriendList(@RequestParam("userKey") String userKey, @RequestBody int requestKey) {
+    public ResponseEntity refuseFriendList(@RequestParam("userKey") String userKey, @RequestBody RequestFriendRequestDto requestFriendRequestDto) {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
-        FriendRequest friendRequest = friendRequestService.getFriendRequestByRequestKey(requestKey);
+        FriendRequest friendRequest = friendRequestService.getFriendRequestByRequestKey(requestFriendRequestDto.getFriendRequestKey());
 
         // 해당 유저에게 도착한 친구신청내역인지 확인
         friendRequestService.checkFriendRequestAuthorization(user, friendRequest);
