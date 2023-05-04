@@ -43,7 +43,7 @@ public class FlowerController {
     public ResponseEntity getDrinkLog(@RequestParam("userKey") String userKey) {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
-        Planting planting = plantingService.getPlant(user);
+        Planting planting = plantingService.getCurrentPlant(user);
         Flower flower = planting.getFlower();
 
         // Entity -> Dto
@@ -126,7 +126,7 @@ public class FlowerController {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         // user가 획득한 꽃
-        List<Collection> collectionList = collectionService.getGetFlowerList(user);
+        List<Collection> collectionList = collectionService.getCollectionList(user);
 
         // Entity -> Dto
         HashSet<Integer> flowerCheck = new HashSet<>(); // 중복없이 조회하기 위하여
@@ -159,7 +159,7 @@ public class FlowerController {
         List<Flower> flowerList = flowerService.getFlowerList();
 
         // user가 획득한 꽃
-        List<Collection> collectionList = collectionService.getGetFlowerList(user);
+        List<Collection> collectionList = collectionService.getCollectionList(user);
         HashSet<Integer> collectionHashSet = new HashSet<>();
         for(int i = 0; i < collectionList.size(); i++) {
             collectionHashSet.add(collectionList.get(i).getFlower().getFlowerKey());

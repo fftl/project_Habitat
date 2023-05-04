@@ -18,12 +18,23 @@ public class PlantingService {
         this.plantingRepository = plantingRepository;
     }
 
-    public Planting getPlant(User user) {
-        Planting findPlanting = plantingRepository.findByUser(user);
+    public Planting getCurrentPlant(User user) {
+        // 현재 키우고 있는 꽃의 정보를 리턴
+        Planting findPlanting = plantingRepository.findByUserAndFlowerCnt(user, user.getCollectionList().size()+1);
         if(findPlanting == null) {
             throw new CustomException(ErrorCode.PLANTING_NOT_FOUND);
         }
 
         return findPlanting;
+    }
+
+    public void modifyPlanting(Planting planting) {
+        // 수정된 planting 객체 저장
+        plantingRepository.save(planting);
+    }
+
+    public void addPlanting(Planting newPlanting) {
+        // 새로운 꽃 배정
+        plantingRepository.save(newPlanting);
     }
 }

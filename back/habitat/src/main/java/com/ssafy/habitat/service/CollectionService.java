@@ -18,8 +18,13 @@ public class CollectionService {
         this.collectionRepository = collectionRepository;
     }
 
-    public List<Collection> getGetFlowerList(User user) {
+    public List<Collection> getCollectionList(User user) {
         // 유저의 획득한 꽃 목록 조회
         return user.getCollectionList();
+    }
+
+    public void addCollection(Collection newCollection) {
+        // 획득한 꽃 collection 등록
+        collectionRepository.save(newCollection);
     }
 }
