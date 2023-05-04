@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlantingRepository extends JpaRepository<Planting, Integer> {
     Planting findByUser(User user);
+
+    Planting findByUserAndFlowerCnt(User user, int flowerCnt);
 }
