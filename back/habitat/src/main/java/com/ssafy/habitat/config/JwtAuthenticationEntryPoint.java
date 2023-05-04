@@ -6,9 +6,12 @@
 //import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
 //
+//import com.ssafy.habitat.exception.ErrorCode;
+//import com.ssafy.habitat.exception.FailResponse;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 //import org.springframework.http.MediaType;
+//import org.springframework.http.ResponseEntity;
 //import org.springframework.security.core.AuthenticationException;
 //import org.springframework.security.web.AuthenticationEntryPoint;
 //import org.springframework.stereotype.Component;
@@ -22,10 +25,10 @@
 //    public void commence(HttpServletRequest request, HttpServletResponse response,
 //                         AuthenticationException authException) throws IOException, ServletException {
 //        PrintWriter writer = response.getWriter();
-//        ErrorCode errorCode = CommonErrorCode.UNAUTHORIZED;
-//        ResVO res = ResVO.builder()
-//                .status(errorCode.getResultCode())
-//                .message(errorCode.getResultMsg()).build();
+//        ErrorCode errorCode = ErrorCode.UNAUTHORIZED_USER;
+//        FailResponse res = FailResponse.builder()
+//                .status(errorCode.getStatus())
+//                .message(errorCode.getMessage()).build();
 //        try{
 //            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 //            writer.write(CmmnVar.GSON.toJson(res));
@@ -37,6 +40,7 @@
 //                writer.close();
 //            }
 //        }
-//        response.getWriter().write(CmmnVar.GSON.toJson(res));
+//        Json
+//        response.getWriter().write(res.);
 //    }
 //}

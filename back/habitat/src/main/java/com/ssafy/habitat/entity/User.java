@@ -1,6 +1,8 @@
 package com.ssafy.habitat.entity;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ import java.util.List;
 @Setter
 @Builder
 @Entity
-public class User extends BaseTime{
+public class User extends BaseTime implements UserDetails {
 
     @Id
     private String userKey;
@@ -25,35 +27,68 @@ public class User extends BaseTime{
     @Column(columnDefinition = "TINYINT(1)")
     private int socialType;
 
-    //ok
+    /**
+     * 유저가 가져야하는 데이터들
+     */
     @OneToMany(mappedBy = "user")
-    private List<Planting> plantingList = new ArrayList<>();;
+    private List<Planting> plantingList = new ArrayList<>();
 
-    //ok
     @OneToMany(mappedBy = "user")
     private List<Collection> collectionList = new ArrayList<>();
 
-    //ok
     @OneToMany(mappedBy = "user")
     private List<AvailableFlower> availableFlowerList = new ArrayList<>();
 
-    //ok
     @OneToMany(mappedBy = "user")
     private List<DrinkLog> drinkLogList = new ArrayList<>();
 
-    //ok
     @OneToMany(mappedBy = "user")
     private List<StreakLog> streakLogList = new ArrayList<>();
 
-    //좀 어려움
     @OneToMany(mappedBy = "to")
     private List<FriendRequest> friendRequestList = new ArrayList<>();
 
-    //ok
     @OneToMany(mappedBy = "myId")
     private List<Friend> friendList = new ArrayList<>();
 
-    //ok
     @OneToOne(mappedBy = "user")
     private UserCoaster userCoaster;
+
+    /**
+     * Security impl 데이터들 ================================================================================================
+     */
+    @Override
+    public java.util.Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return userKey;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }
