@@ -52,7 +52,7 @@ public class RewardService {
 
             // 새로운 꽃 배정
             List<UserFlower> userFlowerList = userFlowerService.getUnlockedFlowerList(user);
-            int randomNum = (int)(Math.random()*userFlowerList.size()-1)+1;
+            int randomNum = (int)(Math.random()*userFlowerList.size())+1;
             Flower newFlower = userFlowerList.get(randomNum).getFlower();
 
             int flowerCnt = collectionService.getCollectionCnt(user);
