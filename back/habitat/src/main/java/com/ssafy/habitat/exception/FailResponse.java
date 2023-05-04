@@ -1,8 +1,10 @@
 package com.ssafy.habitat.exception;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+@Builder
 @Getter
 @Setter
 public class FailResponse {
@@ -28,4 +30,5 @@ public class FailResponse {
         this.code = errorCode.getCode();
         this.message = message;
     }
+
 }

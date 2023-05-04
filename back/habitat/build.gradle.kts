@@ -38,10 +38,10 @@ dependencies {
 	implementation("io.springfox:springfox-swagger-ui:2.9.2")
 
 	//for Security, JWT
-//	implementation("org.springframework.boot:spring-boot-starter-security:2.6.7")
-//	implementation ("io.jsonwebtoken:jjwt-api:0.11.2")
-//	implementation ("io.jsonwebtoken:jjwt-jackson:0.11.2")
-//	runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.2")
+	implementation("org.springframework.boot:spring-boot-starter-security:2.6.7")
+	implementation ("io.jsonwebtoken:jjwt-api:0.11.2")
+	implementation ("io.jsonwebtoken:jjwt-jackson:0.11.2")
+	runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.2")
 
 }
 
