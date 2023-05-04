@@ -27,4 +27,9 @@ public class CollectionService {
         // 획득한 꽃 collection 등록
         collectionRepository.save(newCollection);
     }
+
+    public int getCollectionCnt(User user) {
+        Long count = collectionRepository.countByUser(user);
+        return count.intValue();
+    }
 }

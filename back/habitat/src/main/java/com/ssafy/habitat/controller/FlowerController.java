@@ -20,7 +20,6 @@ import java.util.List;
 @RequestMapping("/flowers")
 public class FlowerController {
     private FlowerService flowerService;
-    private AvailableFlowerService availableFlowerService;
     private CollectionService collectionService;
     private PlantingService plantingService;
     private UserService userService;
@@ -28,9 +27,8 @@ public class FlowerController {
     private UserFlowerService userFlowerService;
 
     @Autowired
-    public FlowerController(FlowerService flowerService, AvailableFlowerService availableFlowerService, CollectionService collectionService, PlantingService plantingService, UserService userService, StreakLogService streakLogService, UserFlowerService userFlowerService) {
+    public FlowerController(FlowerService flowerService, CollectionService collectionService, PlantingService plantingService, UserService userService, StreakLogService streakLogService, UserFlowerService userFlowerService) {
         this.flowerService = flowerService;
-        this.availableFlowerService = availableFlowerService;
         this.collectionService = collectionService;
         this.plantingService = plantingService;
         this.userService = userService;
@@ -50,7 +48,7 @@ public class FlowerController {
         ResponseExpDto responseExpDto = ResponseExpDto.builder()
                 .flowerKey(flower.getFlowerKey())
                 .exp(planting.getExp())
-                .maxExp(planting.getMax())
+                .maxExp(planting.getFlower().getMaxExp())
                 .lv(planting.getLv())
                 .build();
         ResponseFlowerDto responseFlowerDto = ResponseFlowerDto.builder()
