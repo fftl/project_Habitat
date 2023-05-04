@@ -1,8 +1,8 @@
 package com.ssafy.habitat.entity;
 
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @Builder
 @Entity
-public class User extends BaseTime implements UserDetails {
+public class User extends BaseTime /*implements UserDetails*/ {
 
     @Id
     private String userKey;
@@ -35,9 +35,6 @@ public class User extends BaseTime implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<Collection> collectionList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<AvailableFlower> availableFlowerList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<UserFlower> userFlowerList = new ArrayList<>();
@@ -65,38 +62,38 @@ public class User extends BaseTime implements UserDetails {
     /**
      * Security impl 데이터들 ================================================================================================
      */
-    @Override
-    public java.util.Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return userKey;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
+//    @Override
+//    public java.util.Collection<? extends GrantedAuthority> getAuthorities() {
+//        return null;
+//    }
+//
+//    @Override
+//    public String getPassword() {
+//        return null;
+//    }
+//
+//    @Override
+//    public String getUsername() {
+//        return userKey;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return false;
+//    }
+//
+//    @Override
+//    public boolean isEnabled() {
+//        return false;
+//    }
 }

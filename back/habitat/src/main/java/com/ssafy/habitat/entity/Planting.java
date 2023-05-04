@@ -18,7 +18,6 @@ public class Planting extends BaseTime{
 
     private int flowerCnt;
     private int exp;
-    private int max;
     private int lv;
 
     @ManyToOne

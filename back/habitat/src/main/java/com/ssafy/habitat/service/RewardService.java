@@ -11,7 +11,6 @@ public class RewardService {
     private FriendService friendService;
     private DrinkLogService drinkLogService;
     private CollectionService collectionService;
-    private AvailableFlowerService availableFlowerService;
     private StreakLogService streakLogService;
     private FlowerService flowerService;
     private UserFlowerService userFlowerService;
@@ -19,11 +18,10 @@ public class RewardService {
     private PlantingService plantingService;
 
     @Autowired
-    public RewardService(FriendService friendService, DrinkLogService drinkLogService, CollectionService collectionService, AvailableFlowerService availableFlowerService, StreakLogService streakLogService, FlowerService flowerService, UserFlowerService userFlowerService, UserFlowerLogService userFlowerLogService, PlantingService plantingService) {
+    public RewardService(FriendService friendService, DrinkLogService drinkLogService, CollectionService collectionService, StreakLogService streakLogService, FlowerService flowerService, UserFlowerService userFlowerService, UserFlowerLogService userFlowerLogService, PlantingService plantingService) {
         this.friendService = friendService;
         this.drinkLogService = drinkLogService;
         this.collectionService = collectionService;
-        this.availableFlowerService = availableFlowerService;
         this.streakLogService = streakLogService;
         this.flowerService = flowerService;
         this.userFlowerService = userFlowerService;
@@ -36,23 +34,17 @@ public class RewardService {
         Planting planting = plantingService.getCurrentPlant(user); // 현재 키우는 꽃
 
         int prevExp = planting.getExp();
-        int max = planting.getMax();
+        int max = planting.getFlower().getMaxExp();
         int prevLv = planting.getLv();
 
         // 경험치 증가
         int nextExp = prevExp + drinkLog.getDrink()/10; // 마신 만큼의 10% 경험치 적립
-        int nextLv = prevLv;
-
-        // 레벨업 확인
-        if(prevExp < (prevLv+1)*100 && nextExp >= (prevLv+1)*100) { // 레벨업 이벤트 발생
-            nextLv++; // 레벨업
-
-            // 레벨업 웹소켓 알림
-        }
+        int nextLv = (nextExp/100);
 
         // 수확 확인
-        if(nextLv == 7) { // 최대레벨 6 초과 -> 수확 이벤트 발생
-            nextExp = 700;
+        if(nextExp >= planting.getFlower().getMaxExp()) { // 최대 경험치 도달 -> 수확 이벤트 발생
+            nextExp = planting.getFlower().getMaxExp(); // 최대 경험치로 수정
+            nextLv = nextExp/100; // 최대 레벨로 수정
 
             // 컬렉션에 추가
             Collection newCollection = Collection.builder().user(user).flower(planting.getFlower()).build();
@@ -60,21 +52,30 @@ public class RewardService {
 
             // 새로운 꽃 배정
             List<UserFlower> userFlowerList = userFlowerService.getUnlockedFlowerList(user);
-            int randomNum = (int)(Math.random()*userFlowerList.size()-1)+1;
+            int randomNum = (int)(Math.random()*userFlowerList.size())+1;
             Flower newFlower = userFlowerList.get(randomNum).getFlower();
 
+            int flowerCnt = collectionService.getCollectionCnt(user);
+
+            System.out.println("user의 컬렉션 개수 : "+flowerCnt);
+
             Planting newPlanting = Planting.builder()
-                    .max(newFlower.getMaxExp())
                     .flower(newFlower)
                     .user(user)
                     .exp(0)
                     .lv(0)
-                    .flowerCnt(user.getCollectionList().size()+1)
+                    .flowerCnt(flowerCnt+1)
                     .build();
             plantingService.addPlanting(newPlanting);
 
             // 수확 웹소켓 알림
             System.out.println(user.getNickname()+" 님! 새로운 꽃 "+newFlower.getName()+" 이 배정되었습니다!");
+        }
+
+        // 레벨업 확인
+        else if(nextLv > prevLv) { // 레벨업 이벤트 발생
+            // 레벨업 웹소켓 알림
+            System.out.println(user.getNickname()+" 님! 레벨 변화 "+prevLv + " -> "+nextLv);
         }
 
         // 변경사항 적용
