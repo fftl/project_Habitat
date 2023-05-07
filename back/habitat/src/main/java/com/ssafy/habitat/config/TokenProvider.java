@@ -26,12 +26,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 
+import javax.annotation.PostConstruct;
+
 @Component
 public class TokenProvider implements InitializingBean {
     private final Logger LOGGER = LoggerFactory.getLogger(TokenProvider.class);
 
-    private static final String AUTHORITIES_KEY = "NeighborAPI";
-
+    private static final String AUTHORITIES_KEY = "habitat";
     private final String secret;
     private final long tokenValidityInMilliseconds;
     private Key key;
@@ -49,40 +50,89 @@ public class TokenProvider implements InitializingBean {
     }
 
     /**token 생성 algorithm */
-    public String createToken(Authentication authentication){
+    public TokenInfo createToken(Authentication authentication){
+
+        //권한 가져오기
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
+
         long now = (new Date()).getTime();
+
         Date validity = new Date(now + this.tokenValidityInMilliseconds);
 
-        return Jwts.builder()
+        String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
+
+        String refreshToken = Jwts.builder()
+                .setSubject(authentication.getName())
+                .signWith(key, SignatureAlgorithm.HS512)
+                .setExpiration(validity)
+                .compact();
+
+        return TokenInfo.builder()
+                .grantType("Bearer")
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
+    }
+
+    public TokenInfo newToken(String userKey){
+        Claims claims = Jwts.claims().setSubject(userKey); // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
+        claims.put("roles", "USER");
+
+        long now = (new Date()).getTime();
+
+        Date validity = new Date(now + this.tokenValidityInMilliseconds);
+
+        String accessToken = Jwts.builder()
+                .claim("claims", claims.toString())
+                .signWith(key, SignatureAlgorithm.HS512)
+                .setExpiration(validity)
+                .compact();
+
+        String refreshToken = Jwts.builder()
+                .signWith(key, SignatureAlgorithm.HS512)
+                .setExpiration(validity)
+                .compact();
+
+        return TokenInfo.builder()
+                .grantType("Bearer")
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
     /**인증 정보 조회 */
     public Authentication getAuthentication(String token) {
+
+        System.out.println("key >> " + key);
         //인증 값(?)을 만들고
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), "", authorities); //유저 정보를 가져옵니다.
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        System.out.println("authorities >> "+ authorities);
+        User principal = new User(claims.getSubject(), null, authorities); //유저 정보를 가져옵니다.
+        System.out.println("통과했어? >> " + principal);
+
+        return new UsernamePasswordAuthenticationToken(principal, null, authorities);
     }
 
     /**token 유효성 검증 */
     public boolean validateToken(String token){
+
         try{
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;

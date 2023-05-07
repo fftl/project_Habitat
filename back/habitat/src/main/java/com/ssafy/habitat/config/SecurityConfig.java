@@ -1,7 +1,10 @@
 package com.ssafy.habitat.config;
 
+import io.netty.handler.codec.base64.Base64Encoder;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.context.annotation.Bean;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,10 +23,10 @@ public class SecurityConfig {
 //    private final JwtAuthenticationEntryPoint jwtAtuthenticationEntryPoint;
 //    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
@@ -34,8 +37,6 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         return http
-                .csrf().disable()
-
                 /**401, 403 Exception 핸들링 */
 //                .exceptionHandling()
 //                .authenticationEntryPoint(jwtAtuthenticationEntryPoint)
@@ -49,12 +50,14 @@ public class SecurityConfig {
                 /** HttpServletRequest를 사용하는 요청들에 대한 접근 제한 설정*/
                 .and()
                 .authorizeRequests()
-                .antMatchers("/authenticate").permitAll()
+                .antMatchers("/users/login").permitAll()
+                .anyRequest().authenticated()
 
                 /**JwtSecurityConfig 적용 */
                 .and()
                 .apply(new JwtSecurityConfig(tokenProvider))
-
-                .and().build();
+                .and()
+                .csrf().disable()
+                .build();
     }
 }
