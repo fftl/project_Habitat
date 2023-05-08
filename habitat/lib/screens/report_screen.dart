@@ -19,7 +19,7 @@ class _ReportScreenState extends State<ReportScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "report screen",
+                "report scree",
                 style: TextStyle(
                   fontSize: 48,
                   fontWeight: FontWeight.w600,

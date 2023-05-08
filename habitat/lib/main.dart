@@ -1,11 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/screens/main/main_screen.dart';
-import 'package:habitat/screens/report_screen.dart';
+import 'package:habitat/screens/login/login_bridge.dart';
 import 'package:habitat/screens/reward/reward_screen.dart';
 import 'package:habitat/screens/settingscreen/setting_screen.dart';
 import 'package:habitat/screens/social_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     MaterialApp(
       title: "habit@",
@@ -17,7 +23,7 @@ void main() {
       initialRoute: '/',
       routes: {
         '/': (context) => const MainScreen(),
-        '/report': (context) => const ReportScreen(),
+        '/report': (context) => const LoginBridge(),
         '/reward': (context) => const RewardScreen(),
         '/social': (context) => const SocialScreen(),
         '/setting': (context) => const SettingScreen(),
