@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:habitat/api/user/api_users.dart';
 import 'package:habitat/screens/settingscreen/coaster_connect.dart';
 import 'package:habitat/screens/settingscreen/modify_goal_screen.dart';
+import 'package:habitat/screens/settingscreen/setting_profile.dart';
 import 'package:habitat/screens/settingscreen/setting_water.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 
@@ -13,9 +13,10 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  bool isEdited = false;
-  String nick = '';
-  TextEditingController tec = TextEditingController();
+  onEditProfile() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const SettingProfile()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,41 +87,17 @@ class _SettingScreenState extends State<SettingScreen> {
                       children: [
                         Row(
                           children: [
-                            isEdited
-                                ? SizedBox(
-                                    width: 100,
-                                    height: 10,
-                                    child: TextField(
-                                      controller: tec,
-                                      onChanged: (val) {
-                                        setState(() {
-                                          nick = val;
-                                        });
-                                      },
-                                    ))
-                                : const Text(
-                                    "쏘영쏘",
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                            isEdited
-                                ? TextButton(
-                                    onPressed: () {
-                                      ApiUsers()
-                                          .changeUserNickname(nick, 'asdf');
-                                    },
-                                    child: const Text('수정'))
-                                : IconButton(
-                                    icon: const Icon(Icons.edit),
-                                    onPressed: () {
-                                      setState(() {
-                                        isEdited = true;
-                                      });
-                                      // ApiUsers().changeUserNickname(nick, 'asdf');
-                                    },
-                                  )
+                            const Text(
+                              "쏘영쏘",
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.edit),
+                              onPressed: onEditProfile,
+                            )
                           ],
                         ),
                         const Text(
@@ -157,8 +134,8 @@ class settingbox extends StatefulWidget {
 
 class _settingboxState extends State<settingbox> {
   onSettingGoal() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const ModifyGoalScreen()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ModifyGoalScreen()));
   }
 
   onSettingWater() {

@@ -8,7 +8,7 @@ class ApiUsers {
   final String baseurl = BaseUrl().rooturl;
 
   // 유저의 오늘 목표 음수량 재설정
-  void patchUserModifyGoal(String userKey) {
+  void patchUserModifyGoal(String userKey, int goal) async {
     Uri url = Uri.http(
       baseurl,
       'users/modify/goal',
@@ -16,7 +16,16 @@ class ApiUsers {
         'userKey': userKey,
       },
     );
-    http.patch(url);
+    final response = await http.patch(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({'goal': goal}),
+    );
+    if (response.statusCode == 200) {
+      debugPrint('성공');
+    } else {
+      debugPrint('에러남');
+    }
   }
 
   Future<List<Usersmodel>> getUserInfo(String userKey) async {
@@ -53,4 +62,6 @@ class ApiUsers {
       debugPrint('닉네임 변경 성공');
     }
   }
+
+  void changeUserProfile() {}
 }
