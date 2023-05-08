@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:habitat/api/base_url.dart';
 import 'package:habitat/models/users_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 
 class ApiUsers {
   final String baseurl = BaseUrl().rooturl;
@@ -63,5 +65,15 @@ class ApiUsers {
     }
   }
 
-  void changeUserProfile() {}
+  void changeUserProfile(XFile file, String userKey) async {
+    var request = http.MultipartRequest('PATCH', Uri.parse('users/modify/img'));
+
+    request.fields['userKey'] = 'asdf';
+
+    request.files.add(http.MultipartFile.fromBytes(
+        'file', File(file.path).readAsBytesSync(),
+        filename: file.path));
+
+    var res = await request.send();
+  }
 }

@@ -39,6 +39,7 @@ dependencies:
   flutter_blue_plus: ^1.4.0
   indexed: ^0.0.8
   http: ^0.13.5
+  image_picker: ^0.8.7+4
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +76,7 @@ flutter:
     - lib/assets/images/glass.png
     - lib/assets/images/sunflower.png
     - lib/assets/images/kakao.png
+    - lib/assets/images/default_profile.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

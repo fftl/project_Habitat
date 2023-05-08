@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:habitat/api/user/api_users.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SettingProfile extends StatefulWidget {
   const SettingProfile({super.key});
@@ -10,8 +13,17 @@ class SettingProfile extends StatefulWidget {
 
 class _SettingProfileState extends State<SettingProfile> {
   bool isEdited = false;
-  late String nick;
+  String nick = '쏘영쏘';
   TextEditingController tec = TextEditingController();
+  XFile _profileImg =
+      const AssetImage('lib/assets/default_profile.png') as XFile;
+  final ImagePicker _picker = ImagePicker();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,55 +38,134 @@ class _SettingProfileState extends State<SettingProfile> {
           style: TextStyle(color: Color(0xff002B20)),
         ),
       ),
-      body: Column(
-        children: [
-          const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Icon(
-              Icons.local_florist_rounded,
-              size: 150,
-            ),
-          ]),
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              isEdited
-                  ? SizedBox(
-                      width: 100,
-                      height: 10,
-                      child: TextField(
-                        controller: tec,
-                        onChanged: (val) {
-                          setState(() {
-                            nick = val;
-                          });
-                        },
-                      ))
-                  : const Text(
-                      "쏘영쏘",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600,
-                      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(children: [
+              CircleAvatar(
+                radius: 80,
+                backgroundImage: _profileImg ==
+                        const AssetImage(
+                            'lib/assets/images/default_profile.png')
+                    ? _profileImg as ImageProvider
+                    : FileImage(File(_profileImg.path)),
+              ),
+              Positioned(
+                  bottom: 30,
+                  right: 20,
+                  child: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (builder) => bottomSheet());
+                    },
+                    child: Icon(
+                      Icons.camera_alt,
+                      color: Colors.grey.shade400,
+                      size: 30,
                     ),
-              isEdited
-                  ? TextButton(
-                      onPressed: () {
-                        ApiUsers().changeUserNickname(nick, 'asdf');
-                      },
-                      child: const Text('수정'))
-                  : IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () {
-                        setState(() {
-                          isEdited = true;
-                        });
-                      },
-                    )
-            ],
+                  ))
+            ]),
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                isEdited
+                    ? SizedBox(
+                        width: 100,
+                        height: 10,
+                        child: TextField(
+                          controller: tec,
+                          onChanged: (val) {
+                            setState(() {
+                              nick = val;
+                            });
+                          },
+                        ))
+                    : const Text(
+                        "쏘영쏘",
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                isEdited
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey,
+                            ),
+                            onPressed: () {
+                              ApiUsers().changeUserNickname(nick, 'asdf');
+                            },
+                            child: const Text('수정')),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: IconButton(
+                          icon: const Icon(Icons.edit),
+                          onPressed: () {
+                            setState(() {
+                              isEdited = true;
+                            });
+                          },
+                        ),
+                      )
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  takePhoto(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source) as XFile;
+    setState(() {
+      _profileImg = pickedFile;
+      ApiUsers().changeUserProfile(_profileImg, 'asdf');
+    });
+  }
+
+  Widget bottomSheet() {
+    return Container(
+      height: 120,
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.all(10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          SizedBox(
+            child: Column(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    takePhoto(ImageSource.camera);
+                  },
+                  icon: const Icon(Icons.camera_alt),
+                  iconSize: 50,
+                ),
+                const Text('카메라')
+              ],
+            ),
           ),
+          SizedBox(
+            child: Column(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    takePhoto(ImageSource.gallery);
+                  },
+                  icon: const Icon(Icons.photo_library),
+                  iconSize: 50,
+                ),
+                const Text('사진첩')
+              ],
+            ),
+          )
         ],
       ),
     );
