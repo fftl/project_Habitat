@@ -43,6 +43,9 @@ dependencies {
 	implementation ("io.jsonwebtoken:jjwt-jackson:0.11.2")
 	runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.2")
 
+	//for WebSocket
+	implementation("org.springframework.boot:spring-boot-starter-websocket")
+
 }
 
 tasks.withType<Test> {

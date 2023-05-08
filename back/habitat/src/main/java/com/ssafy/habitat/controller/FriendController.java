@@ -7,12 +7,14 @@ import com.ssafy.habitat.entity.Friend;
 import com.ssafy.habitat.entity.FriendRequest;
 import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.service.*;
+import com.ssafy.habitat.websocket.WebSocketNotification;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,14 +28,16 @@ public class FriendController {
     private UserService userService;
     private DrinkLogService drinkLogService;
     private RewardService rewardService;
+    private WebSocketNotification webSocketNotification;
 
     @Autowired
-    public FriendController(FriendService friendService, FriendRequestService friendRequestService, UserService userService, DrinkLogService drinkLogService, RewardService rewardService) {
+    public FriendController(FriendService friendService, FriendRequestService friendRequestService, UserService userService, DrinkLogService drinkLogService, RewardService rewardService, WebSocketNotification webSocketNotification) {
         this.friendService = friendService;
         this.friendRequestService = friendRequestService;
         this.userService = userService;
         this.drinkLogService = drinkLogService;
         this.rewardService = rewardService;
+        this.webSocketNotification = webSocketNotification;
     }
 
     @GetMapping("/all")
@@ -175,6 +179,13 @@ public class FriendController {
         }
 
         return new ResponseEntity<>(friendRequestDtoList, HttpStatus.OK);
+    }
+
+    @PostMapping("/cok")
+    public void sendCok(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.RequestFriend requestFriend) throws IOException {
+        User fromUser = userService.getUser(userKey);
+        User toUser = userService.getUser(requestFriend.getFriendUserKey());
+        webSocketNotification.sendMessage("["+fromUser.getNickname()+"]님이 회원님을 콕 찔렀습니다!", toUser);
     }
 
 
