@@ -134,8 +134,8 @@ class settingbox extends StatefulWidget {
 
 class _settingboxState extends State<settingbox> {
   onSettingGoal() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const ModifyGoalScreen()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ModifyGoalScreen()));
   }
 
   onSettingWater() {
