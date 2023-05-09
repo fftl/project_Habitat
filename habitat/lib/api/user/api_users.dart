@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:habitat/api/base_url.dart';
 import 'package:habitat/models/users_model.dart';
@@ -8,7 +9,7 @@ class ApiUsers {
   final String baseurl = BaseUrl().rooturl;
 
   // 유저의 오늘 목표 음수량 재설정
-  void patchUserModifyGoal(String userKey, int goal) async {
+  void patchUserModifyGoal(String userKey, double goal) async {
     Uri url = Uri.http(
       baseurl,
       'users/modify/goal',
@@ -54,7 +55,7 @@ class ApiUsers {
       url,
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({
-        'friendCode': nickname,
+        'nickname': nickname,
       }),
     );
 
@@ -63,5 +64,22 @@ class ApiUsers {
     }
   }
 
-  void changeUserProfile() {}
+  Future<void> changeUserProfile(File file, String userKey) async {
+    Uri url = Uri.http(baseurl, 'users/modify/img', {'userKey': userKey});
+    var request = http.MultipartRequest('PATCH', url);
+
+    String fileName = file.path.split('/').last;
+
+    request.files.add(http.MultipartFile.fromBytes(
+        'file', File(file.path).readAsBytesSync(),
+        filename: fileName));
+
+    var res = await request.send();
+
+    if (res.statusCode == 200) {
+      debugPrint('이미지 업로드 성공');
+    } else {
+      debugPrint('에러${res.statusCode}');
+    }
+  }
 }

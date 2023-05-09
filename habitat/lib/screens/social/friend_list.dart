@@ -128,12 +128,6 @@ class friendslist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.black,
-            width: 1,
-          ),
-          borderRadius: BorderRadius.circular(12)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -156,14 +150,14 @@ class friendslist extends StatelessWidget {
               Text(
                 nickname,
                 style: const TextStyle(
-                  fontSize: 25,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               Text(
                 recent,
                 style: const TextStyle(
-                  fontSize: 15,
+                  fontSize: 12,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -197,12 +191,6 @@ class requestfriendlist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.black,
-            width: 1,
-          ),
-          borderRadius: BorderRadius.circular(12)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -225,7 +213,7 @@ class requestfriendlist extends StatelessWidget {
               Text(
                 nickname,
                 style: const TextStyle(
-                  fontSize: 25,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -239,6 +227,12 @@ class requestfriendlist extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
                       onPressed: () {
                         ApiFriendRequest()
                             .postFriendRequest(friendRequestKey, userKey);
@@ -250,6 +244,12 @@ class requestfriendlist extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
                       onPressed: () {
                         ApiFriendRequest()
                             .putFriendRequest(friendRequestKey, userKey);

@@ -43,7 +43,7 @@ class ModifyGoalScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff47799B)),
               onPressed: () {
-                ApiUsers().patchUserModifyGoal('asdf', int.parse(tec.text));
+                ApiUsers().patchUserModifyGoal('asdf', double.parse(tec.text));
               },
               child: const Text('목표 음수량 설정하기'))
         ],
