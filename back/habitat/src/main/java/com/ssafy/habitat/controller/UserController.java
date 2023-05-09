@@ -20,10 +20,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -36,17 +39,19 @@ public class UserController {
     private UserCoasterService userCoasterService;
     private RewardService rewardService;
     private TokenProvider tokenProvider;
+    private PasswordEncoder encoder;
     private AuthenticationManagerBuilder authenticationManagerBuilder;
     private Util util;
 
     @Autowired
-    public UserController(UserService userService, S3Uploader s3Uploader, CoasterService coasterService, UserCoasterService userCoasterService, RewardService rewardService, TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, Util util) {
+    public UserController(UserService userService, S3Uploader s3Uploader, CoasterService coasterService, UserCoasterService userCoasterService, RewardService rewardService, TokenProvider tokenProvider, PasswordEncoder encoder, AuthenticationManagerBuilder authenticationManagerBuilder, Util util) {
         this.userService = userService;
         this.s3Uploader = s3Uploader;
         this.coasterService = coasterService;
         this.userCoasterService = userCoasterService;
         this.rewardService = rewardService;
         this.tokenProvider = tokenProvider;
+        this.encoder = encoder;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.util = util;
     }
@@ -141,7 +146,7 @@ public class UserController {
     public ResponseEntity login(@RequestParam("socialKey") String socialKey){
         System.out.println("login 실행되었다!");
         //처음으로 로그인 요청을 한 유저라면!
-        if(!userService.friendCodeCheck(socialKey)){
+        if(userService.socialKeyCheck(socialKey)){
             System.out.println("그럼 여기?");
 
             /**
@@ -159,45 +164,44 @@ public class UserController {
                 newFriendCode = util.createKey(10);
             }
 
+            ArrayList<String> roles = new ArrayList<>();
+            roles.add("USER");
+
             //새로운 유저 객체를 만들어줍니다.
             User createUser = User.builder()
                     .userKey(newKey)
-                    .nickname("동밍")
+                    .password(encoder.encode(newKey))
+                    .nickname("짱윤")
                     .goal(0)
                     .friendCode(newFriendCode)
                     .socialKey(socialKey)
                     .socialType(1)
                     .imgUrl("https://your-habitat.s3.ap-northeast-2.amazonaws.com/static/default.png")
+                    .roles(roles)
                     .build();
 
             //생성한 유저 입력
             userService.addUser(createUser);
             User user = userService.getUser(newKey);
 
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserKey(), null, AuthorityUtils.createAuthorityList("user"));
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserKey(), user.getUserKey(), AuthorityUtils.createAuthorityList("USER"));
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
             TokenInfo tokenInfo = tokenProvider.createToken(authentication);
             user.setRefreshKey(tokenInfo.getRefreshToken());
+            userService.addUser(user);
 
             return new ResponseEntity(tokenInfo.getAccessToken(), HttpStatus.OK);
 
         } else {
-            System.out.println("else");
             User getUser = userService.getBySocialKey(socialKey);
-            System.out.println("GetUser");
             //여기까지 성공
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(getUser.getUserKey(), null, AuthorityUtils.createAuthorityList("user"));
-            System.out.println("authenticationToken >> 여기는?" + authenticationToken);
-            System.out.println("authenticationToken >> 여기는?" + authenticationToken.isAuthenticated());
-            System.out.println("authenticationToken >> 여기는?" + authenticationToken.getName());
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(getUser.getUserKey(), getUser.getUserKey(), AuthorityUtils.createAuthorityList("USER"));
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-            System.out.println("authentication");
             TokenInfo tokenInfo = tokenProvider.createToken(authentication);
-            System.out.println("CreateToken");
             getUser.setRefreshKey(tokenInfo.getRefreshToken());
             userService.addUser(getUser);
-            System.out.println("new Token save");
+
             return new ResponseEntity(tokenInfo.getAccessToken(), HttpStatus.OK);
         }
     }
@@ -217,4 +221,5 @@ public class UserController {
 //        RefreshApiResponseMessage refreshApiResponseMessage = new RefreshApiResponseMessage(map);
 //        return new ResponseEntity<RefreshApiResponseMessage>(refreshApiResponseMessage, HttpStatus.OK);
 //    }
+
 }

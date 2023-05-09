@@ -7,9 +7,12 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+import com.ssafy.habitat.exception.CustomException;
+import com.ssafy.habitat.exception.ErrorCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -45,12 +48,13 @@ public class TokenProvider implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        System.out.println("afterPropertiesSet");
         byte[] keyBytes = Base64.getDecoder().decode(secret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
     /**token 생성 algorithm */
-    public TokenInfo createToken(Authentication authentication){
+    public TokenInfo createToken(Authentication authentication) {
 
         //권한 가져오기
         String authorities = authentication.getAuthorities().stream()
@@ -65,39 +69,13 @@ public class TokenProvider implements InitializingBean {
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(validity)
+                .setExpiration(new Date(now + 10))
                 .compact();
 
         String refreshToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(validity)
-                .compact();
-
-        return TokenInfo.builder()
-                .grantType("Bearer")
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .build();
-    }
-
-    public TokenInfo newToken(String userKey){
-        Claims claims = Jwts.claims().setSubject(userKey); // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
-        claims.put("roles", "USER");
-
-        long now = (new Date()).getTime();
-
-        Date validity = new Date(now + this.tokenValidityInMilliseconds);
-
-        String accessToken = Jwts.builder()
-                .claim("claims", claims.toString())
-                .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(validity)
-                .compact();
-
-        String refreshToken = Jwts.builder()
-                .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(validity)
+                .setExpiration(new Date(now + 864000))
                 .compact();
 
         return TokenInfo.builder()
@@ -124,7 +102,7 @@ public class TokenProvider implements InitializingBean {
                         .collect(Collectors.toList());
 
         System.out.println("authorities >> "+ authorities);
-        User principal = new User(claims.getSubject(), null, authorities); //유저 정보를 가져옵니다.
+        User principal = new User(claims.getSubject(), token, authorities); //유저 정보를 가져옵니다.
         System.out.println("통과했어? >> " + principal);
 
         return new UsernamePasswordAuthenticationToken(principal, null, authorities);
@@ -140,6 +118,7 @@ public class TokenProvider implements InitializingBean {
             LOGGER.info("잘못된 JWT 서명입니다.");
         }catch(ExpiredJwtException e){
             LOGGER.info("만료된 JWT 토큰입니다.");
+            throw new CustomException(ErrorCode.EXPIRED_JWT_EXCEPTION);
         }catch(UnsupportedJwtException e){
             LOGGER.info("지원하지 않는 JWT 토큰입니다.");
         }catch(IllegalArgumentException e){

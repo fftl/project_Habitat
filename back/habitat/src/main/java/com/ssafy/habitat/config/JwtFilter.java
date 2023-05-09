@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
@@ -22,7 +23,12 @@ public class JwtFilter extends GenericFilterBean {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtFilter.class);
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
-    private final TokenProvider tokenProvider;
+    private TokenProvider tokenProvider;
+
+    @Autowired
+    public JwtFilter(TokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -30,7 +36,7 @@ public class JwtFilter extends GenericFilterBean {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) request; // 요청 데이터를 가져옵니다.
         String header = httpServletRequest.getHeader("AUTHORIZATION_HEADER");
-
+        System.out.println(header);
         //헤더 형식 확인
         if (header == null){
             System.out.println("header null 아니야?");

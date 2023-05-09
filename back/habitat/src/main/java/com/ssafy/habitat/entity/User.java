@@ -1,6 +1,7 @@
 package com.ssafy.habitat.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,6 +24,7 @@ public class User extends BaseTime implements UserDetails {
     @Id
     private String userKey;
     private String nickname;
+    private String password;
     private String imgUrl;
     private String friendCode;
     private int goal;
@@ -80,7 +82,7 @@ public class User extends BaseTime implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
@@ -106,5 +108,29 @@ public class User extends BaseTime implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userKey='" + userKey + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", friendCode='" + friendCode + '\'' +
+                ", goal=" + goal +
+                ", socialKey='" + socialKey + '\'' +
+                ", refreshKey='" + refreshKey + '\'' +
+                ", socialType=" + socialType +
+                ", plantingList=" + plantingList +
+                ", collectionList=" + collectionList +
+                ", userFlowerList=" + userFlowerList +
+                ", userFlowerLogList=" + userFlowerLogList +
+                ", drinkLogList=" + drinkLogList +
+                ", streakLogList=" + streakLogList +
+                ", friendRequestList=" + friendRequestList +
+                ", friendList=" + friendList +
+                ", userCoaster=" + userCoaster +
+                ", roles=" + roles +
+                '}';
     }
 }

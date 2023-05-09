@@ -133,9 +133,7 @@ public class DrinkLogController {
 
         // 섭취량 로그 등록
         drinkLogService.addDrinkLog(newDrinkLog);
-
         rewardService.addPlantingExp(user, newDrinkLog);
-
 
         // 누적섭취량 증가에 따른 해금 확인
         rewardService.checkDrinkUnlock(user);

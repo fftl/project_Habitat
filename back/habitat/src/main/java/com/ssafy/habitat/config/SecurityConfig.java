@@ -1,10 +1,7 @@
 package com.ssafy.habitat.config;
 
-import io.netty.handler.codec.base64.Base64Encoder;
-import org.apache.commons.codec.binary.Base64;
-import org.springframework.context.annotation.Bean;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpMethod;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,10 +20,10 @@ public class SecurityConfig {
 //    private final JwtAuthenticationEntryPoint jwtAtuthenticationEntryPoint;
 //    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){

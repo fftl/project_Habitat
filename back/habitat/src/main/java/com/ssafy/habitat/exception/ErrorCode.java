@@ -16,6 +16,7 @@ public enum ErrorCode {
     SOCIAL_CODE_NOT_FOUND(404,-404008, "존재하지 소셜 키 입니다."),
 
     UNAUTHORIZED_USER(403, -403001, "인증에 실패하였습니다."),
+    EXPIRED_JWT_EXCEPTION(403, -403002, "액세스 토큰이 만료되었습니다."),
 
     ALREADY_FRIEND(400,-400001,"이미 친구 관계입니다."),
     ALREADY_SENT_FRIEND_REQUEST(400,-400002,"이미 친구신청을 보냈습니다."),
