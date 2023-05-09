@@ -3,16 +3,22 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
+import 'package:habitat/api/drinklog/api_drinklogs.dart';
 import 'package:habitat/controller/water_controller.dart';
 
 class CoasterController extends GetxController {
   FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
   // 연결상태 저장용
   BluetoothDeviceState deviceState = BluetoothDeviceState.disconnected;
-  // final WaterController waterController = WaterController();
+  final WaterController waterController = WaterController();
 
   RxString coasterStatus = '연결 대기중'.obs;
   RxString coasterData = '데이터 아무것도 없다'.obs;
+
+  int time = 0;
+  String type = '';
+  int water = 0;
+
   late BluetoothDevice device;
 
   void scanDevice() async {
@@ -64,7 +70,7 @@ class CoasterController extends GetxController {
                 notifyDatas[c.uuid.toString()] = '';
 
                 // 데이터 읽기 처리!
-                c.value.listen((value) {
+                c.value.listen((value) async {
                   debugPrint('받은 데이터 : ${c.uuid} : $value');
 
                   // 받은 데이터 저장 화면 표시용
@@ -77,6 +83,8 @@ class CoasterController extends GetxController {
                     if (notifyDatas[c.uuid.toString()]!.isNotEmpty) {
                       coasterData.value =
                           bluetoothDataParsing(notifyDatas[c.uuid.toString()]!);
+                      await waterController.drinkwater(water);
+                      ApiDrinkLogs().postAddAutoDrinkLog(water, type, 'asdf');
                     }
                   }
                 });
@@ -91,14 +99,22 @@ class CoasterController extends GetxController {
   }
 
   String bluetoothDataParsing(String str) {
-    debugPrint('위치 체크');
-    List splitData = str.split(RegExp(r'[w|c|d]'));
-    int time = int.parse(splitData[0]);
-    String type = splitData[1];
-    int water = int.parse(splitData[2]);
-    debugPrint("시간 : $time, 타입 : $type, 마신 양 : $water");
+    List splitData;
 
-    WaterController().drinkwater(water);
+    if (str.contains("w")) {
+      type = 'w';
+      splitData = str.split(RegExp(r'[w]'));
+    } else if (str.contains("c")) {
+      type = 'c';
+      splitData = str.split(RegExp(r'[c]'));
+    } else {
+      type = 'd';
+      splitData = str.split(RegExp(r'[d]'));
+    }
+
+    time = int.parse(splitData[0]);
+    water = int.parse(splitData[1]);
+    debugPrint("시간 : $time, 타입 : $type, 마신 양 : $water");
 
     return "시간 : $time, 타입 : $type, 양 : $water";
   }

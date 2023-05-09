@@ -18,8 +18,10 @@ class WaterController extends GetxController {
   }
 
   drinkwater(int drink) {
+    debugPrint("마신 물의 양 : ${drink.toString()}");
     water.value += drink;
     storage.write(key: 'water', value: water.string);
+    debugPrint("마신 물의 양 : $water");
   }
 
   getStorageData() async {

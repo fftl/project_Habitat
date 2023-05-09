@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:habitat/controller/coaster_controller.dart';
 import 'package:habitat/controller/water_controller.dart';
 import 'package:habitat/screens/main/main_panelwidget.dart';
 import 'package:habitat/widgets/dock_bar.dart';
@@ -18,6 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   final ScrollController scrollController = ScrollController();
   final PanelController panelController = PanelController();
   final waterController = Get.put(WaterController());
+  final coasterController = Get.put(CoasterController());
 
   // 일일 누적 음수량
   // var amountwater = 100;
