@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "717538880248",
+    "project_id": "habitat-bf6d3",
+    "storage_bucket": "habitat-bf6d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:717538880248:android:7b001e6a886fcd0398690d",
+        "android_client_info": {
+          "package_name": "com.status200.habitat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "717538880248-7imbroeftif5qko51mf62jq08od9mh07.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.status200.habitat",
+            "certificate_hash": "8e346d3760e1558e4a0d494b7f36689cac84020a"
+          }
+        },
+        {
+          "client_id": "717538880248-s7fl3j7k9qeo7j8apajde5nbdrl9qap7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "***REMOVED***"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "717538880248-s7fl3j7k9qeo7j8apajde5nbdrl9qap7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
