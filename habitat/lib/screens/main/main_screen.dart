@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:habitat/api/drinklog/api_drinklogs.dart';
-import 'package:habitat/api/user/api_users.dart';
-import 'package:habitat/models/users_model.dart';
+import 'package:get/get.dart';
+import 'package:habitat/controller/coaster_controller.dart';
+import 'package:habitat/controller/water_controller.dart';
 import 'package:habitat/screens/main/main_panelwidget.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 import 'package:habitat/widgets/waterlog_input_modal.dart';
@@ -18,24 +18,26 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final ScrollController scrollController = ScrollController();
   final PanelController panelController = PanelController();
+  final waterController = Get.put(WaterController());
+  final coasterController = Get.put(CoasterController());
 
   // 일일 누적 음수량
-  var amountwater = 100;
-  //목표 음수량
-  var usergoaldata = 100;
+  // var amountwater = 100;
+  // //목표 음수량
+  // var usergoaldata = 100;
 
-  void importdata() async {
-    List<Usersmodel> userinfodata = [];
-    userinfodata = await ApiUsers().getUserInfo('asdf');
-    amountwater = await ApiDrinkLogs().getTodaytotalDrink('asdf');
-    usergoaldata = userinfodata[0].goal;
-    setState(() {});
-  }
+  // void importdata() async {
+  //   List<Usersmodel> userinfodata = [];
+  //   userinfodata = await ApiUsers().getUserInfo('asdf');
+  //   amountwater = await ApiDrinkLogs().getTodaytotalDrink('asdf');
+  //   usergoaldata = userinfodata[0].goal;
+  //   setState(() {});
+  // }
 
   @override
   void initState() {
     super.initState();
-    importdata();
+    // importdata();
   }
 
   @override
@@ -102,57 +104,70 @@ class _MainScreenState extends State<MainScreen> {
                   ],
                 ),
               ),
-              Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    height: 240,
-                    width: 240,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.blue[600],
-                    ),
-                  ),
-                  CircularStepProgressIndicator(
-                    totalSteps: usergoaldata,
-                    currentStep: amountwater,
-                    stepSize: 30,
-                    selectedColor: const Color(0xFF9CD2F7),
-                    unselectedColor: const Color(0xFFDCE9FC),
-                    padding: 0,
-                    width: 280,
-                    height: 280,
-                    selectedStepSize: 30,
-                    // roundedCap: (_, __) => false,
-                  ),
-                  Text(
-                    "${amountwater}ml",
-                    style: const TextStyle(
-                      fontSize: 52,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 80,
-                    child: Text(
-                      "/ ${usergoaldata}ml",
-                      style: const TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white70,
+              GetX<WaterController>(
+                builder: (controller) {
+                  return Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        height: 240,
+                        width: 240,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.blue[600],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                      CircularStepProgressIndicator(
+                        totalSteps: controller.goal.value,
+                        currentStep: controller.water.value,
+                        stepSize: 30,
+                        selectedColor: const Color(0xFF9CD2F7),
+                        unselectedColor: const Color(0xFFDCE9FC),
+                        padding: 0,
+                        width: 280,
+                        height: 280,
+                        selectedStepSize: 30,
+                        // roundedCap: (_, __) => false,
+                      ),
+                      Text(
+                        "${controller.water}ml",
+                        style: const TextStyle(
+                          fontSize: 52,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 80,
+                        child: Text(
+                          "/ ${controller.goal}ml",
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white70,
+                          ),
+                        ),
+                      )
+                    ],
+                  );
+                },
               ),
               const SizedBox(
                 height: 10,
               ),
-              Text(
-                "오늘 목표치의 ${(amountwater / usergoaldata * 100).toStringAsFixed(2)}%을 달성했어요! ",
+              GetX<WaterController>(
+                builder: (controller) {
+                  return Text(
+                    "오늘 목표치의 ${(controller.water.value / controller.goal.value * 100).toStringAsFixed(2)}%을 달성했어요! ",
+                  );
+                },
               ),
-              WaterLogInputModal(updatedata: importdata),
+              const WaterLogInputModal(),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/bluetooth');
+                  },
+                  child: const Text("코스터연결")),
             ],
           ),
         ),
