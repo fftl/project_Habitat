@@ -69,6 +69,7 @@ class CoasterController extends GetxController {
 
                   // 받은 데이터 저장 화면 표시용
                   notifyDatas[c.uuid.toString()] = ascii.decode(value);
+                  debugPrint('데이터 아스키 변환 : ${notifyDatas[c.uuid.toString()]}');
 
                   // notify key가 있다면
                   if (notifyDatas.containsKey(c.uuid.toString())) {
@@ -90,7 +91,8 @@ class CoasterController extends GetxController {
   }
 
   String bluetoothDataParsing(String str) {
-    List splitData = str.split(RegExp(r'[w,c,d]'));
+    debugPrint('위치 체크');
+    List splitData = str.split(RegExp(r'[w|c|d]'));
     int time = int.parse(splitData[0]);
     String type = splitData[1];
     int water = int.parse(splitData[2]);
