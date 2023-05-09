@@ -15,14 +15,14 @@ class _SettingProfileState extends State<SettingProfile> {
   bool isEdited = false;
   String nick = '쏘영쏘';
   TextEditingController tec = TextEditingController();
-  XFile _profileImg =
-      const AssetImage('lib/assets/default_profile.png') as XFile;
+  late File profileImg;
   final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    debugPrint(ApiUsers().getUserInfo('asdf').toString());
   }
 
   @override
@@ -42,13 +42,13 @@ class _SettingProfileState extends State<SettingProfile> {
         child: Column(
           children: [
             Stack(children: [
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 80,
-                backgroundImage: _profileImg ==
-                        const AssetImage(
-                            'lib/assets/images/default_profile.png')
-                    ? _profileImg as ImageProvider
-                    : FileImage(File(_profileImg.path)),
+                // backgroundImage: _profileImg ==
+                //         const AssetImage(
+                //             'lib/assets/images/default_profile.png')
+                //     ? _profileImg as ImageProvider
+                //     : FileImage(File(_profileImg.path)),
               ),
               Positioned(
                   bottom: 30,
@@ -100,6 +100,7 @@ class _SettingProfileState extends State<SettingProfile> {
                             ),
                             onPressed: () {
                               ApiUsers().changeUserNickname(nick, 'asdf');
+                              isEdited = false;
                             },
                             child: const Text('수정')),
                       )
@@ -123,10 +124,15 @@ class _SettingProfileState extends State<SettingProfile> {
   }
 
   takePhoto(ImageSource source) async {
-    final pickedFile = await _picker.pickImage(source: source) as XFile;
+    final pickedFile = await _picker.pickImage(source: source);
+
+    if (pickedFile != null) {
+      await Future.delayed(const Duration(seconds: 1));
+      profileImg = File(pickedFile.path);
+    }
     setState(() {
-      _profileImg = pickedFile;
-      ApiUsers().changeUserProfile(_profileImg, 'asdf');
+      // _profileImg = pickedFile;
+      ApiUsers().changeUserProfile(profileImg, 'asdf');
     });
   }
 

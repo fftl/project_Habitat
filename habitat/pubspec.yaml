@@ -40,6 +40,11 @@ dependencies:
   indexed: ^0.0.8
   http: ^0.13.5
   image_picker: ^0.8.7+4
+  firebase_core: ^2.10.0
+  firebase_auth: ^4.4.2
+  provider: ^6.0.5
+  google_sign_in: ^6.1.0
+  fl_chart: ^0.62.0
 
 dev_dependencies:
   flutter_test:

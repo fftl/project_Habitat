@@ -109,13 +109,21 @@ class _SocialScreenState extends State<SocialScreen> {
                   children: [
                     Expanded(
                       child: TextField(
+                        textAlign: TextAlign.center,
                         controller: tec,
                         decoration: const InputDecoration(
                             hintText: '친구 코드를 입력하세요.', hintStyle: TextStyle()),
                       ),
                     ),
                     ElevatedButton(
-                        onPressed: onSubmitButton, child: const Text('확인')),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff47799B),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                          ),
+                        ),
+                        onPressed: onSubmitButton,
+                        child: const Text('확인')),
                     IconButton(
                       onPressed: () {
                         ApiSendRequestCode().postRequestCode(tec.text, 'asdf');
@@ -129,24 +137,30 @@ class _SocialScreenState extends State<SocialScreen> {
                   ],
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     '친구신청 목록',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
               friendsRequestlistWidget(
                 controller: scrollController,
               ),
+              const SizedBox(
+                height: 10,
+              ),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     '내 친구 목록',
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
