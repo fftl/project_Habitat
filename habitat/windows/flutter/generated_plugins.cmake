@@ -3,7 +3,11 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+<<<<<<< HEAD
   flutter_secure_storage_windows
+=======
+  firebase_core
+>>>>>>> feature/fe
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

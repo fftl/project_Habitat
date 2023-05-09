@@ -94,7 +94,7 @@ class CoasterController extends GetxController {
     int time = int.parse(splitData[0]);
     String type = splitData[1];
     int water = int.parse(splitData[2]);
-    debugPrint("시간 : $time, 타입 : $type, 양 : $water");
+    debugPrint("시간 : $time, 타입 : $type, 마신 양 : $water");
 
     WaterController().drinkwater(water);
 
