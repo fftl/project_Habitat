@@ -81,7 +81,7 @@ public class FriendController {
 
     @PostMapping("/request/userkey")
     @ApiOperation(value = "친구신청 보내기(유저키)", notes="해당 유저키의 유저에게 친구신청을 보냅니다.")
-    public ResponseEntity sendFriendListByUserKey(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.RequestFriend requestFriendDto) {
+    public ResponseEntity sendFriendListByUserKey(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.RequestFriend requestFriendDto) throws IOException {
         User fromUser = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         User toUser = userService.getUser(requestFriendDto.getFriendUserKey()); // 친구신청할 userKey의 유저를 찾습니다.
 
@@ -93,13 +93,15 @@ public class FriendController {
         friendRequestService.addFriendRequest(newFriendRequest);
 
         // 신청 받은 유저(fromUser)에게 웹소켓 보내기 필요
+        String message = fromUser.getNickname()+"님으로부터 친구신청이 도착했어요!";
+        customWebSocketHandler.sendMessage(toUser, message);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("/request/code")
     @ApiOperation(value = "친구신청 보내기(친구코드)", notes="해당 친구코드로 친구신청을 보냅니다.")
-    public ResponseEntity sendFriendListByCode(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.FriendCode requestFriendDto) {
+    public ResponseEntity sendFriendListByCode(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.FriendCode requestFriendDto) throws IOException {
         User fromUser = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         User toUser = userService.getByFriendCode(requestFriendDto.getFriendCode()); // 친구코드에 해당하는 유저를 찾습니다.
 
@@ -111,13 +113,15 @@ public class FriendController {
         friendRequestService.addFriendRequest(newFriendRequest);
 
         // 신청 받은 유저(fromUser)에게 웹소켓 보내기 필요
+        String message = fromUser.getNickname()+"님으로부터 친구신청이 도착했어요!";
+        customWebSocketHandler.sendMessage(toUser, message);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/request/ok")
     @ApiOperation(value = "친구신청 수락", notes="해당 친구신청을 수락합니다.")
-    public ResponseEntity acceptFriendList(@RequestParam("userKey") String userKey, @RequestBody RequestFriendRequestDto requestFriendRequestDto) {
+    public ResponseEntity acceptFriendList(@RequestParam("userKey") String userKey, @RequestBody RequestFriendRequestDto requestFriendRequestDto) throws IOException {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         FriendRequest friendRequest = friendRequestService.getFriendRequestByRequestKey(requestFriendRequestDto.getFriendRequestKey()); // requestKey의 친구신청 내역을 찾습니다.
 
@@ -138,6 +142,8 @@ public class FriendController {
         rewardService.checkFriendUnlock(friendRequest.getTo());
 
         // 친구 신청했던 유저(fromUser)에게 친구가 되었음 웹소켓 보내기 필요
+        String message = friendRequest.getTo().getNickname()+"님과 친구가 되었습니다!";
+        customWebSocketHandler.sendMessage(friendRequest.getFrom(), message);
 
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -186,7 +192,9 @@ public class FriendController {
     public ResponseEntity sendCok(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.RequestFriend requestFriend) throws IOException {
         User fromUser = userService.getUser(userKey);
         User toUser = userService.getUser(requestFriend.getFriendUserKey());
-        String message = "["+fromUser.getNickname()+"]님이 회원님을 콕 찔렀습니다!";
+
+        // 찌르기 받은 유저(toUser)에게 찌르기 웹소켓 보내기 필요
+        String message = fromUser.getNickname()+"님이 회원님을 콕 찔렀습니다!";
         customWebSocketHandler.sendMessage(toUser, message);
 
         return new ResponseEntity<>(HttpStatus.OK);
