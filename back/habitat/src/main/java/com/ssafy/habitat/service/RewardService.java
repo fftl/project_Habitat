@@ -1,9 +1,11 @@
 package com.ssafy.habitat.service;
 
 import com.ssafy.habitat.entity.*;
+import com.ssafy.habitat.websocket.CustomWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -16,9 +18,10 @@ public class RewardService {
     private UserFlowerService userFlowerService;
     private UserFlowerLogService userFlowerLogService;
     private PlantingService plantingService;
+    private CustomWebSocketHandler customWebSocketHandler;
 
     @Autowired
-    public RewardService(FriendService friendService, DrinkLogService drinkLogService, CollectionService collectionService, StreakLogService streakLogService, FlowerService flowerService, UserFlowerService userFlowerService, UserFlowerLogService userFlowerLogService, PlantingService plantingService) {
+    public RewardService(FriendService friendService, DrinkLogService drinkLogService, CollectionService collectionService, StreakLogService streakLogService, FlowerService flowerService, UserFlowerService userFlowerService, UserFlowerLogService userFlowerLogService, PlantingService plantingService, CustomWebSocketHandler customWebSocketHandler) {
         this.friendService = friendService;
         this.drinkLogService = drinkLogService;
         this.collectionService = collectionService;
@@ -27,9 +30,10 @@ public class RewardService {
         this.userFlowerService = userFlowerService;
         this.userFlowerLogService = userFlowerLogService;
         this.plantingService = plantingService;
+        this.customWebSocketHandler = customWebSocketHandler;
     }
 
-    public void addPlantingExp(User user, DrinkLog drinkLog) {
+    public void addPlantingExp(User user, DrinkLog drinkLog) throws IOException {
         // 섭취량에 따른 경험치 증가
         Planting planting = plantingService.getCurrentPlant(user); // 현재 키우는 꽃
 
@@ -52,12 +56,11 @@ public class RewardService {
 
             // 새로운 꽃 배정
             List<UserFlower> userFlowerList = userFlowerService.getUnlockedFlowerList(user);
-            int randomNum = (int)(Math.random()*userFlowerList.size())+1;
+            int randomNum = (int)(Math.random()*userFlowerList.size());
             Flower newFlower = userFlowerList.get(randomNum).getFlower();
 
+            // user의 collection 개수(새로 키울 꽃이 몇 번째 꽃인지)
             int flowerCnt = collectionService.getCollectionCnt(user);
-
-            System.out.println("user의 컬렉션 개수 : "+flowerCnt);
 
             Planting newPlanting = Planting.builder()
                     .flower(newFlower)
@@ -69,13 +72,15 @@ public class RewardService {
             plantingService.addPlanting(newPlanting);
 
             // 수확 웹소켓 알림
-            System.out.println(user.getNickname()+" 님! 새로운 꽃 "+newFlower.getName()+" 이 배정되었습니다!");
+            String message = "["+planting.getFlower().getName()+"]을(를) 수확하였습니다!";
+            customWebSocketHandler.sendMessage(user, message);
         }
 
         // 레벨업 확인
         else if(nextLv > prevLv) { // 레벨업 이벤트 발생
             // 레벨업 웹소켓 알림
-            System.out.println(user.getNickname()+" 님! 레벨 변화 "+prevLv + " -> "+nextLv);
+            String message = user.getNickname()+"님! Level Up!! Lv."+prevLv + " >> Lv."+nextLv;
+            customWebSocketHandler.sendMessage(user, message);
         }
 
         // 변경사항 적용
@@ -85,7 +90,7 @@ public class RewardService {
     }
 
 
-    public void checkFriendUnlock(User user) {
+    public void checkFriendUnlock(User user) throws IOException {
         // 친구 등록 수에 따른 달성여부 확인
 
         int friendCnt = user.getFriendList().size(); // 친구변화에 따른 현재 친구수
@@ -111,13 +116,14 @@ public class RewardService {
                     unlockUserFlower(user, flower, userFlower);
 
                     // 웹소켓 전송
-                    System.out.println(user.getNickname()+" 님 친구 수 " + friendCnt+"명 달성으로 " + flower.getName() + " 꽃이 해금되었습니다!!!");
+                    String message = "친구 수 " + friendCnt+"명 달성으로 [" + flower.getName() + "]이(가) 해금되었습니다!";
+                    customWebSocketHandler.sendMessage(user, message);
                 }
             }
         }
     }
 
-    public void checkDrinkUnlock(User user) {
+    public void checkDrinkUnlock(User user) throws IOException {
         // 현재 음수량에 따른 달성여부 확인
 
         int totalDrink = drinkLogService.getTotalDrink(user); // 음수량 변화에 따른 현재 누적음수량
@@ -143,14 +149,15 @@ public class RewardService {
                     unlockUserFlower(user, flower, userFlower);
 
                     // 웹소켓 전송
-                    System.out.println(user.getNickname()+" 님 누적음수량 "+ flower.getDrinkValue()+"ml 달성으로 " + flower.getName() + " 꽃이 해금되었습니다!!!");
+                    String message = "누적음수량 "+ flower.getDrinkValue()+"ml 달성으로 [" + flower.getName() + "]이(가) 해금되었습니다!";
+                    customWebSocketHandler.sendMessage(user, message);
                 }
             }
         }
 
     }
 
-    public void checkStreakUnlock(User user) {
+    public void checkStreakUnlock(User user) throws IOException {
         // 현재 스트릭에 따른 달성여부 확인
 
         int curStreak = streakLogService.getDailyStreakLog(user).getCurStreak(); // 스트릭 변화에 따른 현재 스트릭
@@ -176,13 +183,14 @@ public class RewardService {
                     unlockUserFlower(user, flower, userFlower);
 
                     // 웹소켓 전송
-                    System.out.println(user.getNickname()+" 님 연속스트릭 "+ flower.getDrinkValue()+"일 달성으로 " + flower.getName() + " 꽃이 해금되었습니다!!!");
+                    String message = "연속스트릭 "+ flower.getDrinkValue()+"일 달성으로 [" + flower.getName() + "]이(가) 해금되었습니다!";
+                    customWebSocketHandler.sendMessage(user, message);
                 }
             }
         }
     }
 
-    public void checkCoasterUnlock(User user) {
+    public void checkCoasterUnlock(User user) throws IOException {
         // 코스터 등록에 따른 달성여부 확인
 
         List<UserFlower> userFlowerList = userFlowerService.getLockedFlowerList(user); // 해당 유저의 해금안된 꽃 리스트
@@ -207,20 +215,23 @@ public class RewardService {
                     unlockUserFlower(user, flower, userFlower);
 
                     // 웹소켓 전송
-                    System.out.println(user.getNickname()+" 님 코스터 등록으로 " + flower.getName() + " 꽃이 해금되었습니다!!!");
+                    String message = "코스터 등록으로 [" + flower.getName() + "]이(가) 해금되었습니다!";
+                    customWebSocketHandler.sendMessage(user, message);
                 }
             }
         }
     }
 
 
-    public boolean checkStreakSuccess(User user) {
+    public boolean checkStreakSuccess(User user) throws IOException {
         int totalDailyDrink = drinkLogService.getDailyTotalDrink(user); // 유저의 오늘 누적음수량 조회
         StreakLog todayStreakLog = streakLogService.getDailyStreakLog(user); // 유저의 오늘 스트릭 가져오기
 
         // 아직 오늘의 스트릭이 생성된 적 없고 목표를 달성한 경우
         if(todayStreakLog == null && totalDailyDrink >= user.getGoal()) {
             // 오늘의 목표 달성 웹소켓 전송
+            String message = user.getNickname()+"님 오늘의 목표를 달성했어요!";
+            customWebSocketHandler.sendMessage(user, message);
 
             return true;
         }

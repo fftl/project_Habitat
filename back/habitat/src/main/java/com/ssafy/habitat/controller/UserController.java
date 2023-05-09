@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -105,7 +104,7 @@ public class UserController {
 
     @PostMapping("/coaster")
     @ApiOperation(value = "유저 코스터 등록", notes="유저의 코스터를 등록합니다.")
-    public ResponseEntity getUser(@RequestParam("userKey") String userKey, @RequestBody RequestCoasterDto requestCoasterDto){
+    public ResponseEntity getUser(@RequestParam("userKey") String userKey, @RequestBody RequestCoasterDto requestCoasterDto) throws IOException {
         User user = userService.getUser(userKey);
         Coaster coaster = coasterService.getCoaster(requestCoasterDto.getCoasterKey());
 
@@ -129,4 +128,5 @@ public class UserController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 }
