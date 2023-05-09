@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitat/screens/settingscreen/coaster_connect.dart';
 import 'package:habitat/screens/settingscreen/modify_goal_screen.dart';
+import 'package:habitat/screens/settingscreen/setting_cash.dart';
 import 'package:habitat/screens/settingscreen/setting_profile.dart';
 import 'package:habitat/screens/settingscreen/setting_water.dart';
 import 'package:habitat/widgets/dock_bar.dart';
@@ -291,7 +292,13 @@ class _settingboxState extends State<settingbox> {
             ),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingCash(),
+                  ));
+            },
             style: TextButton.styleFrom(
               foregroundColor: const Color(0xff47799B),
               padding: const EdgeInsets.only(left: 10),

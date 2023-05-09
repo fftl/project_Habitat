@@ -18,12 +18,18 @@ class ApiDrinkLogs {
         'userKey': userKey,
       },
     );
-    final response = await http.get(url);
-    if (response.statusCode == 200) {
-      final List<dynamic> temp = jsonDecode(response.body);
-      for (var e in temp) {
-        alldrinklogdata.add(Drinklogmodel.fromJson(e));
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final List<dynamic> temp = jsonDecode(response.body);
+        for (var e in temp) {
+          alldrinklogdata.add(Drinklogmodel.fromJson(e));
+        }
+      } else {
+        debugPrint("status error : ${response.statusCode}");
       }
+    } catch (e) {
+      debugPrint("error : $e");
     }
 
     return alldrinklogdata;
@@ -78,6 +84,28 @@ class ApiDrinkLogs {
     Uri url = Uri.http(
       baseurl,
       'drinkLogs/add',
+      {
+        'userKey': userKey,
+      },
+    );
+    final response = await http.post(
+      url,
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        'drink': drink,
+        'drinkType': drinkType,
+      }),
+    );
+    if (response.statusCode == 200) {
+      debugPrint("전송 성공");
+    }
+  }
+
+  // 유저가 마신 물, 음료를 코스터가 자동 기록
+  void postAddAutoDrinkLog(int drink, String drinkType, String userKey) async {
+    Uri url = Uri.http(
+      baseurl,
+      'drinkLogs/auto',
       {
         'userKey': userKey,
       },
