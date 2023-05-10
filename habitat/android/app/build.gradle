@@ -64,12 +64,12 @@ android {
 
         // start of signingConfigs
     signingConfigs {
-        debug {
-            keyAlias 'androiddebugkey'
-            keyPassword 'sosoro704'
-            storeFile file('debugkey.jks')
-            storePassword 'sosoro704'
-        }
+        // debug {
+        //     keyAlias 'androiddebugkey'
+        //     keyPassword 'sosoro704'
+        //     storeFile file('debugkey.jks')
+        //     storePassword 'sosoro704'
+        // }
         // release {
         //     keyAlias keystoreProperties['keyAlias']
         //     keyPassword keystoreProperties['keyPassword']
