@@ -7,7 +7,6 @@ import com.ssafy.habitat.entity.Friend;
 import com.ssafy.habitat.entity.FriendRequest;
 import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.service.*;
-//import com.ssafy.habitat.websocket.WebSocketNotification;
 import com.ssafy.habitat.websocket.CustomWebSocketHandler;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -136,7 +135,6 @@ public class FriendController {
         // 친구 내역 입력
         friendService.addFriend(Friend.builder().myId(friendRequest.getFrom()).friendId(friendRequest.getTo()).build());
         friendService.addFriend(Friend.builder().myId(friendRequest.getTo()).friendId(friendRequest.getFrom()).build());
-
 
         // 친구 추가에 따른 해금 확인
         rewardService.checkFriendUnlock(friendRequest.getFrom());

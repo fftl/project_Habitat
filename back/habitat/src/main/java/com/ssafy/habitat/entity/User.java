@@ -1,13 +1,14 @@
 package com.ssafy.habitat.entity;
 
 import lombok.*;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@EnableJpaRepositories
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

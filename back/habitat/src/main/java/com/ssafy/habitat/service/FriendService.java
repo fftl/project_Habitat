@@ -41,6 +41,12 @@ public class FriendService {
     }
 
     public void addFriend(Friend newFriend) {
+        Friend findFriend = friendRepository.findByMyIdAndFriendId(newFriend.getMyId(), newFriend.getFriendId()).orElse(null);
+        // 이미 친구 관계에 있음을 확인했다면 친구관계 등록 불가
+        if(findFriend != null) {
+            throw new CustomException(ErrorCode.ALREADY_FRIEND);
+        }
+
         friendRepository.save(newFriend);
     }
 }
