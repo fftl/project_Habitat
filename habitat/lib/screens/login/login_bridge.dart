@@ -8,22 +8,20 @@ class LoginBridge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
-          if (!snapshot.hasData) {
-            return const LoginScreen();
-          } else {
-            return const ReportScreen();
-            // return Center(
-            //   child: Column(children: [
-            //     Text("${snapshot.data?.displayName ?? 'anon'}님 환영합니다."),
-            //   ]),
-            // );
-          }
-        },
-      ),
+    return StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
+        if (!snapshot.hasData) {
+          return const LoginScreen();
+        } else {
+          return const ReportScreen();
+          // return Center(
+          //   child: Column(children: [
+          //     Text("${snapshot.data?.displayName ?? 'anon'}님 환영합니다."),
+          //   ]),
+          // );
+        }
+      },
     );
   }
 }
