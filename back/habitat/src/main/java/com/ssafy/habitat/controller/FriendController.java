@@ -74,7 +74,7 @@ public class FriendController {
         HashMap<String, String> map = new HashMap<>();
         String friendCode = user.getFriendCode();
 
-        map.put("friend_code", friendCode);
+        map.put("friendCode", friendCode);
         return new ResponseEntity<>(map, HttpStatus.OK);
 
     }
