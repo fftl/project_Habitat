@@ -17,11 +17,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final TokenProvider tokenProvider;
-    private final JwtAuthenticationEntryPoint jwtAtuthenticationEntryPoint;
-//    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-    private final JwtFilter jwtFilter;
 //    private final ExceptionHandlerFilter exceptionHandlerFilter;
+//    private final JwtAuthenticationEntryPoint jwtAtuthenticationEntryPoint;
+    private final JwtFilter jwtFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -41,9 +39,9 @@ public class SecurityConfig {
 //                .exceptionHandling()
 //                .authenticationEntryPoint(jwtAtuthenticationEntryPoint)
 //                .accessDeniedHandler(jwtAccessDeniedHandler)
-//
-//                /**세션 사용하지 않음*/
 //                .and()
+
+//                /**세션 사용하지 않음*/
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 

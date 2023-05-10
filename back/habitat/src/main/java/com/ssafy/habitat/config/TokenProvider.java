@@ -68,7 +68,7 @@ public class TokenProvider implements InitializingBean {
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(new Date(now + 10))
+                .setExpiration(new Date(now + 86400*1*1000L))
                 .compact();
 
         String refreshToken = Jwts.builder()
@@ -105,23 +105,19 @@ public class TokenProvider implements InitializingBean {
 
     /**token 유효성 검증 */
     public String validateToken(String token){
-
         try{
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return "true";
         }catch(io.jsonwebtoken.security.SecurityException | MalformedJwtException e){
             LOGGER.info("잘못된 JWT 서명입니다.");
-            return "잘못된 JWT 서명입니다.";
         }catch(ExpiredJwtException e){
             LOGGER.info("만료된 JWT 토큰입니다.");
             return "expired";
         }catch(UnsupportedJwtException e){
             LOGGER.info("지원하지 않는 JWT 토큰입니다.");
-            return "지원하지 않는 JWT 토큰입니다.";
         }catch(IllegalArgumentException e){
             LOGGER.info("JWT 토큰이 잘못되었습니다.");
         }
-
         return "false";
     }
 }

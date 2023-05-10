@@ -14,6 +14,7 @@ public enum ErrorCode {
     FLOWER_NOT_FOUND(404,-404006, "존재하지 않는 꽃입니다."),
     COASTER_NOT_FOUND(404,-404007, "존재하지 않는 코스터입니다."),
     SOCIAL_CODE_NOT_FOUND(404,-404008, "존재하지 소셜 키 입니다."),
+    HEADER_IS_NULL(404, -404009, "header가 비어있습니다."),
 
     UNAUTHORIZED_USER(403, -403001, "인증에 실패하였습니다."),
     EXPIRED_JWT_EXCEPTION(403, -403002, "액세스 토큰이 만료되었습니다."),
