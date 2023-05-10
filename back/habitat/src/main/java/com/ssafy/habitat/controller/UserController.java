@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -145,9 +146,10 @@ public class UserController {
     @ApiOperation(value = "유저 로그인", notes="유저 로그인 처리를 합니다.")
     public ResponseEntity login(@RequestParam("socialKey") String socialKey){
         System.out.println("login 실행되었다!");
+        LocalDateTime now = LocalDateTime.now();
         //처음으로 로그인 요청을 한 유저라면!
         if(userService.socialKeyCheck(socialKey)){
-            System.out.println("그럼 여기?");
+            System.out.println(now + " >> 존재하지 않는 socialKey, 새로운 유저를 생성합니다.");
 
             /**
              * 새로운 계정을 생성해줍니다.
@@ -206,20 +208,9 @@ public class UserController {
         }
     }
 
-//    @PostMapping("/refresh")
-//    public ResponseEntity validateRefreshToken(@RequestBody HashMap<String, String> bodyJson){
-//
-//        Map<String, String> map = jwtService.validateRefreshToken(bodyJson.get("refreshToken"));
-//
-//        if(map.get("status").equals("402")){
-//            log.info("RefreshController - Refresh Token이 만료.");
-//            RefreshApiResponseMessage refreshApiResponseMessage = new RefreshApiResponseMessage(map);
-//            return new ResponseEntity<RefreshApiResponseMessage>(refreshApiResponseMessage, HttpStatus.UNAUTHORIZED);
-//        }
-//
-//        log.info("RefreshController - Refresh Token이 유효.");
-//        RefreshApiResponseMessage refreshApiResponseMessage = new RefreshApiResponseMessage(map);
-//        return new ResponseEntity<RefreshApiResponseMessage>(refreshApiResponseMessage, HttpStatus.OK);
-//    }
+    @PostMapping("/refresh")
+    public ResponseEntity validateRefreshToken(@RequestParam("userKey") String userKey){
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 }

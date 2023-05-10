@@ -1,46 +1,46 @@
-//package com.ssafy.habitat.config;
-//import java.io.IOException;
-//import java.io.PrintWriter;
-//
-//import javax.servlet.ServletException;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//
-//import com.ssafy.habitat.exception.ErrorCode;
-//import com.ssafy.habitat.exception.FailResponse;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.http.MediaType;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.security.core.AuthenticationException;
-//import org.springframework.security.web.AuthenticationEntryPoint;
-//import org.springframework.stereotype.Component;
-//
-//@Component
-//public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
-//
-//    private final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationEntryPoint.class);
-//
-//    @Override
-//    public void commence(HttpServletRequest request, HttpServletResponse response,
-//                         AuthenticationException authException) throws IOException, ServletException {
-//        PrintWriter writer = response.getWriter();
-//        ErrorCode errorCode = ErrorCode.UNAUTHORIZED_USER;
-//        FailResponse res = FailResponse.builder()
-//                .status(errorCode.getStatus())
-//                .message(errorCode.getMessage()).build();
-//        try{
-//            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-//            writer.write(CmmnVar.GSON.toJson(res));
-//        }catch(NullPointerException e){
-//            LOGGER.error("응답 메시지 작성 에러", e);
-//        }finally{
-//            if(writer != null) {
-//                writer.flush();
-//                writer.close();
-//            }
-//        }
-//        Json
-//        response.getWriter().write(res.);
-//    }
-//}
+package com.ssafy.habitat.config;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.habitat.exception.ErrorCode;
+import com.ssafy.habitat.exception.FailResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
+
+@Component
+public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint { //인증에 실패한 상황의 경우의 Exception 처리를 맡아서 하는 클래스입니다.
+
+    private final Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationEntryPoint.class);
+
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response,
+                         AuthenticationException authException) throws IOException, ServletException {
+        System.out.println("JwtAuthenticationEntryPoint // authException.toString() >> " + authException.toString());
+
+        ErrorCode errorCode = ErrorCode.ALREADY_FRIEND;
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        response.setStatus(errorCode.getStatus());
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+        FailResponse failResponse = FailResponse.builder()
+                .status(errorCode.getStatus())
+                .code(errorCode.getCode())
+                .message(errorCode.getMessage())
+                .build();
+        try{
+            response.getWriter().write(objectMapper.writeValueAsString(failResponse));
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+}

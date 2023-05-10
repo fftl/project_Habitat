@@ -113,7 +113,10 @@ public class DrinkLogController {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         int totalDrink = drinkLogService.getDailyTotalDrink(user);
-        return new ResponseEntity<>(totalDrink, HttpStatus.OK);
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("totalDrink", totalDrink);
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
 
@@ -176,7 +179,7 @@ public class DrinkLogController {
 
     @PatchMapping
     @ApiOperation(value = "섭취량 수정", notes="섭취량을 수정합니다.")
-    public ResponseEntity modifiedDrinkLog(@RequestParam("drinkLogKey") int drinkLogKey, @RequestBody RequestDrinkLogDto.ModifyDrink requestDrinkLogDto) {
+    public ResponseEntity modifiedDrinkLog(@PathVariable("drinkLogKey") int drinkLogKey, @RequestBody RequestDrinkLogDto.ModifyDrink requestDrinkLogDto) {
         DrinkLog drinkLog = drinkLogService.getLog(drinkLogKey);
         drinkLog.setDrink(requestDrinkLogDto.getDrink());
         drinkLogService.addDrinkLog(drinkLog);
@@ -186,7 +189,7 @@ public class DrinkLogController {
 
     @DeleteMapping
     @ApiOperation(value = "섭취량 삭제", notes="섭취량을 삭제처리 합니다.")
-    public ResponseEntity deleteDrinkLog(@RequestParam(name="drinkLogKey") int drinkLogKey) {
+    public ResponseEntity deleteDrinkLog(@PathVariable("drinkLogKey") int drinkLogKey) {
         System.out.println(drinkLogKey);
         DrinkLog drinkLog = drinkLogService.getLog(drinkLogKey);
         drinkLog.setRemoved(true);

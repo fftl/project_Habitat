@@ -10,6 +10,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -17,8 +18,10 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final TokenProvider tokenProvider;
-//    private final JwtAuthenticationEntryPoint jwtAtuthenticationEntryPoint;
+    private final JwtAuthenticationEntryPoint jwtAtuthenticationEntryPoint;
 //    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final JwtFilter jwtFilter;
+//    private final ExceptionHandlerFilter exceptionHandlerFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -38,8 +41,8 @@ public class SecurityConfig {
 //                .exceptionHandling()
 //                .authenticationEntryPoint(jwtAtuthenticationEntryPoint)
 //                .accessDeniedHandler(jwtAccessDeniedHandler)
-
-                /**세션 사용하지 않음*/
+//
+//                /**세션 사용하지 않음*/
 //                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -52,8 +55,7 @@ public class SecurityConfig {
 
                 /**JwtSecurityConfig 적용 */
                 .and()
-                .apply(new JwtSecurityConfig(tokenProvider))
-                .and()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable()
                 .build();
     }

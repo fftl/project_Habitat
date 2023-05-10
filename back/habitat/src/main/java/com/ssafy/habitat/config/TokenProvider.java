@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
@@ -63,8 +64,6 @@ public class TokenProvider implements InitializingBean {
 
         long now = (new Date()).getTime();
 
-        Date validity = new Date(now + this.tokenValidityInMilliseconds);
-
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
@@ -74,8 +73,9 @@ public class TokenProvider implements InitializingBean {
 
         String refreshToken = Jwts.builder()
                 .setSubject(authentication.getName())
+                .claim(AUTHORITIES_KEY, authorities)
                 .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(new Date(now + 864000))
+                .setExpiration(new Date(now + 86400*14*1000L))
                 .compact();
 
         return TokenInfo.builder()
@@ -88,7 +88,6 @@ public class TokenProvider implements InitializingBean {
     /**인증 정보 조회 */
     public Authentication getAuthentication(String token) {
 
-        System.out.println("key >> " + key);
         //인증 값(?)을 만들고
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
@@ -101,29 +100,28 @@ public class TokenProvider implements InitializingBean {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        System.out.println("authorities >> "+ authorities);
-        User principal = new User(claims.getSubject(), token, authorities); //유저 정보를 가져옵니다.
-        System.out.println("통과했어? >> " + principal);
-
-        return new UsernamePasswordAuthenticationToken(principal, null, authorities);
+        return new UsernamePasswordAuthenticationToken(claims.getSubject(), claims.getSubject(), authorities);
     }
 
     /**token 유효성 검증 */
-    public boolean validateToken(String token){
+    public String validateToken(String token){
 
         try{
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            return true;
+            return "true";
         }catch(io.jsonwebtoken.security.SecurityException | MalformedJwtException e){
             LOGGER.info("잘못된 JWT 서명입니다.");
+            return "잘못된 JWT 서명입니다.";
         }catch(ExpiredJwtException e){
             LOGGER.info("만료된 JWT 토큰입니다.");
-            throw new CustomException(ErrorCode.EXPIRED_JWT_EXCEPTION);
+            return "expired";
         }catch(UnsupportedJwtException e){
             LOGGER.info("지원하지 않는 JWT 토큰입니다.");
+            return "지원하지 않는 JWT 토큰입니다.";
         }catch(IllegalArgumentException e){
             LOGGER.info("JWT 토큰이 잘못되었습니다.");
         }
-        return false;
+
+        return "false";
     }
 }
