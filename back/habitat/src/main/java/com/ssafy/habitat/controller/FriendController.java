@@ -125,8 +125,9 @@ public class FriendController {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         FriendRequest friendRequest = friendRequestService.getFriendRequestByRequestKey(requestFriendRequestDto.getFriendRequestKey()); // requestKey의 친구신청 내역을 찾습니다.
 
-        // 해당 유저에게 도착한 친구신청내역인지 확인
+        // 해당 유저에게 도착한 친구신청내역인지 & 이미 처리가 끝난 요청인지 확인
         friendRequestService.checkFriendRequestAuthorization(user, friendRequest);
+
         // 해당 친구신청 내역을 수락으로 변경
         friendRequestService.modifyFriendRequest(friendRequest, 1);
         // 이미 친구인지 확인
@@ -189,6 +190,7 @@ public class FriendController {
     }
 
     @PostMapping("/cok")
+    @ApiOperation(value = "찌르기", notes="친구에게 찌르기 알림을 보냅니다.")
     public ResponseEntity sendCok(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.RequestFriend requestFriend) throws IOException {
         User fromUser = userService.getUser(userKey);
         User toUser = userService.getUser(requestFriend.getFriendUserKey());
