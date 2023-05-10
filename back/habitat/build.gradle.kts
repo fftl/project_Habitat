@@ -2,7 +2,43 @@ plugins {
 	java
 	id("org.springframework.boot") version "2.7.11"
 	id("io.spring.dependency-management") version "1.0.15.RELEASE"
+	jacoco
 }
+
+jacoco {
+	toolVersion = "0.8.5"
+}
+
+tasks.jacocoTestReport {
+	reports {
+		html.isEnabled = true;
+		xml.isEnabled = true;
+		csv.isEnabled = true;
+	}
+}
+
+tasks.jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			element = "CLASS"
+
+			limit {
+				counter = "BRANCH"
+				value = "COVEREDRATIO"
+				minimum = "0.90".toBigDecimal()
+			}
+
+		}
+	}
+}
+
+tasks.test {
+	extensions.configure(JacocoTaskExtension::class) {
+	}
+
+	finalizedBy("jacocoTestReport")
+}
+
 
 group = "com.ssafy"
 version = "0.0.1-SNAPSHOT"
@@ -22,7 +58,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-websocket")
-	compileOnly("org.projectlombok:lombok")
+    testImplementation("junit:junit:4.13.1")
+    compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
