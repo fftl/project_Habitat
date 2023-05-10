@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:habitat/controller/coaster_controller.dart';
 import 'package:habitat/controller/water_controller.dart';
+import 'package:habitat/screens/alarm/local_notification.dart';
 import 'package:habitat/screens/main/main_panelwidget.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 import 'package:habitat/widgets/waterlog_input_modal.dart';
@@ -38,6 +39,8 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     // importdata();
+
+    LocalNotification.initNotification();
   }
 
   @override

@@ -1,4 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:habitat/screens/alarm/local_notification.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/screens/coaster/coaster_connect_screen.dart';
@@ -14,6 +17,12 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  final WebSocketChannel channel =
+      IOWebSocketChannel.connect('ws://k8a704.p.ssafy.io:8081/websocket/asdf');
+
+  LocalNotification.initNotification();
+
   runApp(
     MaterialApp(
       title: "habit@",

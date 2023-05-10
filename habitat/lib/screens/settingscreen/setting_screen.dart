@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitat/screens/alarm/local_notification.dart';
 import 'package:habitat/screens/settingscreen/coaster_connect.dart';
 import 'package:habitat/screens/settingscreen/modify_goal_screen.dart';
 import 'package:habitat/screens/settingscreen/setting_cash.dart';
@@ -148,6 +149,8 @@ class _settingboxState extends State<settingbox> {
 
   onSettingCoaster() {}
 
+  onSettingAlarm() {}
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -156,6 +159,11 @@ class _settingboxState extends State<settingbox> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          TextButton(
+              onPressed: () {
+                LocalNotification.showNotification();
+              },
+              child: const Text('test')),
           const Text(
             "목표설정",
             style: TextStyle(
@@ -276,7 +284,7 @@ class _settingboxState extends State<settingbox> {
             height: 6,
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: onSettingAlarm,
             style: TextButton.styleFrom(
               // minimumSize: Size.zero,
               foregroundColor: const Color(0xff47799B),

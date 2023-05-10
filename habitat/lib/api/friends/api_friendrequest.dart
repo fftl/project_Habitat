@@ -29,19 +29,24 @@ class ApiFriendRequest {
   final int friendRequestKey = 0;
   bool result = false;
 
-  void postFriendRequest(int requestCode, String id) async {
-    Uri url = Uri.http(baseurl, 'friends/request/ok', {'userKey': id});
-    http.Response response = await http.post(url,
+  void postFriendRequest(int requestCode, String userKey) async {
+    Uri url = Uri.http(baseurl, 'friends/request/ok', {'userKey': userKey});
+
+    http.Response response = await http.put(url,
+        headers: {"Content-Type": "application/json"},
         body: jsonEncode({'friendRequestKey': requestCode}));
 
     if (response.statusCode == 200) {
       debugPrint('수락');
+    } else {
+      debugPrint('안됨 ${response.statusCode}');
     }
   }
 
-  void putFriendRequest(int requestCode, String id) async {
+  void deleteFriendRequest(int requestCode, String id) async {
     Uri url = Uri.http(baseurl, 'friends/request/cancel', {'userKey': id});
-    http.Response response = await http.post(url,
+    http.Response response = await http.put(url,
+        headers: {"Content-Type": "application/json"},
         body: jsonEncode({'friendRequestKey': requestCode}));
 
     if (response.statusCode == 200) {

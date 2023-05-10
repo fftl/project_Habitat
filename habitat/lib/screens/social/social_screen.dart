@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:habitat/api/friends/api_friendcode.dart';
+import 'package:habitat/api/friends/api_friendslist.dart';
 import 'package:habitat/api/friends/api_sendrequestcode.dart';
+import 'package:habitat/models/friends_list_model.dart';
 import 'package:habitat/screens/social/friend_list.dart';
+import 'package:habitat/screens/social/friend_request_list.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 
 class SocialScreen extends StatefulWidget {
@@ -17,6 +20,15 @@ class _SocialScreenState extends State<SocialScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    update();
+  }
+
+  late Future<List<FriendsListModel>> friendslistdata;
+
+  void update() {
+    friendslistdata = ApiFriendsList().getFriendsList('asdf');
+    setState(() {});
+    debugPrint('실행되는지');
   }
 
   final ScrollController scrollController = ScrollController();
@@ -48,6 +60,11 @@ class _SocialScreenState extends State<SocialScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              TextButton(
+                  onPressed: () {
+                    update();
+                  },
+                  child: const Text('테스트')),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -150,8 +167,7 @@ class _SocialScreenState extends State<SocialScreen> {
                 ],
               ),
               friendsRequestlistWidget(
-                controller: scrollController,
-              ),
+                  controller: scrollController, update: update),
               const SizedBox(
                 height: 10,
               ),
@@ -166,6 +182,7 @@ class _SocialScreenState extends State<SocialScreen> {
               ),
               friendslistWidget(
                 controller: scrollController,
+                friendslistdata: friendslistdata,
               )
             ],
           ),
