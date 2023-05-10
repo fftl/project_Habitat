@@ -64,12 +64,15 @@ class FriendServiceTest {
     @DisplayName("친구신청 테스트")
     void testCheckFriendRequestPossible_NotFriend() {
         // 친구 관계가 아닌 경우를 테스트
+        // repository mock 객체의 리턴값 설정
         when(friendRepository.findByMyIdAndFriendId(user, user2)).thenReturn(Optional.empty());
 
+        // 예외 발생하지 않음 확인
         Assertions.assertDoesNotThrow(() -> {
             friendService.checkFriendRequestPossible(user, user2);
         });
 
+        // 함수 호출(객체, 횟수) 확인
         verify(friendRepository, times(1)).findByMyIdAndFriendId(user, user2);
     }
 
@@ -78,6 +81,7 @@ class FriendServiceTest {
     void testCheckFriendRequestPossible_AlreadyFriend() {
         // 이미 친구 관계에 있는 경우를 테스트
         Friend friend = Friend.builder().myId(user).friendId(user2).build();
+        // Optional.of(friend) : Optional 객체가 절대 Null일 수 없는 경우
         when(friendRepository.findByMyIdAndFriendId(user, user2)).thenReturn(Optional.of(friend));
 
         Assertions.assertThrows(CustomException.class, () -> {
