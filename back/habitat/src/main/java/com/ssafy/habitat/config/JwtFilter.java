@@ -37,7 +37,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String header = request.getHeader(AUTHORIZATION_HEADER);
 
         String requestURI = request.getRequestURI(); //어떤 요청이 왔는지 URI를 저장합니다.
-        if(requestURI.equals("/users/login")){  //로그인 요청일 경우에는 아무런 검사 없이 filter를 종료합니다.
+        if(!requestURI.startsWith("/api")){  //로그인 요청일 경우에는 아무런 검사 없이 filter를 종료합니다.
             filterChain.doFilter(request, response);
             return;
         }
@@ -46,7 +46,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String check = tokenProvider.validateToken(jwt);
 
         headerCheck(response, header);
-        if(requestURI.equals("/users/refresh")){
+        if(requestURI.equals("/api/users/refresh")){
             LOGGER.info("Refresh 토큰은 유효하기 때문에 새로운 토큰을 생성합니다.");
             refreshProcess(response, jwt, check);
         } else {

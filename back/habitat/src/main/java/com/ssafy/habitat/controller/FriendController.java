@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@RequestMapping("/friends")
+@RequestMapping("/api/friends")
 public class FriendController {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
