@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,8 +44,8 @@ public class FlowerController {
 
     @GetMapping("/exp")
     @ApiOperation(value = "리워드 페이지 조회(꽃, 경험치, 레벨)", notes="현재 유저의 꽃, 경험치, 레벨을 조회합니다.")
-    public ResponseEntity getDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token) {
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity getDrinkLog(HttpServletRequest request) {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         Planting planting = plantingService.getCurrentPlant(user);
@@ -102,8 +103,8 @@ public class FlowerController {
 
     @GetMapping("/available")
     @ApiOperation(value = "획득할 수 있는(해금) 꽃 목록", notes="유저가 획득할 수 있는 꽃 목록을 조회합니다.")
-    public ResponseEntity getAvailableFlowerList(@RequestHeader(AUTHORIZATION_HEADER) String token) {
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity getAvailableFlowerList(HttpServletRequest request) {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         // user가 해금한 꽃
@@ -127,8 +128,8 @@ public class FlowerController {
 
     @GetMapping("/get")
     @ApiOperation(value = "수확한 꽃 목록", notes="유저가 수확한 꽃 목록을 중복없이 조회합니다.")
-    public ResponseEntity getGetFlowerList(@RequestHeader(AUTHORIZATION_HEADER) String token) {
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity getGetFlowerList(HttpServletRequest request) {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         // user가 획득한 꽃
@@ -159,8 +160,8 @@ public class FlowerController {
 
     @GetMapping("/collection")
     @ApiOperation(value = "꽃 목록", notes="모든 꽃에 대하여 유저의 상태(획득, 획득가능, 미획득)를 조회합니다.")
-    public ResponseEntity getFlowerList(@RequestHeader(AUTHORIZATION_HEADER) String token) {
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity getFlowerList(HttpServletRequest request) {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         List<Flower> flowerList = flowerService.getFlowerList();

@@ -48,7 +48,7 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         headerCheck(response, header);
-        
+
         String jwt = resolveToken(request); //요청 데이터속에서 jwt를 가져옵니다.
         String check = tokenProvider.validateToken(jwt);
 
@@ -118,6 +118,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
         }else{
             LOGGER.info("유효하지 않은 토큰입니다., uri: {}", requestURI);
+            setErrorResponse(response, ErrorCode.UNAUTHORIZED_USER);
+            System.out.println("여기는?");
         }
     }
 
@@ -127,7 +129,8 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     /**필터 내에서의 Exception 처리에 사용합니다.*/
-    private void setErrorResponse( HttpServletResponse response, ErrorCode errorCode){
+    private void setErrorResponse( HttpServletResponse response, ErrorCode errorCode ){
+        System.out.println("setErrorResponse");
         ObjectMapper objectMapper = new ObjectMapper();
         response.setStatus(errorCode.getStatus());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
@@ -139,6 +142,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 .build();
         try{
             response.getWriter().write(objectMapper.writeValueAsString(failResponse));
+            System.out.println("어디까지가나?");
         }catch (IOException e){
             e.printStackTrace();
         }

@@ -22,6 +22,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,8 +66,8 @@ public class UserController {
 
     @PatchMapping("/modify")
     @ApiOperation(value = "유저 닉네임 수정", notes="유저의 닉네임을 수정합니다.")
-    public ResponseEntity modifiedUser(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.ModifyNickname requestUserDto){
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity modifiedUser(HttpServletRequest request, @RequestBody RequestUserDto.ModifyNickname requestUserDto){
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
         String newNickname = requestUserDto.getNickname();
 
@@ -82,8 +84,8 @@ public class UserController {
 
     @PatchMapping("/modify/goal")
     @ApiOperation(value = "유저 목표 섭취량 수정", notes="유저의 목표섭취량을 수정합니다.")
-    public ResponseEntity modifiedUserGoal(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.ModifyGoal requestUserDto){
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity modifiedUserGoal(HttpServletRequest request, @RequestBody RequestUserDto.ModifyGoal requestUserDto){
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
         int newGoal = requestUserDto.getGoal();
 
@@ -100,8 +102,8 @@ public class UserController {
 
     @PatchMapping("/modify/img")
     @ApiOperation(value = "유저 이미지 수정", notes="유저의 프로필 이미지를 수정합니다.")
-    public ResponseEntity modifiedUserImg(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestParam("file") MultipartFile file) throws IOException {
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity modifiedUserImg(HttpServletRequest request, @RequestParam("file") MultipartFile file) throws IOException {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
 
         //파일의 확장자를 탐색합니다. ( 일단 후 순위 )
@@ -115,9 +117,10 @@ public class UserController {
 
     @GetMapping
     @ApiOperation(value = "유저 조회", notes="유저 키를 통해 유저를 조회합니다.")
-    public ResponseEntity getUser(@RequestHeader(AUTHORIZATION_HEADER) String token){
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity getUser(HttpServletRequest request){
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
+
         ResponseUserDto.User responseUser = ResponseUserDto.User.builder()
                 .userKey(user.getUserKey())
                 .nickname(user.getNickname())
@@ -130,8 +133,8 @@ public class UserController {
 
     @PostMapping("/coaster")
     @ApiOperation(value = "유저 코스터 등록", notes="유저의 코스터를 등록합니다.")
-    public ResponseEntity getUser(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestCoasterDto requestCoasterDto) throws IOException {
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity getUser(HttpServletRequest request, @RequestBody RequestCoasterDto requestCoasterDto) throws IOException {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
         Coaster coaster = coasterService.getCoaster(requestCoasterDto.getCoasterKey());
 
@@ -258,7 +261,7 @@ public class UserController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity validateRefreshToken(@RequestHeader(AUTHORIZATION_HEADER) String token, HttpServletResponse response){
+    public ResponseEntity validateRefreshToken(HttpServletRequest request, HttpServletResponse response){
         return new ResponseEntity(HttpStatus.OK);
     }
 
