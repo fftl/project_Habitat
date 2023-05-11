@@ -28,12 +28,6 @@ public class FlowerService {
         return findFlower;
     }
 
-    public List<Flower> getFriendFlowerList() {
-        // 친구 등록수가 조건인 꽃 목록 조회
-        List<Flower> friendFlowerList = flowerRepository.findByFriend(true);
-        return friendFlowerList;
-    }
-
     public List<Flower> getFlowerList() {
         List<Flower> flowerList = flowerRepository.findAll();
         return flowerList;
