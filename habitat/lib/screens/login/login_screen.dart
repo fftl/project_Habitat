@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:habitat/controller/user_controller.dart';
 
 Future<UserCredential> signInWithGoogle() async {
   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -18,7 +20,9 @@ Future<UserCredential> signInWithGoogle() async {
 }
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  LoginScreen({super.key});
+
+  final usercontroller = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +30,23 @@ class LoginScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text("Google"),
         ),
-        body: const Center(
+        body: Center(
           child: Column(children: [
             TextButton(
-              onPressed: signInWithGoogle,
-              child: Text("Sign in with Google"),
-            )
+              onPressed: () async {
+                await Get.find<UserController>().signWithGoogle();
+                if (Get.find<UserController>().loginSuccess.value) {
+                  Navigator.pushReplacementNamed(context, '/main');
+                }
+              },
+              child: const Text("Sign in with Google"),
+            ),
+            GetX<UserController>(builder: (controller) {
+              return Text(
+                controller.loginSuccess.value ? '' : '실패',
+                style: const TextStyle(fontSize: 32),
+              );
+            })
           ]),
         ));
   }
