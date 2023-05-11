@@ -133,7 +133,7 @@ public class UserController {
 
     @PostMapping("/coaster")
     @ApiOperation(value = "유저 코스터 등록", notes="유저의 코스터를 등록합니다.")
-    public ResponseEntity getUser(HttpServletRequest request, @RequestBody RequestCoasterDto requestCoasterDto) throws IOException {
+    public ResponseEntity addCoaster(HttpServletRequest request, @RequestBody RequestCoasterDto requestCoasterDto) throws IOException {
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
         Coaster coaster = coasterService.getCoaster(requestCoasterDto.getCoasterKey());
