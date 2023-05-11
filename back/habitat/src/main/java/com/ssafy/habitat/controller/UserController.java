@@ -5,9 +5,7 @@ import com.ssafy.habitat.config.TokenProvider;
 import com.ssafy.habitat.dto.RequestCoasterDto;
 import com.ssafy.habitat.dto.RequestUserDto;
 import com.ssafy.habitat.dto.ResponseUserDto;
-import com.ssafy.habitat.entity.Coaster;
-import com.ssafy.habitat.entity.User;
-import com.ssafy.habitat.entity.UserCoaster;
+import com.ssafy.habitat.entity.*;
 import com.ssafy.habitat.exception.CustomException;
 import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.service.*;
@@ -24,8 +22,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -40,10 +41,13 @@ public class UserController {
     private TokenProvider tokenProvider;
     private PasswordEncoder encoder;
     private AuthenticationManagerBuilder authenticationManagerBuilder;
+    private FlowerService flowerService;
+    private PlantingService plantingService;
+    private UserFlowerService userFlowerService;
     private Util util;
 
     @Autowired
-    public UserController(UserService userService, S3Uploader s3Uploader, CoasterService coasterService, UserCoasterService userCoasterService, RewardService rewardService, TokenProvider tokenProvider, PasswordEncoder encoder, AuthenticationManagerBuilder authenticationManagerBuilder, Util util) {
+    public UserController(UserService userService, S3Uploader s3Uploader, CoasterService coasterService, UserCoasterService userCoasterService, RewardService rewardService, TokenProvider tokenProvider, PasswordEncoder encoder, AuthenticationManagerBuilder authenticationManagerBuilder, FlowerService flowerService, PlantingService plantingService, UserFlowerService userFlowerService, Util util) {
         this.userService = userService;
         this.s3Uploader = s3Uploader;
         this.coasterService = coasterService;
@@ -52,6 +56,9 @@ public class UserController {
         this.tokenProvider = tokenProvider;
         this.encoder = encoder;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
+        this.flowerService = flowerService;
+        this.plantingService = plantingService;
+        this.userFlowerService = userFlowerService;
         this.util = util;
     }
 
@@ -144,8 +151,8 @@ public class UserController {
 
     @PostMapping("/login")
     @ApiOperation(value = "유저 로그인", notes="유저 로그인 처리를 합니다.")
-    public ResponseEntity login(@RequestBody RequestUserDto.Login request){
-        TokenInfo response = null;
+    public ResponseEntity login(@RequestBody RequestUserDto.Login request, HttpServletResponse httpServletResponse){
+        TokenInfo tokenInfo = null;
         //처음으로 로그인 요청을 한 유저라면!
         if(userService.socialKeyCheck(request.getSocialKey())){
             /**
@@ -183,13 +190,52 @@ public class UserController {
             userService.addUser(createUser);
             User user = userService.getUser(newKey);
 
+            //유저 꽃 해금 정보 생성
+            List<Flower> flowerList = flowerService.getFlowerList();
+            for (int j = 0; j < flowerList.size(); j++) {
+                Flower flower = flowerList.get(j);
+                UserFlower newUserFlower = UserFlower.builder()
+                        .connect(flower.isConnect())
+                        .drink(flower.isDrink())
+                        .friend(flower.isFriend())
+                        .streak(flower.isStreak())
+                        .isUnlocked(false)
+                        .flower(flower)
+                        .user(user)
+                        .build();
+                if (flower.getFlowerKey() == 1) {
+                    newUserFlower.setUnlocked(true);
+                }
+                userFlowerService.addUserFlower(newUserFlower);
+            }
+
+            //유저 기본 꽃 정보 생성
+            Flower flower = flowerService.getFlower(1);
+            Planting newPlating = Planting.builder()
+                    .exp(0)
+                    .flowerCnt(1)
+                    .lv(0)
+                    .flower(flower)
+                    .user(user)
+                    .build();
+            plantingService.addPlanting(newPlating);
+
+            //인증 정보
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserKey(), user.getUserKey(), AuthorityUtils.createAuthorityList("USER"));
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-            response = tokenProvider.createToken(authentication);
-            user.setRefreshKey(response.getRefreshToken());
+            //새로운 토큰 생성
+            tokenInfo = tokenProvider.createToken(authentication);
+            user.setRefreshKey(tokenInfo.getRefreshToken());
             userService.addUser(user);
 
+            httpServletResponse.setHeader("AccessToken", tokenInfo.getAccessToken());
+            httpServletResponse.setHeader("RefreshToken", tokenInfo.getRefreshToken());
+
+            HashMap<String, String> response = new HashMap<>();
+            response.put("userKey", user.getUserKey());
+
+            return new ResponseEntity(response, HttpStatus.OK);
         } else {
 
             User getUser = userService.getBySocialKey(request.getSocialKey());
@@ -197,18 +243,22 @@ public class UserController {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(getUser.getUserKey(), getUser.getUserKey(), AuthorityUtils.createAuthorityList("USER"));
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-            response = tokenProvider.createToken(authentication);
-
-            getUser.setRefreshKey(response.getRefreshToken());
+            tokenInfo = tokenProvider.createToken(authentication);
+            getUser.setRefreshKey(tokenInfo.getRefreshToken());
             userService.addUser(getUser);
 
-        }
+            httpServletResponse.setHeader("AccessToken", tokenInfo.getAccessToken());
+            httpServletResponse.setHeader("RefreshToken", tokenInfo.getRefreshToken());
 
-        return new ResponseEntity(response, HttpStatus.OK);
+            HashMap<String, String> response = new HashMap<>();
+            response.put("userKey", getUser.getUserKey());
+
+            return new ResponseEntity(response, HttpStatus.OK);
+        }
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity validateRefreshToken(@RequestHeader(AUTHORIZATION_HEADER) String token){
+    public ResponseEntity validateRefreshToken(@RequestHeader(AUTHORIZATION_HEADER) String token, HttpServletResponse response){
         return new ResponseEntity(HttpStatus.OK);
     }
 

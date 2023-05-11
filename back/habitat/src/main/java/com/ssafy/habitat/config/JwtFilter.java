@@ -35,17 +35,23 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String header = request.getHeader(AUTHORIZATION_HEADER);
-
         String requestURI = request.getRequestURI(); //어떤 요청이 왔는지 URI를 저장합니다.
-        if(!requestURI.startsWith("/api")){  //로그인 요청일 경우에는 아무런 검사 없이 filter를 종료합니다.
+
+        if(!requestURI.startsWith("/api")){
             filterChain.doFilter(request, response);
             return;
         }
 
+        if(requestURI.equals("/api/users/login")){
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        headerCheck(response, header);
+        
         String jwt = resolveToken(request); //요청 데이터속에서 jwt를 가져옵니다.
         String check = tokenProvider.validateToken(jwt);
 
-        headerCheck(response, header);
         if(requestURI.equals("/api/users/refresh")){
             LOGGER.info("Refresh 토큰은 유효하기 때문에 새로운 토큰을 생성합니다.");
             refreshProcess(response, jwt, check);
