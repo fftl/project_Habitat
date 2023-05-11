@@ -28,7 +28,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       checkOnboarding();
       debugPrint("온보딩 체크 $check");
       if (check != null) {
-        Navigator.pushNamed(context, '/main');
+        Navigator.pushReplacementNamed(context, '/main');
       }
     });
   }
