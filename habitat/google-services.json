@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "717538880248-189mc572gfmhc7jdipa3625u7vl6q25b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.status200.habitat",
+            "certificate_hash": "a9c70c1bd852ffd2365c89b28b5536c1e7ec8d08"
+          }
+        },
+        {
           "client_id": "717538880248-7imbroeftif5qko51mf62jq08od9mh07.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -22,7 +30,7 @@
           }
         },
         {
-          "client_id": "717538880248-s7fl3j7k9qeo7j8apajde5nbdrl9qap7.apps.googleusercontent.com",
+          "client_id": "717538880248-n31ag33bef1rk9p0k0s1f14h8k4obrc2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -35,8 +43,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "717538880248-s7fl3j7k9qeo7j8apajde5nbdrl9qap7.apps.googleusercontent.com",
+              "client_id": "717538880248-n31ag33bef1rk9p0k0s1f14h8k4obrc2.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "717538880248-uihelbb159rt54af6f0bh0h7ca9tuakr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.status200.habitat"
+              }
             }
           ]
         }
