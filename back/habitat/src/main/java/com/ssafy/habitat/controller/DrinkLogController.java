@@ -131,7 +131,7 @@ public class DrinkLogController {
 
     @PostMapping("/add")
     @ApiOperation(value = "섭취량 증가(수동)", notes="수동으로 유저의 음수량을 입력합니다.")
-    public ResponseEntity addDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestDrinkLogDto requestDrinkLog) {
+    public ResponseEntity addDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestDrinkLogDto requestDrinkLog) throws IOException {
         String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
@@ -165,7 +165,7 @@ public class DrinkLogController {
 
     @PostMapping("/auto")
     @ApiOperation(value = "섭취량 증가(코스터)", notes="코스터로 섭취한 음수량을 입력합니다.")
-    public ResponseEntity addAutoDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestDrinkLogDto requestDrinkLog) {
+    public ResponseEntity addAutoDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestDrinkLogDto requestDrinkLog) throws IOException {
         String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
