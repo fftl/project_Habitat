@@ -84,6 +84,7 @@ flutter:
     - lib/assets/images/flowers/6/
     - lib/assets/images/flowers/7/
     - lib/assets/images/flowers/8/
+    - lib/assets/images/characters/
     - lib/assets/images/sunflower.png
     - lib/assets/images/kakao.png
     - lib/assets/images/default_profile.png

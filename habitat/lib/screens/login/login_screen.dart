@@ -27,27 +27,32 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Google"),
-        ),
+        backgroundColor: Colors.white,
         body: Center(
-          child: Column(children: [
-            TextButton(
-              onPressed: () async {
-                await Get.find<UserController>().signWithGoogle();
-                if (Get.find<UserController>().loginSuccess.value) {
-                  Navigator.pushReplacementNamed(context, '/main');
-                }
-              },
-              child: const Text("Sign in with Google"),
-            ),
-            GetX<UserController>(builder: (controller) {
-              return Text(
-                controller.loginSuccess.value ? '' : '실패',
-                style: const TextStyle(fontSize: 32),
-              );
-            })
-          ]),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('lib/assets/images/characters/MangWull.png'),
+              const SizedBox(
+                height: 20,
+              ),
+              TextButton(
+                onPressed: () async {
+                  await Get.find<UserController>().signWithGoogle();
+                  if (Get.find<UserController>().loginSuccess.value) {
+                    Navigator.pushReplacementNamed(context, '/main');
+                  }
+                },
+                child: const Text(
+                  "Sign in with Google",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ));
   }
 }
