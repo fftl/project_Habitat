@@ -33,15 +33,17 @@ public class FriendController {
     private DrinkLogService drinkLogService;
     private RewardService rewardService;
     private TokenProvider tokenProvider;
+    private CustomWebSocketHandler customWebSocketHandler;
 
     @Autowired
-    public FriendController(FriendService friendService, FriendRequestService friendRequestService, UserService userService, DrinkLogService drinkLogService, RewardService rewardService, TokenProvider tokenProvider) {
+    public FriendController(FriendService friendService, FriendRequestService friendRequestService, UserService userService, DrinkLogService drinkLogService, RewardService rewardService, TokenProvider tokenProvider, CustomWebSocketHandler customWebSocketHandler) {
         this.friendService = friendService;
         this.friendRequestService = friendRequestService;
         this.userService = userService;
         this.drinkLogService = drinkLogService;
         this.rewardService = rewardService;
         this.tokenProvider = tokenProvider;
+        this.customWebSocketHandler = customWebSocketHandler;
     }
 
     @GetMapping("/all")
@@ -84,7 +86,7 @@ public class FriendController {
 
     @PostMapping("/request/userkey")
     @ApiOperation(value = "친구신청 보내기(유저키)", notes="해당 유저키의 유저에게 친구신청을 보냅니다.")
-    public ResponseEntity sendFriendListByUserKey(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.RequestFriend requestFriendDto) {
+    public ResponseEntity sendFriendListByUserKey(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.RequestFriend requestFriendDto) throws IOException {
         String userKey = tokenProvider.getUserKey(token);
         User fromUser = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         User toUser = userService.getUser(requestFriendDto.getFriendUserKey()); // 친구신청할 userKey의 유저를 찾습니다.
@@ -105,7 +107,7 @@ public class FriendController {
 
     @PostMapping("/request/code")
     @ApiOperation(value = "친구신청 보내기(친구코드)", notes="해당 친구코드로 친구신청을 보냅니다.")
-    public ResponseEntity sendFriendListByCode(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.FriendCode requestFriendDto) {
+    public ResponseEntity sendFriendListByCode(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.FriendCode requestFriendDto) throws IOException {
         String userKey = tokenProvider.getUserKey(token);
         User fromUser = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         User toUser = userService.getByFriendCode(requestFriendDto.getFriendCode()); // 친구코드에 해당하는 유저를 찾습니다.
@@ -126,7 +128,7 @@ public class FriendController {
 
     @PutMapping("/request/ok")
     @ApiOperation(value = "친구신청 수락", notes="해당 친구신청을 수락합니다.")
-    public ResponseEntity acceptFriendList(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestFriendRequestDto requestFriendRequestDto) {
+    public ResponseEntity acceptFriendList(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestFriendRequestDto requestFriendRequestDto) throws IOException {
         String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         FriendRequest friendRequest = friendRequestService.getFriendRequestByRequestKey(requestFriendRequestDto.getFriendRequestKey()); // requestKey의 친구신청 내역을 찾습니다.

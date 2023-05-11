@@ -38,29 +38,37 @@ public class User extends BaseTime implements UserDetails {
      * 유저가 가져야하는 데이터들
      */
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     private List<Planting> plantingList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     private List<Collection> collectionList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     private List<UserFlower> userFlowerList = new ArrayList<>();
 
     //ok
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     private List<UserFlowerLog> userFlowerLogList = new ArrayList<>();
 
     //ok
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     private List<DrinkLog> drinkLogList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     private List<StreakLog> streakLogList = new ArrayList<>();
 
     @OneToMany(mappedBy = "to")
+    @Builder.Default
     private List<FriendRequest> friendRequestList = new ArrayList<>();
 
     @OneToMany(mappedBy = "myId")
+    @Builder.Default
     private List<Friend> friendList = new ArrayList<>();
 
     @OneToOne(mappedBy = "user")
