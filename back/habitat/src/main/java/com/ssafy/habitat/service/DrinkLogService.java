@@ -25,7 +25,7 @@ public class DrinkLogService {
     }
 
     public LocalDateTime getRecentLog(User curUser) {
-        DrinkLog recentLog = drinkLogRepository.findTop1ByUserOrderByCreatedAtDesc(curUser);
+        DrinkLog recentLog = drinkLogRepository.findTop1ByUserOrderByCreatedAtDesc(curUser).orElse(null);
         if(recentLog == null) return null;
         else return recentLog.getCreatedAt();
     }

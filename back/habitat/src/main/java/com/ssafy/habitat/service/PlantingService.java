@@ -20,10 +20,8 @@ public class PlantingService {
 
     public Planting getCurrentPlant(User user) {
         // 현재 키우고 있는 꽃의 정보를 리턴
-        Planting findPlanting = plantingRepository.findByUserAndFlowerCnt(user, user.getCollectionList().size()+1);
-        if(findPlanting == null) {
-            throw new CustomException(ErrorCode.PLANTING_NOT_FOUND);
-        }
+        Planting findPlanting = plantingRepository.findByUserAndFlowerCnt(user, user.getCollectionList().size()+1)
+                .orElseThrow(() -> new CustomException(ErrorCode.PLANTING_NOT_FOUND));
 
         return findPlanting;
     }

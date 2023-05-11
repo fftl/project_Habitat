@@ -9,10 +9,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface DrinkLogRepository extends JpaRepository<DrinkLog, Integer> {
-    DrinkLog findTop1ByUserOrderByCreatedAtDesc(User curUser);
+    Optional<DrinkLog> findTop1ByUserOrderByCreatedAtDesc(User curUser);
     List<DrinkLog> findAllByUserAndIsRemoved(User user, boolean isRemoved);
     List<DrinkLog> findAllByUserAndAndIsRemovedAndModifiedAtBetween(User user, boolean isRemoved, LocalDateTime start, LocalDateTime end);
 }

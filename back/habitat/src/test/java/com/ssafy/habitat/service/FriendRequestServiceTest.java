@@ -1,11 +1,10 @@
 package com.ssafy.habitat.service;
 
-import com.ssafy.habitat.entity.Friend;
 import com.ssafy.habitat.entity.FriendRequest;
 import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.exception.CustomException;
+import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.repository.FriendRequestRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -60,60 +59,78 @@ class FriendRequestServiceTest {
 
     @Test
     @DisplayName("친구신청 테스트")
-    void addFriendRequest() {
+    void addFriendRequest_SaveNewFriendRequest() {
+        // Given
+        User fromUser = new User();
+        User toUser = new User();
+        FriendRequest newFriendRequest = FriendRequest.builder().from(fromUser).to(toUser).build();
+        when(friendRequestRepository.findByFromAndToAndStatus(fromUser, toUser, 0)).thenReturn(null);
 
-        FriendRequest friendRequest = FriendRequest.builder().from(user1).to(user2).build();
-        when(friendRequestRepository.findByFromAndToAndStatus(user1, user2, 0)).thenReturn(null);
-
-        Assertions.assertDoesNotThrow(() -> {
-            friendRequestService.addFriendRequest(friendRequest);
+        // When
+        assertDoesNotThrow(() -> {
+            friendRequestService.addFriendRequest(newFriendRequest);
         });
 
-
-        verify(friendRequestRepository, times(1)).save(friendRequest);
+        // Then
+        verify(friendRequestRepository, times(1)).save(newFriendRequest);
     }
 
     @Test
     @DisplayName("친구신청 테스트(자기 자신에게 신청)")
-    void addFriendRequest_MySelf() {
-        FriendRequest friendRequest = FriendRequest.builder().from(user1).to(user1).build();
+    void addFriendRequest_WhenSendFrierndRequestToMySelf_ThrowException() {
+        // Given
+        User fromUser = new User();
+        User toUser = new User();
+        FriendRequest newFriendRequest = FriendRequest.builder().from(fromUser).to(toUser).build();
 
-        Assertions.assertThrows(CustomException.class, () -> {
-            friendRequestService.addFriendRequest(friendRequest);
+        // When & Then
+        CustomException exception = assertThrows(CustomException.class, () -> {
+            friendRequestService.addFriendRequest(newFriendRequest);
         });
 
+        assertEquals(ErrorCode.FRIEND_REQUEST_NOT_FOR_MYSELF, exception.getErrorCode());
     }
 
     @Test
     @DisplayName("친구신청 테스트(이미 보낸 신청)")
-    void addFriendRequest_AlreadySent() {
-        FriendRequest friendRequest = FriendRequest.builder().from(user1).to(user2).build();
-        when(friendRequestRepository.findByFromAndToAndStatus(user1, user2, 0)).thenReturn(Optional.of(friendRequest));
+    void addFriendRequest_WhenFriendRequestAlreadySent_ThrowException() {
+        // Given
+        User fromUser = new User();
+        User toUser = new User();
+        FriendRequest newFriendRequest = FriendRequest.builder().from(fromUser).to(toUser).build();
+        when(friendRequestRepository.findByFromAndToAndStatus(fromUser, toUser, 0)).thenReturn(Optional.of(newFriendRequest));
 
-        Assertions.assertThrows(CustomException.class, () -> {
-            friendRequestService.addFriendRequest(friendRequest);
+        // When & Then
+        CustomException exception = assertThrows(CustomException.class, () -> {
+            friendRequestService.addFriendRequest(newFriendRequest);
         });
+
+        assertEquals(ErrorCode.ALREADY_SENT_FRIEND_REQUEST, exception.getErrorCode());
     }
 
     @Test
     @DisplayName("친구신청 목록 조회 테스트")
-    void getFriendRequestList() {
+    void getFriendRequestList_ReturnFriendRequestList() {
+        // Given
+        User user1 = new User();
+        User user2 = new User();
+
         List<FriendRequest> expectedFriendRequestList = new ArrayList<>();
         expectedFriendRequestList.add(friendRequest1); // status==0 인 신청기록만 조회되어야 함
 
         List<FriendRequest> friendRequestList = friendRequestService.getFriendRequestList(user1);
 
-        Assertions.assertEquals(expectedFriendRequestList, friendRequestList);
+        assertEquals(expectedFriendRequestList, friendRequestList);
     }
 
     @Test
     @DisplayName("친구신청 상세 조회 테스트")
-    void getFriendRequestByRequestKey() {
+    void getFriendRequestByRequestKey_WhenFriendRequestExists_ReturnFriendRequest() {
         int requestKey = 1;
         FriendRequest expectedFriendRequest = friendRequest1;
         when(friendRequestRepository.findById(requestKey)).thenReturn(Optional.of(friendRequest1));
 
-        Assertions.assertDoesNotThrow(()-> {
+        assertDoesNotThrow(()-> {
             friendRequestService.getFriendRequestByRequestKey(requestKey);
         });
 
@@ -124,11 +141,11 @@ class FriendRequestServiceTest {
 
     @Test
     @DisplayName("친구신청 상세 조회 테스트(존재하지 않는 내역)")
-    void getFriendRequestByRequestKey_RequestNotFound() {
+    void getFriendRequestByRequestKey_WhenFriendRequestDoesNotExist_ThrowException() {
         int requestKey = 1;
         when(friendRequestRepository.findById(requestKey)).thenReturn(Optional.empty());
 
-        Assertions.assertThrows(CustomException.class, () -> {
+        assertThrows(CustomException.class, () -> {
             friendRequestService.getFriendRequestByRequestKey(requestKey);
         });
     }
@@ -136,15 +153,15 @@ class FriendRequestServiceTest {
     @Test
     @DisplayName("친구신청 수락/거절 유효성 테스트")
     void checkFriendRequestAuthorization() {
-        Assertions.assertDoesNotThrow(() -> {
+        assertDoesNotThrow(() -> {
             friendRequestService.checkFriendRequestAuthorization(user1, friendRequest1);
         });
     }
 
     @Test
     @DisplayName("친구신청 수락/거절 유효성 테스트(해당 유저에게 귀속된 신청 아님)")
-    void checkFriendRequestAuthorization_NotForUser() {
-        Assertions.assertThrows(CustomException.class, () -> {
+    void checkFriendRequestAuthorization_WhenFriendRequestNotForUser_ThrowException() {
+        assertThrows(CustomException.class, () -> {
             friendRequestService.checkFriendRequestAuthorization(user1, friendRequest3);
         });
 
@@ -152,15 +169,15 @@ class FriendRequestServiceTest {
 
     @Test
     @DisplayName("친구신청 수락/거절 유효성 테스트(이미 처리가 끝난 친구신청)")
-    void checkFriendRequestAuthorization_AlreadyHandled() {
-        Assertions.assertThrows(CustomException.class, () -> {
+    void checkFriendRequestAuthorization_WhenFriendRequestIsAlreadyHandled_ThrowException() {
+        assertThrows(CustomException.class, () -> {
            friendRequestService.checkFriendRequestAuthorization(user1, friendRequest2);
         });
     }
 
     @Test
     @DisplayName("친구신청 상태 변경 테스트")
-    void modifyFriendRequest() {
+    void modifyFriendRequest_UpdateFriendRequest() {
         when(friendRequestRepository.save(friendRequest1)).thenReturn(null);
         friendRequestService.modifyFriendRequest(friendRequest1, 1);
     }

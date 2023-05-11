@@ -2,6 +2,7 @@ package com.ssafy.habitat.service;
 
 import com.ssafy.habitat.entity.Flower;
 import com.ssafy.habitat.exception.CustomException;
+import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.repository.FlowerRepository;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
@@ -22,57 +23,72 @@ class FlowerServiceTest {
     @InjectMocks
     FlowerService flowerService;
 
-    private Flower flower;
-    private List<Flower> flowerList;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-
-        // 테스트용 데이터 설정
-        flower = new Flower();
-        flower.setFlowerKey(1);
-        flowerList = new ArrayList<>();
-        flowerList.add(flower);
     }
 
     @Test
     @DisplayName("꽃 등록 테스트")
-    void addFlower() {
-        when(flowerRepository.save(flower)).thenReturn(null);
+    void addFlower_SaveNewFlower() {
+        // Given
+        Flower flower = new Flower();
+
+        // When
         flowerService.addFlower(flower);
+
+        // Then
+        verify(flowerRepository, times(1)).save(flower);
     }
 
     @Test
     @DisplayName("꽃 상세 조회 테스트")
-    void getFlower() {
+    void getFlower_WhenFlowerExists_ReturnFlower() {
+        // Given
         int flowerKey = 1;
+        Flower flower = new Flower();
+        flower.setFlowerKey(flowerKey);
         when(flowerRepository.findById(flowerKey)).thenReturn(Optional.of(flower));
 
-        Assertions.assertDoesNotThrow(() -> {
-            flowerService.getFlower(flowerKey);
-        });
+        // When
+        Flower result = flowerService.getFlower(flowerKey);
 
-        Flower expectedFlower = flowerService.getFlower(flowerKey);
-        Assertions.assertEquals(expectedFlower, flower);
+        // Then
+        verify(flowerRepository, times(1)).findById(flowerKey);
+        assertEquals(result, flower);
     }
 
     @Test
     @DisplayName("꽃 상세 조회 테스트(존재하지 않는 꽃)")
-    void getFlower_FlowerNotFound() {
+    void getFlower_WhenFlowerDoesNotExist_ThrowException() {
+        // Given
         int flowerKey = 1;
+        Flower flower = new Flower();
+        flower.setFlowerKey(flowerKey);
         when(flowerRepository.findById(flowerKey)).thenReturn(Optional.empty());
-        Assertions.assertThrows(CustomException.class, () -> {
+
+        // When & Then
+        CustomException exception = assertThrows(CustomException.class, () -> {
             flowerService.getFlower(flowerKey);
         });
 
+        verify(flowerRepository, times(1)).findById(flowerKey);
+        assertEquals(ErrorCode.FLOWER_NOT_FOUND, exception.getErrorCode());
     }
 
     @Test
     @DisplayName("모든 꽃 조회 테스트")
-    void getFlowerList() {
+    void getFlowerList_ReturnFlowerList() {
+        // Given
+        List<Flower> flowerList = new ArrayList<>();
+        flowerList.add(new Flower());
         when(flowerRepository.findAll()).thenReturn(flowerList);
-        List<Flower> expectedFlowerList = flowerService.getFlowerList();
-        Assertions.assertEquals(expectedFlowerList, flowerList);
+
+        // When
+        List<Flower> result = flowerService.getFlowerList();
+
+        // Then
+        verify(flowerRepository, times(1)).findAll();
+        assertEquals(result, flowerList);
     }
 }

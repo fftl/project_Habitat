@@ -5,9 +5,11 @@ import com.ssafy.habitat.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface PlantingRepository extends JpaRepository<Planting, Integer> {
-    Planting findByUser(User user);
+    Optional<Planting> findByUser(User user);
 
-    Planting findByUserAndFlowerCnt(User user, int flowerCnt);
+    Optional<Planting> findByUserAndFlowerCnt(User user, int flowerCnt);
 }
