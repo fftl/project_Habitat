@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:habitat/screens/main/main_screen.dart';
+import 'package:habitat/screens/login/login_screen.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -11,7 +11,7 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   static const storage = FlutterSecureStorage();
-  dynamic check = "asd";
+  dynamic check = "";
 
   checkOnboarding() async {
     var check = await storage.read(key: 'onboarding');
@@ -27,9 +27,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkOnboarding();
       debugPrint("온보딩 체크 $check");
-      if (check != null) {
-        Navigator.pushReplacementNamed(context, '/main');
-      }
     });
   }
 
@@ -39,6 +36,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const Text('온보딩 스크린'),
           Center(
             child: TextButton(
               style: TextButton.styleFrom(
@@ -50,12 +48,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => const MainScreen()),
+                        builder: (BuildContext context) => LoginScreen()),
                     (route) => false);
               },
               child: const Text("시작"),
             ),
-          ),
+          )
         ],
       ),
     );

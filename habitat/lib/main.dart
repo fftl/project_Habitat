@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:habitat/screens/login/login_screen.dart';
+import 'package:habitat/screens/onboarding/onboarding_screen.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/screens/coaster/coaster_connect_screen.dart';
@@ -28,13 +29,14 @@ void main() async {
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginBridge(),
+        '/onboarding': (context) => const OnboardingScreen(),
+        '/login': (context) => LoginScreen(),
         '/main': (context) => const MainScreen(),
         '/report': (context) => const LoginBridge(),
         '/reward': (context) => const RewardScreen(),
         '/social': (context) => const SocialScreen(),
         '/setting': (context) => const SettingScreen(),
         '/loading': (context) => const LoadingScreen(),
-        '/login': (context) => const LoginScreen(),
         '/bluetooth': (context) => CoasterConnectScreen(),
       },
     ),
