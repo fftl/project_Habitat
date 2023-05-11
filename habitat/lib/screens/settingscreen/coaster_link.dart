@@ -97,6 +97,7 @@ class _CoasterLinkState extends State<CoasterLink> {
         .connect(autoConnect: false) // 자동연결 해제
         .timeout(const Duration(milliseconds: 10000), onTimeout: () {
       returnValue = Future.value(false); // 지연시간동안 연결 안되면 false
+      debugPrint("타임아웃 발생!!");
     }).then((data) async {
       if (returnValue == null) {
         //timeout이 되지 않았다면 연결 성공한 것

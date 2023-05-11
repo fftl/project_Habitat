@@ -18,12 +18,18 @@ class ApiDrinkLogs {
         'userKey': userKey,
       },
     );
-    final response = await http.get(url);
-    if (response.statusCode == 200) {
-      final List<dynamic> temp = jsonDecode(response.body);
-      for (var e in temp) {
-        alldrinklogdata.add(Drinklogmodel.fromJson(e));
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final List<dynamic> temp = jsonDecode(response.body);
+        for (var e in temp) {
+          alldrinklogdata.add(Drinklogmodel.fromJson(e));
+        }
+      } else {
+        debugPrint("status error : ${response.statusCode}");
       }
+    } catch (e) {
+      debugPrint("error : $e");
     }
 
     return alldrinklogdata;
