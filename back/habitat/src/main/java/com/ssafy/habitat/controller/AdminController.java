@@ -8,6 +8,7 @@ import com.ssafy.habitat.service.FlowerService;
 import com.ssafy.habitat.service.PlantingService;
 import com.ssafy.habitat.service.UserFlowerService;
 import com.ssafy.habitat.service.UserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,5 +81,11 @@ public class AdminController {
                     .build();
             plantingService.addPlanting(newPlating);
         }
+    }
+
+    @GetMapping("/redis-test")
+    @ApiOperation(value="Redis 테스트")
+    public void redisAdd(){
+
     }
 }
