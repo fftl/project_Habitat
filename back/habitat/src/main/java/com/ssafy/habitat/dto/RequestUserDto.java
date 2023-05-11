@@ -2,7 +2,6 @@ package com.ssafy.habitat.dto;
 
 import lombok.*;
 
-
 public class RequestUserDto {
     @Setter
     @Getter
@@ -38,5 +37,16 @@ public class RequestUserDto {
     @NoArgsConstructor
     public static class FriendCode {
         private String friendCode;
+    }
+
+    @Setter
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Login {
+        private String nickname;
+        private String socialKey;
+        private int socialType;
     }
 }
