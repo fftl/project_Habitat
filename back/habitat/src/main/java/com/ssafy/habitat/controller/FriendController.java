@@ -8,7 +8,6 @@ import com.ssafy.habitat.entity.Friend;
 import com.ssafy.habitat.entity.FriendRequest;
 import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.service.*;
-//import com.ssafy.habitat.websocket.WebSocketNotification;
 import com.ssafy.habitat.websocket.CustomWebSocketHandler;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,7 +144,6 @@ public class FriendController {
         friendService.addFriend(Friend.builder().myId(friendRequest.getFrom()).friendId(friendRequest.getTo()).build());
         friendService.addFriend(Friend.builder().myId(friendRequest.getTo()).friendId(friendRequest.getFrom()).build());
 
-
         // 친구 추가에 따른 해금 확인
         rewardService.checkFriendUnlock(friendRequest.getFrom());
         rewardService.checkFriendUnlock(friendRequest.getTo());
@@ -200,8 +198,10 @@ public class FriendController {
 
     @PostMapping("/cok")
     @ApiOperation(value = "찌르기", notes="친구에게 찌르기 알림을 보냅니다.")
-    public ResponseEntity sendCok(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.RequestFriend requestFriend) throws IOException {
-        User fromUser = userService.getUser(userKey);
+    public ResponseEntity sendCok(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.RequestFriend requestFriend) throws IOException {
+        String userKey = tokenProvider.getUserKey(token);
+        User fromUser = userService.getUser(userKey); // userKey의 유저를 찾습니다.
+
         User toUser = userService.getUser(requestFriend.getFriendUserKey());
 
         // 찌르기 받은 유저(toUser)에게 찌르기 웹소켓 보내기 필요

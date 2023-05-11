@@ -1,6 +1,7 @@
 package com.ssafy.habitat.entity;
 
 import lombok.*;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +13,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@EnableJpaRepositories
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
