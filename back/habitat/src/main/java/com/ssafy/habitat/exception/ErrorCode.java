@@ -13,8 +13,13 @@ public enum ErrorCode {
     DRINK_LOG_NOT_FOUND(404, -404005, "존재하지 않는 섭취기록입니다."),
     FLOWER_NOT_FOUND(404,-404006, "존재하지 않는 꽃입니다."),
     COASTER_NOT_FOUND(404,-404007, "존재하지 않는 코스터입니다."),
+    SOCIAL_CODE_NOT_FOUND(404,-404008, "존재하지 소셜 키 입니다."),
+    HEADER_IS_NULL(404, -404009, "header가 비어있습니다."),
 
     UNAUTHORIZED_USER(403, -403001, "인증에 실패하였습니다."),
+    EXPIRED_JWT_EXCEPTION(403, -403002, "액세스 토큰이 만료되었습니다."),
+    REFRESH_TOKEN_NOT_MATCH(403, -403003, "리프래시 토큰이 일치하지 않습니다."),
+    REFRESH_TOKEN_EXPIRED(403, -403004, "리프래시 토큰이 만료되었습니다."),
 
     ALREADY_FRIEND(400,-400001,"이미 친구 관계입니다."),
     ALREADY_SENT_FRIEND_REQUEST(400,-400002,"이미 친구신청을 보냈습니다."),

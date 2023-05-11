@@ -1,5 +1,6 @@
 package com.ssafy.habitat.controller;
 
+import com.ssafy.habitat.config.TokenProvider;
 import com.ssafy.habitat.dto.RequestFlowerDto;
 import com.ssafy.habitat.dto.ResponseExpDto;
 import com.ssafy.habitat.dto.ResponseFlowerDto;
@@ -17,28 +18,33 @@ import java.util.HashSet;
 import java.util.List;
 
 @RestController
-@RequestMapping("/flowers")
+@RequestMapping("/api/flowers")
 public class FlowerController {
+
+    public static final String AUTHORIZATION_HEADER = "Authorization";
     private FlowerService flowerService;
     private CollectionService collectionService;
     private PlantingService plantingService;
     private UserService userService;
     private StreakLogService streakLogService;
     private UserFlowerService userFlowerService;
+    private TokenProvider tokenProvider;
 
     @Autowired
-    public FlowerController(FlowerService flowerService, CollectionService collectionService, PlantingService plantingService, UserService userService, StreakLogService streakLogService, UserFlowerService userFlowerService) {
+    public FlowerController(FlowerService flowerService, CollectionService collectionService, PlantingService plantingService, UserService userService, StreakLogService streakLogService, UserFlowerService userFlowerService, TokenProvider tokenProvider) {
         this.flowerService = flowerService;
         this.collectionService = collectionService;
         this.plantingService = plantingService;
         this.userService = userService;
         this.streakLogService = streakLogService;
         this.userFlowerService = userFlowerService;
+        this.tokenProvider = tokenProvider;
     }
 
     @GetMapping("/exp")
     @ApiOperation(value = "리워드 페이지 조회(꽃, 경험치, 레벨)", notes="현재 유저의 꽃, 경험치, 레벨을 조회합니다.")
-    public ResponseEntity getDrinkLog(@RequestParam("userKey") String userKey) {
+    public ResponseEntity getDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         Planting planting = plantingService.getCurrentPlant(user);
@@ -96,7 +102,8 @@ public class FlowerController {
 
     @GetMapping("/available")
     @ApiOperation(value = "획득할 수 있는(해금) 꽃 목록", notes="유저가 획득할 수 있는 꽃 목록을 조회합니다.")
-    public ResponseEntity getAvailableFlowerList(@RequestParam("userKey") String userKey) {
+    public ResponseEntity getAvailableFlowerList(@RequestHeader(AUTHORIZATION_HEADER) String token) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         // user가 해금한 꽃
@@ -120,7 +127,8 @@ public class FlowerController {
 
     @GetMapping("/get")
     @ApiOperation(value = "수확한 꽃 목록", notes="유저가 수확한 꽃 목록을 중복없이 조회합니다.")
-    public ResponseEntity getGetFlowerList(@RequestParam("userKey") String userKey) {
+    public ResponseEntity getGetFlowerList(@RequestHeader(AUTHORIZATION_HEADER) String token) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         // user가 획득한 꽃
@@ -151,7 +159,8 @@ public class FlowerController {
 
     @GetMapping("/collection")
     @ApiOperation(value = "꽃 목록", notes="모든 꽃에 대하여 유저의 상태(획득, 획득가능, 미획득)를 조회합니다.")
-    public ResponseEntity getFlowerList(@RequestParam("userKey") String userKey) {
+    public ResponseEntity getFlowerList(@RequestHeader(AUTHORIZATION_HEADER) String token) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         List<Flower> flowerList = flowerService.getFlowerList();
