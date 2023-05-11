@@ -37,10 +37,10 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void initState() {
-    super.initState();
     // importdata();
-
-    LocalNotification.initNotification();
+    LocalNotification.initialize();
+    LocalNotification.requestPermission();
+    super.initState();
   }
 
   @override

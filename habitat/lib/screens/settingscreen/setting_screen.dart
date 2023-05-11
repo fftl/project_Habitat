@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitat/screens/alarm/alam_screen.dart';
 import 'package:habitat/screens/alarm/local_notification.dart';
 import 'package:habitat/screens/settingscreen/coaster_connect.dart';
 import 'package:habitat/screens/settingscreen/modify_goal_screen.dart';
@@ -161,7 +162,8 @@ class _settingboxState extends State<settingbox> {
         children: [
           TextButton(
               onPressed: () {
-                LocalNotification.showNotification();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const AlarmPage()));
               },
               child: const Text('test')),
           const Text(

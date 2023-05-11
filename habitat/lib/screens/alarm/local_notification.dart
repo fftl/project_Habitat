@@ -3,37 +3,56 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 class LocalNotification {
   LocalNotification._();
 
-  static final notifications = FlutterLocalNotificationsPlugin();
+  static final FlutterLocalNotificationsPlugin
+      _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  static initNotification() async {
-    var androidSetting =
-        const AndroidInitializationSettings('@mipmap/ic_launcher');
+  static initialize() async {
+    AndroidInitializationSettings initializationSettingsAndroid =
+        const AndroidInitializationSettings("mipmap/ic_launcher");
 
-    var iosSetting = const IOSInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
+    DarwinInitializationSettings initializationSettingsIOS =
+        const DarwinInitializationSettings(
+      requestAlertPermission: false,
+      requestBadgePermission: false,
+      requestSoundPermission: false,
     );
 
-    var initializationSetting =
-        InitializationSettings(android: androidSetting, iOS: iosSetting);
-
-    await notifications.initialize(
-      initializationSetting,
+    InitializationSettings initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
     );
+
+    await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  static Future<void> showNotification() async {
-    var androidDetails = const AndroidNotificationDetails('pook', '찌르기',
-        priority: Priority.high, importance: Importance.max);
+  static void requestPermission() {
+    _flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+        );
+  }
 
-    var iosDetails = const IOSNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-      presentSound: true,
+  static Future<void> sampleNotification() async {
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails("channel id", "channel name",
+            channelDescription: "channel description",
+            importance: Importance.max,
+            priority: Priority.max,
+            showWhen: false);
+
+    const NotificationDetails platformChannelSpecifics = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+      iOS: DarwinNotificationDetails(
+        badgeNumber: 1,
+      ),
     );
 
-    await notifications.show(1, '테스트1', '내용테스트',
-        NotificationDetails(android: androidDetails, iOS: iosDetails));
+    await _flutterLocalNotificationsPlugin.show(
+        0, "plain title", "plain body", platformChannelSpecifics,
+        payload: "item x");
   }
 }
