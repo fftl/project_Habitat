@@ -3,7 +3,6 @@ package com.ssafy.habitat.service;
 import com.ssafy.habitat.entity.Friend;
 import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.exception.CustomException;
-import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.repository.FriendRepository;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
@@ -23,7 +22,7 @@ class FriendServiceTest {
     @InjectMocks
     private FriendService friendService;
 
-    private User user;
+    private User user1;
     private User user2;
     private User user3;
 
@@ -32,20 +31,21 @@ class FriendServiceTest {
         MockitoAnnotations.openMocks(this);
 
         // 테스트용 데이터 설정
-        user = new User();
-        user.setUserKey("1111");
+        user1 = new User();
+        user1.setUserKey("1111");
         user2 = new User();
         user2.setUserKey("2222");
         user3 = new User();
         user3.setUserKey("3333");
+
         List<Friend> userFriendList = new ArrayList<>();
 
-        Friend friend1 = Friend.builder().myId(user).friendId(user2).build();
-        Friend friend2 = Friend.builder().myId(user).friendId(user3).build();
+        Friend friend1 = Friend.builder().myId(user1).friendId(user2).build();
+        Friend friend2 = Friend.builder().myId(user1).friendId(user3).build();
 
         userFriendList.add(friend1);
         userFriendList.add(friend2);
-        user.setFriendList(userFriendList);
+        user1.setFriendList(userFriendList);
     }
 
     @Test
@@ -56,7 +56,7 @@ class FriendServiceTest {
         expectedFriendList.add(user2);
         expectedFriendList.add(user3);
 
-        List<User> friendList = friendService.getFriendList(user);
+        List<User> friendList = friendService.getFriendList(user1);
         Assertions.assertEquals(expectedFriendList, friendList);
     }
 
@@ -65,38 +65,38 @@ class FriendServiceTest {
     void testCheckFriendRequestPossible_NotFriend() {
         // 친구 관계가 아닌 경우를 테스트
         // repository mock 객체의 리턴값 설정
-        when(friendRepository.findByMyIdAndFriendId(user, user2)).thenReturn(Optional.empty());
+        when(friendRepository.findByMyIdAndFriendId(user1, user2)).thenReturn(Optional.empty());
 
         // 예외 발생하지 않음 확인
         Assertions.assertDoesNotThrow(() -> {
-            friendService.checkFriendRequestPossible(user, user2);
+            friendService.checkFriendRequestPossible(user1, user2);
         });
 
         // 함수 호출(객체, 횟수) 확인
-        verify(friendRepository, times(1)).findByMyIdAndFriendId(user, user2);
+        verify(friendRepository, times(1)).findByMyIdAndFriendId(user1, user2);
     }
 
     @Test
     @DisplayName("친구신청 테스트 (이미 친구인 경우)")
     void testCheckFriendRequestPossible_AlreadyFriend() {
         // 이미 친구 관계에 있는 경우를 테스트
-        Friend friend = Friend.builder().myId(user).friendId(user2).build();
+        Friend friend = Friend.builder().myId(user1).friendId(user2).build();
         // Optional.of(friend) : Optional 객체가 절대 Null일 수 없는 경우
-        when(friendRepository.findByMyIdAndFriendId(user, user2)).thenReturn(Optional.of(friend));
+        when(friendRepository.findByMyIdAndFriendId(user1, user2)).thenReturn(Optional.of(friend));
 
         Assertions.assertThrows(CustomException.class, () -> {
-            friendService.checkFriendRequestPossible(user, user2);
+            friendService.checkFriendRequestPossible(user1, user2);
         });
 
-        verify(friendRepository, times(1)).findByMyIdAndFriendId(user, user2);
+        verify(friendRepository, times(1)).findByMyIdAndFriendId(user1, user2);
     }
 
     @Test
     @DisplayName("친구관계 등록 테스트")
     void addFriend() {
         // 친구 관계가 아닌 경우를 테스트
-        Friend newFriend = Friend.builder().myId(user).friendId(user2).build();
-        when(friendRepository.findByMyIdAndFriendId(user, user2)).thenReturn(Optional.empty());
+        Friend newFriend = Friend.builder().myId(user1).friendId(user2).build();
+        when(friendRepository.findByMyIdAndFriendId(user1, user2)).thenReturn(Optional.empty());
 
         Assertions.assertDoesNotThrow(() -> {
             friendService.addFriend(newFriend);
@@ -109,8 +109,8 @@ class FriendServiceTest {
     @DisplayName("친구관계 등록 테스트(이미 친구인 경우)")
     void addFriend_AlreadyFriend() {
         // 친구 관계가 아닌 경우를 테스트
-        Friend newFriend = Friend.builder().myId(user).friendId(user2).build();
-        when(friendRepository.findByMyIdAndFriendId(user, user2)).thenReturn(Optional.of(newFriend));
+        Friend newFriend = Friend.builder().myId(user1).friendId(user2).build();
+        when(friendRepository.findByMyIdAndFriendId(user1, user2)).thenReturn(Optional.of(newFriend));
 
         Assertions.assertThrows(CustomException.class, () -> {
             friendService.addFriend(newFriend);
