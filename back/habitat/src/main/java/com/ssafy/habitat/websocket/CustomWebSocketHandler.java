@@ -18,8 +18,8 @@ public class CustomWebSocketHandler implements WebSocketHandler {
         // 클라이언트가 연결되었을 때 호출됩니다.
         // 클라이언트로부터 userKey를 추출하여 매핑합니다.
 
-        // path: /websocket/{userKey}
-        String userKey = session.getUri().getPath().split("/")[2];
+        // path: /api/websocket/{userKey}
+        String userKey = session.getUri().getPath().split("/")[3];
         sessions.put(userKey, session);
 
     }

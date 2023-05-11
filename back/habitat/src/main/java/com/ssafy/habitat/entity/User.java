@@ -1,26 +1,19 @@
 package com.ssafy.habitat.entity;
 
 import lombok.*;
-<<<<<<< HEAD
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-=======
 import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
->>>>>>> c120906adda749b63487e02f593d9a7e54d16e94
 //import org.springframework.security.core.GrantedAuthority;
 //import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
-@EnableJpaRepositories
-=======
 import java.util.stream.Collectors;
-
->>>>>>> c120906adda749b63487e02f593d9a7e54d16e94
+@EnableJpaRepositories
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

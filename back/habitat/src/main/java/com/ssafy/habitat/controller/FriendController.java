@@ -198,8 +198,10 @@ public class FriendController {
 
     @PostMapping("/cok")
     @ApiOperation(value = "찌르기", notes="친구에게 찌르기 알림을 보냅니다.")
-    public ResponseEntity sendCok(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.RequestFriend requestFriend) throws IOException {
-        User fromUser = userService.getUser(userKey);
+    public ResponseEntity sendCok(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.RequestFriend requestFriend) throws IOException {
+        String userKey = tokenProvider.getUserKey(token);
+        User fromUser = userService.getUser(userKey); // userKey의 유저를 찾습니다.
+
         User toUser = userService.getUser(requestFriend.getFriendUserKey());
 
         // 찌르기 받은 유저(toUser)에게 찌르기 웹소켓 보내기 필요

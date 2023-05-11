@@ -79,9 +79,8 @@ class FriendRequestServiceTest {
     @DisplayName("친구신청 테스트(자기 자신에게 신청)")
     void addFriendRequest_WhenSendFrierndRequestToMySelf_ThrowException() {
         // Given
-        User fromUser = new User();
-        User toUser = new User();
-        FriendRequest newFriendRequest = FriendRequest.builder().from(fromUser).to(toUser).build();
+        User user = new User();
+        FriendRequest newFriendRequest = FriendRequest.builder().from(user).to(user).build();
 
         // When & Then
         CustomException exception = assertThrows(CustomException.class, () -> {
