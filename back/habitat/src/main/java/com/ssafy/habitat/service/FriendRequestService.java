@@ -59,6 +59,11 @@ public class FriendRequestService {
         if(user != friendRequest.getTo()) {
             throw new CustomException(ErrorCode.FRIEND_REQUEST_NOT_FOR_USER);
         }
+
+        // 이미 처리가 끝난 친구신청인 경우
+        if(friendRequest.getStatus() != 0) {
+            throw new CustomException(ErrorCode.ALREADY_HANDLED_FRIEND_REQUEST);
+        }
     }
 
     public void modifyFriendRequest(FriendRequest friendRequest, int status) {

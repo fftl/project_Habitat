@@ -8,12 +8,15 @@ import com.ssafy.habitat.entity.Friend;
 import com.ssafy.habitat.entity.FriendRequest;
 import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.service.*;
+//import com.ssafy.habitat.websocket.WebSocketNotification;
+import com.ssafy.habitat.websocket.CustomWebSocketHandler;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,7 +77,7 @@ public class FriendController {
         HashMap<String, String> map = new HashMap<>();
         String friendCode = user.getFriendCode();
 
-        map.put("friend_code", friendCode);
+        map.put("friendCode", friendCode);
         return new ResponseEntity<>(map, HttpStatus.OK);
 
     }
@@ -94,6 +97,8 @@ public class FriendController {
         friendRequestService.addFriendRequest(newFriendRequest);
 
         // 신청 받은 유저(fromUser)에게 웹소켓 보내기 필요
+        String message = fromUser.getNickname()+"님으로부터 친구신청이 도착했어요!";
+        customWebSocketHandler.sendMessage(toUser, message);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -113,6 +118,8 @@ public class FriendController {
         friendRequestService.addFriendRequest(newFriendRequest);
 
         // 신청 받은 유저(fromUser)에게 웹소켓 보내기 필요
+        String message = fromUser.getNickname()+"님으로부터 친구신청이 도착했어요!";
+        customWebSocketHandler.sendMessage(toUser, message);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -124,8 +131,9 @@ public class FriendController {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         FriendRequest friendRequest = friendRequestService.getFriendRequestByRequestKey(requestFriendRequestDto.getFriendRequestKey()); // requestKey의 친구신청 내역을 찾습니다.
 
-        // 해당 유저에게 도착한 친구신청내역인지 확인
+        // 해당 유저에게 도착한 친구신청내역인지 & 이미 처리가 끝난 요청인지 확인
         friendRequestService.checkFriendRequestAuthorization(user, friendRequest);
+
         // 해당 친구신청 내역을 수락으로 변경
         friendRequestService.modifyFriendRequest(friendRequest, 1);
         // 이미 친구인지 확인
@@ -141,6 +149,8 @@ public class FriendController {
         rewardService.checkFriendUnlock(friendRequest.getTo());
 
         // 친구 신청했던 유저(fromUser)에게 친구가 되었음 웹소켓 보내기 필요
+        String message = friendRequest.getTo().getNickname()+"님과 친구가 되었습니다!";
+        customWebSocketHandler.sendMessage(friendRequest.getFrom(), message);
 
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -184,6 +194,19 @@ public class FriendController {
         }
 
         return new ResponseEntity<>(friendRequestDtoList, HttpStatus.OK);
+    }
+
+    @PostMapping("/cok")
+    @ApiOperation(value = "찌르기", notes="친구에게 찌르기 알림을 보냅니다.")
+    public ResponseEntity sendCok(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.RequestFriend requestFriend) throws IOException {
+        User fromUser = userService.getUser(userKey);
+        User toUser = userService.getUser(requestFriend.getFriendUserKey());
+
+        // 찌르기 받은 유저(toUser)에게 찌르기 웹소켓 보내기 필요
+        String message = fromUser.getNickname()+"님이 회원님을 콕 찔렀습니다!";
+        customWebSocketHandler.sendMessage(toUser, message);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
