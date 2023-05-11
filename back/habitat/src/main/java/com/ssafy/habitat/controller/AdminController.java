@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/db")
+@RequestMapping("/api/db")
 public class AdminController {
 
     private UserService userService;

@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @RestController
-@RequestMapping("/flowers")
+@RequestMapping("/api/flowers")
 public class FlowerController {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";

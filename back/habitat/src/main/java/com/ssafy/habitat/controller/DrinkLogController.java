@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/drinkLogs")
+@RequestMapping("/api/drinkLogs")
 public class DrinkLogController {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
