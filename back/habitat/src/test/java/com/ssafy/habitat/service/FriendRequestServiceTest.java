@@ -165,12 +165,13 @@ class FriendRequestServiceTest {
     @DisplayName("친구신청 수락/거절 유효성 테스트")
     void checkFriendRequestAuthorization() {
         // Given
-        User user = new User();
-        FriendRequest friendRequest = new FriendRequest();
+        User user1 = new User();
+        User user2 = new User();
+        FriendRequest friendRequest = FriendRequest.builder().from(user2).to(user1).status(0).build();
 
         // When & Then
         assertDoesNotThrow(()-> {
-            friendRequestService.checkFriendRequestAuthorization(user, friendRequest);
+            friendRequestService.checkFriendRequestAuthorization(user1, friendRequest);
         });
 
     }
