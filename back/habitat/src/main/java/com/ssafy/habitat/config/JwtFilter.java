@@ -13,13 +13,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -51,9 +48,7 @@ public class JwtFilter extends OncePerRequestFilter {
         headerCheck(response, header);
         if(requestURI.equals("/users/refresh")){
             LOGGER.info("Refresh 토큰은 유효하기 때문에 새로운 토큰을 생성합니다.");
-//            System.out.println("새로운 토큰이 생성되었을까? >> "+response.getHeader("AccessToken"));
             refreshProcess(response, jwt, check);
-//            System.out.println("새로운 토큰이 생성되었을까? >> "+response.getHeader("AccessToken"));
         } else {
             LOGGER.info("일반 요청에 대해 토큰을 검증합니다.");
             accessProcess(response, jwt, check, requestURI);

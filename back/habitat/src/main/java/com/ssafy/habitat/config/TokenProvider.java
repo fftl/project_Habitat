@@ -38,18 +38,15 @@ public class TokenProvider implements InitializingBean {
 
     private static final String AUTHORITIES_KEY = "habitat";
     private final String secret;
-    private final long tokenValidityInMilliseconds;
     private Key key;
 
-    public TokenProvider(@Value("${jwt.secret}") String secret,
-                         @Value("${jwt.token-validity-in-seconds}") long tokenValidityInMilliseconds){
+    public TokenProvider(@Value("${jwt.secret}") String secret){
         this.secret = secret;
-        this.tokenValidityInMilliseconds = tokenValidityInMilliseconds;
     }
 
+    //우리의 secret 값을 가지고 우리만의 key를 만들어줍니다. ( 이 함수는 Bean이 등록되는 시점에 한 번만 실행이 됩니다. )
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("afterPropertiesSet");
         byte[] keyBytes = Base64.getDecoder().decode(secret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
@@ -64,6 +61,7 @@ public class TokenProvider implements InitializingBean {
 
         long now = (new Date()).getTime();
 
+        //각각의 토큰을 만들어줍니다.
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
@@ -95,6 +93,7 @@ public class TokenProvider implements InitializingBean {
                 .parseClaimsJws(token)
                 .getBody();
 
+        //clainms에 담아놓은 user의 정보들을 꺼냅니다.
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
@@ -102,6 +101,14 @@ public class TokenProvider implements InitializingBean {
 
         return new UsernamePasswordAuthenticationToken(claims.getSubject(), claims.getSubject(), authorities);
     }
+
+    /**인증 정보 조회 */
+    public String getUserKey(String token) {
+        token = token.substring(7);
+        Authentication authentication = getAuthentication(token);
+        return authentication.getName();
+    }
+
 
     /**token 유효성 검증 */
     public String validateToken(String token){

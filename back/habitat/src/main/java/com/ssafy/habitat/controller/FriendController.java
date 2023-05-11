@@ -1,5 +1,6 @@
 package com.ssafy.habitat.controller;
 
+import com.ssafy.habitat.config.TokenProvider;
 import com.ssafy.habitat.dto.RequestFriendRequestDto;
 import com.ssafy.habitat.dto.RequestUserDto;
 import com.ssafy.habitat.dto.ResponseUserDto;
@@ -21,25 +22,29 @@ import java.util.List;
 @RestController
 @RequestMapping("/friends")
 public class FriendController {
+
+    public static final String AUTHORIZATION_HEADER = "Authorization";
     private FriendService friendService;
     private FriendRequestService friendRequestService;
     private UserService userService;
     private DrinkLogService drinkLogService;
     private RewardService rewardService;
+    private TokenProvider tokenProvider;
 
     @Autowired
-    public FriendController(FriendService friendService, FriendRequestService friendRequestService, UserService userService, DrinkLogService drinkLogService, RewardService rewardService) {
+    public FriendController(FriendService friendService, FriendRequestService friendRequestService, UserService userService, DrinkLogService drinkLogService, RewardService rewardService, TokenProvider tokenProvider) {
         this.friendService = friendService;
         this.friendRequestService = friendRequestService;
         this.userService = userService;
         this.drinkLogService = drinkLogService;
         this.rewardService = rewardService;
+        this.tokenProvider = tokenProvider;
     }
 
     @GetMapping("/all")
     @ApiOperation(value = "친구목록 조회", notes="유저의 친구목록을 조회합니다.")
-    public ResponseEntity getFriendList(@RequestParam("userKey") String userKey) {
-
+    public ResponseEntity getFriendList(@RequestHeader(AUTHORIZATION_HEADER) String token) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         List<User> friendList = friendService.getFriendList(user); // 유저의 친구목록을 불러옵니다.
 
@@ -61,8 +66,8 @@ public class FriendController {
 
     @GetMapping("/code")
     @ApiOperation(value = "친구코드 조회", notes="유저의 친구코드를 조회합니다.")
-    public ResponseEntity getFriendCode(@RequestParam("userKey") String userKey) {
-
+    public ResponseEntity getFriendCode(@RequestHeader(AUTHORIZATION_HEADER) String token) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         // 찾아온 유저의 친구코드를 불러와 리턴합니다.
@@ -76,7 +81,8 @@ public class FriendController {
 
     @PostMapping("/request/userkey")
     @ApiOperation(value = "친구신청 보내기(유저키)", notes="해당 유저키의 유저에게 친구신청을 보냅니다.")
-    public ResponseEntity sendFriendListByUserKey(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.RequestFriend requestFriendDto) {
+    public ResponseEntity sendFriendListByUserKey(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.RequestFriend requestFriendDto) {
+        String userKey = tokenProvider.getUserKey(token);
         User fromUser = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         User toUser = userService.getUser(requestFriendDto.getFriendUserKey()); // 친구신청할 userKey의 유저를 찾습니다.
 
@@ -94,7 +100,8 @@ public class FriendController {
 
     @PostMapping("/request/code")
     @ApiOperation(value = "친구신청 보내기(친구코드)", notes="해당 친구코드로 친구신청을 보냅니다.")
-    public ResponseEntity sendFriendListByCode(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.FriendCode requestFriendDto) {
+    public ResponseEntity sendFriendListByCode(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.FriendCode requestFriendDto) {
+        String userKey = tokenProvider.getUserKey(token);
         User fromUser = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         User toUser = userService.getByFriendCode(requestFriendDto.getFriendCode()); // 친구코드에 해당하는 유저를 찾습니다.
 
@@ -112,7 +119,8 @@ public class FriendController {
 
     @PutMapping("/request/ok")
     @ApiOperation(value = "친구신청 수락", notes="해당 친구신청을 수락합니다.")
-    public ResponseEntity acceptFriendList(@RequestParam("userKey") String userKey, @RequestBody RequestFriendRequestDto requestFriendRequestDto) {
+    public ResponseEntity acceptFriendList(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestFriendRequestDto requestFriendRequestDto) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         FriendRequest friendRequest = friendRequestService.getFriendRequestByRequestKey(requestFriendRequestDto.getFriendRequestKey()); // requestKey의 친구신청 내역을 찾습니다.
 
@@ -140,7 +148,8 @@ public class FriendController {
 
     @PutMapping("/request/cancel")
     @ApiOperation(value = "친구신청 거절", notes="해당 친구신청을 거절(삭제)합니다.")
-    public ResponseEntity refuseFriendList(@RequestParam("userKey") String userKey, @RequestBody RequestFriendRequestDto requestFriendRequestDto) {
+    public ResponseEntity refuseFriendList(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestFriendRequestDto requestFriendRequestDto) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         FriendRequest friendRequest = friendRequestService.getFriendRequestByRequestKey(requestFriendRequestDto.getFriendRequestKey());
 
@@ -155,8 +164,8 @@ public class FriendController {
 
     @GetMapping("/request/all")
     @ApiOperation(value = "친구신청 목록", notes="유저에게 전송된 친구신청 목록을 조회합니다.")
-    public ResponseEntity getFriendRequestList(@RequestParam("userKey") String userKey) {
-
+    public ResponseEntity getFriendRequestList(@RequestHeader(AUTHORIZATION_HEADER) String token) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         List<FriendRequest> friendRequestList = friendRequestService.getFriendRequestList(user); // 유저의 친구신청 목록을 불러옵니다.
 

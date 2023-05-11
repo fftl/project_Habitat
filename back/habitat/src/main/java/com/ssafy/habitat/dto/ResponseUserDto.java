@@ -37,4 +37,22 @@ public class ResponseUserDto {
         private String nickname; // 닉네임
         private String imgUrl; // 프로필사진
     }
+
+    @Setter
+    @Getter
+    @Builder
+    public static class LoginReq {
+        private int friendRequestKey;
+        private String userKey;
+        private String nickname; // 닉네임
+        private String imgUrl; // 프로필사진
+    }
+
+    @Setter
+    @Getter
+    @Builder
+    public static class TokenResponse {
+        private String AccessToken;
+        private String RefreshToken;
+    }
 }

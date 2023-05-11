@@ -34,6 +34,7 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserController {
 
+    public static final String AUTHORIZATION_HEADER = "Authorization";
     private UserService userService;
     private S3Uploader s3Uploader;
     private CoasterService coasterService;
@@ -59,7 +60,8 @@ public class UserController {
 
     @PatchMapping("/modify")
     @ApiOperation(value = "유저 닉네임 수정", notes="유저의 닉네임을 수정합니다.")
-    public ResponseEntity modifiedUser(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.ModifyNickname requestUserDto){
+    public ResponseEntity modifiedUser(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.ModifyNickname requestUserDto){
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey);
         String newNickname = requestUserDto.getNickname();
 
@@ -76,7 +78,8 @@ public class UserController {
 
     @PatchMapping("/modify/goal")
     @ApiOperation(value = "유저 목표 섭취량 수정", notes="유저의 목표섭취량을 수정합니다.")
-    public ResponseEntity modifiedUserGoal(@RequestParam("userKey") String userKey, @RequestBody RequestUserDto.ModifyGoal requestUserDto){
+    public ResponseEntity modifiedUserGoal(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.ModifyGoal requestUserDto){
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey);
         int newGoal = requestUserDto.getGoal();
 
@@ -93,8 +96,8 @@ public class UserController {
 
     @PatchMapping("/modify/img")
     @ApiOperation(value = "유저 이미지 수정", notes="유저의 프로필 이미지를 수정합니다.")
-    public ResponseEntity modifiedUserImg(@RequestParam("userKey") String userKey, @RequestParam("file") MultipartFile file) throws IOException {
-
+    public ResponseEntity modifiedUserImg(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestParam("file") MultipartFile file) throws IOException {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey);
 
         //파일의 확장자를 탐색합니다. ( 일단 후 순위 )
@@ -103,15 +106,14 @@ public class UserController {
         user.setImgUrl(imgUrl);
         userService.addUser(user);
 
-        System.out.println("test");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping
     @ApiOperation(value = "유저 조회", notes="유저 키를 통해 유저를 조회합니다.")
-    public ResponseEntity getUser(@RequestParam("userKey") String userKey){
+    public ResponseEntity getUser(@RequestHeader(AUTHORIZATION_HEADER) String token){
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey);
-
         ResponseUserDto.User responseUser = ResponseUserDto.User.builder()
                 .userKey(user.getUserKey())
                 .nickname(user.getNickname())
@@ -124,7 +126,8 @@ public class UserController {
 
     @PostMapping("/coaster")
     @ApiOperation(value = "유저 코스터 등록", notes="유저의 코스터를 등록합니다.")
-    public ResponseEntity getUser(@RequestParam("userKey") String userKey, @RequestBody RequestCoasterDto requestCoasterDto){
+    public ResponseEntity getUser(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestCoasterDto requestCoasterDto){
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey);
         Coaster coaster = coasterService.getCoaster(requestCoasterDto.getCoasterKey());
 
@@ -144,13 +147,10 @@ public class UserController {
 
     @PostMapping("/login")
     @ApiOperation(value = "유저 로그인", notes="유저 로그인 처리를 합니다.")
-    public ResponseEntity login(@RequestParam("socialKey") String socialKey){
-        System.out.println("login 실행되었다!");
-        LocalDateTime now = LocalDateTime.now();
+    public ResponseEntity login(@RequestBody RequestUserDto.Login request){
+        TokenInfo response = null;
         //처음으로 로그인 요청을 한 유저라면!
-        if(userService.socialKeyCheck(socialKey)){
-            System.out.println(now + " >> 존재하지 않는 socialKey, 새로운 유저를 생성합니다.");
-
+        if(userService.socialKeyCheck(request.getSocialKey())){
             /**
              * 새로운 계정을 생성해줍니다.
              */
@@ -173,11 +173,11 @@ public class UserController {
             User createUser = User.builder()
                     .userKey(newKey)
                     .password(encoder.encode(newKey))
-                    .nickname("짱윤")
+                    .nickname(request.getNickname())
                     .goal(0)
                     .friendCode(newFriendCode)
-                    .socialKey(socialKey)
-                    .socialType(1)
+                    .socialKey(request.getSocialKey())
+                    .socialType(request.getSocialType())
                     .imgUrl("https://your-habitat.s3.ap-northeast-2.amazonaws.com/static/default.png")
                     .roles(roles)
                     .build();
@@ -189,27 +189,29 @@ public class UserController {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserKey(), user.getUserKey(), AuthorityUtils.createAuthorityList("USER"));
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-            TokenInfo tokenInfo = tokenProvider.createToken(authentication);
-            user.setRefreshKey(tokenInfo.getRefreshToken());
+            response = tokenProvider.createToken(authentication);
+            user.setRefreshKey(response.getRefreshToken());
             userService.addUser(user);
 
-            return new ResponseEntity(tokenInfo.getAccessToken(), HttpStatus.OK);
-
         } else {
-            User getUser = userService.getBySocialKey(socialKey);
+
+            User getUser = userService.getBySocialKey(request.getSocialKey());
             //여기까지 성공
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(getUser.getUserKey(), getUser.getUserKey(), AuthorityUtils.createAuthorityList("USER"));
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-            TokenInfo tokenInfo = tokenProvider.createToken(authentication);
-            getUser.setRefreshKey(tokenInfo.getRefreshToken());
+
+            response = tokenProvider.createToken(authentication);
+
+            getUser.setRefreshKey(response.getRefreshToken());
             userService.addUser(getUser);
 
-            return new ResponseEntity(tokenInfo.getAccessToken(), HttpStatus.OK);
         }
+
+        return new ResponseEntity(response, HttpStatus.OK);
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity validateRefreshToken(@RequestParam("userKey") String userKey){
+    public ResponseEntity validateRefreshToken(@RequestHeader(AUTHORIZATION_HEADER) String token){
         return new ResponseEntity(HttpStatus.OK);
     }
 

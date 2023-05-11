@@ -1,5 +1,6 @@
 package com.ssafy.habitat.utils;
 
+import com.ssafy.habitat.config.TokenProvider;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
@@ -7,6 +8,8 @@ import java.util.stream.IntStream;
 
 @Component
 public class Util {
+
+    private TokenProvider tokenProvider;
 
     public String createKey(int len){
         int leftLimit = 48; // 숫자의 0~9의 아스키코드 48-57

@@ -1,5 +1,6 @@
 package com.ssafy.habitat.controller;
 
+import com.ssafy.habitat.config.TokenProvider;
 import com.ssafy.habitat.dto.RequestDrinkLogDto;
 import com.ssafy.habitat.dto.ResponseDrinkLogDto;
 import com.ssafy.habitat.entity.DrinkLog;
@@ -24,17 +25,21 @@ import java.util.Map;
 @RestController
 @RequestMapping("/drinkLogs")
 public class DrinkLogController {
+
+    public static final String AUTHORIZATION_HEADER = "Authorization";
     private DrinkLogService drinkLogService;
     private UserService userService;
     private RewardService rewardService;
     private StreakLogService streakLogService;
+    private TokenProvider tokenProvider;
 
     @Autowired
-    public DrinkLogController(DrinkLogService drinkLogService, UserService userService, RewardService rewardService, StreakLogService streakLogService) {
+    public DrinkLogController(DrinkLogService drinkLogService, UserService userService, RewardService rewardService, StreakLogService streakLogService, TokenProvider tokenProvider) {
         this.drinkLogService = drinkLogService;
         this.userService = userService;
         this.rewardService = rewardService;
         this.streakLogService = streakLogService;
+        this.tokenProvider = tokenProvider;
     }
 
     @GetMapping("/success")
@@ -61,7 +66,8 @@ public class DrinkLogController {
 
     @GetMapping("/all")
     @ApiOperation(value = "섭취로그 조회", notes="유저의 섭취로그를 조회합니다.")
-    public ResponseEntity getDrinkLog(@RequestParam("userKey") String userKey) {
+    public ResponseEntity getDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         List<DrinkLog> drinkLogList = drinkLogService.getAllLogs(user);
@@ -85,7 +91,8 @@ public class DrinkLogController {
 
     @GetMapping("/day")
     @ApiOperation(value = "일일 섭취로그 조회", notes="유저의 오늘의 섭취로그를 조회합니다.")
-    public ResponseEntity getDailyDrinkLog(@RequestParam("userKey") String userKey) {
+    public ResponseEntity getDailyDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         List<DrinkLog> drinkLogList = drinkLogService.getDailyLogs(user); //찾아낸 유저의 오늘 섭취로그를 가져옵니다.
@@ -109,7 +116,8 @@ public class DrinkLogController {
 
     @GetMapping("/day/total")
     @ApiOperation(value = "일일 누적음수량 조회", notes="유저의 오늘의 누적 음수량을 조회합니다.")
-    public ResponseEntity getDailyTotalDrinkLog(@RequestParam("userKey") String userKey) {
+    public ResponseEntity getDailyTotalDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         int totalDrink = drinkLogService.getDailyTotalDrink(user);
@@ -122,7 +130,8 @@ public class DrinkLogController {
 
     @PostMapping("/add")
     @ApiOperation(value = "섭취량 증가(수동)", notes="수동으로 유저의 음수량을 입력합니다.")
-    public ResponseEntity addDrinkLog(@RequestParam("userKey") String userKey, @RequestBody RequestDrinkLogDto requestDrinkLog) {
+    public ResponseEntity addDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestDrinkLogDto requestDrinkLog) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         // Dto -> Entity
@@ -155,7 +164,8 @@ public class DrinkLogController {
 
     @PostMapping("/auto")
     @ApiOperation(value = "섭취량 증가(코스터)", notes="코스터로 섭취한 음수량을 입력합니다.")
-    public ResponseEntity addAutoDrinkLog(@RequestParam("userKey") String userKey, @RequestBody RequestDrinkLogDto requestDrinkLog) {
+    public ResponseEntity addAutoDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestDrinkLogDto requestDrinkLog) {
+        String userKey = tokenProvider.getUserKey(token);
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         // Dto -> Entity

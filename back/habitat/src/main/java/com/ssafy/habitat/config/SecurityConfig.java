@@ -17,8 +17,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-//    private final ExceptionHandlerFilter exceptionHandlerFilter;
-//    private final JwtAuthenticationEntryPoint jwtAtuthenticationEntryPoint;
+//    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;  //유저의 권한이 닿을 수 없는 요청이 왔을 때 발생하는 exception
+//    private final JwtAuthenticationEntryPoint jwtAtuthenticationEntryPoint; //인증정보에 문제가 있을 때 발생하는 exception
     private final JwtFilter jwtFilter;
 
     @Bean
@@ -31,6 +31,7 @@ public class SecurityConfig {
         return (web) -> web.ignoring()
                 .antMatchers("/favicon.ico");
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
