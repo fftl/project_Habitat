@@ -191,7 +191,6 @@ public class UserController {
             userService.addUser(user);
 
         } else {
-
             User getUser = userService.getBySocialKey(request.getSocialKey());
             //여기까지 성공
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(getUser.getUserKey(), getUser.getUserKey(), AuthorityUtils.createAuthorityList("USER"));

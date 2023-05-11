@@ -62,7 +62,6 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userKey) {
-        System.out.println(userRepository.findById(userKey));
         User getUser = userRepository.findById(userKey).orElse(null);
         UserDetails userDetails = userRepository.findById(userKey)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_KEY_NOT_FOUND));

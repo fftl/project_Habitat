@@ -201,7 +201,6 @@ public class DrinkLogController {
     @DeleteMapping
     @ApiOperation(value = "섭취량 삭제", notes="섭취량을 삭제처리 합니다.")
     public ResponseEntity deleteDrinkLog(@PathVariable("drinkLogKey") int drinkLogKey) {
-        System.out.println(drinkLogKey);
         DrinkLog drinkLog = drinkLogService.getLog(drinkLogKey);
         drinkLog.setRemoved(true);
         drinkLogService.addDrinkLog(drinkLog);
