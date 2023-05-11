@@ -47,10 +47,11 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
+        headerCheck(response, header);
+        
         String jwt = resolveToken(request); //요청 데이터속에서 jwt를 가져옵니다.
         String check = tokenProvider.validateToken(jwt);
 
-        headerCheck(response, header);
         if(requestURI.equals("/api/users/refresh")){
             LOGGER.info("Refresh 토큰은 유효하기 때문에 새로운 토큰을 생성합니다.");
             refreshProcess(response, jwt, check);
