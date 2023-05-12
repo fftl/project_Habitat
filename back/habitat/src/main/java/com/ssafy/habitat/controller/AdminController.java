@@ -82,10 +82,4 @@ public class AdminController {
             plantingService.addPlanting(newPlating);
         }
     }
-
-    @GetMapping("/redis-test")
-    @ApiOperation(value="Redis 테스트")
-    public void redisAdd(){
-
-    }
 }

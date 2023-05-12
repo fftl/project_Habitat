@@ -5,12 +5,14 @@ import com.ssafy.habitat.exception.CustomException;
 import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.access.intercept.RunAsImplAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,7 +26,10 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    @Transactional
+    @Cacheable(value = "User", key = "#userKey", cacheManager = "testCacheManager")
     public User getUser(String userKey) {
+        System.out.println("gkgkgk");
         User findUser = userRepository.findById(userKey).orElse(null);
         if(findUser == null) { // 존재하지 않는 유저
             throw new CustomException(ErrorCode.USER_KEY_NOT_FOUND);
