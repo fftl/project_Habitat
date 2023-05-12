@@ -20,6 +20,9 @@ class UserController extends GetxController {
       };
       debugPrint("액세스토큰 : ${userKey['acessToken']}");
       debugPrint("아이디토큰 : ${userKey['idToken']}");
+      debugPrint("아이디 : ${googleUser?.id}");
+      debugPrint("이메일 : ${googleUser?.email}");
+      debugPrint("디스플레이 네임 : ${googleUser?.displayName}");
 
       storage.write(key: 'userKey', value: userKey.toString());
       loginSuccess.value = true;
