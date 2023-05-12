@@ -31,23 +31,35 @@ class LoginScreen extends StatelessWidget {
           title: const Text("Google"),
         ),
         body: Center(
-          child: Column(children: [
-            TextButton(
-              onPressed: () async {
-                await Get.find<UserController>().signWithGoogle();
-                if (Get.find<UserController>().loginSuccess.value) {
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () async {
+                  await Get.find<UserController>().signWithGoogle();
+                  if (Get.find<UserController>().loginSuccess.value) {
+                    Navigator.pushReplacementNamed(context, '/main');
+                  }
+                },
+                child: const Text("Sign in with Google"),
+              ),
+              TextButton(
+                onPressed: () {
                   Navigator.pushReplacementNamed(context, '/main');
-                }
-              },
-              child: const Text("Sign in with Google"),
-            ),
-            GetX<UserController>(builder: (controller) {
-              return Text(
-                controller.loginSuccess.value ? '' : '실패',
-                style: const TextStyle(fontSize: 32),
-              );
-            })
-          ]),
+                },
+                child: const Text(
+                  "비밀의 문",
+                  style: TextStyle(fontSize: 32),
+                ),
+              ),
+              GetX<UserController>(builder: (controller) {
+                return Text(
+                  controller.loginSuccess.value ? '' : '실패',
+                  style: const TextStyle(fontSize: 32),
+                );
+              })
+            ],
+          ),
         ));
   }
 }

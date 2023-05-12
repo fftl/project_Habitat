@@ -38,7 +38,22 @@ class CoasterConnectScreen extends StatelessWidget {
             builder: (controller) {
               return Text(controller.coasterData.value);
             },
-          )
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+            ),
+            onPressed: () {},
+            child: const Text(
+              "coaster send",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
         ],
       ),
     );
