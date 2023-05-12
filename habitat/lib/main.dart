@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:habitat/screens/login/login_screen.dart';
+import 'package:habitat/screens/main/main_screen.dart';
 import 'package:habitat/screens/onboarding/onboarding_screen.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/screens/coaster/coaster_connect_screen.dart';
 import 'package:habitat/screens/loading/loading_screen.dart';
-import 'package:habitat/screens/main/main_screen.dart';
 import 'package:habitat/screens/login/login_bridge.dart';
 import 'package:habitat/screens/reward/reward_screen.dart';
 import 'package:habitat/screens/settingscreen/setting_screen.dart';

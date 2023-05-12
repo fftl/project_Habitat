@@ -37,6 +37,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
+
     // importdata();
   }
 
@@ -171,7 +172,7 @@ class _MainScreenState extends State<MainScreen> {
             ],
           ),
         ),
-        panelBuilder: () => MainPanelWidget(controller: scrollController),
+        panelBuilder: () => MainPanelWidget(scrollController: scrollController),
       ),
       bottomNavigationBar: const DockBar(),
     );
