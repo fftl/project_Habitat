@@ -1,6 +1,8 @@
+import 'social_login.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
-class KakaoLogin {
+class KakaoLogin implements SocialLogin {
+  @override
   Future<bool> login() async {
     try {
       bool isInstalled = await isKakaoTalkInstalled();
@@ -24,6 +26,7 @@ class KakaoLogin {
     }
   }
 
+  @override
   Future<bool> logout() async {
     try {
       await UserApi.instance.unlink();

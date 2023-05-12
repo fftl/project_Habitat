@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <!-- 카카오 로그인 Redirect URI -->
-                <data android:scheme="kakao${***REMOVED***}" android:host="oauth" />
+                <data android:scheme="kakao***REMOVED***" android:host="oauth" />
             </intent-filter>
         </activity>
 

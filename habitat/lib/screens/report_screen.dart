@@ -8,6 +8,7 @@ class ReportScreen extends StatefulWidget {
   State<ReportScreen> createState() => _ReportScreenState();
 }
 
+// 이 클래스에 있어야 한다 로그아웃 버튼 웃기게도
 class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class _ReportScreenState extends State<ReportScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "report screem",
+                "retort pouch",
                 style: TextStyle(
                   fontSize: 48,
                   fontWeight: FontWeight.w600,

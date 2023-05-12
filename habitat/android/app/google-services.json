@@ -14,11 +14,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "717538880248-7imbroeftif5qko51mf62jq08od9mh07.apps.googleusercontent.com",
+          "client_id": "717538880248-fpa1nbd08lmjtsr135gndf5l4kci3erb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.status200.habitat",
-            "certificate_hash": "8e346d3760e1558e4a0d494b7f36689cac84020a"
+            "certificate_hash": "1e26bfd925723faa32c7b60b896edad1c3e5e884"
+          }
+        },
+        {
+          "client_id": "717538880248-lmj0uq8htv0k4lth14gm1vurjl64vtrv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.status200.habitat",
+            "certificate_hash": "0b7a02c621b68c146d95b05187a84c016f10f83c"
           }
         },
         {
@@ -37,6 +45,13 @@
             {
               "client_id": "717538880248-n31ag33bef1rk9p0k0s1f14h8k4obrc2.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "717538880248-uihelbb159rt54af6f0bh0h7ca9tuakr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.status200.habitat"
+              }
             }
           ]
         }

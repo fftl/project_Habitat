@@ -1,37 +1,59 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'kakao_login.dart';
+// import 'google_login.dart';
+import 'login_view_model.dart';
 
-Future<UserCredential> signInWithGoogle() async {
-  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
-  final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
+  final String title = "final title";
 
-  final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
-    idToken: googleAuth?.idToken,
-  );
-
-  return await FirebaseAuth.instance.signInWithCredential(credential);
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class _LoginScreenState extends State<LoginScreen> {
+  final viewModel = LoginViewModel(KakaoLogin());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Google"),
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            // Image.network(
+            //     viewModel.user?.kakaoAccount?.profile?.profileImageUrl ?? ''),
+            Text(
+              '카카오 : ${viewModel.isKakaoLogined}, 구글 : ${viewModel.isGoogleLogined}',
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await viewModel.kakaoLogin();
+                setState(() {});
+              },
+              child: const Text('Kakao'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await viewModel.googleLogin();
+                setState(() {});
+              },
+              child: const Text('Google'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await viewModel.logout();
+                setState(() {});
+              },
+              child: const Text('Logout'),
+            ),
+          ],
         ),
-        body: const Center(
-          child: Column(children: [
-            TextButton(
-              onPressed: signInWithGoogle,
-              child: Text("Sign in with Google"),
-            )
-          ]),
-        ));
+      ),
+    );
   }
 }

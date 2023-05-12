@@ -4,7 +4,8 @@ import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/screens/loading/loading_screen.dart';
 import 'package:habitat/screens/main/main_screen.dart';
-import 'package:habitat/screens/login/login_bridge.dart';
+// import 'package:habitat/screens/login/login_bridge.dart';
+import 'package:habitat/screens/login/login_screen.dart';
 import 'package:habitat/screens/reward/reward_screen.dart';
 import 'package:habitat/screens/settingscreen/setting_screen.dart';
 import 'package:habitat/screens/social/social_screen.dart';
@@ -14,7 +15,12 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  KakaoSdk.init(nativeAppKey: '***REMOVED***');
+  WidgetsFlutterBinding.ensureInitialized();
+  KakaoSdk.init(
+    nativeAppKey: '***REMOVED***',
+    javaScriptAppKey: '***REMOVED***',
+  );
+  // KakaoSdk.init(nativeAppKey: '***REMOVED***');
   runApp(
     MaterialApp(
       title: "habit@",
@@ -28,7 +34,7 @@ void main() async {
       initialRoute: '/',
       routes: {
         '/': (context) => const MainScreen(),
-        '/report': (context) => const LoginBridge(),
+        '/report': (context) => const LoginScreen(),
         '/reward': (context) => const RewardScreen(),
         '/social': (context) => const SocialScreen(),
         '/setting': (context) => const SettingScreen(),
