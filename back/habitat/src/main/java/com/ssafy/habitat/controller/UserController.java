@@ -1,5 +1,9 @@
 package com.ssafy.habitat.controller;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.ssafy.habitat.config.TokenInfo;
 import com.ssafy.habitat.config.TokenProvider;
 import com.ssafy.habitat.dto.RequestCoasterDto;
@@ -11,15 +15,17 @@ import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.service.*;
 import com.ssafy.habitat.utils.Util;
 import io.swagger.annotations.ApiOperation;
+import org.apache.tomcat.util.json.JSONParser;
+import org.apache.tomcat.util.json.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServlet;
@@ -29,6 +35,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -154,10 +161,17 @@ public class UserController {
 
     @PostMapping("/login")
     @ApiOperation(value = "유저 로그인", notes="유저 로그인 처리를 합니다.")
-    public ResponseEntity login(@RequestBody RequestUserDto.Login request, HttpServletResponse httpServletResponse){
+    public ResponseEntity login(@RequestBody RequestUserDto.Login request, HttpServletResponse httpServletResponse) throws ParseException {
         TokenInfo tokenInfo = null;
         //처음으로 로그인 요청을 한 유저라면!
         if(userService.socialKeyCheck(request.getSocialKey())){
+
+            RestTemplate restTemplate = new RestTemplate();
+            String url = "https://nickname.hwanmoo.kr/?format=text";
+
+            HttpEntity<String> getResponse = restTemplate.getForEntity(url, String.class);
+            String newNickname = getResponse.getBody();
+
             /**
              * 새로운 계정을 생성해줍니다.
              */
@@ -180,7 +194,7 @@ public class UserController {
             User createUser = User.builder()
                     .userKey(newKey)
                     .password(encoder.encode(newKey))
-                    .nickname(request.getNickname())
+                    .nickname(newNickname)
                     .goal(0)
                     .friendCode(newFriendCode)
                     .socialKey(request.getSocialKey())
