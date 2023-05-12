@@ -17,10 +17,8 @@ public class Collection extends BaseTime{
     private int collectionKey;
 
     @ManyToOne
-    @JoinColumn(name = "user_key")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "flower_key")
     private Flower flower;
 }

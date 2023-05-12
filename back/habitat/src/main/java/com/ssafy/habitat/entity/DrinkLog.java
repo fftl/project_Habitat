@@ -21,6 +21,5 @@ public class DrinkLog extends BaseTime{
     private boolean isRemoved;
 
     @ManyToOne
-    @JoinColumn(name = "user_key")
     private User user;
 }

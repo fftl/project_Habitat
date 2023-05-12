@@ -24,11 +24,9 @@ public class UserFlower extends BaseTime{
     private boolean isUnlocked;
 
     @ManyToOne
-    @JoinColumn(name = "user_key")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "flower_key")
     private Flower flower;
 
 }

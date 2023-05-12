@@ -18,11 +18,9 @@ public class UserFlowerLog extends BaseTime{
     private char mission;
 
     @ManyToOne
-    @JoinColumn(name = "user_key")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "flower_key")
     private Flower flower;
 
 }

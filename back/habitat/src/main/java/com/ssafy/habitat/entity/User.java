@@ -1,5 +1,6 @@
 package com.ssafy.habitat.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import lombok.experimental.SuperBuilder;
@@ -77,12 +78,14 @@ public class User extends BaseTime implements UserDetails {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
+    @JsonIgnore
     private List<String> roles = new ArrayList<>();
 
     /**
      * Security impl 데이터들 ================================================================================================
      */
     @Override
+    @JsonIgnore
     public java.util.Collection<? extends GrantedAuthority> getAuthorities() {
         return this.roles.stream()
                 .map(SimpleGrantedAuthority::new)
@@ -90,31 +93,37 @@ public class User extends BaseTime implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
         return userKey;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

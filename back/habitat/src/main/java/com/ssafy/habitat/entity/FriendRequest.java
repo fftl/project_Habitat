@@ -17,11 +17,9 @@ public class FriendRequest extends BaseTime{
     private int friendRequestKey;
 
     @ManyToOne
-    @JoinColumn(name = "from_key")
     private User from;
 
     @ManyToOne
-    @JoinColumn(name = "to_key")
     private User to;
 
     @Column(columnDefinition = "TINYINT(1)")
