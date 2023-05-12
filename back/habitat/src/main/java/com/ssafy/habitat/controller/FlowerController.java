@@ -48,6 +48,8 @@ public class FlowerController {
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
+        System.out.println("hihi : "+user.toString());
+
         Planting planting = plantingService.getCurrentPlant(user);
         Flower flower = planting.getFlower();
 

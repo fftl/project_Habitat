@@ -1,5 +1,6 @@
 package com.ssafy.habitat.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,9 +18,10 @@ public class Friend extends BaseTime{
     private int friendKey;
 
     @ManyToOne
-//
+    @JsonIgnore
     private User myId;
 
     @ManyToOne
+    @JsonIgnore
     private User friendId;
 }
