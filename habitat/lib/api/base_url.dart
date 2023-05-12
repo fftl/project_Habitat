@@ -20,20 +20,20 @@ baseApi({
   Map<String, dynamic>? body,
 }) async {
   String url = "http://k8a704.p.ssafy.io:8081/api/$path";
-  // Future<String?> accessToken = storage.read(key: "accessToken");
+  Future<String?> accessToken = storage.read(key: "accessToken");
   // Future<String?> refreshToken = storage.read(key: "refreshToken");
-  // String? authorization = await accessToken;
+  String? authorization = await accessToken;
 
   Map<String, String> headers = {
     "Content-Type": "application/json",
-    // "Authorization": "$authorization",
-    "Authorization":
-        "Bearer ***REMOVED***",
+    "Authorization": "Bearer $authorization",
   };
 
   debugPrint(url);
+  debugPrint(authorization);
+  debugPrint(headers['Authorization']);
   Uri uri = Uri.parse(url);
-  debugPrint("$uri");
+  debugPrint("uri : $uri");
 
   late http.Response response;
 
@@ -44,9 +44,6 @@ baseApi({
       } catch (e) {
         debugPrint('에러 발생 : $e');
         fail('$e');
-        // if (e == 'EXPIRED_JWT_EXCEPTION') {
-        //   http.post(url)
-        // }
       }
       break;
     case RequestType.post:

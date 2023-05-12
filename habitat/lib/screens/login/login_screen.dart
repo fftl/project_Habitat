@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:habitat/controller/user_controller.dart';
-
-Future<UserCredential> signInWithGoogle() async {
-  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-  final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
-
-  final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
-    idToken: googleAuth?.idToken,
-  );
-
-  // Once signed in, return the UserCredential
-  return await FirebaseAuth.instance.signInWithCredential(credential);
-}
+import 'package:habitat/api/user/api_users.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
-  final usercontroller = Get.put(UserController());
+  // final usercontroller = Get.put(UserController());
+
+  static const storage = FlutterSecureStorage();
+
+  void signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser != null) {
+      String socialKey = googleUser.id;
+      Future futuerMapData = postAddDrinkLog(socialKey);
+      Map<String, String> headerData = await futuerMapData;
+      debugPrint("accessToken : ${headerData['accesstoken']}");
+      debugPrint("refreshToken : ${headerData['refreshtoken']}");
+      await storage.write(key: 'accessToken', value: headerData['accesstoken']);
+      await storage.write(
+          key: 'refreshToken', value: headerData['refreshtoken']);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +37,9 @@ class LoginScreen extends StatelessWidget {
                 height: 20,
               ),
               TextButton(
-                onPressed: () async {
-                  await Get.find<UserController>().signWithGoogle();
-                  if (Get.find<UserController>().loginSuccess.value) {
+                onPressed: () {
+                  signInWithGoogle();
+                  if (storage.read(key: 'accessToken') != '') {
                     Navigator.pushReplacementNamed(context, '/main');
                   }
                 },

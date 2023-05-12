@@ -29,7 +29,6 @@ class _LoginBridgeState extends State<LoginBridge> {
         Navigator.pushReplacementNamed(context, '/onboarding');
       } else if (userInfo == 'none') {
         Navigator.pushReplacementNamed(context, '/login');
-        debugPrint('온보딩 여부 $readOnboarding');
       } else {
         Navigator.pushReplacementNamed(context, '/main');
       }
@@ -39,7 +38,7 @@ class _LoginBridgeState extends State<LoginBridge> {
   asyncMethod() async {
     //read 함수를 통하여 key값에 맞는 정보를 불러온다. 불러오는 결과의 타입은 String
     readOnboarding = await storage.read(key: "onboarding") ?? 'none';
-    userInfo = await storage.read(key: "userKey") ?? 'none';
+    userInfo = await storage.read(key: "accessToken") ?? 'none';
     debugPrint('앱을 처음 켰는지 여부 : $readOnboarding');
     debugPrint('로그인 정보가 있는지 여부 : $userInfo');
   }
