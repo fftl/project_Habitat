@@ -1,69 +1,64 @@
 import 'package:flutter/material.dart';
-import 'package:habitat/api/drinklog/api_drinklogs.dart';
-import 'package:habitat/models/drink_log_model.dart';
+import 'package:get/get.dart';
+import 'package:habitat/controller/water_controller.dart';
 
 class MainPanelWidget extends StatelessWidget {
-  final ScrollController controller;
+  final ScrollController scrollController;
 
-  MainPanelWidget({
+  const MainPanelWidget({
     Key? key,
-    required this.controller,
+    required this.scrollController,
   }) : super(key: key);
-
-  final Future<List<Drinklogmodel>> drinklogdatas =
-      ApiDrinkLogs().getTodayDrinkLogs('asdf');
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: drinklogdatas,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Column(
-              children: [
-                const SizedBox(
-                  height: 50,
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      "water log",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+    return GetX<WaterController>(builder: (controller) {
+      if (controller.waterlog.isNotEmpty) {
+        return Column(
+          children: [
+            const SizedBox(
+              height: 50,
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  "water log",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(
-                  height: 350,
-                  child: ListView.separated(
-                    padding: const EdgeInsets.symmetric(horizontal: 60),
-                    controller: controller,
-                    itemCount: snapshot.data!.length,
-                    itemBuilder: (context, index) {
-                      return WaterLog(
-                          drink: snapshot.data![index].drink,
-                          drinkType: snapshot.data![index].drinkType,
-                          createdAt: snapshot.data![index].createdAt);
-                    },
-                    separatorBuilder: (context, index) => const SizedBox(
-                      height: 10,
-                    ),
-                  ),
-                ),
-              ],
-            );
-          }
-          return const Text(
-            "non data",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w600,
+              ),
             ),
-          );
-        });
+            SizedBox(
+              height: 350,
+              child: ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 60),
+                controller: scrollController,
+                itemCount: controller.waterlog.length,
+                itemBuilder: (context, index) {
+                  return WaterLog(
+                      drink: controller.waterlog[index]['drink'],
+                      drinkType: controller.waterlog[index]['drinkType'],
+                      createdAt: controller.waterlog[index]['createdAt']);
+                },
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 10,
+                ),
+              ),
+            ),
+          ],
+        );
+      }
+      return const Text(
+        "non data",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.w600,
+        ),
+      );
+    });
   }
 }
 
