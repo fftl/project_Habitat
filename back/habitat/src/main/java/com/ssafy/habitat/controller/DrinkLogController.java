@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,8 +68,8 @@ public class DrinkLogController {
 
     @GetMapping("/all")
     @ApiOperation(value = "섭취로그 조회", notes="유저의 섭취로그를 조회합니다.")
-    public ResponseEntity getDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token) {
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity getDrinkLog(HttpServletRequest request) {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         List<DrinkLog> drinkLogList = drinkLogService.getAllLogs(user);
@@ -92,8 +93,8 @@ public class DrinkLogController {
 
     @GetMapping("/day")
     @ApiOperation(value = "일일 섭취로그 조회", notes="유저의 오늘의 섭취로그를 조회합니다.")
-    public ResponseEntity getDailyDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token) {
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity getDailyDrinkLog(HttpServletRequest request) {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         List<DrinkLog> drinkLogList = drinkLogService.getDailyLogs(user); //찾아낸 유저의 오늘 섭취로그를 가져옵니다.
@@ -117,8 +118,8 @@ public class DrinkLogController {
 
     @GetMapping("/day/total")
     @ApiOperation(value = "일일 누적음수량 조회", notes="유저의 오늘의 누적 음수량을 조회합니다.")
-    public ResponseEntity getDailyTotalDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token) {
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity getDailyTotalDrinkLog(HttpServletRequest request) {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         int totalDrink = drinkLogService.getDailyTotalDrink(user);
@@ -131,8 +132,8 @@ public class DrinkLogController {
 
     @PostMapping("/add")
     @ApiOperation(value = "섭취량 증가(수동)", notes="수동으로 유저의 음수량을 입력합니다.")
-    public ResponseEntity addDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestDrinkLogDto requestDrinkLog) throws IOException {
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity addDrinkLog(HttpServletRequest request, @RequestBody RequestDrinkLogDto requestDrinkLog) throws IOException {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         // Dto -> Entity
@@ -165,8 +166,8 @@ public class DrinkLogController {
 
     @PostMapping("/auto")
     @ApiOperation(value = "섭취량 증가(코스터)", notes="코스터로 섭취한 음수량을 입력합니다.")
-    public ResponseEntity addAutoDrinkLog(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestDrinkLogDto requestDrinkLog) throws IOException {
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity addAutoDrinkLog(HttpServletRequest request, @RequestBody RequestDrinkLogDto requestDrinkLog) throws IOException {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         // Dto -> Entity

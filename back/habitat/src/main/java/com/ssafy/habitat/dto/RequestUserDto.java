@@ -45,7 +45,6 @@ public class RequestUserDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Login {
-        private String nickname;
         private String socialKey;
         private int socialType;
     }

@@ -1,5 +1,9 @@
 package com.ssafy.habitat.controller;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.ssafy.habitat.config.TokenInfo;
 import com.ssafy.habitat.config.TokenProvider;
 import com.ssafy.habitat.dto.RequestCoasterDto;
@@ -11,22 +15,27 @@ import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.service.*;
 import com.ssafy.habitat.utils.Util;
 import io.swagger.annotations.ApiOperation;
+import org.apache.tomcat.util.json.JSONParser;
+import org.apache.tomcat.util.json.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -64,8 +73,8 @@ public class UserController {
 
     @PatchMapping("/modify")
     @ApiOperation(value = "유저 닉네임 수정", notes="유저의 닉네임을 수정합니다.")
-    public ResponseEntity modifiedUser(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.ModifyNickname requestUserDto){
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity modifiedUser(HttpServletRequest request, @RequestBody RequestUserDto.ModifyNickname requestUserDto){
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
         String newNickname = requestUserDto.getNickname();
 
@@ -82,8 +91,8 @@ public class UserController {
 
     @PatchMapping("/modify/goal")
     @ApiOperation(value = "유저 목표 섭취량 수정", notes="유저의 목표섭취량을 수정합니다.")
-    public ResponseEntity modifiedUserGoal(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestUserDto.ModifyGoal requestUserDto){
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity modifiedUserGoal(HttpServletRequest request, @RequestBody RequestUserDto.ModifyGoal requestUserDto){
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
         int newGoal = requestUserDto.getGoal();
 
@@ -100,8 +109,8 @@ public class UserController {
 
     @PatchMapping("/modify/img")
     @ApiOperation(value = "유저 이미지 수정", notes="유저의 프로필 이미지를 수정합니다.")
-    public ResponseEntity modifiedUserImg(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestParam("file") MultipartFile file) throws IOException {
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity modifiedUserImg(HttpServletRequest request, @RequestParam("file") MultipartFile file) throws IOException {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
 
         //파일의 확장자를 탐색합니다. ( 일단 후 순위 )
@@ -115,9 +124,10 @@ public class UserController {
 
     @GetMapping
     @ApiOperation(value = "유저 조회", notes="유저 키를 통해 유저를 조회합니다.")
-    public ResponseEntity getUser(@RequestHeader(AUTHORIZATION_HEADER) String token){
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity getUser(HttpServletRequest request){
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
+
         ResponseUserDto.User responseUser = ResponseUserDto.User.builder()
                 .userKey(user.getUserKey())
                 .nickname(user.getNickname())
@@ -130,8 +140,8 @@ public class UserController {
 
     @PostMapping("/coaster")
     @ApiOperation(value = "유저 코스터 등록", notes="유저의 코스터를 등록합니다.")
-    public ResponseEntity getUser(@RequestHeader(AUTHORIZATION_HEADER) String token, @RequestBody RequestCoasterDto requestCoasterDto) throws IOException {
-        String userKey = tokenProvider.getUserKey(token);
+    public ResponseEntity addCoaster(HttpServletRequest request, @RequestBody RequestCoasterDto requestCoasterDto) throws IOException {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
         Coaster coaster = coasterService.getCoaster(requestCoasterDto.getCoasterKey());
 
@@ -151,10 +161,17 @@ public class UserController {
 
     @PostMapping("/login")
     @ApiOperation(value = "유저 로그인", notes="유저 로그인 처리를 합니다.")
-    public ResponseEntity login(@RequestBody RequestUserDto.Login request, HttpServletResponse httpServletResponse){
+    public ResponseEntity login(@RequestBody RequestUserDto.Login request, HttpServletResponse httpServletResponse) throws ParseException {
         TokenInfo tokenInfo = null;
         //처음으로 로그인 요청을 한 유저라면!
         if(userService.socialKeyCheck(request.getSocialKey())){
+
+            RestTemplate restTemplate = new RestTemplate();
+            String url = "https://nickname.hwanmoo.kr/?format=text";
+
+            HttpEntity<String> getResponse = restTemplate.getForEntity(url, String.class);
+            String newNickname = getResponse.getBody();
+
             /**
              * 새로운 계정을 생성해줍니다.
              */
@@ -177,7 +194,7 @@ public class UserController {
             User createUser = User.builder()
                     .userKey(newKey)
                     .password(encoder.encode(newKey))
-                    .nickname(request.getNickname())
+                    .nickname(newNickname)
                     .goal(0)
                     .friendCode(newFriendCode)
                     .socialKey(request.getSocialKey())
@@ -258,7 +275,7 @@ public class UserController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity validateRefreshToken(@RequestHeader(AUTHORIZATION_HEADER) String token, HttpServletResponse response){
+    public ResponseEntity validateRefreshToken(HttpServletRequest request, HttpServletResponse response){
         return new ResponseEntity(HttpStatus.OK);
     }
 

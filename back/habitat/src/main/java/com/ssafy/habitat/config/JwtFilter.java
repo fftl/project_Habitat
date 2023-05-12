@@ -48,7 +48,7 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         headerCheck(response, header);
-        
+
         String jwt = resolveToken(request); //요청 데이터속에서 jwt를 가져옵니다.
         String check = tokenProvider.validateToken(jwt);
 
@@ -59,6 +59,10 @@ public class JwtFilter extends OncePerRequestFilter {
             LOGGER.info("일반 요청에 대해 토큰을 검증합니다.");
             accessProcess(response, jwt, check, requestURI);
         }
+
+        //response의 status가 200이 아니라는 것은 setErrorResponse를 탔다는 것
+        //그럼 doFilter를 태워서 보내면 안된다!
+        if(response.getStatus() != 200) return;
 
         //이번 Filter를 마치고 다음 Filter에 request, response를 넘깁니다.
         filterChain.doFilter(request, response);
@@ -118,6 +122,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         }else{
             LOGGER.info("유효하지 않은 토큰입니다., uri: {}", requestURI);
+            setErrorResponse(response, ErrorCode.UNAUTHORIZED_USER);
         }
     }
 
@@ -127,10 +132,11 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     /**필터 내에서의 Exception 처리에 사용합니다.*/
-    private void setErrorResponse( HttpServletResponse response, ErrorCode errorCode){
+    private void setErrorResponse( HttpServletResponse response, ErrorCode errorCode ){
         ObjectMapper objectMapper = new ObjectMapper();
         response.setStatus(errorCode.getStatus());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding("UTF-8");
 
         FailResponse failResponse = FailResponse.builder()
                 .status(errorCode.getStatus())
