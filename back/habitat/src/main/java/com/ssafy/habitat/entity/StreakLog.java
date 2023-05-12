@@ -18,7 +18,6 @@ public class StreakLog extends BaseTime {
     private int maxStreak;
 
     @ManyToOne
-    @JoinColumn(name = "user_key")
     private User user;
 
 }

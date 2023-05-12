@@ -17,10 +17,8 @@ public class UserCoaster extends BaseTime{
     private int userCoasterKey;
 
     @OneToOne
-    @JoinColumn(name = "user_key")
     private User user;
 
     @OneToOne
-    @JoinColumn(name = "coaster_key")
     private Coaster coaster;
 }

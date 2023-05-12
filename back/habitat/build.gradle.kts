@@ -80,6 +80,10 @@ dependencies {
 	implementation ("io.jsonwebtoken:jjwt-jackson:0.11.2")
 	runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.2")
 
+	implementation ("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+	implementation ("com.fasterxml.jackson.core:jackson-databind")
+	implementation("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
+
 }
 
 tasks.withType<Test> {

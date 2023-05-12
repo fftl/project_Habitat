@@ -17,10 +17,9 @@ public class Friend extends BaseTime{
     private int friendKey;
 
     @ManyToOne
-    @JoinColumn
+//
     private User myId;
 
     @ManyToOne
-    @JoinColumn
     private User friendId;
 }
