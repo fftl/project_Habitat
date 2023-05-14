@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class UserFlowerLogServiceTest {
 
@@ -27,9 +27,14 @@ class UserFlowerLogServiceTest {
     @Test
     @DisplayName("새로운 해금 기록 등록 테스트")
     void addUserFlowerLog_SaveNewUserFlowerLog() {
+        // Given
         UserFlowerLog newUserFlowerLog = new UserFlowerLog();
         when(userFlowerLogRepository.save(newUserFlowerLog)).thenReturn(null);
 
+        // When
         userFlowerLogService.addUserFlowerLog(newUserFlowerLog);
+
+        // Then
+        verify(userFlowerLogRepository, times(1)).save(newUserFlowerLog);
     }
 }

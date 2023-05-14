@@ -24,28 +24,27 @@ class PlantingServiceTest {
     @InjectMocks
     PlantingService plantingService;
 
-    private User user;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-
-        user = new User();
-        user.setUserKey("1111");
-
     }
 
     @Test
     @DisplayName("현재 키우는 꽃 정보 조회 테스트")
     public void getCurrentPlant_ReturnPlanting() {
+        // Given
+        User user = new User();
         Planting expectedPlanting = Planting.builder().build();
         when(plantingRepository.findByUserAndFlowerCnt(user, user.getCollectionList().size() + 1)).thenReturn(Optional.of(expectedPlanting));
 
+        // When
         assertDoesNotThrow(()-> {
             plantingService.getCurrentPlant(user);
         });
 
         Planting planting = plantingService.getCurrentPlant(user);
+
+        // Then
         assertEquals(expectedPlanting, planting);
 
     }
@@ -53,8 +52,11 @@ class PlantingServiceTest {
     @Test
     @DisplayName("현재 키우는 꽃 정보 조회 테스트(배정된 꽃 없음)")
     public void getCurrentPlant_WhenPlantingDoesNotExist_ThrowsException() {
+        // Given
+        User user = new User();
         when(plantingRepository.findByUserAndFlowerCnt(user, user.getCollectionList().size() + 1)).thenReturn(Optional.empty());
 
+        // When & Then
         assertThrows(CustomException.class, () -> {
             plantingService.getCurrentPlant(user);
         });
@@ -65,20 +67,26 @@ class PlantingServiceTest {
     @Test
     @DisplayName("키우기 정보 수정 테스트")
     public void modifyPlanting_SaveModifiedPlanting() {
+        // Given
         Planting planting = new Planting();
 
+        // When
         plantingService.modifyPlanting(planting);
 
+        // Then
         verify(plantingRepository, times(1)).save(planting);
     }
 
     @Test
     @DisplayName("새로운 키우기 꽃 배정 테스트")
     public void addPlanting_SaveNewPlanting() {
+        // Given
         Planting newPlanting = new Planting();
 
+        // When
         plantingService.addPlanting(newPlanting);
 
+        // Then
         verify(plantingRepository, times(1)).save(newPlanting);
     }
 }

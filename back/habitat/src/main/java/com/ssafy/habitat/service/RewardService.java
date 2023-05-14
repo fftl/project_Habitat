@@ -238,7 +238,7 @@ public class RewardService {
         return false;
     }
 
-    private boolean isFullyUnlocked(UserFlower userFlower) {
+    public boolean isFullyUnlocked(UserFlower userFlower) {
         // 모든 조건을 달성했다면 true 리턴
         if(userFlower.isFriend() && userFlower.isDrink() && userFlower.isStreak() && userFlower.isConnect()) {
             return true;
@@ -246,7 +246,7 @@ public class RewardService {
         return false;
     }
 
-    private void unlockUserFlower(User user, Flower flower, UserFlower userFlower) {
+    public void unlockUserFlower(User user, Flower flower, UserFlower userFlower) {
         // 유저의 해당 꽃 완전 해금
         userFlower.setUnlocked(true);
         userFlowerService.addUserFlower(userFlower);

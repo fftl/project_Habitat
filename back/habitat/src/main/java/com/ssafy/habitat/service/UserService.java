@@ -39,18 +39,13 @@ public class UserService implements UserDetailsService {
     public boolean socialKeyCheck(String socialKey) {return userRepository.findBySocialKey(socialKey) == null;}
 
     public User getByFriendCode(String code) {
-        User findUser = userRepository.findByFriendCode(code);
-        if(findUser ==  null) { // 존재하지 않는 친구코드
-            throw new CustomException(ErrorCode.FRIEND_CODE_NOT_FOUND);
-        }
+        User findUser = userRepository.findByFriendCode(code).orElseThrow(() -> new CustomException(ErrorCode.FRIEND_CODE_NOT_FOUND));
         return findUser;
     }
 
     public User getBySocialKey(String socialKey) {
-        User findUser = userRepository.findBySocialKey(socialKey);
-        if(findUser ==  null) { // 존재하지 않는 친구코드
-            throw new CustomException(ErrorCode.FRIEND_CODE_NOT_FOUND);
-        }
+        User findUser = userRepository.findBySocialKey(socialKey).orElseThrow(()-> new CustomException(ErrorCode.SOCIAL_CODE_NOT_FOUND));
+
         return findUser;
     }
 
