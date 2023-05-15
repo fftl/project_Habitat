@@ -15,5 +15,6 @@ import java.util.Optional;
 public interface DrinkLogRepository extends JpaRepository<DrinkLog, Integer> {
     Optional<DrinkLog> findTop1ByUserOrderByCreatedAtDesc(User curUser);
     List<DrinkLog> findAllByUserAndIsRemoved(User user, boolean isRemoved);
-    List<DrinkLog> findAllByUserAndAndIsRemovedAndModifiedAtBetween(User user, boolean isRemoved, LocalDateTime start, LocalDateTime end);
+    List<DrinkLog> findAllByUserAndAndIsRemovedAndModifiedAtBetweenOrderByCreatedAtAsc(User user, boolean isRemoved, LocalDateTime start, LocalDateTime end);
+    List<DrinkLog> findAllByUserAndAndIsRemovedAndModifiedAtBetweenOrderByCreatedAtDesc(User user, boolean isRemoved, LocalDateTime start, LocalDateTime end);
 }
