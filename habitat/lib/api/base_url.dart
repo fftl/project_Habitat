@@ -30,10 +30,8 @@ baseApi({
   };
 
   debugPrint("baseUrl : $url");
-  debugPrint("authorization : $authorization");
   debugPrint("headers authorization ${headers['Authorization']}");
   Uri uri = Uri.parse(url);
-  debugPrint("uri : $uri");
 
   late http.Response response;
 

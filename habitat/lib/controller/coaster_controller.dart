@@ -83,8 +83,16 @@ class CoasterController extends GetxController {
                     if (notifyDatas[c.uuid.toString()]!.isNotEmpty) {
                       coasterData.value =
                           bluetoothDataParsing(notifyDatas[c.uuid.toString()]!);
-                      await waterController.drinkwater(water);
-                      ApiDrinkLogs().postAddAutoDrinkLog(water, type, 'asdf');
+
+                      await waterController.autoDrinkWater(water);
+                      postAddAutoDrinkLog(
+                        body: {
+                          "drink": water,
+                          "drinkType": type,
+                        },
+                        success: (response) {},
+                        fail: (e) {},
+                      );
                     }
                   }
                 });
