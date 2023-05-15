@@ -2,6 +2,8 @@ package com.ssafy.habitat.service;
 
 import com.ssafy.habitat.entity.*;
 import com.ssafy.habitat.websocket.CustomWebSocketHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Service
 public class RewardService {
+    private final Logger LOGGER = LoggerFactory.getLogger(RewardService.class);
+
     private FriendService friendService;
     private DrinkLogService drinkLogService;
     private CollectionService collectionService;
@@ -34,6 +38,8 @@ public class RewardService {
     }
 
     public void addPlantingExp(User user, DrinkLog drinkLog) throws IOException {
+        LOGGER.info("addPlantingExp() : 경험치 증가");
+
         // 섭취량에 따른 경험치 증가
         Planting planting = plantingService.getCurrentPlant(user); // 현재 키우는 꽃
 
@@ -92,6 +98,7 @@ public class RewardService {
 
     public void checkFriendUnlock(User user) throws IOException {
         // 친구 등록 수에 따른 달성여부 확인
+        LOGGER.info("checkFriendUnlock() : 친구 등록 수에 따른 달성여부 확인");
 
         int friendCnt = user.getFriendList().size(); // 친구변화에 따른 현재 친구수
         List<UserFlower> userFlowerList = userFlowerService.getLockedFlowerList(user); // 해당 유저의 해금안된 꽃 리스트
@@ -125,6 +132,7 @@ public class RewardService {
 
     public void checkDrinkUnlock(User user) throws IOException {
         // 현재 음수량에 따른 달성여부 확인
+        LOGGER.info("checkDrinkUnlock() : 현재 음수량에 따른 달성여부 확인");
 
         int totalDrink = drinkLogService.getTotalDrink(user); // 음수량 변화에 따른 현재 누적음수량
         List<UserFlower> userFlowerList = userFlowerService.getLockedFlowerList(user); // 해당 유저의 해금안된 꽃 리스트
@@ -159,6 +167,7 @@ public class RewardService {
 
     public void checkStreakUnlock(User user) throws IOException {
         // 현재 스트릭에 따른 달성여부 확인
+        LOGGER.info("checkStreakUnlock() : 현재 스트릭에 따른 달성여부 확인");
 
         int curStreak = streakLogService.getDailyStreakLog(user).getCurStreak(); // 스트릭 변화에 따른 현재 스트릭
         List<UserFlower> userFlowerList = userFlowerService.getLockedFlowerList(user); // 해당 유저의 해금안된 꽃 리스트
@@ -192,6 +201,8 @@ public class RewardService {
 
     public void checkCoasterUnlock(User user) throws IOException {
         // 코스터 등록에 따른 달성여부 확인
+        LOGGER.info("checkCoasterUnlock() : 코스터 등록에 따른 달성여부 확인");
+
 
         List<UserFlower> userFlowerList = userFlowerService.getLockedFlowerList(user); // 해당 유저의 해금안된 꽃 리스트
 
@@ -224,6 +235,9 @@ public class RewardService {
 
 
     public boolean checkStreakSuccess(User user) throws IOException {
+        LOGGER.info("checkStreakSuccess() : 스트릭 달성 여부에 따른 달성여부 확인");
+
+
         int totalDailyDrink = drinkLogService.getDailyTotalDrink(user); // 유저의 오늘 누적음수량 조회
         StreakLog todayStreakLog = streakLogService.getDailyStreakLog(user); // 유저의 오늘 스트릭 가져오기
 
@@ -239,6 +253,8 @@ public class RewardService {
     }
 
     private boolean isFullyUnlocked(UserFlower userFlower) {
+        LOGGER.info("isFullyUnlocked() : 특정 꽃의 모든 조건을 달성했는지 확인");
+
         // 모든 조건을 달성했다면 true 리턴
         if(userFlower.isFriend() && userFlower.isDrink() && userFlower.isStreak() && userFlower.isConnect()) {
             return true;
@@ -247,6 +263,8 @@ public class RewardService {
     }
 
     private void unlockUserFlower(User user, Flower flower, UserFlower userFlower) {
+        LOGGER.info("unlockUserFlower() : 유저의 해당 꽃 완전 해금 및 완전 해금 기록 저장");
+
         // 유저의 해당 꽃 완전 해금
         userFlower.setUnlocked(true);
         userFlowerService.addUserFlower(userFlower);

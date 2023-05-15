@@ -6,13 +6,15 @@ import com.ssafy.habitat.dto.ResponseDrinkLogDto;
 import com.ssafy.habitat.entity.Collection;
 import com.ssafy.habitat.entity.DrinkLog;
 import com.ssafy.habitat.entity.User;
-import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.exception.CustomException;
+import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.service.DrinkLogService;
 import com.ssafy.habitat.service.RewardService;
 import com.ssafy.habitat.service.StreakLogService;
 import com.ssafy.habitat.service.UserService;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +22,15 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.*;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/drinkLogs")
 public class DrinkLogController {
+
+
+    private final Logger LOGGER = LoggerFactory.getLogger(DrinkLogController.class);
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
     private DrinkLogService drinkLogService;
@@ -68,6 +73,8 @@ public class DrinkLogController {
     @GetMapping("/all")
     @ApiOperation(value = "섭취로그 조회", notes="유저의 섭취로그를 조회합니다.")
     public ResponseEntity getDrinkLog(HttpServletRequest request) {
+        LOGGER.info("getDrinkLog() : 유저의 섭취로그 조회");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
@@ -93,6 +100,8 @@ public class DrinkLogController {
     @GetMapping("/day")
     @ApiOperation(value = "일일 섭취로그 조회", notes="유저의 오늘의 섭취로그를 조회합니다.")
     public ResponseEntity getDailyDrinkLog(HttpServletRequest request) {
+        LOGGER.info("getDailyDrinkLog() : 유저의 일일 섭취로그 조회");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
@@ -203,6 +212,8 @@ public class DrinkLogController {
     @GetMapping("/day/total")
     @ApiOperation(value = "일일 누적음수량 조회", notes="유저의 오늘의 누적 음수량을 조회합니다.")
     public ResponseEntity getDailyTotalDrinkLog(HttpServletRequest request) {
+        LOGGER.info("getDailyTotalDrinkLog() : 유저의 일일 누적음수량 조회");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
@@ -217,6 +228,8 @@ public class DrinkLogController {
     @PostMapping("/add")
     @ApiOperation(value = "섭취량 증가(수동)", notes="수동으로 유저의 음수량을 입력합니다.")
     public ResponseEntity addDrinkLog(HttpServletRequest request, @RequestBody RequestDrinkLogDto requestDrinkLog) throws IOException {
+        LOGGER.info("addDrinkLog() : 유저의 섭취량 수동 증가");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
@@ -251,6 +264,8 @@ public class DrinkLogController {
     @PostMapping("/auto")
     @ApiOperation(value = "섭취량 증가(코스터)", notes="코스터로 섭취한 음수량을 입력합니다.")
     public ResponseEntity addAutoDrinkLog(HttpServletRequest request, @RequestBody RequestDrinkLogDto requestDrinkLog) throws IOException {
+        LOGGER.info("addAutoDrinkLog() : 유저의 섭취량 코스터 증가");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
@@ -269,6 +284,14 @@ public class DrinkLogController {
         // 누적섭취량 증가에 따른 해금 확인
         rewardService.checkDrinkUnlock(user);
 
+        // 누적섭취량 증가에 따른 오늘의 목표달성 확인
+        if(rewardService.checkStreakSuccess(user)) {
+            // 스트릭 증가
+            streakLogService.addStreakLog(user);
+            // 스트릭 변화에 따른 해금 확인
+            rewardService.checkStreakUnlock(user);
+        }
+
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -276,6 +299,8 @@ public class DrinkLogController {
     @PatchMapping
     @ApiOperation(value = "섭취량 수정", notes="섭취량을 수정합니다.")
     public ResponseEntity modifiedDrinkLog(@PathVariable("drinkLogKey") int drinkLogKey, @RequestBody RequestDrinkLogDto.ModifyDrink requestDrinkLogDto) {
+        LOGGER.info("modifiedDrinkLog() : 유저의 섭취량 수정");
+
         DrinkLog drinkLog = drinkLogService.getLog(drinkLogKey);
         drinkLog.setDrink(requestDrinkLogDto.getDrink());
         drinkLogService.addDrinkLog(drinkLog);
@@ -286,6 +311,8 @@ public class DrinkLogController {
     @DeleteMapping
     @ApiOperation(value = "섭취량 삭제", notes="섭취량을 삭제처리 합니다.")
     public ResponseEntity deleteDrinkLog(@PathVariable("drinkLogKey") int drinkLogKey) {
+        LOGGER.info("deleteDrinkLog() : 유저의 섭취량 삭제");
+
         DrinkLog drinkLog = drinkLogService.getLog(drinkLogKey);
         drinkLog.setRemoved(true);
         drinkLogService.addDrinkLog(drinkLog);
