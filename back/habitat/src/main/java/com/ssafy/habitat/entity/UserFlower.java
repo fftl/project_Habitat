@@ -1,5 +1,6 @@
 package com.ssafy.habitat.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,9 +25,11 @@ public class UserFlower extends BaseTime{
     private boolean isUnlocked;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     @ManyToOne
+    @JsonIgnore
     private Flower flower;
 
 }

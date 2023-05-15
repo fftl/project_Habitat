@@ -1,6 +1,8 @@
 package com.ssafy.habitat.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import lombok.experimental.SuperBuilder;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 public class User extends BaseTime implements UserDetails {
 
     @Id
+    @JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class, property = "id")
     private String userKey;
     private String nickname;
     private String password;

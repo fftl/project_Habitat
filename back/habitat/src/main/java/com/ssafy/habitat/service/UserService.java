@@ -22,7 +22,7 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    @Cacheable(value = "User", key = "#userKey", cacheManager = "cacheManager")
+//    @Cacheable(value = "User", key = "#userKey", cacheManager = "cacheManager")
     public User getUser(String userKey) {
         User findUser = userRepository.findById(userKey).orElse(null);
         if(findUser == null) { // 존재하지 않는 유저

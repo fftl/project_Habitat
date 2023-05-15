@@ -1,5 +1,6 @@
 package com.ssafy.habitat.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class StreakLog extends BaseTime {
     private int maxStreak;
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
 }

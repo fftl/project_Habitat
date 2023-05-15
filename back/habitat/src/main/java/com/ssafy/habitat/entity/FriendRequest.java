@@ -1,5 +1,6 @@
 package com.ssafy.habitat.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,9 +18,11 @@ public class FriendRequest extends BaseTime{
     private int friendRequestKey;
 
     @ManyToOne
+    @JsonIgnore
     private User from;
 
     @ManyToOne
+    @JsonIgnore
     private User to;
 
     @Column(columnDefinition = "TINYINT(1)")
