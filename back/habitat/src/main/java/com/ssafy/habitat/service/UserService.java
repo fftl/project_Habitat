@@ -1,15 +1,19 @@
 package com.ssafy.habitat.service;
 
+import com.ssafy.habitat.dto.ResponseUserDto;
 import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.exception.CustomException;
 import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.repository.UserRepository;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -22,7 +26,9 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-//    @Cacheable(value = "User", key = "#userKey", cacheManager = "cacheManager")
+    @Transactional
+    @Fetch(FetchMode.JOIN)
+    @Cacheable(value = "User", key = "#userKey", cacheManager = "cacheManager", sync = true)
     public User getUser(String userKey) {
         User findUser = userRepository.findById(userKey).orElse(null);
         if(findUser == null) { // 존재하지 않는 유저
