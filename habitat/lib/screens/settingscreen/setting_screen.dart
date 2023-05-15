@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitat/api/drinklog/api_drinklogs.dart';
+import 'package:habitat/screens/alarm/alarm_screen.dart';
 import 'package:habitat/screens/settingscreen/coaster_connect.dart';
 import 'package:habitat/screens/settingscreen/modify_goal_screen.dart';
 import 'package:habitat/screens/settingscreen/setting_cash.dart';
@@ -168,6 +169,12 @@ class _settingboxState extends State<settingbox> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          TextButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const AlarmPage()));
+              },
+              child: const Text('test')),
           const Text(
             "목표설정",
             style: TextStyle(

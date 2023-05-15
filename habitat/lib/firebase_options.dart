@@ -67,8 +67,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '717538880248',
     projectId: 'habitat-bf6d3',
     storageBucket: 'habitat-bf6d3.appspot.com',
-    androidClientId: '717538880248-7imbroeftif5qko51mf62jq08od9mh07.apps.googleusercontent.com',
-    iosClientId: '717538880248-uihelbb159rt54af6f0bh0h7ca9tuakr.apps.googleusercontent.com',
+    androidClientId:
+        '717538880248-7imbroeftif5qko51mf62jq08od9mh07.apps.googleusercontent.com',
+    iosClientId:
+        '717538880248-uihelbb159rt54af6f0bh0h7ca9tuakr.apps.googleusercontent.com',
     iosBundleId: 'com.status200.habitat',
   );
 
@@ -78,8 +80,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '717538880248',
     projectId: 'habitat-bf6d3',
     storageBucket: 'habitat-bf6d3.appspot.com',
-    androidClientId: '717538880248-7imbroeftif5qko51mf62jq08od9mh07.apps.googleusercontent.com',
-    iosClientId: '717538880248-vj28rba0ikb6k4u94nu46ekq11q20pff.apps.googleusercontent.com',
+    androidClientId:
+        '717538880248-7imbroeftif5qko51mf62jq08od9mh07.apps.googleusercontent.com',
+    iosClientId:
+        '717538880248-vj28rba0ikb6k4u94nu46ekq11q20pff.apps.googleusercontent.com',
     iosBundleId: 'com.status200.habitat.RunnerTests',
   );
 }
