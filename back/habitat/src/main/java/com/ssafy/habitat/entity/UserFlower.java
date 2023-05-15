@@ -28,5 +28,4 @@ public class UserFlower extends BaseTime{
 
     @ManyToOne
     private Flower flower;
-
 }
