@@ -6,6 +6,8 @@ import com.ssafy.habitat.entity.StreakLog;
 import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.repository.CoasterRepository;
 import com.ssafy.habitat.repository.StreakLogRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import java.util.List;
 
 @Service
 public class StreakLogService {
+    private final Logger LOGGER = LoggerFactory.getLogger(StreakLogService.class);
+
 
     private StreakLogRepository streakLogRepository;
 
@@ -27,6 +31,8 @@ public class StreakLogService {
     }
 
     public void addStreakLog(User user) {
+        LOGGER.info("addStreakLog() : 유저의 새로운 스트릭 등록");
+
 
         // 유저의 가장 최근 streak 가져오기
         List<StreakLog> streakLogList = user.getStreakLogList();
@@ -90,6 +96,8 @@ public class StreakLogService {
     }
 
     public StreakLog getDailyStreakLog(User user) {
+        LOGGER.info("getDailyStreakLog() : 유저의 오늘 스트릭 객체 반환");
+
         LocalDateTime startDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0)); //오늘 00:00:00
         LocalDateTime endDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59)); //오늘 23:59:59
         StreakLog streakLog = streakLogRepository.findByUserAndCreatedAtBetween(user, startDatetime, endDatetime).orElse(null);

@@ -5,6 +5,8 @@ import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.exception.CustomException;
 import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.repository.FriendRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import java.util.List;
 
 @Service
 public class FriendService {
+    private final Logger LOGGER = LoggerFactory.getLogger(FriendService.class);
+
     private FriendRepository friendRepository;
 
     @Autowired
@@ -21,6 +25,8 @@ public class FriendService {
     }
 
     public List<User> getFriendList(User user) {
+        LOGGER.info("getFriendList() : 유저의 친구 목록 반환");
+
         List<User> friendList = new ArrayList<>();
 
         for (int i = 0; i < user.getFriendList().size(); i++) {
@@ -32,6 +38,8 @@ public class FriendService {
 
 
     public void checkFriendRequestPossible(User fromUser, User toUser) {
+        LOGGER.info("checkFriendRequestPossible() : 친구신청의 유효성 검사");
+
         Friend findFriend = friendRepository.findByMyIdAndFriendId(fromUser, toUser).orElse(null);
 
         // 이미 친구 관계에 있음을 확인했다면 친구신청 불가
@@ -41,6 +49,8 @@ public class FriendService {
     }
 
     public void addFriend(Friend newFriend) {
+        LOGGER.info("addFriend() : 새로운 친구관계 등록");
+
         Friend findFriend = friendRepository.findByMyIdAndFriendId(newFriend.getMyId(), newFriend.getFriendId()).orElse(null);
         // 이미 친구 관계에 있음을 확인했다면 친구관계 등록 불가
         if(findFriend != null) {

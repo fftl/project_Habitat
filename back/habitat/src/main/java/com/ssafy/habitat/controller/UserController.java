@@ -1,9 +1,5 @@
 package com.ssafy.habitat.controller;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.ssafy.habitat.config.TokenInfo;
 import com.ssafy.habitat.config.TokenProvider;
 import com.ssafy.habitat.dto.RequestCoasterDto;
@@ -15,10 +11,13 @@ import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.service.*;
 import com.ssafy.habitat.utils.Util;
 import io.swagger.annotations.ApiOperation;
-import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -28,18 +27,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
     private UserService userService;
@@ -74,6 +73,8 @@ public class UserController {
     @PatchMapping("/modify")
     @ApiOperation(value = "유저 닉네임 수정", notes="유저의 닉네임을 수정합니다.")
     public ResponseEntity modifiedUser(HttpServletRequest request, @RequestBody RequestUserDto.ModifyNickname requestUserDto){
+        LOGGER.info("modifiedUser() : 유저 닉네임 수정");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
         String newNickname = requestUserDto.getNickname();
@@ -92,6 +93,8 @@ public class UserController {
     @PatchMapping("/modify/nickname")
     @ApiOperation(value = "유저 닉네임 랜덤 수정", notes="유저의 닉네임을 랜덤으로 수정합니다.")
     public ResponseEntity randomNickname(HttpServletRequest request){
+        LOGGER.info("randomNickname() : 유저 닉네임 랜덤 수정");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
 
@@ -112,6 +115,8 @@ public class UserController {
     @PatchMapping("/modify/goal")
     @ApiOperation(value = "유저 목표 섭취량 수정", notes="유저의 목표섭취량을 수정합니다.")
     public ResponseEntity modifiedUserGoal(HttpServletRequest request, @RequestBody RequestUserDto.ModifyGoal requestUserDto){
+        LOGGER.info("modifiedUserGoal() : 유저 목표 섭취량 수정");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
         int newGoal = requestUserDto.getGoal();
@@ -130,6 +135,8 @@ public class UserController {
     @PatchMapping("/modify/img")
     @ApiOperation(value = "유저 이미지 수정", notes="유저의 프로필 이미지를 수정합니다.")
     public ResponseEntity modifiedUserImg(HttpServletRequest request, @RequestParam("file") MultipartFile file) throws IOException {
+        LOGGER.info("modifiedUserImg() : 유저 이미지 수정");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
 
@@ -145,6 +152,8 @@ public class UserController {
     @GetMapping
     @ApiOperation(value = "유저 조회", notes="유저 키를 통해 유저를 조회합니다.")
     public ResponseEntity getUser(HttpServletRequest request){
+        LOGGER.info("getUser() : 유저 조회");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
 
@@ -161,6 +170,8 @@ public class UserController {
     @PostMapping("/coaster")
     @ApiOperation(value = "유저 코스터 등록", notes="유저의 코스터를 등록합니다.")
     public ResponseEntity addCoaster(HttpServletRequest request, @RequestBody RequestCoasterDto requestCoasterDto) throws IOException {
+        LOGGER.info("addCoaster() : 유저 코스터 등록");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey);
         Coaster coaster = coasterService.getCoaster(requestCoasterDto.getCoasterKey());
@@ -182,6 +193,8 @@ public class UserController {
     @PostMapping("/login")
     @ApiOperation(value = "유저 로그인", notes="유저 로그인 처리를 합니다.")
     public ResponseEntity login(@RequestBody RequestUserDto.Login request, HttpServletResponse httpServletResponse) throws ParseException {
+        LOGGER.info("login() : 유저 로그인");
+
         TokenInfo tokenInfo = null;
         //처음으로 로그인 요청을 한 유저라면!
         if(userService.socialKeyCheck(request.getSocialKey())){
@@ -295,7 +308,10 @@ public class UserController {
     }
 
     @PostMapping("/refresh")
+    @ApiOperation(value = "refresh token 유효성 확인", notes = "refresh token의 유효성을 확인합니다.")
     public ResponseEntity validateRefreshToken(HttpServletRequest request, HttpServletResponse response){
+        LOGGER.info("validateRefreshToken() : refresh token 유효성 확인");
+
         return new ResponseEntity(HttpStatus.OK);
     }
 

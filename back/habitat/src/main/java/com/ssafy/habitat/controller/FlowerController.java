@@ -7,6 +7,8 @@ import com.ssafy.habitat.dto.ResponseFlowerDto;
 import com.ssafy.habitat.entity.*;
 import com.ssafy.habitat.service.*;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/flowers")
 public class FlowerController {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(FlowerController.class);
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
     private FlowerService flowerService;
@@ -44,7 +48,9 @@ public class FlowerController {
 
     @GetMapping("/exp")
     @ApiOperation(value = "리워드 페이지 조회(꽃, 경험치, 레벨)", notes="현재 유저의 꽃, 경험치, 레벨을 조회합니다.")
-    public ResponseEntity getDrinkLog(HttpServletRequest request) {
+    public ResponseEntity getReward(HttpServletRequest request) {
+        LOGGER.info("getReward() : 리워드 페이지 조회(꽃, 경험치, 레벨)");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
@@ -77,7 +83,8 @@ public class FlowerController {
 
     @GetMapping("/{flowerKey}")
     @ApiOperation(value = "꽃 상세", notes="꽃 하나에 대한 상세 내용을 조회합니다.")
-    public ResponseEntity getDrinkLog(@PathVariable("flowerKey") int flowerKey) {
+    public ResponseEntity getFlowerDetail(@PathVariable("flowerKey") int flowerKey) {
+        LOGGER.info("getFlowerDetail() : 꽃 상세 내역 조회");
 
         Flower flower = flowerService.getFlower(flowerKey);
 
@@ -96,6 +103,7 @@ public class FlowerController {
     @PostMapping("/flower")
     @ApiOperation(value = "꽃 등록", notes="DB에 꽃을 등록합니다.")
     public ResponseEntity addFlower(@RequestBody RequestFlowerDto requestFlowerDto) {
+        LOGGER.info("addFlower() : 꽃 등록");
 
         Flower flower = requestFlowerDto.toEntity();
         flowerService.addFlower(flower);
@@ -106,6 +114,8 @@ public class FlowerController {
     @GetMapping("/available")
     @ApiOperation(value = "획득할 수 있는(해금) 꽃 목록", notes="유저가 획득할 수 있는 꽃 목록을 조회합니다.")
     public ResponseEntity getAvailableFlowerList(HttpServletRequest request) {
+        LOGGER.info("getAvailableFlowerList() : 획득할 수 있는(해금) 꽃 목록");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
@@ -131,6 +141,8 @@ public class FlowerController {
     @GetMapping("/get")
     @ApiOperation(value = "수확한 꽃 목록", notes="유저가 수확한 꽃 목록을 중복없이 조회합니다.")
     public ResponseEntity getGetFlowerList(HttpServletRequest request) {
+        LOGGER.info("getGetFlowerList() : 수확한 꽃 목록");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
@@ -163,6 +175,8 @@ public class FlowerController {
     @GetMapping("/collection")
     @ApiOperation(value = "꽃 목록", notes="모든 꽃에 대하여 유저의 상태(획득, 획득가능, 미획득)를 조회합니다.")
     public ResponseEntity getFlowerList(HttpServletRequest request) {
+        LOGGER.info("getFlowerList() : 유저의 모든 꽃 상태 목록");
+
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
