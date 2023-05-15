@@ -85,7 +85,10 @@ class RewardScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        'lib/assets/images/flowers/${controller.flower['flowerKey']}/${controller.exp['lv']}.png',
+                        controller.flower['flowerKey'] != null &&
+                                controller.exp['lv'] != null
+                            ? 'lib/assets/images/flowers/${controller.flower['flowerKey'].toString()}/${controller.exp['lv'].toString()}.png'
+                            : "lib/assets/images/sunflower.png",
                         scale: 4.8,
                       ),
                       const SizedBox(
@@ -96,8 +99,8 @@ class RewardScreen extends StatelessWidget {
                         children: [
                           StepProgressIndicator(
                             direction: Axis.vertical,
-                            totalSteps: controller.exp['maxExp'] ?? 1,
-                            currentStep: controller.exp['exp'] ?? 1,
+                            totalSteps: controller.exp['maxExp'] ?? 100,
+                            currentStep: controller.exp['exp'] ?? 25,
                             size: 26,
                             padding: 0,
                             fallbackLength: 170,
@@ -110,7 +113,10 @@ class RewardScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 8),
                             child: Text(
-                              "${(controller.exp['exp'] / controller.exp['maxExp']).toStringAsFixed(1)}%",
+                              controller.exp['exp'] != null &&
+                                      controller.exp['maxExp'] != null
+                                  ? "${(controller.exp['exp'] / controller.exp['maxExp']).toStringAsFixed(1)}%"
+                                  : "not yet",
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -176,18 +182,14 @@ class RewardScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          controller.flower.isNotEmpty
-                              ? controller.flower['name']
-                              : "not yet",
+                          controller.flower['name'] ?? "not yet",
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         Text(
-                          controller.flower.isNotEmpty
-                              ? controller.flower['story']
-                              : "not yet",
+                          controller.flower['story'] ?? "not yet",
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -202,9 +204,7 @@ class RewardScreen extends StatelessWidget {
                         //       color: Colors.grey[400]),
                         // ),
                         Text(
-                          controller.flower.isNotEmpty
-                              ? controller.flower['getCondition']
-                              : "not yet",
+                          controller.flower['getCondition'] ?? "not yet",
                           style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,

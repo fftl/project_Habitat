@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:habitat/api/flower/api_flowers.dart';
 
 class RewardController extends GetxController {
-  RxMap exp = {}.obs;
-  RxMap flower = {}.obs;
+  Map exp = {}.obs;
+  Map flower = {}.obs;
   List collection = [].obs;
 
   @override
@@ -17,10 +17,17 @@ class RewardController extends GetxController {
   updateFlowerInfo() {
     getGrowingFlower(success: (response) async {
       debugPrint("response : $response");
-      exp.value = await response['exp'];
-      flower.value = await response['flower'];
+      Map flowerStatus = {};
+      flowerStatus = await response;
+      debugPrint("유저 스탯 : ${flowerStatus['exp']}");
+      exp = await flowerStatus['exp'];
+      flower = await flowerStatus['flower'];
       debugPrint("유저 스탯 : ${exp.toString()}");
       debugPrint("꽃 정보 : ${flower.toString()}");
+      debugPrint("꽃 정보 : ${flower['story']}");
+      debugPrint("꽃 정보 type : ${flower['story'].runtimeType}");
+      debugPrint("경험치 정보 : ${exp['exp'].toString()}");
+      debugPrint("경험치 정보 type : ${exp['exp'].runtimeType}");
     }, fail: (e) {
       debugPrint("에러발생 : $e");
     });
