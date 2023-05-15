@@ -215,7 +215,7 @@ public class UserController {
                     .userKey(newKey)
                     .password(encoder.encode(newKey))
                     .nickname(newNickname)
-                    .goal(0)
+                    .goal(1500)
                     .friendCode(newFriendCode)
                     .socialKey(request.getSocialKey())
                     .socialType(request.getSocialType())

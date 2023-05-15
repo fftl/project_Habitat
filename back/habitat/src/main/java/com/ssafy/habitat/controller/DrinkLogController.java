@@ -3,6 +3,7 @@ package com.ssafy.habitat.controller;
 import com.ssafy.habitat.config.TokenProvider;
 import com.ssafy.habitat.dto.RequestDrinkLogDto;
 import com.ssafy.habitat.dto.ResponseDrinkLogDto;
+import com.ssafy.habitat.entity.Collection;
 import com.ssafy.habitat.entity.DrinkLog;
 import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.exception.ErrorCode;
@@ -19,10 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/drinkLogs")
@@ -112,8 +111,93 @@ public class DrinkLogController {
                     .createdAt(drinkLog.getCreatedAt())
                     .build());
         }
-
         return new ResponseEntity<>(drinkLogDtoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/week/total")
+    @ApiOperation(value = "최근 일주일 섭취로그 조회", notes="유저의 최근 1주일의 섭취로그를 조회합니다.")
+    public ResponseEntity getWeekDrinkLog(HttpServletRequest request) {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
+        User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
+
+        List<DrinkLog> drinkLogList = drinkLogService.getWeeklyLogs(user); //찾아낸 유저의 오늘 섭취로그를 가져옵니다.
+
+        HashMap<LocalDate, ResponseDrinkLogDto.responseDrink> map = new HashMap<>();
+        for (int i = 0; i <drinkLogList.size() ; i++) {
+            DrinkLog drinkLog = drinkLogList.get(i);
+            LocalDate localDate = drinkLog.getCreatedAt().toLocalDate();
+            if(!map.containsKey(localDate)){
+                map.put(localDate, ResponseDrinkLogDto.responseDrink.builder()
+                                .date(localDate)
+                                .cafeDrink(0)
+                                .waterDrink(0)
+                                .nonCafeDrink(0).build());
+                if(drinkLog.getDrinkType() == 'w') map.get(localDate).setWaterDrink(map.get(localDate).getWaterDrink()+drinkLog.getDrink());
+                if(drinkLog.getDrinkType() == 'c') map.get(localDate).setCafeDrink(map.get(localDate).getCafeDrink()+drinkLog.getDrink());
+                if(drinkLog.getDrinkType() == 'n') map.get(localDate).setNonCafeDrink(map.get(localDate).getNonCafeDrink()+drinkLog.getDrink());
+            } else {
+                if(drinkLog.getDrinkType() == 'w') map.get(localDate).setWaterDrink(map.get(localDate).getWaterDrink()+drinkLog.getDrink());
+                if(drinkLog.getDrinkType() == 'c') map.get(localDate).setCafeDrink(map.get(localDate).getCafeDrink()+drinkLog.getDrink());
+                if(drinkLog.getDrinkType() == 'n') map.get(localDate).setNonCafeDrink(map.get(localDate).getNonCafeDrink()+drinkLog.getDrink());
+            }
+        }
+
+        ArrayList<ResponseDrinkLogDto.responseDrink> response = new ArrayList<>();
+        for (LocalDate date : map.keySet()) {
+            response.add(map.get(date));
+        }
+
+        Collections.sort(response, new Comparator<ResponseDrinkLogDto.responseDrink>() {
+            @Override
+            public int compare(ResponseDrinkLogDto.responseDrink o1, ResponseDrinkLogDto.responseDrink o2) {
+                return o1.getDate().compareTo(o2.getDate());
+            }
+        });
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/month/total")
+    @ApiOperation(value = "최근 한 달 섭취로그 조회", notes="유저의 최근 한달의 섭취로그를 조회합니다.")
+    public ResponseEntity getMonthDrinkLog(HttpServletRequest request) {
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
+        User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
+
+        List<DrinkLog> drinkLogList = drinkLogService.getMonthlyLogs(user); //찾아낸 유저의 오늘 섭취로그를 가져옵니다.
+
+        HashMap<LocalDate, ResponseDrinkLogDto.responseDrink> map = new HashMap<>();
+        for (int i = 0; i <drinkLogList.size() ; i++) {
+            DrinkLog drinkLog = drinkLogList.get(i);
+            LocalDate localDate = drinkLog.getCreatedAt().toLocalDate();
+            if(!map.containsKey(localDate)){
+                map.put(localDate, ResponseDrinkLogDto.responseDrink.builder()
+                        .date(localDate)
+                        .cafeDrink(0)
+                        .waterDrink(0)
+                        .nonCafeDrink(0).build());
+                if(drinkLog.getDrinkType() == 'w') map.get(localDate).setWaterDrink(map.get(localDate).getWaterDrink()+drinkLog.getDrink());
+                if(drinkLog.getDrinkType() == 'c') map.get(localDate).setCafeDrink(map.get(localDate).getCafeDrink()+drinkLog.getDrink());
+                if(drinkLog.getDrinkType() == 'n') map.get(localDate).setNonCafeDrink(map.get(localDate).getNonCafeDrink()+drinkLog.getDrink());
+            } else {
+                if(drinkLog.getDrinkType() == 'w') map.get(localDate).setWaterDrink(map.get(localDate).getWaterDrink()+drinkLog.getDrink());
+                if(drinkLog.getDrinkType() == 'c') map.get(localDate).setCafeDrink(map.get(localDate).getCafeDrink()+drinkLog.getDrink());
+                if(drinkLog.getDrinkType() == 'n') map.get(localDate).setNonCafeDrink(map.get(localDate).getNonCafeDrink()+drinkLog.getDrink());
+            }
+        }
+
+        ArrayList<ResponseDrinkLogDto.responseDrink> response = new ArrayList<>();
+        for (LocalDate date : map.keySet()) {
+            response.add(map.get(date));
+        }
+
+        Collections.sort(response, new Comparator<ResponseDrinkLogDto.responseDrink>() {
+            @Override
+            public int compare(ResponseDrinkLogDto.responseDrink o1, ResponseDrinkLogDto.responseDrink o2) {
+                return o1.getDate().compareTo(o2.getDate());
+            }
+        });
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/day/total")

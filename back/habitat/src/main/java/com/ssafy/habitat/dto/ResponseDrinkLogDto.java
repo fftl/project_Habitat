@@ -1,9 +1,8 @@
 package com.ssafy.habitat.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -15,4 +14,16 @@ public class ResponseDrinkLogDto {
     private Boolean isCoaster;
     private char drinkType;
     private LocalDateTime createdAt;
+
+    @Setter
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class responseDrink {
+        private LocalDate date;
+        private int waterDrink;
+        private int nonCafeDrink;
+        private int cafeDrink;
+    }
 }
