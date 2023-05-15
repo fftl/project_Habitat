@@ -5,6 +5,8 @@ import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.exception.CustomException;
 import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.repository.FriendRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import java.util.List;
 
 @Service
 public class FriendService {
+    private final Logger LOGGER = LoggerFactory.getLogger(FriendService.class);
+
     private FriendRepository friendRepository;
 
     @Autowired

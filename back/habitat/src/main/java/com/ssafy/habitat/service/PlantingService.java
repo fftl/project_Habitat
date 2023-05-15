@@ -5,11 +5,15 @@ import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.exception.CustomException;
 import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.repository.PlantingRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PlantingService {
+    private final Logger LOGGER = LoggerFactory.getLogger(PlantingService.class);
+
 
     private PlantingRepository plantingRepository;
 

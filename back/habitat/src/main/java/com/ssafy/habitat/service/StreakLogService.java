@@ -6,6 +6,8 @@ import com.ssafy.habitat.entity.StreakLog;
 import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.repository.CoasterRepository;
 import com.ssafy.habitat.repository.StreakLogRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import java.util.List;
 
 @Service
 public class StreakLogService {
+    private final Logger LOGGER = LoggerFactory.getLogger(StreakLogService.class);
+
 
     private StreakLogRepository streakLogRepository;
 

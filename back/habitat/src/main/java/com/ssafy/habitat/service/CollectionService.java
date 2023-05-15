@@ -3,6 +3,8 @@ package com.ssafy.habitat.service;
 import com.ssafy.habitat.entity.Collection;
 import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.repository.CollectionRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Service
 public class CollectionService {
+    private final Logger LOGGER = LoggerFactory.getLogger(CollectionService.class);
+
 
     private CollectionRepository collectionRepository;
 

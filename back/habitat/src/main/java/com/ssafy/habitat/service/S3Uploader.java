@@ -6,6 +6,8 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.ssafy.habitat.entity.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Component
 public class S3Uploader {
+    private final Logger LOGGER = LoggerFactory.getLogger(S3Uploader.class);
+
 
     private final AmazonS3Client amazonS3Client;
 

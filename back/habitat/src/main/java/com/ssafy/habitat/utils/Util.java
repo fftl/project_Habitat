@@ -1,6 +1,9 @@
 package com.ssafy.habitat.utils;
 
 import com.ssafy.habitat.config.TokenProvider;
+import com.ssafy.habitat.websocket.WebSocketConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
@@ -8,6 +11,8 @@ import java.util.stream.IntStream;
 
 @Component
 public class Util {
+    private final Logger LOGGER = LoggerFactory.getLogger(Util.class);
+
 
     private TokenProvider tokenProvider;
 

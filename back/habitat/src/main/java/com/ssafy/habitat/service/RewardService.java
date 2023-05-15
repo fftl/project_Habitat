@@ -2,6 +2,8 @@ package com.ssafy.habitat.service;
 
 import com.ssafy.habitat.entity.*;
 import com.ssafy.habitat.websocket.CustomWebSocketHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Service
 public class RewardService {
+    private final Logger LOGGER = LoggerFactory.getLogger(RewardService.class);
+
     private FriendService friendService;
     private DrinkLogService drinkLogService;
     private CollectionService collectionService;

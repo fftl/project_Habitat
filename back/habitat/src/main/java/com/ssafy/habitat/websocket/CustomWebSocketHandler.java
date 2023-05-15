@@ -1,6 +1,9 @@
 package com.ssafy.habitat.websocket;
 
 import com.ssafy.habitat.entity.User;
+import com.ssafy.habitat.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.*;
 
@@ -10,6 +13,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class CustomWebSocketHandler implements WebSocketHandler {
+    private final Logger LOGGER = LoggerFactory.getLogger(CustomWebSocketHandler.class);
+
 
     private static final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 
