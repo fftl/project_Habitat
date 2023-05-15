@@ -24,7 +24,7 @@ public class FlowerService {
         flowerRepository.save(flower);
     }
 
-    @Cacheable(value = "Flower", key = "#flowerKey", cacheManager = "cacheManager")
+//    @Cacheable(value = "Flower", key = "#flowerKey", cacheManager = "cacheManager")
     public Flower getFlower(int flowerKey) {
         Flower findFlower = flowerRepository.findById(flowerKey).orElseThrow(()->new CustomException(ErrorCode.FLOWER_NOT_FOUND));
         return findFlower;
