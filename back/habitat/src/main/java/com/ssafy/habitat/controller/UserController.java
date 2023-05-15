@@ -89,6 +89,26 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PatchMapping("/modify/nickname")
+    @ApiOperation(value = "유저 닉네임 랜덤 수정", notes="유저의 닉네임을 랜덤으로 수정합니다.")
+    public ResponseEntity randomNickname(HttpServletRequest request){
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
+        User user = userService.getUser(userKey);
+
+        RestTemplate restTemplate = new RestTemplate();
+        String url = "https://nickname.hwanmoo.kr/?format=text";
+
+        HttpEntity<String> getResponse = restTemplate.getForEntity(url, String.class);
+        String newNickname = getResponse.getBody();
+
+        user.setNickname(newNickname);
+        userService.addUser(user);
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("nickname", newNickname);
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
     @PatchMapping("/modify/goal")
     @ApiOperation(value = "유저 목표 섭취량 수정", notes="유저의 목표섭취량을 수정합니다.")
     public ResponseEntity modifiedUserGoal(HttpServletRequest request, @RequestBody RequestUserDto.ModifyGoal requestUserDto){

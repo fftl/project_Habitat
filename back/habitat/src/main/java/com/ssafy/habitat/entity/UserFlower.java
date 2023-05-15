@@ -31,5 +31,4 @@ public class UserFlower extends BaseTime{
     @ManyToOne
     @JsonIgnore
     private Flower flower;
-
 }
