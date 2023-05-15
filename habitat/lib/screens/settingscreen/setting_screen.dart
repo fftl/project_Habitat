@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habitat/screens/alarm/alam_screen.dart';
 import 'package:habitat/screens/alarm/local_notification.dart';
+import 'package:habitat/api/drinklog/api_drinklogs.dart';
 import 'package:habitat/screens/settingscreen/coaster_connect.dart';
 import 'package:habitat/screens/settingscreen/modify_goal_screen.dart';
 import 'package:habitat/screens/settingscreen/setting_cash.dart';
@@ -19,6 +20,17 @@ class _SettingScreenState extends State<SettingScreen> {
   onEditProfile() {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const SettingProfile()));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAllDrinkLogs(success: (response) {
+      debugPrint("결과는??? ${response.toString()}");
+    }, fail: (e) {
+      debugPrint("error : $e");
+    });
   }
 
   @override

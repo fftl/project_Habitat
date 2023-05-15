@@ -52,6 +52,7 @@ dependencies:
   google_sign_in: ^6.1.0
   fl_chart: ^0.62.0
   flutter_local_notifications: ^12.0.4
+  smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -85,7 +86,7 @@ flutter:
     - lib/assets/images/flowers/6/
     - lib/assets/images/flowers/7/
     - lib/assets/images/flowers/8/
-    - lib/assets/images/glass.png
+    - lib/assets/images/characters/
     - lib/assets/images/sunflower.png
     - lib/assets/images/kakao.png
     - lib/assets/images/default_profile.png
