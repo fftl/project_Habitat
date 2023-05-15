@@ -30,7 +30,7 @@ void main() async {
       routes: {
         '/': (context) => const LoginBridge(),
         '/onboarding': (context) => const OnboardingScreen(),
-        '/login': (context) => LoginScreen(),
+        '/login': (context) => const LoginScreen(),
         '/main': (context) => const MainScreen(),
         '/report': (context) => const LoginBridge(),
         '/reward': (context) => const RewardScreen(),

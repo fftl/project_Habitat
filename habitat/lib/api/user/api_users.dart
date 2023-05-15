@@ -5,6 +5,26 @@ import 'package:habitat/api/base_url.dart';
 import 'package:habitat/models/users_model.dart';
 import 'package:http/http.dart' as http;
 
+Future<Map<String, String>> postUserLogin(String socialKey) async {
+  Uri url = Uri.parse('http://k8a704.p.ssafy.io:8081/api/users/login');
+  final response = await http.post(
+    url,
+    headers: {"Content-Type": "application/json"},
+    body: jsonEncode({
+      'socialKey': socialKey,
+      'socialType': 1,
+    }),
+  );
+  if (response.statusCode == 200) {
+    late dynamic jsonResponse;
+    jsonResponse = response.headers;
+    debugPrint("헤더값 엑세스 토큰 : ${jsonResponse['accesstoken']}");
+    debugPrint("헤더값 엑세스 토큰 : ${jsonResponse['refreshtoken']}");
+    return jsonResponse;
+  }
+  return {};
+}
+
 class ApiUsers {
   final String baseurl = BaseUrl().rooturl;
 

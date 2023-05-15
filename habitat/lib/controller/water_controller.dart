@@ -22,7 +22,7 @@ class WaterController extends GetxController {
 
   getApiData() {
     getTodayDrinkLogs(success: (response) {
-      waterlog.value = response;
+      // waterlog.value = response;
     }, fail: (e) {
       debugPrint("에러발생 : $e");
     });
