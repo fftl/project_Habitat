@@ -29,9 +29,9 @@ baseApi({
     "Authorization": "Bearer $authorization",
   };
 
-  debugPrint(url);
-  debugPrint(authorization);
-  debugPrint(headers['Authorization']);
+  debugPrint("baseUrl : $url");
+  debugPrint("authorization : $authorization");
+  debugPrint("headers authorization ${headers['Authorization']}");
   Uri uri = Uri.parse(url);
   debugPrint("uri : $uri");
 

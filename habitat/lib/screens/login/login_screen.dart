@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     if (googleUser != null) {
       String socialKey = googleUser.id;
-      Future futuerMapData = postAddDrinkLog(socialKey);
+      Future futuerMapData = postUserLogin(socialKey);
       Map<String, String> headerData = await futuerMapData;
       debugPrint("accessToken : ${headerData['accesstoken']}");
       debugPrint("refreshToken : ${headerData['refreshtoken']}");
