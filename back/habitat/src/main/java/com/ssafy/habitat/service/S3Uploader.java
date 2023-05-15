@@ -33,6 +33,8 @@ public class S3Uploader {
     private String bucket;
 
     public String uploadFile(MultipartFile multipartFile, String userKey) throws IOException {
+        LOGGER.info("uploadFile() : 사진 저장 준비");
+
         File uploadFile = convert(multipartFile, userKey)
                 .orElseThrow(() -> new IllegalArgumentException("MultipartFile -> File로 전환이 실패했습니다."));
 
@@ -40,6 +42,8 @@ public class S3Uploader {
     }
 
     public String upload(File uploadFile, String dirName) {
+        LOGGER.info("upload() : 로컬에 사진 업로드");
+
         String fileName = dirName + "/" + uploadFile.getName();
         String uploadImageUrl = putS3(uploadFile, fileName);
         removeNewFile(uploadFile);
@@ -47,11 +51,15 @@ public class S3Uploader {
     }
 
     private String putS3(File uploadFile, String fileName) {
+        LOGGER.info("putS3() : S3에 사진 업로드");
+
         amazonS3Client.putObject(new PutObjectRequest(bucket, fileName, uploadFile).withCannedAcl(CannedAccessControlList.PublicRead));
         return amazonS3Client.getUrl(bucket, fileName).toString();
     }
 
     private void removeNewFile(File targetFile) {
+        LOGGER.info("removeNewFile() : 로컬 사진 파일 삭제");
+
         if (targetFile.delete()) {
             log.info("파일이 삭제되었습니다.");
         } else {

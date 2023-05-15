@@ -31,6 +31,8 @@ public class StreakLogService {
     }
 
     public void addStreakLog(User user) {
+        LOGGER.info("addStreakLog() : 유저의 새로운 스트릭 등록");
+
 
         // 유저의 가장 최근 streak 가져오기
         List<StreakLog> streakLogList = user.getStreakLogList();
@@ -94,6 +96,8 @@ public class StreakLogService {
     }
 
     public StreakLog getDailyStreakLog(User user) {
+        LOGGER.info("getDailyStreakLog() : 유저의 오늘 스트릭 객체 반환");
+
         LocalDateTime startDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0)); //오늘 00:00:00
         LocalDateTime endDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59)); //오늘 23:59:59
         StreakLog streakLog = streakLogRepository.findByUserAndCreatedAtBetween(user, startDatetime, endDatetime).orElse(null);

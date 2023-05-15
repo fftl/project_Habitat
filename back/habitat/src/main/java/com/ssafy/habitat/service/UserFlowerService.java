@@ -22,15 +22,21 @@ public class UserFlowerService {
     }
 
     public List<UserFlower> getLockedFlowerList(User user) {
+        LOGGER.info("getLockedFlowerList() : 유저의 잠긴 꽃 목록 반환");
+
         List<UserFlower> findUserLockedFlowerList = userFlowerRepository.findByUserAndIsUnlocked(user, false);
         return findUserLockedFlowerList;
     }
 
     public void addUserFlower(UserFlower newUserFlower) {
+        LOGGER.info("addUserFlower() : 새로운 유저-꽃 관계 등록");
+
         userFlowerRepository.save(newUserFlower);
     }
 
     public List<UserFlower> getUnlockedFlowerList(User user) {
+        LOGGER.info("getUnlockedFlowerList() : 유저의 해금된 꽃 목록 반환");
+
         List<UserFlower> findUserUnlockedFlowerList = userFlowerRepository.findByUserAndIsUnlocked(user, true);
         return findUserUnlockedFlowerList;
     }

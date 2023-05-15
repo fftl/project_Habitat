@@ -23,6 +23,8 @@ public class PlantingService {
     }
 
     public Planting getCurrentPlant(User user) {
+        LOGGER.info("getCurrentPlant() : 유저의 현재 키우는 꽃 정보 반환");
+
         // 현재 키우고 있는 꽃의 정보를 리턴
         Planting findPlanting = plantingRepository.findByUserAndFlowerCnt(user, user.getCollectionList().size()+1)
                 .orElseThrow(() -> new CustomException(ErrorCode.PLANTING_NOT_FOUND));
@@ -31,11 +33,15 @@ public class PlantingService {
     }
 
     public void modifyPlanting(Planting planting) {
+        LOGGER.info("modifyPlanting() : 키우기 객체 수정");
+
         // 수정된 planting 객체 저장
         plantingRepository.save(planting);
     }
 
     public void addPlanting(Planting newPlanting) {
+        LOGGER.info("addPlanting() : 새로운 키우기 꽃 등록");
+
         // 새로운 꽃 배정
         plantingRepository.save(newPlanting);
     }

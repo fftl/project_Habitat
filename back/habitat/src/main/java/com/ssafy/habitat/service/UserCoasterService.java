@@ -20,6 +20,8 @@ public class UserCoasterService {
     }
 
     public void addUserCoaster(UserCoaster userCoaster) {
+        LOGGER.info("addUserCoaster() : 새로운 유저-코스터 관계 등록");
+
         userCoasterRepository.save(userCoaster);
     }
 }

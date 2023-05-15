@@ -26,6 +26,8 @@ public class FriendRequestService {
     }
 
     public void addFriendRequest(FriendRequest newFriendRequest) {
+        LOGGER.info("addFriendRequest() : 친구신청 객체 등록");
+
         // 나 자신에게 친구신청을 하는 경우
         if(newFriendRequest.getTo() == newFriendRequest.getFrom()) {
             throw new CustomException(ErrorCode.FRIEND_REQUEST_NOT_FOR_MYSELF);
@@ -40,6 +42,8 @@ public class FriendRequestService {
     }
 
     public List<FriendRequest> getFriendRequestList(User user) {
+        LOGGER.info("getFriendRequestList() : 유저에게 도착한 친구신청 목록 반환");
+
         List<FriendRequest> friendRequestList = new ArrayList<>();
 
         for (int i = 0; i < user.getFriendRequestList().size(); i++) {
@@ -53,12 +57,16 @@ public class FriendRequestService {
     }
 
     public FriendRequest getFriendRequestByRequestKey(int requestKey) {
+        LOGGER.info("getFriendRequestByRequestKey() : 친구신청 객체 반환");
+
         FriendRequest findFriendRequest = friendRequestRepository.findById(requestKey).orElseThrow(()->new CustomException(ErrorCode.FRIEND_REQUEST_NOT_FOUND));
 
         return findFriendRequest;
     }
 
     public void checkFriendRequestAuthorization(User user, FriendRequest friendRequest) {
+        LOGGER.info("checkFriendRequestAuthorization() : 친구신청 처리의 유효성 검사");
+
         // 해당 유저에게 귀속된 친구신청이 아닌 경우
         if(user != friendRequest.getTo()) {
             throw new CustomException(ErrorCode.FRIEND_REQUEST_NOT_FOR_USER);
@@ -71,6 +79,8 @@ public class FriendRequestService {
     }
 
     public void modifyFriendRequest(FriendRequest friendRequest, int status) {
+        LOGGER.info("modifyFriendRequest() : 친구신청 상태 수정");
+
         friendRequest.setStatus(status); // status 변경(1 : 수락, 2: 거절)
         friendRequestRepository.save(friendRequest);
     }

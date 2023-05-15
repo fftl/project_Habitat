@@ -19,6 +19,8 @@ public class UserFlowerLogService {
     }
 
     public void addUserFlowerLog(UserFlowerLog newUserFlowerLog) {
+        LOGGER.info("addUserFlowerLog() : 유저의 해금 기록 저장");
+
         userFlowerLogRepository.save(newUserFlowerLog);
     }
 }
