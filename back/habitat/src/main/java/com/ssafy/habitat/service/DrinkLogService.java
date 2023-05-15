@@ -55,7 +55,23 @@ public class DrinkLogService {
 
         LocalDateTime startDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0)); //오늘 00:00:00
         LocalDateTime endDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59)); //오늘 23:59:59
-        List<DrinkLog> drinkLogList = drinkLogRepository.findAllByUserAndAndIsRemovedAndModifiedAtBetween(user, false, startDatetime, endDatetime);
+        List<DrinkLog> drinkLogList = drinkLogRepository.findAllByUserAndAndIsRemovedAndModifiedAtBetweenOrderByCreatedAtDesc(user, false, startDatetime, endDatetime);
+
+        return drinkLogList;
+    }
+
+    public List<DrinkLog> getWeeklyLogs(User user){
+        LocalDateTime startDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0)).minusDays(8); //오늘 00:00:00
+        LocalDateTime endDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59)).minusDays(1); //오늘 23:59:59
+        List<DrinkLog> drinkLogList = drinkLogRepository.findAllByUserAndAndIsRemovedAndModifiedAtBetweenOrderByCreatedAtAsc(user, false, startDatetime, endDatetime);
+
+        return drinkLogList;
+    }
+
+    public List<DrinkLog> getMonthlyLogs(User user){
+        LocalDateTime startDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0)).minusDays(31); //오늘 00:00:00
+        LocalDateTime endDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59)).minusDays(1); //오늘 23:59:59
+        List<DrinkLog> drinkLogList = drinkLogRepository.findAllByUserAndAndIsRemovedAndModifiedAtBetweenOrderByCreatedAtAsc(user, false, startDatetime, endDatetime);
 
         return drinkLogList;
     }
