@@ -1,8 +1,22 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:habitat/api/base_url.dart';
 import 'package:habitat/models/friends_code_model.dart';
 import 'package:http/http.dart' as http;
+
+void getCode({
+  required dynamic Function(dynamic) success,
+  required Function(String error) fail,
+  Map<String, String>? body,
+}) {
+  baseApi(
+    path: 'friends/code',
+    requestType: RequestType.get,
+    success: success,
+    fail: fail,
+  );
+}
 
 class ApiFriendcode {
   final String baseurl = BaseUrl().rooturl;
@@ -16,7 +30,7 @@ class ApiFriendcode {
       final temp = jsonDecode(response.body);
       final friendcodeModel = FriendcodeModel.fromJson(temp);
       userCode = friendcodeModel.code;
-      print(friendcodeModel);
+      debugPrint(friendcodeModel.toString());
     }
 
     return userCode;

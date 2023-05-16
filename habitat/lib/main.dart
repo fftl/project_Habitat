@@ -35,7 +35,7 @@ void main() async {
         '/report': (context) => const LoginBridge(),
         '/reward': (context) => RewardScreen(),
         '/social': (context) => const SocialScreen(),
-        '/setting': (context) => const SettingScreen(),
+        '/setting': (context) => SettingScreen(),
         '/loading': (context) => const LoadingScreen(),
         '/bluetooth': (context) => CoasterConnectScreen(),
       },

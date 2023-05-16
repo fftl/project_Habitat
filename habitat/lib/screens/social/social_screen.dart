@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:habitat/api/friends/api_friendcode.dart';
-import 'package:habitat/api/friends/api_sendrequestcode.dart';
-import 'package:habitat/screens/social/friend_list.dart';
+import 'package:get/get.dart';
+import 'package:habitat/controller/social_controller.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 
 class SocialScreen extends StatefulWidget {
@@ -15,12 +14,12 @@ class SocialScreen extends StatefulWidget {
 class _SocialScreenState extends State<SocialScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   final ScrollController scrollController = ScrollController();
-  late var userCode = ApiFriendcode().getCode('asdf');
+
+  final socialController = Get.put(SocialController());
 
   TextEditingController tec = TextEditingController();
 
@@ -62,42 +61,41 @@ class _SocialScreenState extends State<SocialScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        FutureBuilder(
-                            future: userCode,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return Text(
-                                  snapshot.data.toString(),
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600),
-                                );
-                              } else {
-                                return const Text('없음');
-                              }
-                            }),
-                        FutureBuilder(
-                            future: userCode,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return IconButton(
-                                  onPressed: () {
-                                    Clipboard.setData(ClipboardData(
-                                        text: snapshot.data.toString()));
-                                    if (!mounted) return;
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                      content: Text('Copied to clipboard'),
-                                    ));
-                                  },
-                                  icon: const Icon(Icons.copy_rounded),
-                                  iconSize: 20,
-                                  alignment: AlignmentDirectional.centerEnd,
-                                );
-                              } else {
-                                return const Text('X');
-                              }
-                            }),
+                        GetX<SocialController>(
+                          builder: (controller) {
+                            if (controller.userCode.value != '') {
+                              return Text(
+                                controller.userCode.value,
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w600),
+                              );
+                            } else {
+                              return const Text('없음');
+                            }
+                          },
+                        ),
+                        GetX<SocialController>(
+                          builder: (controller) {
+                            if (controller.userCode.value != '') {
+                              return IconButton(
+                                onPressed: () {
+                                  Clipboard.setData(ClipboardData(
+                                      text: controller.userCode.value));
+                                  if (!mounted) return;
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text('Copied to clipboard'),
+                                  ));
+                                },
+                                icon: const Icon(Icons.copy_rounded),
+                                iconSize: 20,
+                                alignment: AlignmentDirectional.centerEnd,
+                              );
+                            } else {
+                              return const Text('X');
+                            }
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -126,7 +124,7 @@ class _SocialScreenState extends State<SocialScreen> {
                         child: const Text('확인')),
                     IconButton(
                       onPressed: () {
-                        ApiSendRequestCode().postRequestCode(tec.text, 'asdf');
+                        // ApiSendRequestCode().postRequestCode(tec.text, 'asdf');
                       },
                       icon: Image.asset(
                         'lib/assets/images/kakao.png',
@@ -149,9 +147,9 @@ class _SocialScreenState extends State<SocialScreen> {
                   ),
                 ],
               ),
-              friendsRequestlistWidget(
-                controller: scrollController,
-              ),
+              // friendsRequestlistWidget(
+              //   controller: scrollController,
+              // ),
               const SizedBox(
                 height: 10,
               ),
@@ -164,9 +162,9 @@ class _SocialScreenState extends State<SocialScreen> {
                   ),
                 ],
               ),
-              friendslistWidget(
-                controller: scrollController,
-              )
+              // friendslistWidget(
+              //   controller: scrollController,
+              // )
             ],
           ),
         ),

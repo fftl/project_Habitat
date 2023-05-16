@@ -1,35 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:habitat/controller/user_controller.dart';
-import 'package:habitat/screens/settingscreen/coaster_connect.dart';
-import 'package:habitat/screens/settingscreen/modify_goal_screen.dart';
-import 'package:habitat/screens/settingscreen/setting_cash.dart';
+import 'package:habitat/screens/settingscreen/setting_box.dart';
 import 'package:habitat/screens/settingscreen/setting_profile.dart';
-import 'package:habitat/screens/settingscreen/setting_water.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 
-class SettingScreen extends StatefulWidget {
-  const SettingScreen({super.key});
-
-  @override
-  State<SettingScreen> createState() => _SettingScreenState();
-}
-
-class _SettingScreenState extends State<SettingScreen> {
-  onEditProfile() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const SettingProfile()));
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // getAllDrinkLogs(success: (response) {
-    //   debugPrint("결과는??? ${response.toString()}");
-    // }, fail: (e) {
-    //   debugPrint("error : $e");
-    // });
-  }
+class SettingScreen extends StatelessWidget {
+  SettingScreen({super.key});
 
   final userController = Get.put(UserController());
 
@@ -83,8 +60,8 @@ class _SettingScreenState extends State<SettingScreen> {
                         Padding(
                           padding: const EdgeInsets.only(right: 20),
                           child: Image.network(
-                            // controller.profileImg.value,
-                            "https://your-habitat.s3.ap-northeast-2.amazonaws.com/static/default.png",
+                            controller.profileImg.value,
+                            // "https://your-habitat.s3.ap-northeast-2.amazonaws.com/static/default.png",
                             width: 48,
                           ),
                         ),
@@ -103,7 +80,13 @@ class _SettingScreenState extends State<SettingScreen> {
                                 ),
                                 IconButton(
                                   icon: const Icon(Icons.edit),
-                                  onPressed: onEditProfile,
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SettingProfile()));
+                                  },
                                 )
                               ],
                             ),
@@ -122,206 +105,12 @@ class _SettingScreenState extends State<SettingScreen> {
                   );
                 },
               ),
-              const settingbox(),
+              const SettingBox(),
             ],
           ),
         ],
       ),
       bottomNavigationBar: const DockBar(),
-    );
-  }
-}
-
-class settingbox extends StatefulWidget {
-  const settingbox({
-    super.key,
-  });
-
-  @override
-  State<settingbox> createState() => _settingboxState();
-}
-
-class _settingboxState extends State<settingbox> {
-  onSettingGoal() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ModifyGoalScreen()));
-  }
-
-  onSettingWater() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const SettingWater()));
-  }
-
-  onDeleteCoaster() {}
-
-  onSettingCoaster() {}
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 70, bottom: 20),
-      alignment: Alignment.bottomLeft,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "목표설정",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          TextButton(
-            onPressed: onSettingGoal,
-            style: TextButton.styleFrom(
-              // minimumSize: Size.zero,
-              foregroundColor: const Color(0xff47799B),
-              padding: const EdgeInsets.only(left: 10),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: const Text(
-              "목표 음수량 설정",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: onSettingWater,
-            style: TextButton.styleFrom(
-              foregroundColor: const Color(0xff47799B),
-              padding: const EdgeInsets.only(left: 10),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: const Text(
-              "목표 음수량 추천받기",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          const Text(
-            "코스터 설정",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CoasterConnect(),
-                  ));
-            },
-            style: TextButton.styleFrom(
-              // minimumSize: Size.zero,
-              foregroundColor: const Color(0xff47799B),
-              padding: const EdgeInsets.only(left: 10),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: const Text(
-              "코스터 등록",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: onDeleteCoaster,
-            style: TextButton.styleFrom(
-              foregroundColor: const Color(0xff47799B),
-              padding: const EdgeInsets.only(left: 10),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: const Text(
-              "코스터 삭제",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: onSettingCoaster,
-            style: TextButton.styleFrom(
-              foregroundColor: const Color(0xff47799B),
-              padding: const EdgeInsets.only(left: 10),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: const Text(
-              "코스터 알림설정",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          const Text(
-            "앱 설정",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          TextButton(
-            onPressed: () {},
-            style: TextButton.styleFrom(
-              // minimumSize: Size.zero,
-              foregroundColor: const Color(0xff47799B),
-              padding: const EdgeInsets.only(left: 10),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: const Text(
-              "앱 알림설정",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SettingCash(),
-                  ));
-            },
-            style: TextButton.styleFrom(
-              foregroundColor: const Color(0xff47799B),
-              padding: const EdgeInsets.only(left: 10),
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            child: const Text(
-              "앱 캐시 삭제",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

@@ -20,9 +20,7 @@ class _SettingProfileState extends State<SettingProfile> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    debugPrint(ApiUsers().getUserInfo('asdf').toString());
   }
 
   @override
@@ -99,7 +97,11 @@ class _SettingProfileState extends State<SettingProfile> {
                               backgroundColor: Colors.grey,
                             ),
                             onPressed: () {
-                              ApiUsers().changeUserNickname(nick, 'asdf');
+                              changeUserNickname(
+                                  body: {'nickname': nick},
+                                  success: (response) {},
+                                  fail: (e) {});
+                              // ApiUsers().changeUserNickname(nick, 'asdf');
                               isEdited = false;
                             },
                             child: const Text('수정')),
@@ -132,7 +134,7 @@ class _SettingProfileState extends State<SettingProfile> {
     }
     setState(() {
       // _profileImg = pickedFile;
-      ApiUsers().changeUserProfile(profileImg, 'asdf');
+      // ApiUsers().changeUserProfile(profileImg, 'asdf');
     });
   }
 

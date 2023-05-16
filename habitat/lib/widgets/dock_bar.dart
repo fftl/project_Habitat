@@ -21,32 +21,27 @@ class _DockBarState extends State<DockBar> {
           DockBarTab(
             tabname: "report",
             tablocate: "/report",
-            tabicon: Icons.library_books_rounded,
+            tabicon: Icons.my_library_books_outlined,
           ),
           DockBarTab(
             tabname: "reward",
             tablocate: "/reward",
-            tabicon: Icons.emoji_events_rounded,
+            tabicon: Icons.emoji_events_outlined,
           ),
           DockBarTab(
             tabname: "home",
             tablocate: "/main",
-            tabicon: Icons.home,
+            tabicon: Icons.home_rounded,
           ),
           DockBarTab(
             tabname: "social",
             tablocate: "/social",
-            tabicon: Icons.people_alt_rounded,
+            tabicon: Icons.people_alt_outlined,
           ),
           DockBarTab(
             tabname: "setting",
             tablocate: "/setting",
-            tabicon: Icons.settings,
-          ),
-          DockBarTab(
-            tabname: "loading",
-            tablocate: "/loading",
-            tabicon: Icons.circle_outlined,
+            tabicon: Icons.settings_outlined,
           ),
         ],
       ),
@@ -73,8 +68,8 @@ class DockBarTab extends StatelessWidget {
       },
       style: TextButton.styleFrom(
         fixedSize: const Size(60, 60),
-        padding: const EdgeInsets.all(8),
-        backgroundColor: Theme.of(context).primaryColor,
+        padding: const EdgeInsets.all(0),
+        // backgroundColor: Theme.of(context).primaryColor,
         shape: const RoundedRectangleBorder(
           side: BorderSide(style: BorderStyle.none),
           borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -83,7 +78,10 @@ class DockBarTab extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(tabicon),
+          Icon(
+            tabicon,
+            size: 38,
+          ),
           Text(tabname),
         ],
       ),
