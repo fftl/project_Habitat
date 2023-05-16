@@ -55,8 +55,9 @@ public class FlowerController {
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
         System.out.println("hihi : "+user.toString());
+        int flowerCnt = collectionService.getCollectionCnt(user);
 
-        Planting planting = plantingService.getCurrentPlant(user);
+        Planting planting = plantingService.getCurrentPlant(user, flowerCnt);
         Flower flower = planting.getFlower();
 
         // Entity -> Dto

@@ -26,7 +26,8 @@ public class CollectionService {
         // 유저의 획득한 꽃 목록 조회
         LOGGER.info("getCollectionList() : 유저의 획득한 꽃 목록 조회");
 
-        return user.getCollectionList();
+        List<Collection> collectionList = collectionRepository.findByUser(user);
+        return collectionList;
     }
 
     public void addCollection(Collection newCollection) {

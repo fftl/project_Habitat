@@ -27,11 +27,7 @@ public class FriendService {
     public List<User> getFriendList(User user) {
         LOGGER.info("getFriendList() : 유저의 친구 목록 반환");
 
-        List<User> friendList = new ArrayList<>();
-
-        for (int i = 0; i < user.getFriendList().size(); i++) {
-            friendList.add(user.getFriendList().get(i).getFriendId());
-        }
+        List<User> friendList = friendRepository.findByMyId(user);
 
         return friendList;
     }
@@ -58,5 +54,11 @@ public class FriendService {
         }
 
         friendRepository.save(newFriend);
+    }
+
+    public int getFriendCnt(User user) {
+        LOGGER.info("getFriendCnt() : 유저의 친구 수 반환");
+        int friendCnt = friendRepository.countByMyId(user);
+        return friendCnt;
     }
 }

@@ -35,7 +35,7 @@ public class StreakLogService {
 
 
         // 유저의 가장 최근 streak 가져오기
-        List<StreakLog> streakLogList = user.getStreakLogList();
+        List<StreakLog> streakLogList = streakLogRepository.findByUser(user);
 
         StreakLog newStreakLog;
 

@@ -22,11 +22,11 @@ public class PlantingService {
         this.plantingRepository = plantingRepository;
     }
 
-    public Planting getCurrentPlant(User user) {
+    public Planting getCurrentPlant(User user, int flowerCnt) {
         LOGGER.info("getCurrentPlant() : 유저의 현재 키우는 꽃 정보 반환");
 
         // 현재 키우고 있는 꽃의 정보를 리턴
-        Planting findPlanting = plantingRepository.findByUserAndFlowerCnt(user, user.getCollectionList().size()+1)
+        Planting findPlanting = plantingRepository.findByUserAndFlowerCnt(user, flowerCnt+1)
                 .orElseThrow(() -> new CustomException(ErrorCode.PLANTING_NOT_FOUND));
 
         return findPlanting;

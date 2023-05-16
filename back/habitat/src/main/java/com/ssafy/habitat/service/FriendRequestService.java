@@ -44,14 +44,7 @@ public class FriendRequestService {
     public List<FriendRequest> getFriendRequestList(User user) {
         LOGGER.info("getFriendRequestList() : 유저에게 도착한 친구신청 목록 반환");
 
-        List<FriendRequest> friendRequestList = new ArrayList<>();
-
-        for (int i = 0; i < user.getFriendRequestList().size(); i++) {
-            FriendRequest friendRequest = user.getFriendRequestList().get(i);
-            if(friendRequest.getStatus() == 0) { // 대기 중인 요청만 조회
-                friendRequestList.add(friendRequest);
-            }
-        }
+        List<FriendRequest> friendRequestList = friendRequestRepository.findByToAndStatus(user,0);
 
         return friendRequestList;
     }

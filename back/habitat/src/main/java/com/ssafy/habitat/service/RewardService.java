@@ -41,7 +41,8 @@ public class RewardService {
         LOGGER.info("addPlantingExp() : 경험치 증가");
 
         // 섭취량에 따른 경험치 증가
-        Planting planting = plantingService.getCurrentPlant(user); // 현재 키우는 꽃
+        int flowerCnt = collectionService.getCollectionCnt(user);
+        Planting planting = plantingService.getCurrentPlant(user, flowerCnt); // 현재 키우는 꽃
 
         int prevExp = planting.getExp();
         int max = planting.getFlower().getMaxExp();
@@ -66,8 +67,6 @@ public class RewardService {
             Flower newFlower = userFlowerList.get(randomNum).getFlower();
 
             // user의 collection 개수(새로 키울 꽃이 몇 번째 꽃인지)
-            int flowerCnt = collectionService.getCollectionCnt(user);
-
             Planting newPlanting = Planting.builder()
                     .flower(newFlower)
                     .user(user)
@@ -100,7 +99,7 @@ public class RewardService {
         // 친구 등록 수에 따른 달성여부 확인
         LOGGER.info("checkFriendUnlock() : 친구 등록 수에 따른 달성여부 확인");
 
-        int friendCnt = user.getFriendList().size(); // 친구변화에 따른 현재 친구수
+        int friendCnt = friendService.getFriendCnt(user); // 친구변화에 따른 현재 친구수
         List<UserFlower> userFlowerList = userFlowerService.getLockedFlowerList(user); // 해당 유저의 해금안된 꽃 리스트
 
         for (int i = 0; i < userFlowerList.size(); i++) { // 아직 해금 되지 않은 꽃들에 대하여
