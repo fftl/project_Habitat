@@ -25,6 +25,20 @@ Future<Map<String, String>> postUserLogin(String socialKey) async {
   return {};
 }
 
+// 유저의 정보조회
+void getUserInfoLogs({
+  required dynamic Function(dynamic) success,
+  required Function(String error) fail,
+  Map<String, String>? body,
+}) {
+  baseApi(
+    path: 'users',
+    requestType: RequestType.get,
+    success: success,
+    fail: fail,
+  );
+}
+
 class ApiUsers {
   final String baseurl = BaseUrl().rooturl;
 

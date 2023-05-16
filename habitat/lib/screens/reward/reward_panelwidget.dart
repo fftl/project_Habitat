@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:habitat/api/flower/api_flowers.dart';
-import 'package:habitat/models/flower_model.dart';
+import 'package:get/get.dart';
+import 'package:habitat/controller/reward_controller.dart';
 import 'package:habitat/widgets/plant_collection_modal.dart';
 
 class RewardPanelWidget extends StatelessWidget {
-  final ScrollController controller;
+  final ScrollController scrollController;
 
   RewardPanelWidget({
     Key? key,
-    required this.controller,
+    required this.scrollController,
   }) : super(key: key);
 
-  final Future<List<FlowerCollectionModel>> flowerCollectionData =
-      ApiFlowers().getFlowerCollection('asdf');
+  final rewardController = Get.put(RewardController());
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: flowerCollectionData,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
+    return GetX<RewardController>(
+      builder: (controller) {
+        if (controller.collection.isNotEmpty) {
           return Column(
             children: [
               const SizedBox(
@@ -39,21 +37,25 @@ class RewardPanelWidget extends StatelessWidget {
               SizedBox(
                 height: 350,
                 child: GridView.count(
-                  controller: controller,
+                  controller: scrollController,
                   scrollDirection: Axis.vertical,
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   mainAxisSpacing: 20,
                   crossAxisSpacing: 20,
                   crossAxisCount: 3,
                   children: List.generate(
-                      snapshot.data!.length,
-                      (index) => PlantCollectionModal(
-                            flowerKey: snapshot.data![index].flowerKey,
-                            name: snapshot.data![index].name,
-                            story: snapshot.data![index].story,
-                            getCondition: snapshot.data![index].getCondition,
-                            userStatus: snapshot.data![index].userStatus,
-                          )),
+                    controller.collection.length,
+                    (index) => PlantCollectionModal(
+                      flowerKey:
+                          controller.collection[index]['flowerKey'].flowerKey,
+                      name: controller.collection[index]['name'].name,
+                      story: controller.collection[index]['story'].story,
+                      getCondition: controller
+                          .collection[index]['getCondition'].getCondition,
+                      userStatus:
+                          controller.collection[index]['userStatus'].userStatus,
+                    ),
+                  ),
                 ),
               ),
             ],

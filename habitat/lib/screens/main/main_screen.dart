@@ -8,38 +8,16 @@ import 'package:habitat/widgets/waterlog_input_modal.dart';
 import 'package:sliding_up_panel2/sliding_up_panel2.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class MainScreen extends StatelessWidget {
+  MainScreen({super.key});
 
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
   final ScrollController scrollController = ScrollController();
+
   final PanelController panelController = PanelController();
+
   final waterController = Get.put(WaterController());
+
   final coasterController = Get.put(CoasterController());
-
-  // 일일 누적 음수량
-  // var amountwater = 100;
-  // //목표 음수량
-  // var usergoaldata = 100;
-
-  // void importdata() async {
-  //   List<Usersmodel> userinfodata = [];
-  //   userinfodata = await ApiUsers().getUserInfo('asdf');
-  //   amountwater = await ApiDrinkLogs().getTodaytotalDrink('asdf');
-  //   usergoaldata = userinfodata[0].goal;
-  //   setState(() {});
-  // }
-
-  @override
-  void initState() {
-    super.initState();
-
-    // importdata();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +29,9 @@ class _MainScreenState extends State<MainScreen> {
         borderRadius: const BorderRadius.vertical(top: Radius.circular(36)),
         controller: panelController,
         scrollController: scrollController,
+        onPanelOpened: () {
+          waterController.waterLogUpdate();
+        },
         collapsed: const Align(
           alignment: Alignment.topCenter,
           child: Icon(

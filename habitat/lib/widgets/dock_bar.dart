@@ -30,7 +30,7 @@ class _DockBarState extends State<DockBar> {
           ),
           DockBarTab(
             tabname: "home",
-            tablocate: "/",
+            tablocate: "/main",
             tabicon: Icons.home,
           ),
           DockBarTab(
