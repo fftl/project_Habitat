@@ -46,14 +46,12 @@ class RewardPanelWidget extends StatelessWidget {
                   children: List.generate(
                     controller.collection.length,
                     (index) => PlantCollectionModal(
-                      flowerKey:
-                          controller.collection[index]['flowerKey'].flowerKey,
-                      name: controller.collection[index]['name'].name,
-                      story: controller.collection[index]['story'].story,
-                      getCondition: controller
-                          .collection[index]['getCondition'].getCondition,
-                      userStatus:
-                          controller.collection[index]['userStatus'].userStatus,
+                      flowerKey: controller.collection[index]['flowerKey'],
+                      name: controller.collection[index]['name'],
+                      story: controller.collection[index]['story'],
+                      getCondition: controller.collection[index]
+                          ['getCondition'],
+                      userStatus: controller.collection[index]['userStatus'],
                     ),
                   ),
                 ),
