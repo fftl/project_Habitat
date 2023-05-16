@@ -5,7 +5,7 @@ import 'package:habitat/api/flower/api_flowers.dart';
 class RewardController extends GetxController {
   RxMap<String, dynamic> exp = <String, dynamic>{}.obs;
   RxMap<String, dynamic> flower = <String, dynamic>{}.obs;
-  List collection = [].obs;
+  RxList<Map<String, dynamic>> collection = <Map<String, dynamic>>[].obs;
 
   @override
   void onInit() {
@@ -19,11 +19,10 @@ class RewardController extends GetxController {
       debugPrint("response : $response");
       Map flowerStatus = {};
       flowerStatus = await response;
-      debugPrint("유저 스탯 : ${flowerStatus['exp']}");
+
       exp.value = await flowerStatus['exp'];
       flower.value = await flowerStatus['flower'];
-      debugPrint("유저 스탯 : ${exp.toString()}");
-      debugPrint("꽃 정보 : ${flower.toString()}");
+
       debugPrint("꽃 정보 : ${flower['story']}");
       debugPrint("꽃 정보 type : ${flower['story'].runtimeType}");
       debugPrint("경험치 정보 : ${exp['exp'].toString()}");
@@ -35,7 +34,15 @@ class RewardController extends GetxController {
 
   flowerConllectionUpdate() {
     getFlowerCollection(success: (response) async {
-      collection = await response;
+      List flowerCollection = <Map<String, dynamic>>[];
+      flowerCollection =
+          await response.map((dynamic item) => item).toList() ?? [];
+      for (var value in flowerCollection) {
+        collection.add(value);
+      }
+
+      debugPrint("플라워 스테이터스 : $flowerCollection");
+      debugPrint("플라워 스테이터스 타입 : ${flowerCollection.runtimeType}");
     }, fail: (e) {
       debugPrint("에러발생 : $e");
     });
