@@ -115,7 +115,7 @@ class RewardScreen extends StatelessWidget {
                             child: Text(
                               controller.exp['exp'] != null &&
                                       controller.exp['maxExp'] != null
-                                  ? "${(controller.exp['exp'] / controller.exp['maxExp']).toStringAsFixed(1)}%"
+                                  ? "${(controller.exp['exp'] / controller.exp['maxExp'] * 100).toStringAsFixed(1)}%"
                                   : "not yet",
                               style: const TextStyle(
                                 fontSize: 18,

@@ -5,6 +5,7 @@ import 'package:habitat/api/base_url.dart';
 import 'package:habitat/models/users_model.dart';
 import 'package:http/http.dart' as http;
 
+// 로그인
 Future<Map<String, String>> postUserLogin(String socialKey) async {
   Uri url = Uri.parse('http://k8a704.p.ssafy.io:8081/api/users/login');
   final response = await http.post(
@@ -34,6 +35,20 @@ void getUserInfoLogs({
   baseApi(
     path: 'users',
     requestType: RequestType.get,
+    success: success,
+    fail: fail,
+  );
+}
+
+//
+void patchUserModifyGoal({
+  required dynamic Function(dynamic) success,
+  required Function(String error) fail,
+  Map<String, String>? body,
+}) {
+  baseApi(
+    path: 'users/modify/goal',
+    requestType: RequestType.patch,
     success: success,
     fail: fail,
   );

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:habitat/api/flower/api_flowers.dart';
 
 class RewardController extends GetxController {
-  Map exp = {}.obs;
-  Map flower = {}.obs;
+  RxMap<String, dynamic> exp = <String, dynamic>{}.obs;
+  RxMap<String, dynamic> flower = <String, dynamic>{}.obs;
   List collection = [].obs;
 
   @override
@@ -20,8 +20,8 @@ class RewardController extends GetxController {
       Map flowerStatus = {};
       flowerStatus = await response;
       debugPrint("유저 스탯 : ${flowerStatus['exp']}");
-      exp = await flowerStatus['exp'];
-      flower = await flowerStatus['flower'];
+      exp.value = await flowerStatus['exp'];
+      flower.value = await flowerStatus['flower'];
       debugPrint("유저 스탯 : ${exp.toString()}");
       debugPrint("꽃 정보 : ${flower.toString()}");
       debugPrint("꽃 정보 : ${flower['story']}");
