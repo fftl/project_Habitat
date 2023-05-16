@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:habitat/screens/coaster/coaster_connect_screen.dart';
 import 'package:habitat/screens/loading/loading_screen.dart';
 import 'package:habitat/screens/main/main_screen.dart';
-import 'package:habitat/screens/login/login_bridge.dart';
+// import 'package:habitat/screens/login/login_bridge.dart';
 import 'package:habitat/screens/reward/reward_screen.dart';
+import 'package:habitat/screens/report/report_screen.dart';
 import 'package:habitat/screens/settingscreen/setting_screen.dart';
 import 'package:habitat/screens/social/social_screen.dart';
 
@@ -32,7 +33,7 @@ void main() async {
       initialRoute: '/',
       routes: {
         '/': (context) => const MainScreen(),
-        '/report': (context) => const LoginBridge(),
+        '/report': (context) => const ReportScreen(),
         '/reward': (context) => const RewardScreen(),
         '/social': (context) => const SocialScreen(),
         '/setting': (context) => const SettingScreen(),
