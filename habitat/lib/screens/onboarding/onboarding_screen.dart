@@ -115,7 +115,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => LoginScreen()),
+                              builder: (BuildContext context) => const LoginScreen()),
                           (route) => false);
                     },
                     child: const Text("시작하기"),
