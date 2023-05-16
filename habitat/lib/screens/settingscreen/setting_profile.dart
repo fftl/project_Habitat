@@ -20,7 +20,6 @@ class _SettingProfileState extends State<SettingProfile> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     debugPrint(ApiUsers().getUserInfo('asdf').toString());
   }
