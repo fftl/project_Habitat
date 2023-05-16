@@ -122,16 +122,16 @@ class _SocialScreenState extends State<SocialScreen> {
                         ),
                         onPressed: onSubmitButton,
                         child: const Text('확인')),
-                    IconButton(
-                      onPressed: () {
-                        // ApiSendRequestCode().postRequestCode(tec.text, 'asdf');
-                      },
-                      icon: Image.asset(
-                        'lib/assets/images/kakao.png',
-                        fit: BoxFit.cover,
-                      ),
-                      iconSize: 30,
-                    )
+                    // IconButton(
+                    //   onPressed: () {
+                    //     // ApiSendRequestCode().postRequestCode(tec.text, 'asdf');
+                    //   },
+                    //   icon: Image.asset(
+                    //     'lib/assets/images/kakao.png',
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    //   iconSize: 30,
+                    // )
                   ],
                 ),
               ),
