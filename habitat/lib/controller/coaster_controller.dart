@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
-import 'package:habitat/api/drinklog/api_drinklogs.dart';
 import 'package:habitat/controller/water_controller.dart';
 
 class CoasterController extends GetxController {
@@ -11,6 +10,7 @@ class CoasterController extends GetxController {
   // 연결상태 저장용
   BluetoothDeviceState deviceState = BluetoothDeviceState.disconnected;
   final WaterController waterController = WaterController();
+  final waterController2 = Get.put(WaterController());
 
   RxString coasterStatus = '연결 대기중'.obs;
   RxString coasterData = '데이터 아무것도 없다'.obs;
@@ -32,7 +32,7 @@ class CoasterController extends GetxController {
       (results) async {
         for (var element in results) {
           debugPrint("률루가 들어왔을까??? ${element.device.name}");
-          if (element.device.name == '률류') {
+          if (element.device.name == '랼랴') {
             coasterStatus.value = '률류 연결!!!';
             device = element.device;
             await connectDevice();
@@ -84,15 +84,10 @@ class CoasterController extends GetxController {
                       coasterData.value =
                           bluetoothDataParsing(notifyDatas[c.uuid.toString()]!);
 
-                      await waterController.autoDrinkWater(water);
-                      postAddAutoDrinkLog(
-                        body: {
-                          "drink": water,
-                          "drinkType": type,
-                        },
-                        success: (response) {},
-                        fail: (e) {},
-                      );
+                      await waterController.drinkWaterAuto({
+                        "drink": water,
+                        "drinkType": type,
+                      });
                     }
                   }
                 });

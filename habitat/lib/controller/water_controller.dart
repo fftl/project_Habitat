@@ -41,22 +41,43 @@ class WaterController extends GetxController {
   }
 
   drinkWater(Map<String, dynamic> waterData) {
-    postAddDrinkLog(
-        body: waterData,
-        success: (response) {
-          debugPrint("전송성공 : $response");
-        },
-        fail: (e) {
-          debugPrint("에러발생 : $e");
-        });
-
     int drinkwater = waterData['drink'];
-    water.value += drinkwater;
+    if (drinkwater < 0) {
+      debugPrint("0보다 적은 양의 물은 마실 수 없습니다.");
+    } else {
+      postAddDrinkLog(
+          body: waterData,
+          success: (response) {
+            debugPrint("전송성공 : $response");
+          },
+          fail: (e) {
+            debugPrint("에러발생 : $e");
+          });
 
-    debugPrint("오늘 마신 물의 총 양 : $water");
+      water.value += drinkwater;
+
+      debugPrint("오늘 마신 물의 총 양 : $water");
+    }
   }
 
-  autoDrinkWater(int drink) {
-    water.value += drink;
+  drinkWaterAuto(Map<String, dynamic> waterData) {
+    int drinkwater = waterData['drink'];
+    if (drinkwater < 0) {
+      debugPrint("0보다 적은 양의 물은 마실 수 없습니다.");
+    } else {
+      postAddAutoDrinkLog(
+          body: waterData,
+          success: (response) {
+            debugPrint("전송성공 : $response");
+          },
+          fail: (e) {
+            debugPrint("에러발생 : $e");
+          });
+
+      water.value += drinkwater;
+
+      debugPrint("코스터로부터 수신 완료");
+      debugPrint("오늘 마신 물의 총 양 : $water");
+    }
   }
 }

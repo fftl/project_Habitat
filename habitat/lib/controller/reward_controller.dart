@@ -10,11 +10,11 @@ class RewardController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    updateFlowerInfo();
-    updateUserFlowerConllection();
+    flowerInfoUpdate();
+    flowerConllectionUpdate();
   }
 
-  updateFlowerInfo() {
+  flowerInfoUpdate() {
     getGrowingFlower(success: (response) async {
       debugPrint("response : $response");
       Map flowerStatus = {};
@@ -33,7 +33,7 @@ class RewardController extends GetxController {
     });
   }
 
-  updateUserFlowerConllection() {
+  flowerConllectionUpdate() {
     getFlowerCollection(success: (response) async {
       collection = await response;
     }, fail: (e) {
