@@ -18,10 +18,8 @@ public class UserCoaster extends BaseTime{
     private int userCoasterKey;
 
     @OneToOne
-    @JsonIgnore
     private User user;
 
     @OneToOne
-    @JsonIgnore
     private Coaster coaster;
 }

@@ -42,7 +42,7 @@ public class User extends BaseTime implements UserDetails {
     /**
      * 유저가 가져야하는 데이터들
      */
-    @OneToMany(mappedBy = "user")
+    /**@OneToMany(mappedBy = "user")
     @Builder.Default
     private List<Planting> plantingList = new ArrayList<>();
 
@@ -54,12 +54,10 @@ public class User extends BaseTime implements UserDetails {
     @Builder.Default
     private List<UserFlower> userFlowerList = new ArrayList<>();
 
-    //ok
     @OneToMany(mappedBy = "user")
     @Builder.Default
     private List<UserFlowerLog> userFlowerLogList = new ArrayList<>();
 
-    //ok
     @OneToMany(mappedBy = "user")
     @Builder.Default
     private List<DrinkLog> drinkLogList = new ArrayList<>();
@@ -78,7 +76,7 @@ public class User extends BaseTime implements UserDetails {
 
     @OneToOne(mappedBy = "user")
     private UserCoaster userCoaster;
-
+     **/
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     @JsonIgnore
@@ -136,21 +134,13 @@ public class User extends BaseTime implements UserDetails {
         return "User{" +
                 "userKey='" + userKey + '\'' +
                 ", nickname='" + nickname + '\'' +
+                ", password='" + password + '\'' +
                 ", imgUrl='" + imgUrl + '\'' +
                 ", friendCode='" + friendCode + '\'' +
                 ", goal=" + goal +
                 ", socialKey='" + socialKey + '\'' +
                 ", refreshKey='" + refreshKey + '\'' +
                 ", socialType=" + socialType +
-                ", plantingList=" + plantingList +
-                ", collectionList=" + collectionList +
-                ", userFlowerList=" + userFlowerList +
-                ", userFlowerLogList=" + userFlowerLogList +
-                ", drinkLogList=" + drinkLogList +
-                ", streakLogList=" + streakLogList +
-                ", friendRequestList=" + friendRequestList +
-                ", friendList=" + friendList +
-                ", userCoaster=" + userCoaster +
                 ", roles=" + roles +
                 '}';
     }

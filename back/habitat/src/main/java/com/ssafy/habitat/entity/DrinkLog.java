@@ -22,6 +22,5 @@ public class DrinkLog extends BaseTime{
     private boolean isRemoved;
 
     @ManyToOne
-    @JsonIgnore
     private User user;
 }

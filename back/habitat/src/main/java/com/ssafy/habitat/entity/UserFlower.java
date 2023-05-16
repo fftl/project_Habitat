@@ -25,10 +25,8 @@ public class UserFlower extends BaseTime{
     private boolean isUnlocked;
 
     @ManyToOne
-    @JsonIgnore
     private User user;
 
     @ManyToOne
-    @JsonIgnore
     private Flower flower;
 }

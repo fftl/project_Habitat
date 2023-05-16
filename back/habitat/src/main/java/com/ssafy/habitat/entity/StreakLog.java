@@ -19,7 +19,5 @@ public class StreakLog extends BaseTime {
     private int maxStreak;
 
     @ManyToOne
-    @JsonIgnore
     private User user;
-
 }

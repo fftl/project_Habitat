@@ -18,10 +18,8 @@ public class Collection extends BaseTime{
     private int collectionKey;
 
     @ManyToOne
-    @JsonIgnore
     private User user;
 
     @ManyToOne
-    @JsonIgnore
     private Flower flower;
 }
