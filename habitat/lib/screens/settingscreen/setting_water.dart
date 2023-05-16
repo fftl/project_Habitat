@@ -32,8 +32,8 @@ class _SettingWaterState extends State<SettingWater> {
     print(_weightEditController.text);
     ApiUsers().patchUserModifyGoal('asdf', cal());
 
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const SettingScreen()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SettingScreen()));
   }
 
   @override

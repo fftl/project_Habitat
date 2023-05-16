@@ -40,7 +40,7 @@ void getUserInfoLogs({
   );
 }
 
-//
+// 유저의 오늘 목표 음수량 재설정
 void patchUserModifyGoal({
   required dynamic Function(dynamic) success,
   required Function(String error) fail,
@@ -48,6 +48,20 @@ void patchUserModifyGoal({
 }) {
   baseApi(
     path: 'users/modify/goal',
+    requestType: RequestType.patch,
+    success: success,
+    fail: fail,
+  );
+}
+
+// 유저의 닉네임 변경
+void changeUserNickname({
+  required dynamic Function(dynamic) success,
+  required Function(String error) fail,
+  Map<String, dynamic>? body,
+}) {
+  baseApi(
+    path: 'users/modify',
     requestType: RequestType.patch,
     success: success,
     fail: fail,
