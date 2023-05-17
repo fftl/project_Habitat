@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:habitat/controller/reward_controller.dart';
-import 'package:habitat/screens/main/main_screen.dart';
 import 'package:habitat/screens/reward/reward_panelwidget.dart';
 import 'package:habitat/widgets/dock_bar.dart';
+import 'package:habitat/widgets/mw_line.dart';
 import 'package:sliding_up_panel2/sliding_up_panel2.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
@@ -48,7 +48,7 @@ class RewardScreen extends StatelessWidget {
               const SizedBox(
                 height: 72,
               ),
-              mwLine(),
+              const MwLine(),
               GetX<RewardController>(
                 builder: (controller) {
                   return Row(
