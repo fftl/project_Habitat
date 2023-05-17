@@ -14,6 +14,7 @@ import 'package:habitat/screens/login/login_bridge.dart';
 import 'package:habitat/screens/reward/reward_screen.dart';
 import 'package:habitat/screens/settingscreen/setting_screen.dart';
 import 'package:habitat/screens/social/social_screen.dart';
+import 'package:habitat/screens/report/report_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,7 +50,7 @@ void main() async {
         '/onboarding': (context) => const OnboardingScreen(),
         '/login': (context) => const LoginScreen(),
         '/main': (context) => MainScreen(),
-        '/report': (context) => const LoginBridge(),
+        '/report': (context) => const ReportScreen(),
         '/reward': (context) => RewardScreen(),
         '/social': (context) => const SocialScreen(),
         '/setting': (context) => SettingScreen(),

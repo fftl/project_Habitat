@@ -14,19 +14,27 @@
       },
       "oauth_client": [
         {
-          "client_id": "717538880248-189mc572gfmhc7jdipa3625u7vl6q25b.apps.googleusercontent.com",
+          "client_id": "717538880248-f05dmt7mfonurubarb0fgidb2vsl7vn7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.status200.habitat",
-            "certificate_hash": "a9c70c1bd852ffd2365c89b28b5536c1e7ec8d08"
+            "certificate_hash": "1af95b9d5cda259cb658835f3bc3b953d86686b3"
           }
         },
         {
-          "client_id": "717538880248-7imbroeftif5qko51mf62jq08od9mh07.apps.googleusercontent.com",
+          "client_id": "717538880248-fpa1nbd08lmjtsr135gndf5l4kci3erb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.status200.habitat",
-            "certificate_hash": "8e346d3760e1558e4a0d494b7f36689cac84020a"
+            "certificate_hash": "1e26bfd925723faa32c7b60b896edad1c3e5e884"
+          }
+        },
+        {
+          "client_id": "717538880248-lmj0uq8htv0k4lth14gm1vurjl64vtrv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.status200.habitat",
+            "certificate_hash": "0b7a02c621b68c146d95b05187a84c016f10f83c"
           }
         },
         {
