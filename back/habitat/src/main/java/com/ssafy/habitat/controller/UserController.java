@@ -9,6 +9,7 @@ import com.ssafy.habitat.entity.*;
 import com.ssafy.habitat.exception.CustomException;
 import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.service.*;
+import com.ssafy.habitat.utils.S3Uploader;
 import com.ssafy.habitat.utils.Util;
 import io.swagger.annotations.ApiOperation;
 import org.apache.tomcat.util.json.ParseException;

@@ -56,7 +56,7 @@ public class FlowerController {
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
-        int flowerCnt = collectionService.getCollectionCnt(user)+1;
+        int flowerCnt = collectionService.getCollectionCnt(user);
 
         Planting planting = plantingService.getCurrentPlant(user, flowerCnt);
         Flower flower = planting.getFlower();

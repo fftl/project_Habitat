@@ -14,8 +14,6 @@ public class Util {
     private final Logger LOGGER = LoggerFactory.getLogger(Util.class);
 
 
-    private TokenProvider tokenProvider;
-
     public String createKey(int len){
         int leftLimit = 48; // 숫자의 0~9의 아스키코드 48-57
         int rightLimit = 122; // 소문자 영어의 아스키코드 97-122

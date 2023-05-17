@@ -145,6 +145,9 @@ public class RewardService {
             Flower flower = userFlower.getFlower();
 
             // 이전에는 누적음수량 조건을 달성하지 못했었고, 현재 누적음수량 조건을 달성했다면
+            System.out.println(userFlower.isDrink() == false);
+            System.out.println(totalDrink >= flower.getDrinkValue());
+            System.out.println("=========");
             if(userFlower.isDrink() == false && totalDrink >= flower.getDrinkValue()) {
                 // 해당 꽃의 누적음수량 조건 해금
                 userFlower.setDrink(true);
@@ -255,7 +258,7 @@ public class RewardService {
         return false;
     }
 
-    private boolean isFullyUnlocked(UserFlower userFlower) {
+    public boolean isFullyUnlocked(UserFlower userFlower) {
         LOGGER.info("isFullyUnlocked() : 특정 꽃의 모든 조건을 달성했는지 확인");
 
         // 모든 조건을 달성했다면 true 리턴
@@ -265,7 +268,7 @@ public class RewardService {
         return false;
     }
 
-    private void unlockUserFlower(User user, Flower flower, UserFlower userFlower) {
+    public void unlockUserFlower(User user, Flower flower, UserFlower userFlower) {
         LOGGER.info("unlockUserFlower() : 유저의 해당 꽃 완전 해금 및 완전 해금 기록 저장");
 
         // 유저의 해당 꽃 완전 해금

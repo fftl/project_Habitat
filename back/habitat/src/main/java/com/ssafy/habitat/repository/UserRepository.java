@@ -4,10 +4,12 @@ import com.ssafy.habitat.entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
-    User findByFriendCode(String code);
+    Optional<User> findByFriendCode(String code);
 
-    User findBySocialKey(String socialKey);
+    Optional<User> findBySocialKey(String socialKey);
 }
