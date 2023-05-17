@@ -56,7 +56,6 @@ class MyReport extends StatefulWidget {
 }
 
 class _MyReportState extends State<MyReport> {
-  late List<IntakeData> _chartData;
   late TooltipBehavior _tooltipBehavior;
   late TrackballBehavior _trackballBehavior;
 
@@ -152,7 +151,7 @@ class _MyReportState extends State<MyReport> {
                         LineSeries<IntakeData, dynamic>(
                           name: '물',
                           legendIconType: LegendIconType.circle,
-                          dataSource: _chartData,
+                          dataSource: chartData,
 
                           //요기
 
@@ -170,7 +169,7 @@ class _MyReportState extends State<MyReport> {
                         LineSeries<IntakeData, dynamic>(
                           name: '카페인음료',
                           legendIconType: LegendIconType.circle,
-                          dataSource: _chartData,
+                          dataSource: chartData,
 
                           //요기
 
@@ -188,7 +187,7 @@ class _MyReportState extends State<MyReport> {
                         LineSeries<IntakeData, dynamic>(
                           name: '비카페인음료',
                           legendIconType: LegendIconType.circle,
-                          dataSource: _chartData,
+                          dataSource: chartData,
 
                           //요기
 
