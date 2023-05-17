@@ -145,9 +145,6 @@ public class RewardService {
             Flower flower = userFlower.getFlower();
 
             // 이전에는 누적음수량 조건을 달성하지 못했었고, 현재 누적음수량 조건을 달성했다면
-            System.out.println(userFlower.isDrink() == false);
-            System.out.println(totalDrink >= flower.getDrinkValue());
-            System.out.println("=========");
             if(userFlower.isDrink() == false && totalDrink >= flower.getDrinkValue()) {
                 // 해당 꽃의 누적음수량 조건 해금
                 userFlower.setDrink(true);
