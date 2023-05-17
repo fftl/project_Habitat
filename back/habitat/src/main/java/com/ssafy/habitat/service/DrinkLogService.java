@@ -8,8 +8,12 @@ import com.ssafy.habitat.repository.DrinkLogRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -28,12 +32,14 @@ public class DrinkLogService {
         this.drinkLogRepository = drinkLogRepository;
     }
 
-    public LocalDateTime getRecentLog(User curUser) {
+    @Transactional
+    @Cacheable(value = "recent", key = "#curUser.getUserKey()", cacheManager = "cacheManager")
+    public DrinkLog getRecentLog(User curUser) {
         LOGGER.info("getRecentLog() : 유저의 가장 최근 음수시간 반환");
 
         DrinkLog recentLog = drinkLogRepository.findTop1ByUserOrderByCreatedAtDesc(curUser).orElse(null);
         if(recentLog == null) return null;
-        else return recentLog.getCreatedAt();
+        else return recentLog;
     }
 
     public DrinkLog getLog(int drinkLogKey){
@@ -43,6 +49,8 @@ public class DrinkLogService {
         return drinkLog;
     }
 
+    @Transactional
+    @Cacheable(value = "all", key = "#user.getUserKey()", cacheManager = "cacheManager")
     public List<DrinkLog> getAllLogs(User user) {
         LOGGER.info("getAllLogs() : 유저의 모든 섭취 로그 반환");
 
@@ -50,6 +58,8 @@ public class DrinkLogService {
         return drinkLogList;
     }
 
+    @Transactional
+    @Cacheable(value = "day", key = "#user.getUserKey()", cacheManager = "cacheManager")
     public List<DrinkLog> getDailyLogs(User user){
         LOGGER.info("getDailyLogs() : 유저의 오늘 섭취 로그 전체 반환");
 
@@ -60,6 +70,8 @@ public class DrinkLogService {
         return drinkLogList;
     }
 
+    @Transactional
+    @Cacheable(value = "week", key = "#user.getUserKey()", cacheManager = "cacheManager")
     public List<DrinkLog> getWeeklyLogs(User user){
         LocalDateTime startDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0)).minusDays(8); //오늘 00:00:00
         LocalDateTime endDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59)).minusDays(1); //오늘 23:59:59
@@ -68,6 +80,8 @@ public class DrinkLogService {
         return drinkLogList;
     }
 
+    @Transactional
+    @Cacheable(value = "month", key = "#user.getUserKey()", cacheManager = "cacheManager")
     public List<DrinkLog> getMonthlyLogs(User user){
         LocalDateTime startDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(0,0,0)).minusDays(31); //오늘 00:00:00
         LocalDateTime endDatetime = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59)).minusDays(1); //오늘 23:59:59
@@ -76,12 +90,21 @@ public class DrinkLogService {
         return drinkLogList;
     }
 
-    public void addDrinkLog(DrinkLog newDrinkLog) {
+    @Transactional
+    @CachePut(value = "recent", key = "#newDrinkLog.getUser().getUserKey()", cacheManager = "cacheManager")
+    public DrinkLog addDrinkLog(DrinkLog newDrinkLog) {
         LOGGER.info("addDrinkLog() : 섭취 로그 등록");
+        int dailyTotalDrink = getDailyTotalDrink(newDrinkLog.getUser());
+        updateDailyTotalDrink(newDrinkLog.getUser(), newDrinkLog.getDrink()+dailyTotalDrink);
 
-        drinkLogRepository.save(newDrinkLog);
+        int totalDrink = getTotalDrink(newDrinkLog.getUser());
+        updateTotalDrink(newDrinkLog.getUser(), newDrinkLog.getDrink()+dailyTotalDrink);
+
+        return drinkLogRepository.save(newDrinkLog);
     }
 
+    @Transactional
+    @Cacheable(value = "dayTotal", key = "#user.getUserKey()", cacheManager = "cacheManager")
     public int getDailyTotalDrink(User user) {
         LOGGER.info("getDailyTotalDrink() : 유저의 일일 섭취 음수량 반환");
 
@@ -94,6 +117,15 @@ public class DrinkLogService {
         return total;
     }
 
+    @Transactional
+    @CachePut(value = "dayTotal", key = "#user.getUserKey()", cacheManager = "cacheManager")
+    public int updateDailyTotalDrink(User user, int value) {
+        LOGGER.info("updateDailyTotalDrink() : 유저의 일일 섭취 음수량 반환");
+        return value;
+    }
+
+    @Transactional
+    @Cacheable(value = "stackTotal", key = "#user.getUserKey()", cacheManager = "cacheManager")
     public int getTotalDrink(User user) {
         LOGGER.info("getTotalDrink() : 유저의 누적 섭취 음수량 반환");
 
@@ -104,5 +136,12 @@ public class DrinkLogService {
             total += drinkLog.getDrink();
         }
         return total;
+    }
+
+    @Transactional
+    @CachePut(value = "stackTotal", key = "#user.getUserKey()", cacheManager = "cacheManager")
+    public int updateTotalDrink(User user, int value) {
+        LOGGER.info("updateDailyTotalDrink() : 유저의 일일 섭취 음수량 반환");
+        return value;
     }
 }

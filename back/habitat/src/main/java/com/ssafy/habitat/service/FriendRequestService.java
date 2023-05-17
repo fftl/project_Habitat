@@ -8,6 +8,8 @@ import com.ssafy.habitat.repository.FriendRequestRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,8 +27,8 @@ public class FriendRequestService {
         this.friendRequestRepository = friendRequestRepository;
     }
 
-    public void addFriendRequest(FriendRequest newFriendRequest) {
-        LOGGER.info("addFriendRequest() : 친구신청 객체 등록");
+    public void checkFriendRequestPossible(FriendRequest newFriendRequest) {
+        LOGGER.info("checkFriendRequestPossible() : 친구신청 가능 여부 확인");
 
         // 나 자신에게 친구신청을 하는 경우
         if(newFriendRequest.getTo() == newFriendRequest.getFrom()) {
@@ -34,13 +36,21 @@ public class FriendRequestService {
         }
 
         // 이미 전송한 친구신청이 있는 경우
-        if(friendRequestRepository.findByFromAndToAndStatus(newFriendRequest.getFrom(), newFriendRequest.getTo(), 0) != null) {
+        FriendRequest friendRequest = friendRequestRepository.findByFromAndToAndStatus(newFriendRequest.getFrom(), newFriendRequest.getTo(), 0).orElse(null);
+        if(friendRequest != null) {
             throw new CustomException(ErrorCode.ALREADY_SENT_FRIEND_REQUEST);
         }
+
+    }
+
+    @CacheEvict(value = "FriendRequestList", key = "#newFriendRequest.to.userKey")
+    public void addFriendRequest(FriendRequest newFriendRequest) {
+        LOGGER.info("addFriendRequest() : 친구신청 객체 등록");
 
         friendRequestRepository.save(newFriendRequest);
     }
 
+    @Cacheable(value = "FriendRequestList", key = "#user.userKey")
     public List<FriendRequest> getFriendRequestList(User user) {
         LOGGER.info("getFriendRequestList() : 유저에게 도착한 친구신청 목록 반환");
 
@@ -71,6 +81,7 @@ public class FriendRequestService {
         }
     }
 
+    @CacheEvict(value = "FriendRequestList", key = "#friendRequest.to.userKey")
     public void modifyFriendRequest(FriendRequest friendRequest, int status) {
         LOGGER.info("modifyFriendRequest() : 친구신청 상태 수정");
 

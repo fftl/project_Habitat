@@ -8,6 +8,9 @@ import com.ssafy.habitat.repository.FriendRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,12 +27,19 @@ public class FriendService {
         this.friendRepository = friendRepository;
     }
 
+    @Cacheable(value = "FriendList", key = "#user.getUserKey()", cacheManager = "cacheManager", sync = true)
     public List<User> getFriendList(User user) {
         LOGGER.info("getFriendList() : 유저의 친구 목록 반환");
 
-        List<User> friendList = friendRepository.findByMyId(user);
 
-        return friendList;
+        List<Friend> friendList = friendRepository.findByMyId(user);
+        List<User> friendUserList = new ArrayList<>();
+
+        for (int i = 0; i < friendList.size(); i++) {
+            friendUserList.add(friendList.get(i).getFriendId());
+        }
+
+        return friendUserList;
     }
 
 
@@ -44,6 +54,9 @@ public class FriendService {
         }
     }
 
+    @Caching(evict = {
+            @CacheEvict(value = "FriendList", key = "#newFriend.myId.userKey"),
+    })
     public void addFriend(Friend newFriend) {
         LOGGER.info("addFriend() : 새로운 친구관계 등록");
 
