@@ -4,7 +4,7 @@ import 'package:habitat/api/drinklog/api_drinklogs.dart';
 import 'package:habitat/api/user/api_users.dart';
 
 class ReportController extends GetxController {
-  RxInt water = 0.obs;
+  RxInt daily = 0.obs;
   RxInt goal = 1.obs;
   RxList weekly = [].obs;
   RxList monthly = [].obs;
@@ -13,8 +13,17 @@ class ReportController extends GetxController {
   void onInit() {
     super.onInit();
     goalUpdate();
+    dailyUpdate();
     weeklyIntakeUpdate();
     monthlyIntakeUpdate();
+  }
+
+  dailyUpdate() {
+    getTodaytotalDrink(success: (response) {
+      daily.value = response['totalDrink'];
+    }, fail: (e) {
+      debugPrint("에러발생 : $e");
+    });
   }
 
   goalUpdate() {

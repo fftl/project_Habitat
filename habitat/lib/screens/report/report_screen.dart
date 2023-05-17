@@ -175,7 +175,6 @@ class _MyReportState extends State<MyReport> {
                     ),
                   ],
                   plotAreaBorderWidth: 0,
-                  // primaryXAxis: DateTimeCategoryAxis(
                   primaryXAxis: CategoryAxis(
                     edgeLabelPlacement: EdgeLabelPlacement.shift,
                     borderColor: Colors.transparent,
@@ -240,13 +239,17 @@ class _MyReportState extends State<MyReport> {
                     const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Text(
-                        '물 마시기 $todaysIntake / $intakeGoal ml',
-                        style: const TextStyle(
-                          fontSize: 17.5,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey,
-                        ),
+                      child: GetX<ReportController>(
+                        builder: (controller) {
+                          return Text(
+                            '물 마시기 ${controller.daily.value} / ${controller.goal.value}ml',
+                            style: const TextStyle(
+                              fontSize: 17.5,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -255,13 +258,17 @@ class _MyReportState extends State<MyReport> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            '달성률 ${achievementRate.toStringAsFixed(2)}%',
-                            style: const TextStyle(
-                              fontSize: 17.5,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
+                          GetX<ReportController>(
+                            builder: (controller) {
+                              return Text(
+                                '달성률 ${(controller.daily.value / controller.goal.value).toStringAsFixed(2)}%',
+                                style: const TextStyle(
+                                  fontSize: 17.5,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              );
+                            },
                           ),
                           ElevatedButton(
                             onPressed: () {
@@ -334,6 +341,8 @@ class _MyReportState extends State<MyReport> {
                           color: Colors.grey,
                         ),
                       ),
+
+                      // 요기요기
                     ),
                     const SizedBox(height: 20),
                     Padding(
