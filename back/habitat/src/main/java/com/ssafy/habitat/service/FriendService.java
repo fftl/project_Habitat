@@ -54,9 +54,7 @@ public class FriendService {
         }
     }
 
-    @Caching(evict = {
-            @CacheEvict(value = "FriendList", key = "#newFriend.myId.userKey"),
-    })
+    @CacheEvict(value = "FriendList", key = "#newFriend.myId.userKey")
     public void addFriend(Friend newFriend) {
         LOGGER.info("addFriend() : 새로운 친구관계 등록");
 

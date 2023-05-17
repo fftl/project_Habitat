@@ -43,13 +43,6 @@ public class FriendRequestService {
 
     }
 
-    @CacheEvict(value = "FriendRequestList", key = "#newFriendRequest.to.userKey")
-    public void addFriendRequest(FriendRequest newFriendRequest) {
-        LOGGER.info("addFriendRequest() : 친구신청 객체 등록");
-
-        friendRequestRepository.save(newFriendRequest);
-    }
-
     @Cacheable(value = "FriendRequestList", key = "#user.userKey")
     public List<FriendRequest> getFriendRequestList(User user) {
         LOGGER.info("getFriendRequestList() : 유저에게 도착한 친구신청 목록 반환");
@@ -58,6 +51,14 @@ public class FriendRequestService {
 
         return friendRequestList;
     }
+
+    @CacheEvict(value = "FriendRequestList", key = "#newFriendRequest.to.userKey")
+    public void addFriendRequest(FriendRequest newFriendRequest) {
+        LOGGER.info("addFriendRequest() : 친구신청 객체 등록");
+
+        friendRequestRepository.save(newFriendRequest);
+    }
+
 
     public FriendRequest getFriendRequestByRequestKey(int requestKey) {
         LOGGER.info("getFriendRequestByRequestKey() : 친구신청 객체 반환");
