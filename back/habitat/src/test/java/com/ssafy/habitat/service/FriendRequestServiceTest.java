@@ -53,7 +53,7 @@ class FriendRequestServiceTest {
 
         friendRequestList.add(friendRequest1);
         friendRequestList.add(friendRequest2);
-        user1.setFriendRequestList(friendRequestList);
+//        user1.setFriendRequestList(friendRequestList);
     }
 
 

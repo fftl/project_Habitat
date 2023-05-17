@@ -102,11 +102,13 @@ public class FriendController {
         User fromUser = userService.getUser(userKey); // userKey의 유저를 찾습니다.
         User toUser = userService.getUser(requestFriendDto.getFriendUserKey()); // 친구신청할 userKey의 유저를 찾습니다.
 
+        FriendRequest newFriendRequest = FriendRequest.builder().from(fromUser).to(toUser).status(0).build();
+
         // 친구신청의 유효성(이미 친구 관계에 있진 않은지)을 확인합니다.
         friendService.checkFriendRequestPossible(fromUser, toUser);
-
+        // 친구신청의 유효성(이미 신청했는지, 자기 자신에게 신청했는지)를 확인합니다.
+        friendRequestService.checkFriendRequestPossible(newFriendRequest);
         // 친구신청을 보냅니다.
-        FriendRequest newFriendRequest = FriendRequest.builder().from(fromUser).to(toUser).status(0).build();
         friendRequestService.addFriendRequest(newFriendRequest);
 
         // 신청 받은 유저(fromUser)에게 웹소켓 보내기 필요
