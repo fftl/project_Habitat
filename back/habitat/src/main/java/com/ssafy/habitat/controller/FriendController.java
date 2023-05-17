@@ -4,6 +4,7 @@ import com.ssafy.habitat.config.TokenProvider;
 import com.ssafy.habitat.dto.RequestFriendRequestDto;
 import com.ssafy.habitat.dto.RequestUserDto;
 import com.ssafy.habitat.dto.ResponseUserDto;
+import com.ssafy.habitat.entity.DrinkLog;
 import com.ssafy.habitat.entity.Friend;
 import com.ssafy.habitat.entity.FriendRequest;
 import com.ssafy.habitat.entity.User;
@@ -64,7 +65,13 @@ public class FriendController {
         List<ResponseUserDto.Friend> friendDtoList = new ArrayList<>();
         for (int i = 0; i < friendList.size(); i++) {
             User curUser = friendList.get(i);
-            LocalDateTime last = drinkLogService.getRecentLog(curUser).getCreatedAt();
+
+            LocalDateTime last = null;
+            DrinkLog recentLog = drinkLogService.getRecentLog(curUser);
+            if(recentLog!=null) {
+                last = recentLog.getCreatedAt();
+            }
+
             friendDtoList.add(ResponseUserDto.Friend.builder()
                     .userKey(curUser.getUserKey())
                     .nickname(curUser.getNickname())
@@ -206,7 +213,7 @@ public class FriendController {
         for (int i = 0; i < friendRequestList.size(); i++) {
             FriendRequest friendRequest = friendRequestList.get(i);
             User curUser = friendRequest.getFrom();
-            LocalDateTime last = drinkLogService.getRecentLog(curUser).getCreatedAt();
+
             friendRequestDtoList.add(ResponseUserDto.FriendRequest.builder()
                             .friendRequestKey(friendRequest.getFriendRequestKey())
                             .userKey(curUser.getUserKey())
