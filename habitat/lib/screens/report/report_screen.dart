@@ -392,7 +392,7 @@ class _MyReportState extends State<MyReport> {
                           }
 
                           return Text(
-                            '이번 주 물 섭취량 ${formatTarget}L',
+                            '이번 주 물 섭취량 ${formatTarget(target!)}L',
                             style: const TextStyle(
                               fontSize: 17.5,
                               fontWeight: FontWeight.bold,
@@ -439,7 +439,7 @@ class _MyReportState extends State<MyReport> {
                               }
 
                               return Text(
-                                '이번 주 비카페인 음료 섭취량 ${formatTarget}L',
+                                '이번 주 비카페인 음료 섭취량 ${formatTarget(target!)}L',
                                 style: const TextStyle(
                                   fontSize: 17.5,
                                   fontWeight: FontWeight.bold,
@@ -487,7 +487,7 @@ class _MyReportState extends State<MyReport> {
                               }
 
                               return Text(
-                                '이번 주 카페인 음료 섭취량 ${formatTarget}L',
+                                '이번 주 카페인 음료 섭취량 ${formatTarget(target!)}L',
                                 style: const TextStyle(
                                   fontSize: 17.5,
                                   fontWeight: FontWeight.bold,
@@ -569,7 +569,7 @@ class _MyReportState extends State<MyReport> {
                           }
 
                           return Text(
-                            '이번 달 물 섭취량 ${formatTarget}L',
+                            '이번 달 물 섭취량 ${formatTarget(target!)}L',
                             style: const TextStyle(
                               fontSize: 17.5,
                               fontWeight: FontWeight.bold,
@@ -616,7 +616,7 @@ class _MyReportState extends State<MyReport> {
                               }
 
                               return Text(
-                                '이번 달 비카페인 음료 섭취량 ${formatTarget}L',
+                                '이번 달 비카페인 음료 섭취량 ${formatTarget(target!)}L',
                                 style: const TextStyle(
                                   fontSize: 17.5,
                                   fontWeight: FontWeight.bold,
@@ -664,7 +664,7 @@ class _MyReportState extends State<MyReport> {
                               }
 
                               return Text(
-                                '이번 달 카페인 음료 섭취량 ${formatTarget}L',
+                                '이번 달 카페인 음료 섭취량 ${formatTarget(target!)}L',
                                 style: const TextStyle(
                                   fontSize: 17.5,
                                   fontWeight: FontWeight.bold,
