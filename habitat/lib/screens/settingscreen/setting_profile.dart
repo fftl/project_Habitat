@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:habitat/api/user/api_users.dart';
+import 'package:habitat/controller/user_controller.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SettingProfile extends StatefulWidget {
@@ -12,8 +13,8 @@ class SettingProfile extends StatefulWidget {
 }
 
 class _SettingProfileState extends State<SettingProfile> {
+  final controller = Get.put(UserController());
   bool isEdited = false;
-  String nick = '쏘영쏘';
   TextEditingController tec = TextEditingController();
   late File profileImg;
   final ImagePicker _picker = ImagePicker();

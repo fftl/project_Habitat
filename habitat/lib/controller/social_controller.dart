@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:habitat/api/friends/api_friendcode.dart';
 import 'package:habitat/api/friends/api_friendrequest.dart';
+import 'package:habitat/api/friends/api_friendslist.dart';
 
 class SocialController extends GetxController {
   RxString userCode = ''.obs;
   RxList<Map<String, dynamic>> requestfriendslist =
       <Map<String, dynamic>>[].obs;
-
+  RxList<Map<String, dynamic>> friendslist = <Map<String, dynamic>>[].obs;
   @override
   void onInit() {
     super.onInit();
@@ -32,6 +33,22 @@ class SocialController extends GetxController {
           requestfriendslist.add(value);
         }
         debugPrint('친구신청 : $requestfriendslist');
+      },
+      fail: (error) {
+        debugPrint('에러 : $error');
+      },
+    );
+  }
+
+  getSocialList() {
+    getFriendsList(
+      success: (res) async {
+        List temp = <Map<String, dynamic>>[];
+        temp = await res.map((dynamic item) => item).toList() ?? [];
+        for (var value in temp) {
+          friendslist.add(value);
+        }
+        debugPrint('친구 : $friendslist');
       },
       fail: (error) {
         debugPrint('에러 : $error');

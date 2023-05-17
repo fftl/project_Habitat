@@ -1,61 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:habitat/api/friends/api_friendrequest.dart';
 import 'package:habitat/controller/social_controller.dart';
-import 'package:habitat/models/friend_request_model.dart';
 
 class friendslistWidget extends StatefulWidget {
-  final ScrollController controller;
+  final ScrollController scrollcontroller;
 
-  const friendslistWidget({super.key, required this.controller});
+  const friendslistWidget({super.key, required this.scrollcontroller});
 
   @override
   State<friendslistWidget> createState() => _friendslistWidgetState();
 }
 
 class _friendslistWidgetState extends State<friendslistWidget> {
-  final List<FriendRequestModel> _friendList = [];
+  // final List<FriendRequestModel> _friendList = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _loadFriendRequestList();
+    // _loadFriendRequestList();
   }
 
-  Future<void> _loadFriendRequestList() async {
-    // List<FriendRequestModel> friendrequestlist =
-    // await ApiFriendRequestList().getRequestFriendList('asdf');
+  // Future<void> _loadFriendRequestList() async {
+  // List<FriendRequestModel> friendrequestlist =
+  // await ApiFriendRequestList().getRequestFriendList('asdf');
 
-    setState(() {
-      // _friendRequestList = friendrequestlist;
-    });
-  }
+  // setState(() {
+  // _friendRequestList = friendrequestlist;
+  // });
+  // }
 
+  final controller = Get.put(SocialController());
   @override
   Widget build(BuildContext context) {
-    if (_friendList == null) {
-      return const CircularProgressIndicator();
-    } else {
-      return const Scaffold();
-      // return ListView.separated(
-      //     scrollDirection: Axis.vertical,
-      //     shrinkWrap: true,
-      //     controller: widget.controller,
-      //     itemBuilder: (context, index) {
-      //       return friendslist(
-      //         userKey: _friendRequestList[index].userKey,
-      //         nickname: _friendRequestList[index].nickname,
-      //         imgUrl: _friendRequestList[index].imgUrl,
-      //         friendRequestKey: _friendRequestList[index].friendRequestKey,
-      //         d
-      //       );
-      //     },
-      //     separatorBuilder: (context, index) => const SizedBox(
-      //           height: 10,
-      //         ),
-      //     itemCount: _friendRequestList.length);
-    }
+    return GetX<SocialController>(builder: (controller) {
+      if (controller.friendslist.isNotEmpty) {
+        return ListView.separated(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            controller: widget.scrollcontroller,
+            itemBuilder: (context, index) {
+              return friendslist(
+                userKey: controller.friendslist[index]['userKey'],
+                nickname: controller.friendslist[index]['nickname'],
+                imgUrl: controller.friendslist[index]['imgUrl'],
+                recent: controller.friendslist[index]['recent'],
+              );
+            },
+            separatorBuilder: (context, index) => const SizedBox(
+                  height: 10,
+                ),
+            itemCount: controller.friendslist.length);
+      } else {
+        return const SizedBox(
+          height: 10,
+        );
+      }
+    });
   }
 }
 
