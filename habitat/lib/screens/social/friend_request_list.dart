@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:habitat/api/friends/api_friendrequest.dart';
 import 'package:habitat/controller/social_controller.dart';
 
 class friendsRequestListWidget extends StatelessWidget {
@@ -69,6 +70,18 @@ class requestfriendlist extends StatelessWidget {
     required this.delete,
   });
 
+  requestOk(Map<String, dynamic> body) {
+    int requestCode = body['friendRequestCode'];
+    postFriendRequest(
+        body: body,
+        success: (response) {
+          debugPrint("전송성공 : $response");
+        },
+        fail: (e) {
+          debugPrint("에러발생 : $e");
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -130,7 +143,14 @@ class requestfriendlist extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        debugPrint('거절보냄');
+                        putFriendRequest(
+                            body: friendRequestKey,
+                            success: (res) {
+                              debugPrint('거절됨');
+                            },
+                            fail: (e) {
+                              debugPrint('에러 $e');
+                            });
                         delete(friendRequestKey);
                       },
                       child: const Text('거절')),

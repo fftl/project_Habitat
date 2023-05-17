@@ -33,7 +33,7 @@ void postFriendRequest({
 void putFriendRequest({
   required dynamic Function(dynamic) success,
   required Function(String error) fail,
-  Map<String, dynamic>? body,
+  dynamic body,
 }) {
   baseApi(
     path: 'friends/request/cancel',
