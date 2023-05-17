@@ -1,13 +1,17 @@
 package com.ssafy.habitat.service;
 
+import com.ssafy.habitat.dto.ResponseFlowerDto;
 import com.ssafy.habitat.entity.*;
 import com.ssafy.habitat.websocket.CustomWebSocketHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -110,7 +114,7 @@ public class RewardService {
             if(userFlower.isFriend() == false && friendCnt >= flower.getFriendValue()) {
                 // 해당 꽃의 친구조건 해금
                 userFlower.setFriend(true);
-                userFlowerService.addUserFlower(userFlower);
+                userFlowerService.updateUserFlower(userFlower);
 
                 // 해금 기록 저장
                 UserFlowerLog newUserFlowerLog = UserFlowerLog.builder().user(user).flower(flower).mission('f').build();
@@ -144,7 +148,7 @@ public class RewardService {
             if(userFlower.isDrink() == false && totalDrink >= flower.getDrinkValue()) {
                 // 해당 꽃의 누적음수량 조건 해금
                 userFlower.setDrink(true);
-                userFlowerService.addUserFlower(userFlower);
+                userFlowerService.updateUserFlower(userFlower);
 
                 // 해금 기록 저장
                 UserFlowerLog newUserFlowerLog = UserFlowerLog.builder().user(user).flower(flower).mission('d').build();
@@ -179,7 +183,7 @@ public class RewardService {
             if(userFlower.isStreak() == false && curStreak >= flower.getStreakValue()) {
                 // 해당 꽃의 스트릭 조건 해금
                 userFlower.setStreak(true);
-                userFlowerService.addUserFlower(userFlower);
+                userFlowerService.updateUserFlower(userFlower);
 
                 // 해금 기록 저장
                 UserFlowerLog newUserFlowerLog = UserFlowerLog.builder().user(user).flower(flower).mission('s').build();
@@ -213,7 +217,7 @@ public class RewardService {
             if(userFlower.isConnect() == false) {
                 // 해당 꽃의 스트릭 조건 해금
                 userFlower.setConnect(true);
-                userFlowerService.addUserFlower(userFlower);
+                userFlowerService.updateUserFlower(userFlower);
 
                 // 해금 기록 저장
                 UserFlowerLog newUserFlowerLog = UserFlowerLog.builder().user(user).flower(flower).mission('c').build();
@@ -266,11 +270,56 @@ public class RewardService {
 
         // 유저의 해당 꽃 완전 해금
         userFlower.setUnlocked(true);
-        userFlowerService.addUserFlower(userFlower);
+        userFlowerService.unlockUserFlower(userFlower);
 
         // 완전 해금 기록 저장
         UserFlowerLog newUserFlowerLog = UserFlowerLog.builder().user(user).flower(flower).mission('t').build();
         userFlowerLogService.addUserFlowerLog(newUserFlowerLog);
     }
 
+    public List<ResponseFlowerDto.Collection> getCollection(User user) {
+        LOGGER.info("getCollection() : 유저의 모든 꽃에 대한 컬렉션 상태 목록 조회");
+
+        List<Flower> flowerList = flowerService.getFlowerList();
+
+        // user가 획득한 꽃
+        List<Collection> collectionList = collectionService.getCollectionList(user);
+        HashSet<Integer> collectionHashSet = new HashSet<>();
+        for(int i = 0; i < collectionList.size(); i++) {
+            collectionHashSet.add(collectionList.get(i).getFlower().getFlowerKey());
+        }
+
+        // user가 해금한 꽃
+        List<UserFlower> unlockedUserFlowerList = userFlowerService.getUnlockedFlowerList(user);
+        HashSet<Integer> unlockedFlowerHashSet = new HashSet<>();
+        for(int i = 0; i < unlockedUserFlowerList.size(); i++) {
+            unlockedFlowerHashSet.add(unlockedUserFlowerList.get(i).getFlower().getFlowerKey());
+        }
+
+        // Entity -> Dto
+        List<ResponseFlowerDto.Collection> responseFlowerDtoList = new ArrayList<>();
+        for(int i = 0; i < flowerList.size(); i++) {
+            Flower flower = flowerList.get(i);
+
+            int userStatus = 0;
+
+            // 획득가능한 꽃인지 확인
+            if(unlockedFlowerHashSet.contains(flower.getFlowerKey())) userStatus = 1;
+
+            // 획득한 꽃인지 확인
+            if(collectionHashSet.contains(flower.getFlowerKey())) userStatus = 2;
+
+            ResponseFlowerDto.Collection responseFlowerDto = ResponseFlowerDto.Collection.builder()
+                    .flowerKey(flower.getFlowerKey())
+                    .name(flower.getName())
+                    .story(flower.getStory())
+                    .getCondition(flower.getGetCondition())
+                    .userStatus(userStatus)
+                    .build();
+            responseFlowerDtoList.add(responseFlowerDto);
+
+        }
+
+        return responseFlowerDtoList;
+    }
 }

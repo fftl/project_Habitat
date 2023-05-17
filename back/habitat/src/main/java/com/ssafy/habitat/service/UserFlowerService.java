@@ -6,6 +6,9 @@ import com.ssafy.habitat.repository.UserFlowerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +24,30 @@ public class UserFlowerService {
         this.userFlowerRepository = userFlowerRepository;
     }
 
+    public void addUserFlower(UserFlower newUserFlower) {
+        LOGGER.info("addUserFlower() : 새로운 유저-꽃 관계 등록");
+
+        userFlowerRepository.save(newUserFlower);
+    }
+
+    public void updateUserFlower(UserFlower updatedUserFlower) {
+        LOGGER.info("updateUserFlower() : 수정된 유저-꽃 관계 수정");
+
+        userFlowerRepository.save(updatedUserFlower);
+    }
+
+    @Caching( evict = {
+            @CacheEvict(value="UnlockedUserFlower", key="#unlockedUserFlower.user.userKey"),
+            @CacheEvict(value="UserFlowerStateList", key="#user.userKey")
+    })
+    public void unlockUserFlower(UserFlower unlockedUserFlower) {
+        LOGGER.info("unlockUserFlower() : 해금된 유저-꽃 관계 수정");
+
+        userFlowerRepository.save(unlockedUserFlower);
+
+    }
+
+
     public List<UserFlower> getLockedFlowerList(User user) {
         LOGGER.info("getLockedFlowerList() : 유저의 잠긴 꽃 목록 반환");
 
@@ -28,12 +55,9 @@ public class UserFlowerService {
         return findUserLockedFlowerList;
     }
 
-    public void addUserFlower(UserFlower newUserFlower) {
-        LOGGER.info("addUserFlower() : 새로운 유저-꽃 관계 등록");
 
-        userFlowerRepository.save(newUserFlower);
-    }
 
+    @Cacheable(value = "UnlockedFlowerList", key="#user.userKey")
     public List<UserFlower> getUnlockedFlowerList(User user) {
         LOGGER.info("getUnlockedFlowerList() : 유저의 해금된 꽃 목록 반환");
 

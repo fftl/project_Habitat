@@ -1,8 +1,6 @@
 package com.ssafy.habitat.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
@@ -15,6 +13,8 @@ public class ResponseFlowerDto {
 
     @Setter
     @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Builder
     public static class Collection {
         private int flowerKey;
