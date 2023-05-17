@@ -4,6 +4,7 @@ import 'package:habitat/widgets/dock_bar.dart';
 import 'package:habitat/screens/settingscreen/modify_goal_screen.dart';
 import 'package:habitat/controller/report_controller.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -38,6 +39,15 @@ class _ReportScreenState extends State<ReportScreen> {
   }
 }
 
+class IntakeData {
+  IntakeData(
+      this.date, this.waterIntake, this.caffeineIntake, this.noncaffeineIntake);
+  String date;
+  double waterIntake;
+  double caffeineIntake;
+  double noncaffeineIntake;
+}
+
 class MyReport extends StatefulWidget {
   const MyReport({super.key});
 
@@ -52,7 +62,6 @@ class _MyReportState extends State<MyReport> {
 
   @override
   void initState() {
-    _chartData = getChartData();
     _tooltipBehavior = TooltipBehavior(enable: true);
     _trackballBehavior = TrackballBehavior(
       enable: true,
@@ -108,90 +117,120 @@ class _MyReportState extends State<MyReport> {
               ),
               child: SafeArea(
                 //차트 시작
-                child: SfCartesianChart(
-                  trackballBehavior: _trackballBehavior,
-                  title: ChartTitle(
-                    text: "소영쏘's drink",
-                    textStyle: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  legend: Legend(
-                    isVisible: true,
-                    position: LegendPosition.bottom,
-                  ),
-                  tooltipBehavior: _tooltipBehavior,
-                  series: <ChartSeries>[
-                    LineSeries<IntakeData, dynamic>(
-                      name: '물',
-                      legendIconType: LegendIconType.circle,
-                      dataSource: _chartData,
-                      xValueMapper: (IntakeData data, _) => data.date,
-                      yValueMapper: (IntakeData data, _) => data.waterIntake,
-                      dataLabelSettings: const DataLabelSettings(
-                        isVisible: false,
+
+                //으악
+
+                child: GetX<ReportController>(
+                  builder: (controller) {
+                    List<IntakeData> chartData = [];
+
+                    for (int i = 0; i < controller.weekly.length; i++) {
+                      String date = controller.weekly[i]['date'];
+                      double waterIntake = controller.weekly[i]['waterDrink'];
+                      double caffeineIntake = controller.weekly[i]['cafeDrink'];
+                      double noncaffeineIntake =
+                          controller.weekly[i]['nonCafeDrink'];
+                      chartData.add(IntakeData(date, waterIntake,
+                          caffeineIntake, noncaffeineIntake));
+                    }
+
+                    return SfCartesianChart(
+                      trackballBehavior: _trackballBehavior,
+                      title: ChartTitle(
+                        text: "소영쏘's drink",
+                        textStyle: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                      enableTooltip: true,
-                      color: Colors.indigo,
-                      width: 4,
-                      opacity: 0.9,
-                    ),
-                    LineSeries<IntakeData, dynamic>(
-                      name: '카페인음료',
-                      legendIconType: LegendIconType.circle,
-                      dataSource: _chartData,
-                      xValueMapper: (IntakeData data, _) => data.date,
-                      yValueMapper: (IntakeData data, _) => data.caffeineIntake,
-                      dataLabelSettings: const DataLabelSettings(
-                        isVisible: false,
+                      legend: Legend(
+                        isVisible: true,
+                        position: LegendPosition.bottom,
                       ),
-                      enableTooltip: true,
-                      color: Colors.deepOrange,
-                      width: 4,
-                      opacity: 0.9,
-                    ),
-                    LineSeries<IntakeData, dynamic>(
-                      name: '비카페인음료',
-                      legendIconType: LegendIconType.circle,
-                      dataSource: _chartData,
-                      xValueMapper: (IntakeData data, _) => data.date,
-                      yValueMapper: (IntakeData data, _) =>
-                          data.noncaffeineIntake,
-                      dataLabelSettings: const DataLabelSettings(
-                        isVisible: false,
+                      tooltipBehavior: _tooltipBehavior,
+                      series: <ChartSeries>[
+                        LineSeries<IntakeData, dynamic>(
+                          name: '물',
+                          legendIconType: LegendIconType.circle,
+                          dataSource: _chartData,
+
+                          //요기
+
+                          xValueMapper: (IntakeData data, _) => data.date,
+                          yValueMapper: (IntakeData data, _) =>
+                              data.waterIntake,
+                          dataLabelSettings: const DataLabelSettings(
+                            isVisible: false,
+                          ),
+                          enableTooltip: true,
+                          color: Colors.indigo,
+                          width: 4,
+                          opacity: 0.9,
+                        ),
+                        LineSeries<IntakeData, dynamic>(
+                          name: '카페인음료',
+                          legendIconType: LegendIconType.circle,
+                          dataSource: _chartData,
+
+                          //요기
+
+                          xValueMapper: (IntakeData data, _) => data.date,
+                          yValueMapper: (IntakeData data, _) =>
+                              data.caffeineIntake,
+                          dataLabelSettings: const DataLabelSettings(
+                            isVisible: false,
+                          ),
+                          enableTooltip: true,
+                          color: Colors.deepOrange,
+                          width: 4,
+                          opacity: 0.9,
+                        ),
+                        LineSeries<IntakeData, dynamic>(
+                          name: '비카페인음료',
+                          legendIconType: LegendIconType.circle,
+                          dataSource: _chartData,
+
+                          //요기
+
+                          xValueMapper: (IntakeData data, _) => data.date,
+                          yValueMapper: (IntakeData data, _) =>
+                              data.noncaffeineIntake,
+                          dataLabelSettings: const DataLabelSettings(
+                            isVisible: false,
+                          ),
+                          enableTooltip: true,
+                          color: Colors.teal,
+                          width: 4,
+                          opacity: 0.9,
+                        ),
+                      ],
+                      plotAreaBorderWidth: 0,
+                      primaryXAxis: CategoryAxis(
+                        edgeLabelPlacement: EdgeLabelPlacement.shift,
+                        borderColor: Colors.transparent,
+                        borderWidth: 0,
+                        axisLine: const AxisLine(width: 0),
+                        majorGridLines: const MajorGridLines(width: 0),
+                        majorTickLines:
+                            const MajorTickLines(color: Colors.transparent),
+                        labelRotation: 305,
+                        labelStyle: const TextStyle(
+                          fontSize: 8,
+                        ),
+                        rangePadding: ChartRangePadding.none,
                       ),
-                      enableTooltip: true,
-                      color: Colors.teal,
-                      width: 4,
-                      opacity: 0.9,
-                    ),
-                  ],
-                  plotAreaBorderWidth: 0,
-                  primaryXAxis: CategoryAxis(
-                    edgeLabelPlacement: EdgeLabelPlacement.shift,
-                    borderColor: Colors.transparent,
-                    borderWidth: 0,
-                    axisLine: const AxisLine(width: 0),
-                    majorGridLines: const MajorGridLines(width: 0),
-                    majorTickLines:
-                        const MajorTickLines(color: Colors.transparent),
-                    labelRotation: 305,
-                    labelStyle: const TextStyle(
-                      fontSize: 8,
-                    ),
-                    rangePadding: ChartRangePadding.none,
-                  ),
-                  primaryYAxis: NumericAxis(
-                    minimum: 0,
-                    maximum: 2000,
-                    interval: 200,
-                    labelFormat: '{value}ml',
-                    axisLine: const AxisLine(width: 0),
-                    majorGridLines: const MajorGridLines(width: 0),
-                    majorTickLines:
-                        const MajorTickLines(color: Colors.transparent),
-                  ),
+                      primaryYAxis: NumericAxis(
+                        minimum: 0,
+                        maximum: 2000,
+                        interval: 200,
+                        labelFormat: '{value}ml',
+                        axisLine: const AxisLine(width: 0),
+                        majorGridLines: const MajorGridLines(width: 0),
+                        majorTickLines:
+                            const MajorTickLines(color: Colors.transparent),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
@@ -326,16 +365,43 @@ class _MyReportState extends State<MyReport> {
                     const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Text(
-                        '이번 주 물 섭취량 ${waterIntakeWeek}L',
-                        style: const TextStyle(
-                          fontSize: 17.5,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey,
-                        ),
-                      ),
+                      child: GetX<ReportController>(
+                        builder: (controller) {
+                          int? target = 0;
 
-                      // 요기요기
+                          for (int i = 0; i < controller.weekly.length; i++) {
+                            target = (target! +
+                                controller.weekly[i]['waterDrink']) as int?;
+                          }
+
+                          String formatTarget(int target) {
+                            double dividedTarget = target / 1000;
+
+                            if (target < 10) {
+                              return NumberFormat("0.000", "en_US")
+                                  .format(dividedTarget);
+                            } else if (target < 100) {
+                              return NumberFormat("0.00", "en_US")
+                                  .format(dividedTarget);
+                            } else if (target < 1000) {
+                              return NumberFormat("0.0", "en_US")
+                                  .format(dividedTarget);
+                            } else {
+                              return NumberFormat("0", "en_US")
+                                  .format(dividedTarget);
+                            }
+                          }
+
+                          return Text(
+                            '이번 주 물 섭취량 ${formatTarget}L',
+                            style: const TextStyle(
+                              fontSize: 17.5,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                     const SizedBox(height: 20),
                     Padding(
@@ -343,13 +409,45 @@ class _MyReportState extends State<MyReport> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            '이번 주 비카페인 음료 섭취량 ${noncaffeineIntakeWeek}L',
-                            style: const TextStyle(
-                              fontSize: 17.5,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
+                          GetX<ReportController>(
+                            builder: (controller) {
+                              int? target = 0;
+
+                              for (int i = 0;
+                                  i < controller.weekly.length;
+                                  i++) {
+                                target = (target! +
+                                        controller.weekly[i]['nonCafeDrink'])
+                                    as int?;
+                              }
+
+                              String formatTarget(int target) {
+                                double dividedTarget = target / 1000;
+
+                                if (target < 10) {
+                                  return NumberFormat("0.000", "en_US")
+                                      .format(dividedTarget);
+                                } else if (target < 100) {
+                                  return NumberFormat("0.00", "en_US")
+                                      .format(dividedTarget);
+                                } else if (target < 1000) {
+                                  return NumberFormat("0.0", "en_US")
+                                      .format(dividedTarget);
+                                } else {
+                                  return NumberFormat("0", "en_US")
+                                      .format(dividedTarget);
+                                }
+                              }
+
+                              return Text(
+                                '이번 주 비카페인 음료 섭취량 ${formatTarget}L',
+                                style: const TextStyle(
+                                  fontSize: 17.5,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -360,13 +458,44 @@ class _MyReportState extends State<MyReport> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            '이번 주 카페인 음료 섭취량 ${caffeineIntakeWeek}L',
-                            style: const TextStyle(
-                              fontSize: 17.5,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
+                          GetX<ReportController>(
+                            builder: (controller) {
+                              int? target = 0;
+
+                              for (int i = 0;
+                                  i < controller.weekly.length;
+                                  i++) {
+                                target = (target! +
+                                    controller.weekly[i]['cafeDrink']) as int?;
+                              }
+
+                              String formatTarget(int target) {
+                                double dividedTarget = target / 1000;
+
+                                if (target < 10) {
+                                  return NumberFormat("0.000", "en_US")
+                                      .format(dividedTarget);
+                                } else if (target < 100) {
+                                  return NumberFormat("0.00", "en_US")
+                                      .format(dividedTarget);
+                                } else if (target < 1000) {
+                                  return NumberFormat("0.0", "en_US")
+                                      .format(dividedTarget);
+                                } else {
+                                  return NumberFormat("0", "en_US")
+                                      .format(dividedTarget);
+                                }
+                              }
+
+                              return Text(
+                                '이번 주 카페인 음료 섭취량 ${formatTarget}L',
+                                style: const TextStyle(
+                                  fontSize: 17.5,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -413,13 +542,42 @@ class _MyReportState extends State<MyReport> {
                     const SizedBox(height: 20),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Text(
-                        '이번 달 물 섭취량 ${waterIntakeMonth}L',
-                        style: const TextStyle(
-                          fontSize: 17.5,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey,
-                        ),
+                      child: GetX<ReportController>(
+                        builder: (controller) {
+                          int? target = 0;
+
+                          for (int i = 0; i < controller.monthly.length; i++) {
+                            target = (target! +
+                                controller.monthly[i]['waterDrink']) as int?;
+                          }
+
+                          String formatTarget(int target) {
+                            double dividedTarget = target / 1000;
+
+                            if (target < 10) {
+                              return NumberFormat("0.000", "en_US")
+                                  .format(dividedTarget);
+                            } else if (target < 100) {
+                              return NumberFormat("0.00", "en_US")
+                                  .format(dividedTarget);
+                            } else if (target < 1000) {
+                              return NumberFormat("0.0", "en_US")
+                                  .format(dividedTarget);
+                            } else {
+                              return NumberFormat("0", "en_US")
+                                  .format(dividedTarget);
+                            }
+                          }
+
+                          return Text(
+                            '이번 달 물 섭취량 ${formatTarget}L',
+                            style: const TextStyle(
+                              fontSize: 17.5,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -428,13 +586,45 @@ class _MyReportState extends State<MyReport> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            '이번 달 비카페인 음료 섭취량 ${noncaffeineIntakeMonth}L',
-                            style: const TextStyle(
-                              fontSize: 17.5,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
+                          GetX<ReportController>(
+                            builder: (controller) {
+                              int? target = 0;
+
+                              for (int i = 0;
+                                  i < controller.monthly.length;
+                                  i++) {
+                                target = (target! +
+                                        controller.monthly[i]['nonCafeDrink'])
+                                    as int?;
+                              }
+
+                              String formatTarget(int target) {
+                                double dividedTarget = target / 1000;
+
+                                if (target < 10) {
+                                  return NumberFormat("0.000", "en_US")
+                                      .format(dividedTarget);
+                                } else if (target < 100) {
+                                  return NumberFormat("0.00", "en_US")
+                                      .format(dividedTarget);
+                                } else if (target < 1000) {
+                                  return NumberFormat("0.0", "en_US")
+                                      .format(dividedTarget);
+                                } else {
+                                  return NumberFormat("0", "en_US")
+                                      .format(dividedTarget);
+                                }
+                              }
+
+                              return Text(
+                                '이번 달 비카페인 음료 섭취량 ${formatTarget}L',
+                                style: const TextStyle(
+                                  fontSize: 17.5,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -445,13 +635,44 @@ class _MyReportState extends State<MyReport> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            '이번 달 카페인 음료 섭취량 ${caffeineIntakeMonth}L',
-                            style: const TextStyle(
-                              fontSize: 17.5,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey,
-                            ),
+                          GetX<ReportController>(
+                            builder: (controller) {
+                              int? target = 0;
+
+                              for (int i = 0;
+                                  i < controller.monthly.length;
+                                  i++) {
+                                target = (target! +
+                                    controller.monthly[i]['cafeDrink']) as int?;
+                              }
+
+                              String formatTarget(int target) {
+                                double dividedTarget = target / 1000;
+
+                                if (target < 10) {
+                                  return NumberFormat("0.000", "en_US")
+                                      .format(dividedTarget);
+                                } else if (target < 100) {
+                                  return NumberFormat("0.00", "en_US")
+                                      .format(dividedTarget);
+                                } else if (target < 1000) {
+                                  return NumberFormat("0.0", "en_US")
+                                      .format(dividedTarget);
+                                } else {
+                                  return NumberFormat("0", "en_US")
+                                      .format(dividedTarget);
+                                }
+                              }
+
+                              return Text(
+                                '이번 달 카페인 음료 섭취량 ${formatTarget}L',
+                                style: const TextStyle(
+                                  fontSize: 17.5,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -466,39 +687,4 @@ class _MyReportState extends State<MyReport> {
       ),
     ); //바깥 박스
   }
-}
-
-final waterController = Get.put(ReportController());
-// 요기 연결 .obs
-int todaysIntake = 370;
-int intakeGoal = 800;
-int waterIntakeWeek = 7600;
-int noncaffeineIntakeWeek = 300;
-int caffeineIntakeWeek = 22000;
-int waterIntakeMonth = 37000;
-int noncaffeineIntakeMonth = 3200;
-int caffeineIntakeMonth = 82000;
-double achievementRate = (todaysIntake / intakeGoal) * 100;
-
-List<IntakeData> getChartData() {
-  final List<IntakeData> chartData = [
-    IntakeData('월요일', 1234, 567, 890),
-    IntakeData('화요일', 1000, 200, 300),
-    IntakeData('수요일', 0, 0, 0),
-    IntakeData('목요일', 1357, 246, 789),
-    IntakeData('금요일', 500, 600, 700),
-    IntakeData('토요일', 800, 500, 300),
-    IntakeData('일요일', 100, 200, 300),
-  ];
-
-  return chartData;
-}
-
-class IntakeData {
-  IntakeData(
-      this.date, this.waterIntake, this.caffeineIntake, this.noncaffeineIntake);
-  final String date;
-  final double waterIntake;
-  final double caffeineIntake;
-  final double noncaffeineIntake;
 }
