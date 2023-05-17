@@ -31,7 +31,6 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-//    @Fetch(FetchMode.JOIN)
     @Cacheable(value = "User", key = "#userKey", cacheManager = "cacheManager")
         public User getUser(String userKey) {
         LOGGER.info("getUser() : 유저키로 유저 조회하여 반환");
