@@ -102,3 +102,588 @@
 2023-05-16 12:55:10.761  INFO 16164 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-05-16 12:55:10.767  INFO 16164 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2023-05-16 12:55:10.834  INFO 16164 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-17 10:18:29.422  INFO 12000 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 12000 (C:\lee\my\S08P31A704\back\habitat\out\production\classes started by SSAFY in C:\lee\my\S08P31A704\back\habitat)
+2023-05-17 10:18:29.424  INFO 12000 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-17 10:18:29.520  INFO 12000 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-17 10:18:29.521  INFO 12000 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-17 10:18:30.276  INFO 12000 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-17 10:18:30.277  INFO 12000 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-17 10:18:30.429  INFO 12000 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 146 ms. Found 12 JPA repository interfaces.
+2023-05-17 10:18:30.974  INFO 12000 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#55f68fd1' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:18:30.975  INFO 12000 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#66844f8e' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:18:30.981  INFO 12000 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#67fa712b' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:18:30.983  INFO 12000 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:18:30.983  INFO 12000 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:18:31.602  INFO 12000 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-17 10:18:31.614  INFO 12000 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-17 10:18:31.614  INFO 12000 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-17 10:18:31.694  INFO 12000 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-17 10:18:31.695  INFO 12000 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2174 ms
+2023-05-17 10:18:31.901  INFO 12000 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-17 10:18:31.951  INFO 12000 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-17 10:18:32.098  INFO 12000 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-17 10:18:32.203  INFO 12000 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-17 10:18:32.569  INFO 12000 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-17 10:18:32.599  INFO 12000 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-17 10:18:33.871  INFO 12000 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-17 10:18:33.880  INFO 12000 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:18:34.974  WARN 12000 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-17 10:18:35.216  INFO 12000 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3074ac16, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5d0c8e94, org.springframework.security.web.context.SecurityContextPersistenceFilter@120841df, org.springframework.security.web.header.HeaderWriterFilter@46f22676, org.springframework.security.web.authentication.logout.LogoutFilter@7e6ac148, com.ssafy.habitat.config.JwtFilter@42147491, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@69c30e4a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@ffeeed7, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6d992a49, org.springframework.security.web.session.SessionManagementFilter@18c092ea, org.springframework.security.web.access.ExceptionTranslationFilter@5b93b8d5, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7ceeddb2]
+2023-05-17 10:18:35.220  WARN 12000 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-17 10:18:35.221  INFO 12000 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-17 10:18:35.245  INFO 12000 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-17 10:18:35.602  INFO 12000 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-17 10:18:35.897  INFO 12000 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-17 10:18:35.897  INFO 12000 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-17 10:18:35.914  INFO 12000 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-17 10:18:35.939  INFO 12000 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-17 10:18:36.078  INFO 12000 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 7.119 seconds (JVM running for 7.758)
+2023-05-17 10:18:57.190  INFO 12000 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-17 10:18:57.191  INFO 12000 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-17 10:18:57.192  INFO 12000 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-17 10:18:57.229  INFO 12000 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:18:57.233  INFO 12000 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : Security Context에 's7YwNbxos0vHETq' 인증 정보를 저장했습니다, uri: /api/friends/request/userkey
+2023-05-17 10:18:57.268  INFO 12000 --- [http-nio-8080-exec-1] c.s.habitat.controller.FriendController  : sendFriendListByUserKey() : 친구신청 보내기(유저키)
+2023-05-17 10:18:57.943  INFO 12000 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:18:58.074  INFO 12000 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:18:58.110  INFO 12000 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.FriendService  : checkFriendRequestPossible() : 친구신청의 유효성 검사
+2023-05-17 10:18:58.209  INFO 12000 --- [http-nio-8080-exec-1] c.s.h.service.FriendRequestService       : addFriendRequest() : 친구신청 객체 등록
+2023-05-17 10:18:58.233  WARN 12000 --- [http-nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.ssafy.habitat.exception.CustomException: 이미 친구신청을 보냈습니다.]
+2023-05-17 10:24:05.477  INFO 12000 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:24:05.480  INFO 12000 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-17 10:24:05.564  INFO 12000 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-17 10:24:09.458  INFO 3660 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 3660 (C:\lee\my\S08P31A704\back\habitat\out\production\classes started by SSAFY in C:\lee\my\S08P31A704\back\habitat)
+2023-05-17 10:24:09.460  INFO 3660 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-17 10:24:09.546  INFO 3660 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-17 10:24:09.546  INFO 3660 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-17 10:24:10.252  INFO 3660 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-17 10:24:10.253  INFO 3660 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-17 10:24:10.400  INFO 3660 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 142 ms. Found 12 JPA repository interfaces.
+2023-05-17 10:24:10.889  INFO 3660 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#5b92e9fc' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:24:10.890  INFO 3660 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#26482f0' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:24:10.896  INFO 3660 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#5459ead5' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:24:10.897  INFO 3660 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:24:10.897  INFO 3660 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:24:11.499  INFO 3660 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-17 10:24:11.509  INFO 3660 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-17 10:24:11.509  INFO 3660 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-17 10:24:11.590  INFO 3660 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-17 10:24:11.590  INFO 3660 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2043 ms
+2023-05-17 10:24:11.807  INFO 3660 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-17 10:24:11.859  INFO 3660 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-17 10:24:12.013  INFO 3660 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-17 10:24:12.103  INFO 3660 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-17 10:24:12.472  INFO 3660 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-17 10:24:12.499  INFO 3660 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-17 10:24:13.715  INFO 3660 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-17 10:24:13.723  INFO 3660 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:24:14.817  WARN 3660 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-17 10:24:15.055  INFO 3660 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6e74eeb3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2feb20ad, org.springframework.security.web.context.SecurityContextPersistenceFilter@1757e1a0, org.springframework.security.web.header.HeaderWriterFilter@523c3e77, org.springframework.security.web.authentication.logout.LogoutFilter@687266cd, com.ssafy.habitat.config.JwtFilter@25653d74, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@799ce7cc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5725c7f5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5536ed52, org.springframework.security.web.session.SessionManagementFilter@397b07e, org.springframework.security.web.access.ExceptionTranslationFilter@440a3c4e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@78af964]
+2023-05-17 10:24:15.058  WARN 3660 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-17 10:24:15.058  INFO 3660 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-17 10:24:15.081  INFO 3660 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-17 10:24:15.455  INFO 3660 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-17 10:24:15.738  INFO 3660 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-17 10:24:15.739  INFO 3660 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-17 10:24:15.755  INFO 3660 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-17 10:24:15.781  INFO 3660 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-17 10:24:15.935  INFO 3660 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 6.916 seconds (JVM running for 7.432)
+2023-05-17 10:24:45.265  INFO 3660 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-17 10:24:45.266  INFO 3660 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-17 10:24:45.266  INFO 3660 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-05-17 10:24:45.304  INFO 3660 --- [http-nio-8080-exec-2] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:24:45.309  INFO 3660 --- [http-nio-8080-exec-2] com.ssafy.habitat.config.JwtFilter       : Security Context에 's7YwNbxos0vHETq' 인증 정보를 저장했습니다, uri: /api/friends/request/userkey
+2023-05-17 10:24:45.357  INFO 3660 --- [http-nio-8080-exec-2] c.s.habitat.controller.FriendController  : sendFriendListByUserKey() : 친구신청 보내기(유저키)
+2023-05-17 10:24:46.108  INFO 3660 --- [http-nio-8080-exec-2] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:24:46.270  INFO 3660 --- [http-nio-8080-exec-2] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:24:46.309  INFO 3660 --- [http-nio-8080-exec-2] com.ssafy.habitat.service.FriendService  : checkFriendRequestPossible() : 친구신청의 유효성 검사
+2023-05-17 10:24:46.453  INFO 3660 --- [http-nio-8080-exec-2] c.s.h.service.FriendRequestService       : addFriendRequest() : 친구신청 객체 등록
+2023-05-17 10:24:46.488  WARN 3660 --- [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.ssafy.habitat.exception.CustomException: 이미 친구신청을 보냈습니다.]
+2023-05-17 10:25:08.085  INFO 3660 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:25:08.087  INFO 3660 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-17 10:25:08.158  INFO 3660 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-17 10:25:11.925  INFO 9728 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 9728 (C:\lee\my\S08P31A704\back\habitat\out\production\classes started by SSAFY in C:\lee\my\S08P31A704\back\habitat)
+2023-05-17 10:25:11.926  INFO 9728 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-17 10:25:11.992  INFO 9728 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-17 10:25:11.992  INFO 9728 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-17 10:25:12.711  INFO 9728 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-17 10:25:12.712  INFO 9728 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-17 10:25:12.855  INFO 9728 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 137 ms. Found 12 JPA repository interfaces.
+2023-05-17 10:25:13.341  INFO 9728 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#5c802d63' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:25:13.342  INFO 9728 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#30017f4' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:25:13.346  INFO 9728 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#7ed0e646' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:25:13.347  INFO 9728 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:25:13.347  INFO 9728 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:25:13.950  INFO 9728 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-17 10:25:13.959  INFO 9728 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-17 10:25:13.960  INFO 9728 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-17 10:25:14.039  INFO 9728 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-17 10:25:14.039  INFO 9728 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2047 ms
+2023-05-17 10:25:14.248  INFO 9728 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-17 10:25:14.296  INFO 9728 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-17 10:25:14.457  INFO 9728 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-17 10:25:14.547  INFO 9728 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-17 10:25:14.957  INFO 9728 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-17 10:25:14.987  INFO 9728 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-17 10:25:16.209  INFO 9728 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-17 10:25:16.217  INFO 9728 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:25:17.393  WARN 9728 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-17 10:25:17.628  INFO 9728 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@30295e95, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5be08d1a, org.springframework.security.web.context.SecurityContextPersistenceFilter@77d6403a, org.springframework.security.web.header.HeaderWriterFilter@40721e43, org.springframework.security.web.authentication.logout.LogoutFilter@23518760, com.ssafy.habitat.config.JwtFilter@2171f222, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@c0bd08b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2c4fc6fd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3bea1cfa, org.springframework.security.web.session.SessionManagementFilter@44ddf0a5, org.springframework.security.web.access.ExceptionTranslationFilter@cce3ca, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@33af5b3d]
+2023-05-17 10:25:17.631  WARN 9728 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-17 10:25:17.631  INFO 9728 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-17 10:25:17.656  INFO 9728 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-17 10:25:18.020  INFO 9728 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-17 10:25:18.321  INFO 9728 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-17 10:25:18.322  INFO 9728 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-17 10:25:18.341  INFO 9728 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-17 10:25:18.366  INFO 9728 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-17 10:25:18.504  INFO 9728 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 7.006 seconds (JVM running for 7.539)
+2023-05-17 10:25:21.627  INFO 9728 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-17 10:25:21.629  INFO 9728 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-17 10:25:21.630  INFO 9728 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-17 10:25:21.665  INFO 9728 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:25:21.668  INFO 9728 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : Security Context에 's7YwNbxos0vHETq' 인증 정보를 저장했습니다, uri: /api/friends/request/userkey
+2023-05-17 10:25:21.702  INFO 9728 --- [http-nio-8080-exec-1] c.s.habitat.controller.FriendController  : sendFriendListByUserKey() : 친구신청 보내기(유저키)
+2023-05-17 10:25:22.318  INFO 9728 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.FriendService  : checkFriendRequestPossible() : 친구신청의 유효성 검사
+2023-05-17 10:25:22.437  INFO 9728 --- [http-nio-8080-exec-1] c.s.h.service.FriendRequestService       : addFriendRequest() : 친구신청 객체 등록
+2023-05-17 10:25:22.539  WARN 9728 --- [http-nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.ssafy.habitat.exception.CustomException: 이미 친구신청을 보냈습니다.]
+2023-05-17 10:27:15.069  INFO 9728 --- [http-nio-8080-exec-2] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:27:15.070  INFO 9728 --- [http-nio-8080-exec-2] com.ssafy.habitat.config.JwtFilter       : Security Context에 's7YwNbxos0vHETq' 인증 정보를 저장했습니다, uri: /api/friends/request/userkey
+2023-05-17 10:27:15.072  INFO 9728 --- [http-nio-8080-exec-2] c.s.habitat.controller.FriendController  : sendFriendListByUserKey() : 친구신청 보내기(유저키)
+2023-05-17 10:27:15.121  INFO 9728 --- [http-nio-8080-exec-2] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:27:15.205  INFO 9728 --- [http-nio-8080-exec-2] com.ssafy.habitat.service.FriendService  : checkFriendRequestPossible() : 친구신청의 유효성 검사
+2023-05-17 10:27:15.216  INFO 9728 --- [http-nio-8080-exec-2] c.s.h.service.FriendRequestService       : addFriendRequest() : 친구신청 객체 등록
+2023-05-17 10:27:15.229  WARN 9728 --- [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.util.NoSuchElementException: No value present]
+2023-05-17 10:27:30.346  INFO 9728 --- [http-nio-8080-exec-3] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:27:30.347  INFO 9728 --- [http-nio-8080-exec-3] com.ssafy.habitat.config.JwtFilter       : Security Context에 's7YwNbxos0vHETq' 인증 정보를 저장했습니다, uri: /api/friends/request/userkey
+2023-05-17 10:27:30.349  INFO 9728 --- [http-nio-8080-exec-3] c.s.habitat.controller.FriendController  : sendFriendListByUserKey() : 친구신청 보내기(유저키)
+2023-05-17 10:27:30.403  INFO 9728 --- [http-nio-8080-exec-3] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:27:30.453  INFO 9728 --- [http-nio-8080-exec-3] com.ssafy.habitat.service.FriendService  : checkFriendRequestPossible() : 친구신청의 유효성 검사
+2023-05-17 10:27:30.465  INFO 9728 --- [http-nio-8080-exec-3] c.s.h.service.FriendRequestService       : addFriendRequest() : 친구신청 객체 등록
+2023-05-17 10:27:30.477  WARN 9728 --- [http-nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.util.NoSuchElementException: No value present]
+2023-05-17 10:28:01.557  INFO 9728 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:28:01.559  INFO 9728 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-17 10:28:01.631  INFO 9728 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-17 10:28:05.428  INFO 6620 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 6620 (C:\lee\my\S08P31A704\back\habitat\out\production\classes started by SSAFY in C:\lee\my\S08P31A704\back\habitat)
+2023-05-17 10:28:05.429  INFO 6620 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-17 10:28:05.499  INFO 6620 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-17 10:28:05.499  INFO 6620 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-17 10:28:06.223  INFO 6620 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-17 10:28:06.223  INFO 6620 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-17 10:28:06.377  INFO 6620 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 147 ms. Found 12 JPA repository interfaces.
+2023-05-17 10:28:06.859  INFO 6620 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#2c0fb0a2' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:28:06.860  INFO 6620 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#4a014acd' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:28:06.864  INFO 6620 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#631b6d83' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:28:06.866  INFO 6620 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:28:06.866  INFO 6620 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:28:07.501  INFO 6620 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-17 10:28:07.511  INFO 6620 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-17 10:28:07.512  INFO 6620 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-17 10:28:07.591  INFO 6620 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-17 10:28:07.593  INFO 6620 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2094 ms
+2023-05-17 10:28:07.820  INFO 6620 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-17 10:28:07.882  INFO 6620 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-17 10:28:08.061  INFO 6620 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-17 10:28:08.154  INFO 6620 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-17 10:28:08.528  INFO 6620 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-17 10:28:08.556  INFO 6620 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-17 10:28:09.913  INFO 6620 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-17 10:28:09.922  INFO 6620 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:28:11.107  WARN 6620 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-17 10:28:11.358  INFO 6620 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@2cf3def5, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@38bc3bf3, org.springframework.security.web.context.SecurityContextPersistenceFilter@188816dd, org.springframework.security.web.header.HeaderWriterFilter@7731792a, org.springframework.security.web.authentication.logout.LogoutFilter@4e796d43, com.ssafy.habitat.config.JwtFilter@5ee08f7d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@27bc848e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7e909ab3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4e952d73, org.springframework.security.web.session.SessionManagementFilter@1542e34a, org.springframework.security.web.access.ExceptionTranslationFilter@6afd3408, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1de81740]
+2023-05-17 10:28:11.364  WARN 6620 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-17 10:28:11.365  INFO 6620 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-17 10:28:11.389  INFO 6620 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-17 10:28:11.787  INFO 6620 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-17 10:28:12.072  INFO 6620 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-17 10:28:12.078  INFO 6620 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-17 10:28:12.096  INFO 6620 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-17 10:28:12.133  INFO 6620 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-17 10:28:12.275  INFO 6620 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 7.26 seconds (JVM running for 7.782)
+2023-05-17 10:28:20.046  INFO 6620 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-17 10:28:20.047  INFO 6620 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-17 10:28:20.048  INFO 6620 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-17 10:28:20.084  INFO 6620 --- [http-nio-8080-exec-2] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:28:20.084  INFO 6620 --- [http-nio-8080-exec-2] com.ssafy.habitat.config.JwtFilter       : Security Context에 's7YwNbxos0vHETq' 인증 정보를 저장했습니다, uri: /api/friends/request/userkey
+2023-05-17 10:28:20.123  INFO 6620 --- [http-nio-8080-exec-2] c.s.habitat.controller.FriendController  : sendFriendListByUserKey() : 친구신청 보내기(유저키)
+2023-05-17 10:28:20.779  INFO 6620 --- [http-nio-8080-exec-2] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:28:20.897  INFO 6620 --- [http-nio-8080-exec-2] com.ssafy.habitat.service.FriendService  : checkFriendRequestPossible() : 친구신청의 유효성 검사
+2023-05-17 10:28:20.988  INFO 6620 --- [http-nio-8080-exec-2] c.s.h.service.FriendRequestService       : addFriendRequest() : 친구신청 객체 등록
+2023-05-17 10:28:21.011  WARN 6620 --- [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.ssafy.habitat.exception.CustomException: 이미 친구신청을 보냈습니다.]
+2023-05-17 10:28:51.986  INFO 6620 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:28:51.989  INFO 6620 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-17 10:28:52.069  INFO 6620 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-17 10:28:55.893  INFO 17288 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 17288 (C:\lee\my\S08P31A704\back\habitat\out\production\classes started by SSAFY in C:\lee\my\S08P31A704\back\habitat)
+2023-05-17 10:28:55.895  INFO 17288 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-17 10:28:55.959  INFO 17288 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-17 10:28:55.959  INFO 17288 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-17 10:28:56.762  INFO 17288 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-17 10:28:56.763  INFO 17288 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-17 10:28:56.910  INFO 17288 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 142 ms. Found 12 JPA repository interfaces.
+2023-05-17 10:28:57.397  INFO 17288 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#a1290fe' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:28:57.398  INFO 17288 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#5f946620' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:28:57.403  INFO 17288 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#6663e549' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:28:57.405  INFO 17288 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:28:57.405  INFO 17288 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:28:58.031  INFO 17288 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-17 10:28:58.041  INFO 17288 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-17 10:28:58.041  INFO 17288 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-17 10:28:58.123  INFO 17288 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-17 10:28:58.124  INFO 17288 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2164 ms
+2023-05-17 10:28:58.344  INFO 17288 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-17 10:28:58.391  INFO 17288 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-17 10:28:58.549  INFO 17288 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-17 10:28:58.639  INFO 17288 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-17 10:28:59.004  INFO 17288 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-17 10:28:59.045  INFO 17288 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-17 10:29:00.216  INFO 17288 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-17 10:29:00.225  INFO 17288 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:29:01.353  WARN 17288 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-17 10:29:01.594  INFO 17288 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5530f295, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3537e107, org.springframework.security.web.context.SecurityContextPersistenceFilter@6147fa5d, org.springframework.security.web.header.HeaderWriterFilter@44a7f178, org.springframework.security.web.authentication.logout.LogoutFilter@3494ec72, com.ssafy.habitat.config.JwtFilter@41be39aa, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2edb6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4d39ef71, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3639159f, org.springframework.security.web.session.SessionManagementFilter@746df403, org.springframework.security.web.access.ExceptionTranslationFilter@52949644, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@57cb2618]
+2023-05-17 10:29:01.597  WARN 17288 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-17 10:29:01.597  INFO 17288 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-17 10:29:01.620  INFO 17288 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-17 10:29:01.987  INFO 17288 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-17 10:29:02.269  INFO 17288 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-17 10:29:02.270  INFO 17288 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-17 10:29:02.286  INFO 17288 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-17 10:29:02.318  INFO 17288 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-17 10:29:02.467  INFO 17288 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 6.983 seconds (JVM running for 7.499)
+2023-05-17 10:29:16.250  INFO 17288 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-17 10:29:16.251  INFO 17288 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-17 10:29:16.252  INFO 17288 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-17 10:29:16.289  INFO 17288 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:29:16.292  INFO 17288 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : Security Context에 's7YwNbxos0vHETq' 인증 정보를 저장했습니다, uri: /api/friends/request/userkey
+2023-05-17 10:29:16.324  INFO 17288 --- [http-nio-8080-exec-1] c.s.habitat.controller.FriendController  : sendFriendListByUserKey() : 친구신청 보내기(유저키)
+2023-05-17 10:29:16.964  INFO 17288 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:29:17.053  INFO 17288 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.FriendService  : checkFriendRequestPossible() : 친구신청의 유효성 검사
+2023-05-17 10:29:17.152  INFO 17288 --- [http-nio-8080-exec-1] c.s.h.service.FriendRequestService       : addFriendRequest() : 친구신청 객체 등록
+2023-05-17 10:29:17.176  WARN 17288 --- [http-nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [java.lang.NullPointerException]
+2023-05-17 10:29:49.593  INFO 17288 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:29:49.596  INFO 17288 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-17 10:29:49.667  INFO 17288 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-17 10:29:53.469  INFO 15412 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 15412 (C:\lee\my\S08P31A704\back\habitat\out\production\classes started by SSAFY in C:\lee\my\S08P31A704\back\habitat)
+2023-05-17 10:29:53.470  INFO 15412 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-17 10:29:53.540  INFO 15412 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-17 10:29:53.540  INFO 15412 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-17 10:29:54.272  INFO 15412 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-17 10:29:54.273  INFO 15412 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-17 10:29:54.419  INFO 15412 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 140 ms. Found 12 JPA repository interfaces.
+2023-05-17 10:29:54.920  INFO 15412 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#4d8ffcab' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:29:54.921  INFO 15412 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#249957f0' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:29:54.925  INFO 15412 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#77e65c0c' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:29:54.927  INFO 15412 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:29:54.927  INFO 15412 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:29:55.578  INFO 15412 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-17 10:29:55.588  INFO 15412 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-17 10:29:55.588  INFO 15412 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-17 10:29:55.668  INFO 15412 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-17 10:29:55.668  INFO 15412 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2127 ms
+2023-05-17 10:29:55.869  INFO 15412 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-17 10:29:55.921  INFO 15412 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-17 10:29:56.081  INFO 15412 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-17 10:29:56.181  INFO 15412 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-17 10:29:56.558  INFO 15412 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-17 10:29:56.589  INFO 15412 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-17 10:29:58.001  INFO 15412 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-17 10:29:58.009  INFO 15412 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:29:59.103  WARN 15412 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-17 10:29:59.332  INFO 15412 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3701e79b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@986c70d, org.springframework.security.web.context.SecurityContextPersistenceFilter@3659e74e, org.springframework.security.web.header.HeaderWriterFilter@73a21e6f, org.springframework.security.web.authentication.logout.LogoutFilter@25bb608a, com.ssafy.habitat.config.JwtFilter@4d04c003, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5133c32e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@42d4e89c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@20bd7d9d, org.springframework.security.web.session.SessionManagementFilter@60e2fab0, org.springframework.security.web.access.ExceptionTranslationFilter@b312045, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@23b48f7]
+2023-05-17 10:29:59.341  WARN 15412 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-17 10:29:59.343  INFO 15412 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-17 10:29:59.364  INFO 15412 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-17 10:29:59.722  INFO 15412 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-17 10:30:00.010  INFO 15412 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-17 10:30:00.022  INFO 15412 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-17 10:30:00.041  INFO 15412 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-17 10:30:00.067  INFO 15412 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-17 10:30:00.272  INFO 15412 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 7.219 seconds (JVM running for 7.714)
+2023-05-17 10:30:03.109  INFO 15412 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-17 10:30:03.111  INFO 15412 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-17 10:30:03.112  INFO 15412 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-17 10:30:03.146  INFO 15412 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:30:03.149  INFO 15412 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : Security Context에 's7YwNbxos0vHETq' 인증 정보를 저장했습니다, uri: /api/friends/request/userkey
+2023-05-17 10:30:03.188  INFO 15412 --- [http-nio-8080-exec-1] c.s.habitat.controller.FriendController  : sendFriendListByUserKey() : 친구신청 보내기(유저키)
+2023-05-17 10:30:03.820  INFO 15412 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:30:03.951  INFO 15412 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.FriendService  : checkFriendRequestPossible() : 친구신청의 유효성 검사
+2023-05-17 10:30:04.044  INFO 15412 --- [http-nio-8080-exec-1] c.s.h.service.FriendRequestService       : addFriendRequest() : 친구신청 객체 등록
+2023-05-17 10:30:04.075  WARN 15412 --- [http-nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.ssafy.habitat.exception.CustomException: 이미 친구신청을 보냈습니다.]
+2023-05-17 10:30:43.092  INFO 15412 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:30:43.095  INFO 15412 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-17 10:30:43.176  INFO 15412 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-17 10:30:46.899  INFO 16488 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 16488 (C:\lee\my\S08P31A704\back\habitat\out\production\classes started by SSAFY in C:\lee\my\S08P31A704\back\habitat)
+2023-05-17 10:30:46.900  INFO 16488 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-17 10:30:46.971  INFO 16488 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-17 10:30:46.972  INFO 16488 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-17 10:30:47.670  INFO 16488 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-17 10:30:47.671  INFO 16488 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-17 10:30:47.817  INFO 16488 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 140 ms. Found 12 JPA repository interfaces.
+2023-05-17 10:30:48.282  INFO 16488 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#23f18c5f' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:30:48.283  INFO 16488 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#43c46b1f' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:30:48.288  INFO 16488 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#414ca1f8' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:30:48.288  INFO 16488 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:30:48.288  INFO 16488 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:30:48.903  INFO 16488 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-17 10:30:48.912  INFO 16488 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-17 10:30:48.913  INFO 16488 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-17 10:30:48.988  INFO 16488 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-17 10:30:48.988  INFO 16488 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2016 ms
+2023-05-17 10:30:49.222  INFO 16488 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-17 10:30:49.271  INFO 16488 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-17 10:30:49.420  INFO 16488 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-17 10:30:49.509  INFO 16488 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-17 10:30:49.880  INFO 16488 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-17 10:30:49.906  INFO 16488 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-17 10:30:51.157  INFO 16488 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-17 10:30:51.167  INFO 16488 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:30:52.313  WARN 16488 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-17 10:30:52.546  INFO 16488 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3021aaf3, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@741e099b, org.springframework.security.web.context.SecurityContextPersistenceFilter@1acc6779, org.springframework.security.web.header.HeaderWriterFilter@3039c2d3, org.springframework.security.web.authentication.logout.LogoutFilter@114e7af9, com.ssafy.habitat.config.JwtFilter@393da72f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@62e1a66e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@607a5014, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7664765f, org.springframework.security.web.session.SessionManagementFilter@7a44a53c, org.springframework.security.web.access.ExceptionTranslationFilter@5837a7c0, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@389d34f0]
+2023-05-17 10:30:52.554  WARN 16488 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-17 10:30:52.554  INFO 16488 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-17 10:30:52.577  INFO 16488 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-17 10:30:52.947  INFO 16488 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-17 10:30:53.235  INFO 16488 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-17 10:30:53.236  INFO 16488 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-17 10:30:53.252  INFO 16488 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-17 10:30:53.277  INFO 16488 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-17 10:30:53.411  INFO 16488 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 6.932 seconds (JVM running for 7.426)
+2023-05-17 10:30:57.711  INFO 16488 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-17 10:30:57.712  INFO 16488 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-17 10:30:57.713  INFO 16488 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-17 10:30:57.748  INFO 16488 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:30:57.752  INFO 16488 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : Security Context에 's7YwNbxos0vHETq' 인증 정보를 저장했습니다, uri: /api/friends/request/userkey
+2023-05-17 10:30:57.786  INFO 16488 --- [http-nio-8080-exec-1] c.s.habitat.controller.FriendController  : sendFriendListByUserKey() : 친구신청 보내기(유저키)
+2023-05-17 10:30:58.654  INFO 16488 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:30:58.755  INFO 16488 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.FriendService  : checkFriendRequestPossible() : 친구신청의 유효성 검사
+2023-05-17 10:30:58.847  INFO 16488 --- [http-nio-8080-exec-1] c.s.h.service.FriendRequestService       : addFriendRequest() : 친구신청 객체 등록
+2023-05-17 10:36:34.276  INFO 16488 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:36:34.278  INFO 16488 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-17 10:36:34.367  INFO 16488 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-17 10:36:38.356  INFO 5492 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 5492 (C:\lee\my\S08P31A704\back\habitat\out\production\classes started by SSAFY in C:\lee\my\S08P31A704\back\habitat)
+2023-05-17 10:36:38.357  INFO 5492 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-17 10:36:38.435  INFO 5492 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-17 10:36:38.435  INFO 5492 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-17 10:36:39.162  INFO 5492 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-17 10:36:39.163  INFO 5492 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-17 10:36:39.315  INFO 5492 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 146 ms. Found 12 JPA repository interfaces.
+2023-05-17 10:36:39.805  INFO 5492 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#74e2ce00' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:36:39.806  INFO 5492 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#5b52eb6c' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:36:39.811  INFO 5492 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#52f0941d' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:36:39.812  INFO 5492 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:36:39.813  INFO 5492 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:36:40.494  INFO 5492 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-17 10:36:40.503  INFO 5492 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-17 10:36:40.504  INFO 5492 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-17 10:36:40.614  INFO 5492 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-17 10:36:40.614  INFO 5492 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2178 ms
+2023-05-17 10:36:40.875  INFO 5492 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-17 10:36:40.934  INFO 5492 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-17 10:36:41.133  INFO 5492 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-17 10:36:41.254  INFO 5492 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-17 10:36:41.698  INFO 5492 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-17 10:36:41.731  INFO 5492 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-17 10:36:43.139  INFO 5492 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-17 10:36:43.149  INFO 5492 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:36:44.523  WARN 5492 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-17 10:36:44.824  INFO 5492 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@76d49872, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@620688f, org.springframework.security.web.context.SecurityContextPersistenceFilter@f41e584, org.springframework.security.web.header.HeaderWriterFilter@51a06997, org.springframework.security.web.authentication.logout.LogoutFilter@4712038e, com.ssafy.habitat.config.JwtFilter@342d70d7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@21926fc3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@54266465, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1d26201f, org.springframework.security.web.session.SessionManagementFilter@1ae7f0db, org.springframework.security.web.access.ExceptionTranslationFilter@58a1f0a8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@35957863]
+2023-05-17 10:36:44.829  WARN 5492 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-17 10:36:44.830  INFO 5492 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-17 10:36:44.857  INFO 5492 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-17 10:36:45.343  INFO 5492 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-17 10:36:45.708  INFO 5492 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-17 10:36:45.710  INFO 5492 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-17 10:36:45.732  INFO 5492 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-17 10:36:45.769  INFO 5492 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-17 10:36:45.938  INFO 5492 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 8.042 seconds (JVM running for 8.568)
+2023-05-17 10:39:58.889  INFO 5492 --- [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-17 10:39:58.891  INFO 5492 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-17 10:39:58.891  INFO 5492 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-05-17 10:39:58.939  INFO 5492 --- [http-nio-8080-exec-2] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:39:58.943  INFO 5492 --- [http-nio-8080-exec-2] com.ssafy.habitat.config.JwtFilter       : Security Context에 's7YwNbxos0vHETq' 인증 정보를 저장했습니다, uri: /api/friends/request/ok
+2023-05-17 10:39:58.991  INFO 5492 --- [http-nio-8080-exec-2] c.s.habitat.controller.FriendController  : acceptFriendList() : 친구신청 수락
+2023-05-17 10:39:59.707  INFO 5492 --- [http-nio-8080-exec-2] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:39:59.853  INFO 5492 --- [http-nio-8080-exec-2] c.s.h.service.FriendRequestService       : getFriendRequestByRequestKey() : 친구신청 객체 반환
+2023-05-17 10:39:59.937  INFO 5492 --- [http-nio-8080-exec-2] c.s.h.service.FriendRequestService       : checkFriendRequestAuthorization() : 친구신청 처리의 유효성 검사
+2023-05-17 10:39:59.970  WARN 5492 --- [http-nio-8080-exec-2] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [com.ssafy.habitat.exception.CustomException: 해당 유저에게 귀속된 친구신청이 아닙니다.]
+2023-05-17 10:41:54.467  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:41:54.468  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.config.JwtFilter       : Security Context에 'PNVS2Z17RyxQqlY' 인증 정보를 저장했습니다, uri: /api/friends/request/ok
+2023-05-17 10:41:54.470  INFO 5492 --- [http-nio-8080-exec-5] c.s.habitat.controller.FriendController  : acceptFriendList() : 친구신청 수락
+2023-05-17 10:41:54.498  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:41:54.535  INFO 5492 --- [http-nio-8080-exec-5] c.s.h.service.FriendRequestService       : getFriendRequestByRequestKey() : 친구신청 객체 반환
+2023-05-17 10:41:54.585  INFO 5492 --- [http-nio-8080-exec-5] c.s.h.service.FriendRequestService       : checkFriendRequestAuthorization() : 친구신청 처리의 유효성 검사
+2023-05-17 10:41:54.586  INFO 5492 --- [http-nio-8080-exec-5] c.s.h.service.FriendRequestService       : modifyFriendRequest() : 친구신청 상태 수정
+2023-05-17 10:41:54.662  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.FriendService  : checkFriendRequestPossible() : 친구신청의 유효성 검사
+2023-05-17 10:41:54.752  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.FriendService  : addFriend() : 새로운 친구관계 등록
+2023-05-17 10:41:54.809  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.FriendService  : addFriend() : 새로운 친구관계 등록
+2023-05-17 10:41:54.858  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.RewardService  : checkFriendUnlock() : 친구 등록 수에 따른 달성여부 확인
+2023-05-17 10:41:54.858  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.FriendService  : getFriendCnt() : 유저의 친구 수 반환
+2023-05-17 10:41:54.871  INFO 5492 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : getLockedFlowerList() : 유저의 잠긴 꽃 목록 반환
+2023-05-17 10:41:54.949  INFO 5492 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-17 10:41:55.006  INFO 5492 --- [http-nio-8080-exec-5] c.s.h.service.UserFlowerLogService       : addUserFlowerLog() : 유저의 해금 기록 저장
+2023-05-17 10:41:55.047  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.RewardService  : isFullyUnlocked() : 특정 꽃의 모든 조건을 달성했는지 확인
+2023-05-17 10:41:55.047  INFO 5492 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-17 10:41:55.099  INFO 5492 --- [http-nio-8080-exec-5] c.s.h.service.UserFlowerLogService       : addUserFlowerLog() : 유저의 해금 기록 저장
+2023-05-17 10:41:55.138  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.RewardService  : isFullyUnlocked() : 특정 꽃의 모든 조건을 달성했는지 확인
+2023-05-17 10:41:55.138  INFO 5492 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-17 10:41:55.184  INFO 5492 --- [http-nio-8080-exec-5] c.s.h.service.UserFlowerLogService       : addUserFlowerLog() : 유저의 해금 기록 저장
+2023-05-17 10:41:55.220  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.RewardService  : isFullyUnlocked() : 특정 꽃의 모든 조건을 달성했는지 확인
+2023-05-17 10:41:55.220  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.RewardService  : checkFriendUnlock() : 친구 등록 수에 따른 달성여부 확인
+2023-05-17 10:41:55.220  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.FriendService  : getFriendCnt() : 유저의 친구 수 반환
+2023-05-17 10:41:55.229  INFO 5492 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : getLockedFlowerList() : 유저의 잠긴 꽃 목록 반환
+2023-05-17 10:41:55.238  INFO 5492 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-17 10:41:55.275  INFO 5492 --- [http-nio-8080-exec-5] c.s.h.service.UserFlowerLogService       : addUserFlowerLog() : 유저의 해금 기록 저장
+2023-05-17 10:41:55.314  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.RewardService  : isFullyUnlocked() : 특정 꽃의 모든 조건을 달성했는지 확인
+2023-05-17 10:41:55.314  INFO 5492 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-17 10:41:55.353  INFO 5492 --- [http-nio-8080-exec-5] c.s.h.service.UserFlowerLogService       : addUserFlowerLog() : 유저의 해금 기록 저장
+2023-05-17 10:41:55.411  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.RewardService  : isFullyUnlocked() : 특정 꽃의 모든 조건을 달성했는지 확인
+2023-05-17 10:41:55.412  INFO 5492 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-17 10:41:55.468  INFO 5492 --- [http-nio-8080-exec-5] c.s.h.service.UserFlowerLogService       : addUserFlowerLog() : 유저의 해금 기록 저장
+2023-05-17 10:41:55.505  INFO 5492 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.RewardService  : isFullyUnlocked() : 특정 꽃의 모든 조건을 달성했는지 확인
+2023-05-17 10:42:05.761  INFO 5492 --- [http-nio-8080-exec-3] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:42:05.763  INFO 5492 --- [http-nio-8080-exec-3] com.ssafy.habitat.config.JwtFilter       : Security Context에 'PNVS2Z17RyxQqlY' 인증 정보를 저장했습니다, uri: /api/friends/all
+2023-05-17 10:42:05.763  INFO 5492 --- [http-nio-8080-exec-3] c.s.habitat.controller.FriendController  : getFriendList() : 유저의 친구목록 조회
+2023-05-17 10:42:05.789  INFO 5492 --- [http-nio-8080-exec-3] com.ssafy.habitat.service.FriendService  : getFriendList() : 유저의 친구 목록 반환
+2023-05-17 10:42:05.838  WARN 5492 --- [http-nio-8080-exec-3] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [com.ssafy.habitat.entity.Friend] to type [com.ssafy.habitat.entity.User]]
+2023-05-17 10:43:42.114  INFO 5492 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:43:42.116  INFO 5492 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-17 10:43:42.219  INFO 5492 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-17 10:43:46.018  INFO 10796 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 10796 (C:\lee\my\S08P31A704\back\habitat\out\production\classes started by SSAFY in C:\lee\my\S08P31A704\back\habitat)
+2023-05-17 10:43:46.020  INFO 10796 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-17 10:43:46.090  INFO 10796 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-17 10:43:46.090  INFO 10796 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-17 10:43:46.835  INFO 10796 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-17 10:43:46.836  INFO 10796 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-17 10:43:46.994  INFO 10796 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 152 ms. Found 12 JPA repository interfaces.
+2023-05-17 10:43:47.603  INFO 10796 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#3847549a' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:43:47.605  INFO 10796 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#4f6d9aac' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:43:47.611  INFO 10796 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#38264c50' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:43:47.613  INFO 10796 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:43:47.613  INFO 10796 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:43:48.410  INFO 10796 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-17 10:43:48.425  INFO 10796 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-17 10:43:48.425  INFO 10796 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-17 10:43:48.534  INFO 10796 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-17 10:43:48.534  INFO 10796 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2444 ms
+2023-05-17 10:43:48.849  INFO 10796 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-17 10:43:48.925  INFO 10796 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-17 10:43:49.175  INFO 10796 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-17 10:43:49.344  INFO 10796 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-17 10:43:49.807  INFO 10796 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-17 10:43:49.850  INFO 10796 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-17 10:43:51.347  INFO 10796 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-17 10:43:51.357  INFO 10796 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:43:52.767  WARN 10796 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-17 10:43:53.079  INFO 10796 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@55aff03, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5634e653, org.springframework.security.web.context.SecurityContextPersistenceFilter@565a9d20, org.springframework.security.web.header.HeaderWriterFilter@2373d76a, org.springframework.security.web.authentication.logout.LogoutFilter@ecfb04c, com.ssafy.habitat.config.JwtFilter@56ec5beb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5f56cd6c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@41f2bff9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@778623a9, org.springframework.security.web.session.SessionManagementFilter@72c26715, org.springframework.security.web.access.ExceptionTranslationFilter@2b99a426, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3c9116a]
+2023-05-17 10:43:53.083  WARN 10796 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-17 10:43:53.083  INFO 10796 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-17 10:43:53.120  INFO 10796 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-17 10:43:53.603  INFO 10796 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-17 10:43:53.973  INFO 10796 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-17 10:43:53.974  INFO 10796 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-17 10:43:53.997  INFO 10796 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-17 10:43:54.038  INFO 10796 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-17 10:43:54.221  INFO 10796 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 8.62 seconds (JVM running for 9.126)
+2023-05-17 10:44:09.070  INFO 10796 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-17 10:44:09.072  INFO 10796 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-17 10:44:09.072  INFO 10796 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2023-05-17 10:44:09.107  INFO 10796 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:44:09.110  INFO 10796 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : Security Context에 'PNVS2Z17RyxQqlY' 인증 정보를 저장했습니다, uri: /api/friends/all
+2023-05-17 10:44:09.133  INFO 10796 --- [http-nio-8080-exec-1] c.s.habitat.controller.FriendController  : getFriendList() : 유저의 친구목록 조회
+2023-05-17 10:44:09.747  INFO 10796 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:44:09.859  INFO 10796 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.FriendService  : getFriendList() : 유저의 친구 목록 반환
+2023-05-17 10:44:09.980  WARN 10796 --- [http-nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [com.ssafy.habitat.entity.Friend] to type [com.ssafy.habitat.entity.User]]
+2023-05-17 10:51:15.542  INFO 10796 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:51:15.544  INFO 10796 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-17 10:51:15.622  INFO 10796 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-17 10:51:19.912  INFO 15472 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 15472 (C:\lee\my\S08P31A704\back\habitat\out\production\classes started by SSAFY in C:\lee\my\S08P31A704\back\habitat)
+2023-05-17 10:51:19.913  INFO 15472 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-17 10:51:19.984  INFO 15472 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-17 10:51:19.984  INFO 15472 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-17 10:51:20.706  INFO 15472 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-17 10:51:20.707  INFO 15472 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-17 10:51:20.856  INFO 15472 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 144 ms. Found 12 JPA repository interfaces.
+2023-05-17 10:51:21.355  INFO 15472 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#203b0459' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:51:21.356  INFO 15472 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#35841ac4' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:51:21.361  INFO 15472 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#4c56c844' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:51:21.362  INFO 15472 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:51:21.362  INFO 15472 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:51:21.982  INFO 15472 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-17 10:51:21.993  INFO 15472 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-17 10:51:21.993  INFO 15472 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-17 10:51:22.075  INFO 15472 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-17 10:51:22.076  INFO 15472 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2091 ms
+2023-05-17 10:51:22.295  INFO 15472 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-17 10:51:22.342  INFO 15472 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-17 10:51:22.497  INFO 15472 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-17 10:51:22.592  INFO 15472 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-17 10:51:22.996  INFO 15472 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-17 10:51:23.024  INFO 15472 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-17 10:51:24.337  INFO 15472 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-17 10:51:24.349  INFO 15472 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:51:25.520  WARN 15472 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-17 10:51:25.825  INFO 15472 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@752ad893, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5973fc83, org.springframework.security.web.context.SecurityContextPersistenceFilter@3f3f1a70, org.springframework.security.web.header.HeaderWriterFilter@cda64ff, org.springframework.security.web.authentication.logout.LogoutFilter@7b0bdc47, com.ssafy.habitat.config.JwtFilter@2d310076, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@24619a46, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3274c27d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6a2b4c21, org.springframework.security.web.session.SessionManagementFilter@4136ec11, org.springframework.security.web.access.ExceptionTranslationFilter@43ab8cad, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@72fd6a53]
+2023-05-17 10:51:25.828  WARN 15472 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-17 10:51:25.829  INFO 15472 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-17 10:51:25.862  INFO 15472 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-17 10:51:26.272  INFO 15472 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-17 10:51:26.568  INFO 15472 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-17 10:51:26.569  INFO 15472 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-17 10:51:26.584  INFO 15472 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-17 10:51:26.609  INFO 15472 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-17 10:51:26.747  INFO 15472 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 7.246 seconds (JVM running for 7.78)
+2023-05-17 10:51:38.687  INFO 15472 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-17 10:51:38.688  INFO 15472 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-17 10:51:38.690  INFO 15472 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-17 10:51:38.738  INFO 15472 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:51:38.741  INFO 15472 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : Security Context에 'PNVS2Z17RyxQqlY' 인증 정보를 저장했습니다, uri: /api/friends/all
+2023-05-17 10:51:38.770  INFO 15472 --- [http-nio-8080-exec-1] c.s.habitat.controller.FriendController  : getFriendList() : 유저의 친구목록 조회
+2023-05-17 10:51:39.425  INFO 15472 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.FriendService  : getFriendList() : 유저의 친구 목록 반환
+2023-05-17 10:51:39.636  WARN 15472 --- [http-nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [com.ssafy.habitat.entity.Friend] to type [com.ssafy.habitat.entity.User]]
+2023-05-17 10:59:12.285  INFO 15472 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:59:12.288  INFO 15472 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-17 10:59:12.350  INFO 15472 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-17 10:59:16.228  INFO 12356 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 12356 (C:\lee\my\S08P31A704\back\habitat\out\production\classes started by SSAFY in C:\lee\my\S08P31A704\back\habitat)
+2023-05-17 10:59:16.230  INFO 12356 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-17 10:59:16.318  INFO 12356 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-17 10:59:16.318  INFO 12356 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-17 10:59:17.042  INFO 12356 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-17 10:59:17.043  INFO 12356 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-17 10:59:17.191  INFO 12356 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 142 ms. Found 12 JPA repository interfaces.
+2023-05-17 10:59:17.686  INFO 12356 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#4c755272' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:59:17.688  INFO 12356 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#7d72bfdf' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:59:17.692  INFO 12356 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#2f1e26e1' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:59:17.694  INFO 12356 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:59:17.694  INFO 12356 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 10:59:18.340  INFO 12356 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-17 10:59:18.350  INFO 12356 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-17 10:59:18.350  INFO 12356 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-17 10:59:18.431  INFO 12356 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-17 10:59:18.431  INFO 12356 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2112 ms
+2023-05-17 10:59:18.683  INFO 12356 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-17 10:59:18.749  INFO 12356 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-17 10:59:18.940  INFO 12356 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-17 10:59:19.034  INFO 12356 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-17 10:59:19.505  INFO 12356 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-17 10:59:19.537  INFO 12356 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-17 10:59:20.925  INFO 12356 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-17 10:59:20.933  INFO 12356 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 10:59:22.033  WARN 12356 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-17 10:59:22.265  INFO 12356 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@483dd2d6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5a9ed211, org.springframework.security.web.context.SecurityContextPersistenceFilter@670486f7, org.springframework.security.web.header.HeaderWriterFilter@4f851240, org.springframework.security.web.authentication.logout.LogoutFilter@10e2b9d0, com.ssafy.habitat.config.JwtFilter@2a1b63bb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6018de87, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@516dfe0f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@190288b9, org.springframework.security.web.session.SessionManagementFilter@5450ccf7, org.springframework.security.web.access.ExceptionTranslationFilter@3b2f3e59, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@711129ba]
+2023-05-17 10:59:22.268  WARN 12356 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-17 10:59:22.269  INFO 12356 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-17 10:59:22.293  INFO 12356 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-17 10:59:22.649  INFO 12356 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-17 10:59:22.918  INFO 12356 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-17 10:59:22.919  INFO 12356 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-17 10:59:22.937  INFO 12356 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-17 10:59:22.967  INFO 12356 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-17 10:59:23.114  INFO 12356 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 7.305 seconds (JVM running for 7.785)
+2023-05-17 10:59:34.858  INFO 12356 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-17 10:59:34.860  INFO 12356 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-17 10:59:34.861  INFO 12356 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-17 10:59:34.897  INFO 12356 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 10:59:34.900  INFO 12356 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : Security Context에 'PNVS2Z17RyxQqlY' 인증 정보를 저장했습니다, uri: /api/friends/all
+2023-05-17 10:59:34.922  INFO 12356 --- [http-nio-8080-exec-1] c.s.habitat.controller.FriendController  : getFriendList() : 유저의 친구목록 조회
+2023-05-17 10:59:35.504  INFO 12356 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 10:59:35.652  INFO 12356 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.FriendService  : getFriendList() : 유저의 친구 목록 반환
+2023-05-17 10:59:35.777  WARN 12356 --- [http-nio-8080-exec-1] .m.m.a.ExceptionHandlerExceptionResolver : Resolved [org.springframework.core.convert.ConverterNotFoundException: No converter found capable of converting from type [com.ssafy.habitat.entity.Friend] to type [com.ssafy.habitat.entity.User]]
