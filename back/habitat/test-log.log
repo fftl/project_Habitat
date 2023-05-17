@@ -1585,3 +1585,61 @@
 2023-05-17 16:12:16.402  INFO 3600 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-05-17 16:12:16.405  INFO 3600 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2023-05-17 16:12:16.557  INFO 3600 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-17 16:37:05.066  INFO 10508 --- [Test worker] c.ssafy.habitat.HabitatApplicationTests  : Starting HabitatApplicationTests using Java 11.0.19 on dmlee with PID 10508 (started by SSAFY in C:\lee\my\S08P31A704\back\habitat)
+2023-05-17 16:37:05.068  INFO 10508 --- [Test worker] c.ssafy.habitat.HabitatApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2023-05-17 16:37:05.919  INFO 10508 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-17 16:37:05.919  INFO 10508 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-17 16:37:06.146  INFO 10508 --- [Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 216 ms. Found 12 JPA repository interfaces.
+2023-05-17 16:37:06.823  INFO 10508 --- [Test worker] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#d030dd3' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 16:37:06.826  INFO 10508 --- [Test worker] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#5aa0fbd0' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 16:37:06.836  INFO 10508 --- [Test worker] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#61378100' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 16:37:06.848  INFO 10508 --- [Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 16:37:06.848  INFO 10508 --- [Test worker] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-17 16:37:07.356  INFO 10508 --- [Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-17 16:37:07.453  INFO 10508 --- [Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-17 16:37:07.803  INFO 10508 --- [Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-17 16:37:07.989  INFO 10508 --- [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-17 16:37:08.621  INFO 10508 --- [Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-17 16:37:08.686  INFO 10508 --- [Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-17 16:37:10.688  INFO 10508 --- [Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-17 16:37:10.711  INFO 10508 --- [Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 16:37:12.648  WARN 10508 --- [Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-17 16:37:13.298  INFO 10508 --- [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5749c250, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@41eec9fc, org.springframework.security.web.context.SecurityContextPersistenceFilter@196f5dbd, org.springframework.security.web.header.HeaderWriterFilter@62dc24da, org.springframework.security.web.authentication.logout.LogoutFilter@6afe91cd, com.ssafy.habitat.config.JwtFilter@66e1c0f0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@36846184, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@55e5505c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3d515b14, org.springframework.security.web.session.SessionManagementFilter@67da6726, org.springframework.security.web.access.ExceptionTranslationFilter@76019d80, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5367c180]
+2023-05-17 16:37:13.308  WARN 10508 --- [Test worker] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-17 16:37:13.309  INFO 10508 --- [Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-17 16:37:13.401  INFO 10508 --- [Test worker] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-17 16:37:14.777  INFO 10508 --- [Test worker] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-17 16:37:14.811  INFO 10508 --- [Test worker] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-17 16:37:14.847  INFO 10508 --- [Test worker] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-17 16:37:15.087  INFO 10508 --- [Test worker] c.ssafy.habitat.HabitatApplicationTests  : Started HabitatApplicationTests in 10.406 seconds (JVM running for 12.38)
+2023-05-17 16:37:15.422  INFO 10508 --- [Test worker] com.ssafy.habitat.service.FlowerService  : addFlower() : 새로운 꽃 등록
+2023-05-17 16:37:15.450  INFO 10508 --- [Test worker] com.ssafy.habitat.service.FlowerService  : getFlower() : 꽃 객체 반환
+2023-05-17 16:37:15.459  INFO 10508 --- [Test worker] com.ssafy.habitat.service.FlowerService  : getFlowerList() : 모든 꽃 목록 반환
+2023-05-17 16:37:15.464  INFO 10508 --- [Test worker] com.ssafy.habitat.service.FlowerService  : getFlower() : 꽃 객체 반환
+2023-05-17 16:37:15.498  INFO 10508 --- [Test worker] c.s.h.service.FriendRequestService       : checkFriendRequestAuthorization() : 친구신청 처리의 유효성 검사
+2023-05-17 16:37:15.500  INFO 10508 --- [Test worker] c.s.h.service.FriendRequestService       : getFriendRequestList() : 유저에게 도착한 친구신청 목록 반환
+2023-05-17 16:37:15.508  INFO 10508 --- [Test worker] c.s.h.service.FriendRequestService       : modifyFriendRequest() : 친구신청 상태 수정
+2023-05-17 16:37:15.511  INFO 10508 --- [Test worker] c.s.h.service.FriendRequestService       : addFriendRequest() : 친구신청 객체 등록
+2023-05-17 16:37:15.513  INFO 10508 --- [Test worker] c.s.h.service.FriendRequestService       : addFriendRequest() : 친구신청 객체 등록
+2023-05-17 16:37:15.515  INFO 10508 --- [Test worker] c.s.h.service.FriendRequestService       : getFriendRequestByRequestKey() : 친구신청 객체 반환
+2023-05-17 16:37:15.521  INFO 10508 --- [Test worker] c.s.h.service.FriendRequestService       : checkFriendRequestAuthorization() : 친구신청 처리의 유효성 검사
+2023-05-17 16:37:15.524  INFO 10508 --- [Test worker] c.s.h.service.FriendRequestService       : getFriendRequestByRequestKey() : 친구신청 객체 반환
+2023-05-17 16:37:15.526  INFO 10508 --- [Test worker] c.s.h.service.FriendRequestService       : addFriendRequest() : 친구신청 객체 등록
+2023-05-17 16:37:15.528  INFO 10508 --- [Test worker] c.s.h.service.FriendRequestService       : checkFriendRequestAuthorization() : 친구신청 처리의 유효성 검사
+2023-05-17 16:37:15.571  INFO 10508 --- [Test worker] com.ssafy.habitat.service.FriendService  : addFriend() : 새로운 친구관계 등록
+2023-05-17 16:37:15.573  INFO 10508 --- [Test worker] com.ssafy.habitat.service.FriendService  : getFriendList() : 유저의 친구 목록 반환
+2023-05-17 16:37:15.600  INFO 10508 --- [Test worker] com.ssafy.habitat.service.FriendService  : checkFriendRequestPossible() : 친구신청의 유효성 검사
+2023-05-17 16:37:15.603  INFO 10508 --- [Test worker] com.ssafy.habitat.service.FriendService  : addFriend() : 새로운 친구관계 등록
+2023-05-17 16:37:15.606  INFO 10508 --- [Test worker] com.ssafy.habitat.service.FriendService  : checkFriendRequestPossible() : 친구신청의 유효성 검사
+2023-05-17 16:37:15.654  INFO 10508 --- [Test worker] c.ssafy.habitat.service.PlantingService  : getCurrentPlant() : 유저의 현재 키우는 꽃 정보 반환
+2023-05-17 16:37:15.658  INFO 10508 --- [Test worker] c.ssafy.habitat.service.PlantingService  : modifyPlanting() : 키우기 객체 수정
+2023-05-17 16:37:15.662  INFO 10508 --- [Test worker] c.ssafy.habitat.service.PlantingService  : getCurrentPlant() : 유저의 현재 키우는 꽃 정보 반환
+2023-05-17 16:37:15.663  INFO 10508 --- [Test worker] c.ssafy.habitat.service.PlantingService  : getCurrentPlant() : 유저의 현재 키우는 꽃 정보 반환
+2023-05-17 16:37:15.666  INFO 10508 --- [Test worker] c.ssafy.habitat.service.PlantingService  : addPlanting() : 새로운 키우기 꽃 등록
+2023-05-17 16:37:15.706  INFO 10508 --- [Test worker] c.s.h.service.UserFlowerLogService       : addUserFlowerLog() : 유저의 해금 기록 저장
+2023-05-17 16:37:15.743  INFO 10508 --- [Test worker] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-17 16:37:15.746  INFO 10508 --- [Test worker] c.s.habitat.service.UserFlowerService    : getUnlockedFlowerList() : 유저의 해금된 꽃 목록 반환
+2023-05-17 16:37:15.749  INFO 10508 --- [Test worker] c.s.habitat.service.UserFlowerService    : getLockedFlowerList() : 유저의 잠긴 꽃 목록 반환
+2023-05-17 16:37:15.961  INFO 10508 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-17 16:37:15.963  INFO 10508 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-17 16:37:16.057  INFO 10508 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
