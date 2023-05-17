@@ -48,7 +48,7 @@ class _LoginBridgeState extends State<LoginBridge> {
     return const Scaffold(
       body: Center(
         child: Text(
-          'laoding...',
+          'loading...',
           style: TextStyle(fontSize: 32),
         ),
       ),

@@ -1,36 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:habitat/api/drinklog/api_drinklogs.dart';
 import 'package:habitat/screens/alarm/alarm_screen.dart';
 import 'package:habitat/screens/settingscreen/coaster_connect.dart';
 import 'package:habitat/screens/settingscreen/modify_goal_screen.dart';
 import 'package:habitat/screens/settingscreen/setting_cash.dart';
+import 'package:get/get.dart';
+import 'package:habitat/controller/user_controller.dart';
+import 'package:habitat/screens/settingscreen/setting_box.dart';
 import 'package:habitat/screens/settingscreen/setting_profile.dart';
 import 'package:habitat/screens/settingscreen/setting_water.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 
-class SettingScreen extends StatefulWidget {
-  const SettingScreen({super.key});
+class SettingScreen extends StatelessWidget {
+  SettingScreen({super.key});
 
-  @override
-  State<SettingScreen> createState() => _SettingScreenState();
-}
-
-class _SettingScreenState extends State<SettingScreen> {
-  onEditProfile() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const SettingProfile()));
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getAllDrinkLogs(success: (response) {
-      debugPrint("결과는??? ${response.toString()}");
-    }, fail: (e) {
-      debugPrint("error : $e");
-    });
-  }
+  final userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
@@ -45,18 +28,7 @@ class _SettingScreenState extends State<SettingScreen> {
             fontWeight: FontWeight.w600,
           ),
         ),
-        automaticallyImplyLeading: false, //뒤로가기 버튼 없애기
-        // leading: IconButton(
-        //   padding: EdgeInsets.zero,
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        //   icon: const Icon(
-        //     Icons.arrow_back_ios_rounded,
-        //     size: 30,
-        //     color: Colors.black,
-        //   ),
-        // ),
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -65,69 +37,80 @@ class _SettingScreenState extends State<SettingScreen> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                height: 100,
-                // width: 200,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(12),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.4),
-                      blurRadius: 2.0,
-                      spreadRadius: 0.0,
-                      offset: const Offset(0, 0),
-                    )
-                  ],
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(right: 40),
-                      child: Icon(
-                        Icons.local_florist_rounded,
-                        size: 68,
+              GetX<UserController>(
+                builder: (controller) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 20),
+                    height: 100,
+                    // width: 200,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(12),
                       ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.4),
+                          blurRadius: 2.0,
+                          spreadRadius: 0.0,
+                          offset: const Offset(0, 0),
+                        )
+                      ],
                     ),
-                    Column(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20),
+                          child: Image.network(
+                            controller.profileImg.value,
+                            // "https://your-habitat.s3.ap-northeast-2.amazonaws.com/static/default.png",
+                            width: 48,
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "쏘영쏘",
-                              style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.w600,
+                            Row(
+                              children: [
+                                Text(
+                                  controller.name.value,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.edit),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SettingProfile()));
+                                  },
+                                )
+                              ],
+                            ),
+                            Text(
+                              "목표 음수량 : ${controller.goal}ml",
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w300,
+                                color: Colors.grey,
                               ),
                             ),
-                            IconButton(
-                              icon: const Icon(Icons.edit),
-                              onPressed: onEditProfile,
-                            )
                           ],
-                        ),
-                        const Text(
-                          "목표 음수량 : 1.5L",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.grey,
-                          ),
                         ),
                       ],
                     ),
-                  ],
-                ),
+                  );
+                },
               ),
-              const settingbox(),
+              const SettingBox(),
             ],
           ),
         ],

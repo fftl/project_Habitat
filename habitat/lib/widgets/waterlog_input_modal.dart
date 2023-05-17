@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:habitat/api/drinklog/api_drinklogs.dart';
 import 'package:habitat/controller/water_controller.dart';
 
 class WaterLogInputModal extends StatefulWidget {
@@ -90,8 +89,12 @@ class _WaterLogInputModalState extends State<WaterLogInputModal> {
                   const SizedBox(height: 5),
                   TextButton(
                     onPressed: () {
-                      ApiDrinkLogs().postAddDrinkLog(drink, drinkType, 'asdf');
-                      Get.find<WaterController>().drinkwater(drink);
+                      Get.find<WaterController>().drinkWater(
+                        {
+                          "drink": drink,
+                          "drinkType": drinkType,
+                        },
+                      );
                       Navigator.pop(context);
                     },
                     child: const Text('전송'),

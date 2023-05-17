@@ -5,6 +5,32 @@ import 'package:habitat/api/base_url.dart';
 import 'package:habitat/models/flower_model.dart';
 import 'package:http/http.dart' as http;
 
+void getGrowingFlower({
+  required dynamic Function(dynamic) success,
+  required Function(String error) fail,
+  Map<String, String>? body,
+}) {
+  baseApi(
+    path: 'flowers/exp',
+    requestType: RequestType.get,
+    success: success,
+    fail: fail,
+  );
+}
+
+void getFlowerCollection({
+  required dynamic Function(dynamic) success,
+  required Function(String error) fail,
+  Map<String, String>? body,
+}) {
+  baseApi(
+    path: 'flowers/collection',
+    requestType: RequestType.get,
+    success: success,
+    fail: fail,
+  );
+}
+
 class ApiFlowers {
   final String baseurl = BaseUrl().rooturl;
 

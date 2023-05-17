@@ -3,14 +3,19 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:habitat/api/user/api_users.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   // final usercontroller = Get.put(UserController());
 
   static const storage = FlutterSecureStorage();
 
-  void signInWithGoogle() async {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  Future<bool> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     if (googleUser != null) {
       String socialKey = googleUser.id;
@@ -18,11 +23,21 @@ class LoginScreen extends StatelessWidget {
       Map<String, String> headerData = await futuerMapData;
       debugPrint("accessToken : ${headerData['accesstoken']}");
       debugPrint("refreshToken : ${headerData['refreshtoken']}");
-      await storage.write(key: 'accessToken', value: headerData['accesstoken']);
-      await storage.write(
-          key: 'refreshToken', value: headerData['refreshtoken']);
+      await LoginScreen.storage.write(
+        key: 'accessToken',
+        value: headerData['accesstoken'],
+      );
+      await LoginScreen.storage.write(
+        key: 'refreshToken',
+        value: headerData['refreshtoken'],
+      );
+      return true;
+    } else {
+      return false;
     }
   }
+
+  late Future<bool> loginChecking;
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +52,13 @@ class LoginScreen extends StatelessWidget {
                 height: 20,
               ),
               TextButton(
-                onPressed: () {
-                  signInWithGoogle();
-                  if (storage.read(key: 'accessToken') != '') {
-                    Navigator.pushReplacementNamed(context, '/main');
+                onPressed: () async {
+                  loginChecking = signInWithGoogle();
+                  bool? authorization = await loginChecking;
+                  if (authorization) {
+                    if (context.mounted) {
+                      Navigator.pushReplacementNamed(context, '/main');
+                    }
                   }
                 },
                 child: const Text(
