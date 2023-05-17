@@ -26,34 +26,10 @@
 //    @InjectMocks
 //    FriendRequestService friendRequestService;
 //
-//    private User user1;
-//    private User user2;
-//    private User user3;
-//    private FriendRequest friendRequest1;
-//    private FriendRequest friendRequest2;
-//    private FriendRequest friendRequest3;
 //
 //    @BeforeEach
 //    void setUp() {
 //        MockitoAnnotations.openMocks(this);
-//
-//        // 테스트용 데이터 설정
-//        user1 = new User();
-//        user1.setUserKey("1111");
-//        user2 = new User();
-//        user2.setUserKey("2222");
-//        user3 = new User();
-//        user3.setUserKey("3333");
-//
-//        List<FriendRequest> friendRequestList = new ArrayList<>();
-//
-//        friendRequest1 = FriendRequest.builder().friendRequestKey(1).from(user2).to(user1).status(0).build();
-//        friendRequest2 = FriendRequest.builder().friendRequestKey(2).from(user3).to(user1).status(1).build();
-//        friendRequest3 = FriendRequest.builder().friendRequestKey(2).from(user1).to(user2).status(0).build();
-//
-//        friendRequestList.add(friendRequest1);
-//        friendRequestList.add(friendRequest2);
-////        user1.setFriendRequestList(friendRequestList);
 //    }
 //
 //
@@ -113,12 +89,13 @@
 //        // Given
 //        User user1 = new User();
 //        User user2 = new User();
-//        FriendRequest friendRequest1 = FriendRequest.builder().friendRequestKey(1).from(user1).to(user2).status(0).build();
+//        User user3 = new User();
+//        FriendRequest friendRequest1 = FriendRequest.builder().friendRequestKey(1).from(user2).to(user1).status(0).build();
 //        FriendRequest friendRequest2 = FriendRequest.builder().friendRequestKey(2).from(user3).to(user1).status(1).build();
 //
-////        List<FriendRequest> userFriendRequestList = user1.getFriendRequestList();
-////        userFriendRequestList.add(friendRequest1);
-////        userFriendRequestList.add(friendRequest2);
+//        List<FriendRequest> userFriendRequestList = user1.getFriendRequestList();
+//        userFriendRequestList.add(friendRequest1);
+//        userFriendRequestList.add(friendRequest2);
 //
 //        List<FriendRequest> expectedFriendRequestList = new ArrayList<>();
 //        expectedFriendRequestList.add(friendRequest1); // status==0 인 신청기록만 조회되어야 함
@@ -135,8 +112,9 @@
 //    void getFriendRequestByRequestKey_WhenFriendRequestExists_ReturnFriendRequest() {
 //        // Given
 //        int requestKey = 1;
-//        FriendRequest expectedFriendRequest = friendRequest1;
-//        when(friendRequestRepository.findById(requestKey)).thenReturn(Optional.of(friendRequest1));
+//        FriendRequest friendRequest = FriendRequest.builder().friendRequestKey(requestKey).build();
+//        FriendRequest expectedFriendRequest = friendRequest;
+//        when(friendRequestRepository.findById(requestKey)).thenReturn(Optional.of(friendRequest));
 //
 //        // When
 //        FriendRequest result = friendRequestService.getFriendRequestByRequestKey(requestKey);
