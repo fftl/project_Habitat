@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:habitat/screens/alarm/notification.dart';
 import 'package:habitat/screens/login/login_screen.dart';
 import 'package:habitat/screens/main/main_screen.dart';
@@ -22,8 +23,11 @@ void main() async {
 
   await NotificationService.initializeNotification();
 
+  const storage = FlutterSecureStorage();
+  Future<String?> userKey = storage.read(key: 'userKey');
+
   final WebSocketChannel channel = IOWebSocketChannel.connect(
-      'ws://k8a704.p.ssafy.io/api/websocket/{userKey}');
+      'ws://k8a704.p.ssafy.io/api/websocket/$userKey');
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
@@ -40,8 +44,8 @@ void main() async {
       ),
       initialRoute: '/',
       routes: {
-        // '/': (context) => const LoginBridge(),
-        '/': (context) => const OnboardingScreen(),
+        '/': (context) => const LoginBridge(),
+        // '/': (context) => MainScreen(),
         '/onboarding': (context) => const OnboardingScreen(),
         '/login': (context) => const LoginScreen(),
         '/main': (context) => MainScreen(),
