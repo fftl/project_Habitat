@@ -4,7 +4,6 @@ import 'package:habitat/screens/alarm/notification.dart';
 import 'package:habitat/screens/login/login_screen.dart';
 import 'package:habitat/screens/main/main_screen.dart';
 import 'package:habitat/screens/onboarding/onboarding_screen.dart';
-import 'package:habitat/screens/report_screen.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'firebase_options.dart';
@@ -15,6 +14,7 @@ import 'package:habitat/screens/login/login_bridge.dart';
 import 'package:habitat/screens/reward/reward_screen.dart';
 import 'package:habitat/screens/settingscreen/setting_screen.dart';
 import 'package:habitat/screens/social/social_screen.dart';
+import 'package:habitat/screens/report/report_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
