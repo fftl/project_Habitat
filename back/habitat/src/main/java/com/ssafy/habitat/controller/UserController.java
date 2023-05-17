@@ -285,7 +285,7 @@ public class UserController {
             HashMap<String, String> response = new HashMap<>();
             response.put("userKey", user.getUserKey());
 
-            return new ResponseEntity(response, HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
 
             User getUser = userService.getBySocialKey(request.getSocialKey());
@@ -303,7 +303,7 @@ public class UserController {
             HashMap<String, String> response = new HashMap<>();
             response.put("userKey", getUser.getUserKey());
 
-            return new ResponseEntity(response, HttpStatus.OK);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 
@@ -312,7 +312,7 @@ public class UserController {
     public ResponseEntity validateRefreshToken(HttpServletRequest request, HttpServletResponse response){
         LOGGER.info("validateRefreshToken() : refresh token 유효성 확인");
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
