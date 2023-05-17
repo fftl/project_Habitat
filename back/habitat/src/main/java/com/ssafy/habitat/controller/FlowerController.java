@@ -33,16 +33,18 @@ public class FlowerController {
     private UserService userService;
     private StreakLogService streakLogService;
     private UserFlowerService userFlowerService;
+    private RewardService rewardService;
     private TokenProvider tokenProvider;
 
     @Autowired
-    public FlowerController(FlowerService flowerService, CollectionService collectionService, PlantingService plantingService, UserService userService, StreakLogService streakLogService, UserFlowerService userFlowerService, TokenProvider tokenProvider) {
+    public FlowerController(FlowerService flowerService, CollectionService collectionService, PlantingService plantingService, UserService userService, StreakLogService streakLogService, UserFlowerService userFlowerService, RewardService rewardService, TokenProvider tokenProvider) {
         this.flowerService = flowerService;
         this.collectionService = collectionService;
         this.plantingService = plantingService;
         this.userService = userService;
         this.streakLogService = streakLogService;
         this.userFlowerService = userFlowerService;
+        this.rewardService = rewardService;
         this.tokenProvider = tokenProvider;
     }
 
@@ -54,8 +56,7 @@ public class FlowerController {
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
-        System.out.println("hihi : "+user.toString());
-        int flowerCnt = collectionService.getCollectionCnt(user);
+        int flowerCnt = collectionService.getCollectionCnt(user)+1;
 
         Planting planting = plantingService.getCurrentPlant(user, flowerCnt);
         Flower flower = planting.getFlower();
@@ -181,47 +182,10 @@ public class FlowerController {
         String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
         User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
 
-        List<Flower> flowerList = flowerService.getFlowerList();
-
-        // user가 획득한 꽃
-        List<Collection> collectionList = collectionService.getCollectionList(user);
-        HashSet<Integer> collectionHashSet = new HashSet<>();
-        for(int i = 0; i < collectionList.size(); i++) {
-            collectionHashSet.add(collectionList.get(i).getFlower().getFlowerKey());
-        }
-
-        // user가 해금한 꽃
-        List<UserFlower> unlockedUserFlowerList = userFlowerService.getUnlockedFlowerList(user);
-        HashSet<Integer> unlockedFlowerHashSet = new HashSet<>();
-        for(int i = 0; i < unlockedUserFlowerList.size(); i++) {
-            unlockedFlowerHashSet.add(unlockedUserFlowerList.get(i).getFlower().getFlowerKey());
-        }
-
-        // Entity -> Dto
-        List<ResponseFlowerDto.Collection> responseFlowerDtoList = new ArrayList<>();
-        for(int i = 0; i < flowerList.size(); i++) {
-            Flower flower = flowerList.get(i);
-
-            int userStatus = 0;
-
-            // 획득가능한 꽃인지 확인
-            if(unlockedFlowerHashSet.contains(flower.getFlowerKey())) userStatus = 1;
-
-            // 획득한 꽃인지 확인
-            if(collectionHashSet.contains(flower.getFlowerKey())) userStatus = 2;
-
-            ResponseFlowerDto.Collection responseFlowerDto = ResponseFlowerDto.Collection.builder()
-                    .flowerKey(flower.getFlowerKey())
-                    .name(flower.getName())
-                    .story(flower.getStory())
-                    .getCondition(flower.getGetCondition())
-                    .userStatus(userStatus)
-                    .build();
-            responseFlowerDtoList.add(responseFlowerDto);
-        }
+        List<ResponseFlowerDto.Collection> responseFlowerDtoList = rewardService.getCollection(user);
 
         return new ResponseEntity<>(responseFlowerDtoList, HttpStatus.OK);
     }
-    
+
 
 }

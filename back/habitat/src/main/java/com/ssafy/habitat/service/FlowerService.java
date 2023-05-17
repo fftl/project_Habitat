@@ -31,7 +31,7 @@ public class FlowerService {
         flowerRepository.save(flower);
     }
 
-//    @Cacheable(value = "Flower", key = "#flowerKey", cacheManager = "cacheManager")
+    //    @Cacheable(value = "Flower", key = "#flowerKey", cacheManager = "cacheManager")
     public Flower getFlower(int flowerKey) {
         LOGGER.info("getFlower() : 꽃 객체 반환");
 
@@ -39,6 +39,7 @@ public class FlowerService {
         return findFlower;
     }
 
+    @Cacheable(value="FlowerList")
     public List<Flower> getFlowerList() {
         LOGGER.info("getFlowerList() : 모든 꽃 목록 반환");
 
