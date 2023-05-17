@@ -2,20 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:habitat/controller/social_controller.dart';
+import 'package:habitat/screens/social/friend_request_list.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 
-class SocialScreen extends StatefulWidget {
-  const SocialScreen({super.key});
-
-  @override
-  State<SocialScreen> createState() => _SocialScreenState();
-}
-
-class _SocialScreenState extends State<SocialScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
+class SocialScreen extends StatelessWidget {
+  SocialScreen({super.key});
 
   final ScrollController scrollController = ScrollController();
 
@@ -81,7 +72,7 @@ class _SocialScreenState extends State<SocialScreen> {
                                 onPressed: () {
                                   Clipboard.setData(ClipboardData(
                                       text: controller.userCode.value));
-                                  if (!mounted) return;
+                                  // if (!mounted) return;
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(const SnackBar(
                                     content: Text('Copied to clipboard'),
@@ -147,9 +138,9 @@ class _SocialScreenState extends State<SocialScreen> {
                   ),
                 ],
               ),
-              // friendsRequestlistWidget(
-              //   controller: scrollController,
-              // ),
+              friendsRequestListWidget(
+                scrollcontroller: scrollController,
+              ),
               const SizedBox(
                 height: 10,
               ),

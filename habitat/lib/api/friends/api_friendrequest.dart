@@ -2,26 +2,39 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:habitat/api/base_url.dart';
-import 'package:habitat/models/friend_request_model.dart';
 import 'package:http/http.dart' as http;
 
+// 친구 신청 목록 보기
+void getRequestFriends({
+  required dynamic Function(dynamic) success,
+  required Function(String error) fail,
+  Map<String, String>? body,
+}) {
+  baseApi(
+    path: 'friends/request/all',
+    requestType: RequestType.get,
+    success: success,
+    fail: fail,
+  );
+}
+
 class ApiFriendRequestList {
-  final String baseurl = BaseUrl().rooturl;
+  // final String baseurl = BaseUrl().rooturl;
 
-  Future<List<FriendRequestModel>> getRequestFriendList(String id) async {
-    List<FriendRequestModel> friendlist = [];
+  // Future<List<FriendRequestModel>> getRequestFriendList(String id) async {
+  //   List<FriendRequestModel> friendlist = [];
 
-    Uri url = Uri.http(baseurl, 'friends/request/all', {'userKey': id});
-    final response = await http.get(url);
-    if (response.statusCode == 200) {
-      final List<dynamic> temp = jsonDecode(utf8.decode(response.bodyBytes));
-      for (var e in temp) {
-        friendlist.add(FriendRequestModel.fromJson(e));
-      }
-    }
+  //   Uri url = Uri.http(baseurl, 'friends/request/all', {'userKey': id});
+  //   final response = await http.get(url);
+  //   if (response.statusCode == 200) {
+  //     final List<dynamic> temp = jsonDecode(utf8.decode(response.bodyBytes));
+  //     for (var e in temp) {
+  //       friendlist.add(FriendRequestModel.fromJson(e));
+  //     }
+  //   }
 
-    return friendlist;
-  }
+  //   return friendlist;
+  // }
 }
 
 class ApiFriendRequest {

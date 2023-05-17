@@ -52,7 +52,7 @@ void main() async {
         '/main': (context) => MainScreen(),
         '/report': (context) => const ReportScreen(),
         '/reward': (context) => RewardScreen(),
-        '/social': (context) => const SocialScreen(),
+        '/social': (context) => SocialScreen(),
         '/setting': (context) => SettingScreen(),
         '/loading': (context) => const LoadingScreen(),
         '/bluetooth': (context) => CoasterConnectScreen(),
