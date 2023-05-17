@@ -46,7 +46,7 @@ class FriendServiceTest {
 
         userFriendList.add(friend1);
         userFriendList.add(friend2);
-        user1.setFriendList(userFriendList);
+//        user1.setFriendList(userFriendList);
     }
 
     @Test
