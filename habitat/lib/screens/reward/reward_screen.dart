@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:habitat/controller/reward_controller.dart';
+import 'package:habitat/screens/main/main_screen.dart';
 import 'package:habitat/screens/reward/reward_panelwidget.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 import 'package:sliding_up_panel2/sliding_up_panel2.dart';
@@ -47,38 +48,7 @@ class RewardScreen extends StatelessWidget {
               const SizedBox(
                 height: 72,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 28),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      height: 60,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 16),
-                      transformAlignment: Alignment.center,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFD0F4BA),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12),
-                        ),
-                      ),
-                      child: const Text(
-                        "목표를 달성해서 꽃을 키워보자!!",
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    const Icon(
-                      Icons.water_drop_rounded,
-                      size: 60,
-                      color: Colors.lightBlue,
-                    )
-                  ],
-                ),
-              ),
+              const mwLine(),
               GetX<RewardController>(
                 builder: (controller) {
                   return Row(

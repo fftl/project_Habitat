@@ -54,38 +54,7 @@ class MainScreen extends StatelessWidget {
               const SizedBox(
                 height: 72,
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 28),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      height: 60,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 16),
-                      transformAlignment: Alignment.center,
-                      decoration: const BoxDecoration(
-                        color: Colors.lightBlue,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(12),
-                        ),
-                      ),
-                      child: const Text(
-                        "하루에 한잔씩 물을 마십시다!",
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    const Icon(
-                      Icons.water_drop_rounded,
-                      size: 60,
-                      color: Colors.lightBlue,
-                    )
-                  ],
-                ),
-              ),
+              const mwLine(),
               GetX<WaterController>(
                 builder: (controller) {
                   return Stack(
@@ -156,6 +125,51 @@ class MainScreen extends StatelessWidget {
         panelBuilder: () => MainPanelWidget(scrollController: scrollController),
       ),
       bottomNavigationBar: const DockBar(),
+    );
+  }
+}
+
+class mwLine extends StatelessWidget {
+  const mwLine({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 28),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 60,
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            transformAlignment: Alignment.center,
+            alignment: Alignment.center,
+            decoration: const BoxDecoration(
+              color: Color.fromRGBO(250, 250, 250, 0.3),
+              borderRadius: BorderRadius.all(
+                Radius.circular(50),
+              ),
+            ),
+            child: const Text(
+              "하루에 한잔씩 물을 마십시다!",
+              style: TextStyle(
+                fontSize: 18,
+              ),
+            ),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          const Icon(
+            Icons.water_drop_rounded,
+            size: 60,
+            color: Colors.lightBlue,
+          )
+        ],
+      ),
     );
   }
 }
