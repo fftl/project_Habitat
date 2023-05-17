@@ -1,6 +1,7 @@
 package com.ssafy.habitat.service;
 
 import com.ssafy.habitat.entity.Flower;
+import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.exception.CustomException;
 import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.repository.FlowerRepository;

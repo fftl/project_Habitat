@@ -5,13 +5,10 @@ import com.ssafy.habitat.entity.User;
 import com.ssafy.habitat.exception.CustomException;
 import com.ssafy.habitat.exception.ErrorCode;
 import com.ssafy.habitat.repository.UserRepository;
-<<<<<<< HEAD
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-=======
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
->>>>>>> 05d81605b7f014007922f4df934c0628d9e65824
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,9 +31,8 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    @Fetch(FetchMode.JOIN)
-    @Cacheable(value = "User", key = "#userKey", cacheManager = "cacheManager", sync = true)
-    public User getUser(String userKey) {
+    @Cacheable(value = "User", key = "#userKey", cacheManager = "cacheManager")
+        public User getUser(String userKey) {
         LOGGER.info("getUser() : 유저키로 유저 조회하여 반환");
 
         User findUser = userRepository.findById(userKey).orElse(null);

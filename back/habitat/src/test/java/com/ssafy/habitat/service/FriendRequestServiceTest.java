@@ -53,7 +53,7 @@ class FriendRequestServiceTest {
 
         friendRequestList.add(friendRequest1);
         friendRequestList.add(friendRequest2);
-        user1.setFriendRequestList(friendRequestList);
+//        user1.setFriendRequestList(friendRequestList);
     }
 
 
@@ -116,9 +116,9 @@ class FriendRequestServiceTest {
         FriendRequest friendRequest1 = FriendRequest.builder().friendRequestKey(1).from(user1).to(user2).status(0).build();
         FriendRequest friendRequest2 = FriendRequest.builder().friendRequestKey(2).from(user3).to(user1).status(1).build();
 
-        List<FriendRequest> userFriendRequestList = user1.getFriendRequestList();
-        userFriendRequestList.add(friendRequest1);
-        userFriendRequestList.add(friendRequest2);
+//        List<FriendRequest> userFriendRequestList = user1.getFriendRequestList();
+//        userFriendRequestList.add(friendRequest1);
+//        userFriendRequestList.add(friendRequest2);
 
         List<FriendRequest> expectedFriendRequestList = new ArrayList<>();
         expectedFriendRequestList.add(friendRequest1); // status==0 인 신청기록만 조회되어야 함

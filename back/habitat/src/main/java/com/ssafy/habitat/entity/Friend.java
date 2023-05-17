@@ -18,10 +18,8 @@ public class Friend extends BaseTime{
     private int friendKey;
 
     @ManyToOne
-    @JsonIgnore
     private User myId;
 
     @ManyToOne
-    @JsonIgnore
     private User friendId;
 }

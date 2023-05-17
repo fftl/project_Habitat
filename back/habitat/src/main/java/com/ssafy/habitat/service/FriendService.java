@@ -8,6 +8,9 @@ import com.ssafy.habitat.repository.FriendRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,16 +27,19 @@ public class FriendService {
         this.friendRepository = friendRepository;
     }
 
+    @Cacheable(value = "FriendList", key = "#user.getUserKey()", cacheManager = "cacheManager", sync = true)
     public List<User> getFriendList(User user) {
         LOGGER.info("getFriendList() : 유저의 친구 목록 반환");
 
-        List<User> friendList = new ArrayList<>();
 
-        for (int i = 0; i < user.getFriendList().size(); i++) {
-            friendList.add(user.getFriendList().get(i).getFriendId());
+        List<Friend> friendList = friendRepository.findByMyId(user);
+        List<User> friendUserList = new ArrayList<>();
+
+        for (int i = 0; i < friendList.size(); i++) {
+            friendUserList.add(friendList.get(i).getFriendId());
         }
 
-        return friendList;
+        return friendUserList;
     }
 
 
@@ -48,6 +54,7 @@ public class FriendService {
         }
     }
 
+    @CacheEvict(value = "FriendList", key = "#newFriend.myId.userKey")
     public void addFriend(Friend newFriend) {
         LOGGER.info("addFriend() : 새로운 친구관계 등록");
 
@@ -58,5 +65,11 @@ public class FriendService {
         }
 
         friendRepository.save(newFriend);
+    }
+
+    public int getFriendCnt(User user) {
+        LOGGER.info("getFriendCnt() : 유저의 친구 수 반환");
+        int friendCnt = friendRepository.countByMyId(user);
+        return friendCnt;
     }
 }

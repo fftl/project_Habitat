@@ -22,10 +22,8 @@ public class Planting extends BaseTime{
     private int lv;
 
     @ManyToOne
-    @JsonIgnore
     private User user;
 
     @ManyToOne
-    @JsonIgnore
     private Flower flower;
 }

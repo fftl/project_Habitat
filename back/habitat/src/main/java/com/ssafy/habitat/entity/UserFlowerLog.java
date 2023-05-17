@@ -19,10 +19,8 @@ public class UserFlowerLog extends BaseTime{
     private char mission;
 
     @ManyToOne
-    @JsonIgnore
     private User user;
 
     @ManyToOne
     private Flower flower;
-
 }

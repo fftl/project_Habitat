@@ -39,13 +39,14 @@ class PlantingServiceTest {
     @DisplayName("현재 키우는 꽃 정보 조회 테스트")
     public void getCurrentPlant_ReturnPlanting() {
         Planting expectedPlanting = Planting.builder().build();
-        when(plantingRepository.findByUserAndFlowerCnt(user, user.getCollectionList().size() + 1)).thenReturn(Optional.of(expectedPlanting));
+        int flowerCnt = 1;
+        when(plantingRepository.findByUserAndFlowerCnt(user, flowerCnt + 1)).thenReturn(Optional.of(expectedPlanting));
 
         assertDoesNotThrow(()-> {
-            plantingService.getCurrentPlant(user);
+            plantingService.getCurrentPlant(user, flowerCnt);
         });
 
-        Planting planting = plantingService.getCurrentPlant(user);
+        Planting planting = plantingService.getCurrentPlant(user, flowerCnt);
         assertEquals(expectedPlanting, planting);
 
     }
@@ -53,13 +54,14 @@ class PlantingServiceTest {
     @Test
     @DisplayName("현재 키우는 꽃 정보 조회 테스트(배정된 꽃 없음)")
     public void getCurrentPlant_WhenPlantingDoesNotExist_ThrowsException() {
-        when(plantingRepository.findByUserAndFlowerCnt(user, user.getCollectionList().size() + 1)).thenReturn(Optional.empty());
+        int flowerCnt = 1;
+        when(plantingRepository.findByUserAndFlowerCnt(user, flowerCnt + 1)).thenReturn(Optional.empty());
 
         assertThrows(CustomException.class, () -> {
-            plantingService.getCurrentPlant(user);
+            plantingService.getCurrentPlant(user, flowerCnt);
         });
 
-        verify(plantingRepository, times(1)).findByUserAndFlowerCnt(user, user.getCollectionList().size() + 1);
+        verify(plantingRepository, times(1)).findByUserAndFlowerCnt(user, flowerCnt + 1);
     }
 
     @Test
