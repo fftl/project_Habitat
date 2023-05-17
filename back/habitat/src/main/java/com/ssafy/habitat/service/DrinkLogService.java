@@ -42,6 +42,16 @@ public class DrinkLogService {
         else return recentLog;
     }
 
+    @Transactional
+    @Cacheable(value = "recent", key = "#curUser.getUserKey()", cacheManager = "cacheManager")
+    public DrinkLog getRecentLogNonCache(User curUser) {
+        LOGGER.info("getRecentLog() : 유저의 가장 최근 음수시간 반환");
+
+        DrinkLog recentLog = drinkLogRepository.findTop1ByUserOrderByCreatedAtDesc(curUser).orElse(null);
+        if(recentLog == null) return null;
+        else return recentLog;
+    }
+
     public DrinkLog getLog(int drinkLogKey){
         LOGGER.info("getLog() : 특정 섭취 로그 반환");
 
@@ -52,6 +62,13 @@ public class DrinkLogService {
     @Transactional
     @Cacheable(value = "all", key = "#user.getUserKey()", cacheManager = "cacheManager")
     public List<DrinkLog> getAllLogs(User user) {
+        LOGGER.info("getAllLogs() : 유저의 모든 섭취 로그 반환");
+
+        List<DrinkLog> drinkLogList = drinkLogRepository.findAllByUserAndIsRemoved(user, false);
+        return drinkLogList;
+    }
+
+    public List<DrinkLog> getAllLogsNonCache(User user) {
         LOGGER.info("getAllLogs() : 유저의 모든 섭취 로그 반환");
 
         List<DrinkLog> drinkLogList = drinkLogRepository.findAllByUserAndIsRemoved(user, false);

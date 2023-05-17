@@ -97,6 +97,33 @@ public class DrinkLogController {
         return new ResponseEntity<>(drinkLogDtoList, HttpStatus.OK);
     }
 
+    @GetMapping("/all/nonCache")
+    @ApiOperation(value = "섭취로그 조회 노캐시!", notes="유저의 섭취로그를 조회합니다.")
+    public ResponseEntity getDrinkLogNonCache(HttpServletRequest request) {
+        LOGGER.info("getDrinkLog() : 유저의 섭취로그 조회");
+
+        String userKey = tokenProvider.getUserKey(request.getHeader(AUTHORIZATION_HEADER));
+        User user = userService.getUser(userKey); // userKey의 유저를 찾습니다.
+
+        List<DrinkLog> drinkLogList = drinkLogService.getAllLogsNonCache(user);
+
+        // Entity -> Dto 변환
+        List<ResponseDrinkLogDto> drinkLogDtoList = new ArrayList<>();
+        for (int i = 0; i < drinkLogList.size(); i++) {
+            DrinkLog drinkLog = drinkLogList.get(i);
+
+            drinkLogDtoList.add(ResponseDrinkLogDto.builder()
+                    .drinkLogKey(drinkLog.getDrinkLogKey())
+                    .drink(drinkLog.getDrink())
+                    .drinkType(drinkLog.getDrinkType())
+                    .isCoaster(drinkLog.isCoaster())
+                    .createdAt(drinkLog.getCreatedAt())
+                    .build());
+        }
+
+        return new ResponseEntity<>(drinkLogDtoList, HttpStatus.OK);
+    }
+
     @GetMapping("/day")
     @ApiOperation(value = "일일 섭취로그 조회", notes="유저의 오늘의 섭취로그를 조회합니다.")
     public ResponseEntity getDailyDrinkLog(HttpServletRequest request) {
