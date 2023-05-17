@@ -1796,3 +1796,47 @@
 2023-05-17 16:50:16.889  INFO 616 --- [http-nio-8080-exec-6] com.ssafy.habitat.config.JwtFilter       : Security Context에 'kFjy9WBXcxQMFpf' 인증 정보를 저장했습니다, uri: /api/drinkLogs/all/nonCache
 2023-05-17 16:50:16.889  INFO 616 --- [http-nio-8080-exec-6] c.s.h.controller.DrinkLogController      : getDrinkLog() : 유저의 섭취로그 조회
 2023-05-17 16:50:16.896  INFO 616 --- [http-nio-8080-exec-6] c.ssafy.habitat.service.DrinkLogService  : getAllLogs() : 유저의 모든 섭취 로그 반환
+2023-05-17 17:01:54.120  INFO 616 --- [http-nio-8080-exec-8] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 17:01:54.121  INFO 616 --- [http-nio-8080-exec-8] com.ssafy.habitat.config.JwtFilter       : Security Context에 'kFjy9WBXcxQMFpf' 인증 정보를 저장했습니다, uri: /api/drinkLogs/all
+2023-05-17 17:01:54.122  INFO 616 --- [http-nio-8080-exec-8] c.s.h.controller.DrinkLogController      : getDrinkLog() : 유저의 섭취로그 조회
+2023-05-17 17:01:54.149  INFO 616 --- [http-nio-8080-exec-8] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 17:01:54.209  INFO 616 --- [http-nio-8080-exec-8] c.ssafy.habitat.service.DrinkLogService  : getAllLogs() : 유저의 모든 섭취 로그 반환
+2023-05-17 17:02:05.514  INFO 616 --- [http-nio-8080-exec-10] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 17:02:05.515  INFO 616 --- [http-nio-8080-exec-10] com.ssafy.habitat.config.JwtFilter       : Security Context에 'kFjy9WBXcxQMFpf' 인증 정보를 저장했습니다, uri: /api/drinkLogs/all
+2023-05-17 17:02:05.515  INFO 616 --- [http-nio-8080-exec-10] c.s.h.controller.DrinkLogController      : getDrinkLog() : 유저의 섭취로그 조회
+2023-05-17 17:03:39.133  INFO 616 --- [http-nio-8080-exec-3] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 17:03:39.134  INFO 616 --- [http-nio-8080-exec-3] com.ssafy.habitat.config.JwtFilter       : Security Context에 'kFjy9WBXcxQMFpf' 인증 정보를 저장했습니다, uri: /api/drinkLogs/all
+2023-05-17 17:03:39.135  INFO 616 --- [http-nio-8080-exec-3] c.s.h.controller.DrinkLogController      : getDrinkLog() : 유저의 섭취로그 조회
+2023-05-17 17:03:39.158  INFO 616 --- [http-nio-8080-exec-3] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 17:03:39.195  INFO 616 --- [http-nio-8080-exec-3] c.ssafy.habitat.service.DrinkLogService  : getAllLogs() : 유저의 모든 섭취 로그 반환
+2023-05-17 17:04:07.377  INFO 616 --- [http-nio-8080-exec-4] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 17:04:07.378  INFO 616 --- [http-nio-8080-exec-4] com.ssafy.habitat.config.JwtFilter       : Security Context에 'kFjy9WBXcxQMFpf' 인증 정보를 저장했습니다, uri: /api/drinkLogs/all/nonCache
+2023-05-17 17:04:07.379  INFO 616 --- [http-nio-8080-exec-4] c.s.h.controller.DrinkLogController      : getDrinkLog() : 유저의 섭취로그 조회
+2023-05-17 17:04:07.387  INFO 616 --- [http-nio-8080-exec-4] c.ssafy.habitat.service.DrinkLogService  : getAllLogs() : 유저의 모든 섭취 로그 반환
+2023-05-17 17:04:12.230  INFO 616 --- [http-nio-8080-exec-5] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 17:04:12.233  INFO 616 --- [http-nio-8080-exec-5] com.ssafy.habitat.config.JwtFilter       : Security Context에 'kFjy9WBXcxQMFpf' 인증 정보를 저장했습니다, uri: /api/drinkLogs/all/nonCache
+2023-05-17 17:04:12.236  INFO 616 --- [http-nio-8080-exec-5] c.s.h.controller.DrinkLogController      : getDrinkLog() : 유저의 섭취로그 조회
+2023-05-17 17:04:12.246  INFO 616 --- [http-nio-8080-exec-5] c.ssafy.habitat.service.DrinkLogService  : getAllLogs() : 유저의 모든 섭취 로그 반환
+2023-05-17 17:05:24.692  INFO 616 --- [http-nio-8080-exec-9] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 17:05:24.693  INFO 616 --- [http-nio-8080-exec-9] com.ssafy.habitat.config.JwtFilter       : Security Context에 'kFjy9WBXcxQMFpf' 인증 정보를 저장했습니다, uri: /api/drinkLogs/all
+2023-05-17 17:05:24.693  INFO 616 --- [http-nio-8080-exec-9] c.s.h.controller.DrinkLogController      : getDrinkLog() : 유저의 섭취로그 조회
+2023-05-17 17:05:24.757  INFO 616 --- [http-nio-8080-exec-9] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-17 17:05:24.847  INFO 616 --- [http-nio-8080-exec-9] c.ssafy.habitat.service.DrinkLogService  : getAllLogs() : 유저의 모든 섭취 로그 반환
+2023-05-17 17:05:32.360  INFO 616 --- [http-nio-8080-exec-8] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 17:05:32.361  INFO 616 --- [http-nio-8080-exec-8] com.ssafy.habitat.config.JwtFilter       : Security Context에 'kFjy9WBXcxQMFpf' 인증 정보를 저장했습니다, uri: /api/drinkLogs/all
+2023-05-17 17:05:32.362  INFO 616 --- [http-nio-8080-exec-8] c.s.h.controller.DrinkLogController      : getDrinkLog() : 유저의 섭취로그 조회
+2023-05-17 17:05:52.609  INFO 616 --- [http-nio-8080-exec-10] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 17:05:52.610  INFO 616 --- [http-nio-8080-exec-10] com.ssafy.habitat.config.JwtFilter       : Security Context에 'kFjy9WBXcxQMFpf' 인증 정보를 저장했습니다, uri: /api/drinkLogs/all
+2023-05-17 17:05:52.610  INFO 616 --- [http-nio-8080-exec-10] c.s.h.controller.DrinkLogController      : getDrinkLog() : 유저의 섭취로그 조회
+2023-05-17 17:06:07.775  INFO 616 --- [http-nio-8080-exec-2] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 17:06:07.776  INFO 616 --- [http-nio-8080-exec-2] com.ssafy.habitat.config.JwtFilter       : Security Context에 'kFjy9WBXcxQMFpf' 인증 정보를 저장했습니다, uri: /api/drinkLogs/all/nonCache
+2023-05-17 17:06:07.777  INFO 616 --- [http-nio-8080-exec-2] c.s.h.controller.DrinkLogController      : getDrinkLog() : 유저의 섭취로그 조회
+2023-05-17 17:06:07.786  INFO 616 --- [http-nio-8080-exec-2] c.ssafy.habitat.service.DrinkLogService  : getAllLogs() : 유저의 모든 섭취 로그 반환
+2023-05-17 17:06:09.624  INFO 616 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 17:06:09.625  INFO 616 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : Security Context에 'kFjy9WBXcxQMFpf' 인증 정보를 저장했습니다, uri: /api/drinkLogs/all/nonCache
+2023-05-17 17:06:09.626  INFO 616 --- [http-nio-8080-exec-1] c.s.h.controller.DrinkLogController      : getDrinkLog() : 유저의 섭취로그 조회
+2023-05-17 17:06:09.638  INFO 616 --- [http-nio-8080-exec-1] c.ssafy.habitat.service.DrinkLogService  : getAllLogs() : 유저의 모든 섭취 로그 반환
+2023-05-17 17:06:11.404  INFO 616 --- [http-nio-8080-exec-3] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-17 17:06:11.405  INFO 616 --- [http-nio-8080-exec-3] com.ssafy.habitat.config.JwtFilter       : Security Context에 'kFjy9WBXcxQMFpf' 인증 정보를 저장했습니다, uri: /api/drinkLogs/all/nonCache
+2023-05-17 17:06:11.406  INFO 616 --- [http-nio-8080-exec-3] c.s.h.controller.DrinkLogController      : getDrinkLog() : 유저의 섭취로그 조회
+2023-05-17 17:06:11.420  INFO 616 --- [http-nio-8080-exec-3] c.ssafy.habitat.service.DrinkLogService  : getAllLogs() : 유저의 모든 섭취 로그 반환
