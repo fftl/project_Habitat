@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "717538880248-f05dmt7mfonurubarb0fgidb2vsl7vn7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.status200.habitat",
+            "certificate_hash": "1af95b9d5cda259cb658835f3bc3b953d86686b3"
+          }
+        },
+        {
           "client_id": "717538880248-fpa1nbd08lmjtsr135gndf5l4kci3erb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
