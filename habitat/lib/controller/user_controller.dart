@@ -8,7 +8,9 @@ class UserController extends GetxController {
   var userKey = {};
   RxBool loginSuccess = false.obs;
   RxString name = "".obs;
-  RxString profileImg = "".obs;
+  RxString profileImg =
+      "https://your-habitat.s3.ap-northeast-2.amazonaws.com/static/default.png"
+          .obs;
   RxInt goal = 1.obs;
 
   static const storage = FlutterSecureStorage();
@@ -39,15 +41,28 @@ class UserController extends GetxController {
     }
   }
 
-  userInfoUpdate() async {
+  userInfoUpdate() {
     getUserInfoLogs(
       success: (response) async {
         Map userinfo = await response;
-        name.value = userinfo['nickname'];
-        profileImg.value = userinfo['imgUrl'];
-        goal.value = userinfo['goal'];
+        name.value = await userinfo['nickname'];
+        profileImg.value = await userinfo['imgUrl'];
+        goal.value = await userinfo['goal'];
         debugPrint("user의 닉네임 : $name / 목표음수량 : $goal");
-        debugPrint("user의 프로필 사진 : $profileImg");
+        debugPrint("user의 프로필 사진 : ${profileImg.value}");
+        debugPrint("user의 프로필 사진 : ${profileImg.runtimeType}");
+      },
+      fail: (e) {
+        debugPrint("에러발생 : $e");
+      },
+    );
+  }
+
+  userNicknameChange(Map<String, dynamic> nick) {
+    changeUserNickname(
+      body: nick,
+      success: (response) {
+        debugPrint("변경완료 : $response");
       },
       fail: (e) {
         debugPrint("에러발생 : $e");

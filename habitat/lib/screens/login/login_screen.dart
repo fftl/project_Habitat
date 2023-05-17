@@ -23,10 +23,14 @@ class _LoginScreenState extends State<LoginScreen> {
       Map<String, String> headerData = await futuerMapData;
       debugPrint("accessToken : ${headerData['accesstoken']}");
       debugPrint("refreshToken : ${headerData['refreshtoken']}");
-      await LoginScreen.storage
-          .write(key: 'accessToken', value: headerData['accesstoken']);
-      await LoginScreen.storage
-          .write(key: 'refreshToken', value: headerData['refreshtoken']);
+      await LoginScreen.storage.write(
+        key: 'accessToken',
+        value: headerData['accesstoken'],
+      );
+      await LoginScreen.storage.write(
+        key: 'refreshToken',
+        value: headerData['refreshtoken'],
+      );
       return true;
     } else {
       return false;
