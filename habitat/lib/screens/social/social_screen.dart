@@ -169,7 +169,7 @@ class _SocialScreenState extends State<SocialScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: const DockBar(),
+      bottomNavigationBar: DockBar(),
     );
   }
 }

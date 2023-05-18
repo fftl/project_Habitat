@@ -11,8 +11,8 @@ class ReportScreen extends StatefulWidget {
 class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
+    return Scaffold(
+      body: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(

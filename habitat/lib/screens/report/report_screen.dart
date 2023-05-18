@@ -33,7 +33,7 @@ class _ReportScreenState extends State<ReportScreen> {
       body: const SafeArea(
         child: MyReport(),
       ),
-      bottomNavigationBar: const DockBar(),
+      bottomNavigationBar: DockBar(),
     );
   }
 }

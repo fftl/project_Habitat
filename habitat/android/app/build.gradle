@@ -13,12 +13,12 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '5'
+    flutterVersionCode = '6'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
-    flutterVersionName = '1.4'
+    flutterVersionName = '1.5'
 }
 
 apply plugin: 'com.android.application'
@@ -88,9 +88,9 @@ android {
         //     signingConfig signingConfigs.release
 
         //     // start of 코드난독화 및 사이즈 축소
-        //     // minifyEnabled true
-        //     // useProguard true
-        //     // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        //     minifyEnabled true
+        //     // useProguard false
+        //     proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         //     // end of 코드난독화 및 사이즈 축소
         // }
     }

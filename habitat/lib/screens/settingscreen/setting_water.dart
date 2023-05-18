@@ -170,7 +170,7 @@ class _SettingWaterState extends State<SettingWater> {
           ),
         ],
       ),
-      bottomNavigationBar: const DockBar(),
+      bottomNavigationBar: DockBar(),
     );
   }
 }
