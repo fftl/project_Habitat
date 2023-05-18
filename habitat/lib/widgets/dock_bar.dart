@@ -24,6 +24,7 @@ class _DockBarState extends State<DockBar> {
         children: [
           GestureDetector(
             onTap: () {
+              // reportController.refresh();
               reportController.goalUpdate();
               reportController.dailyUpdate();
               reportController.weeklyIntakeUpdate();

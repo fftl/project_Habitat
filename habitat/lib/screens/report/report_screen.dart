@@ -20,6 +20,7 @@ class _ReportScreenState extends State<ReportScreen> {
   void initState() {
     super.initState();
     reportController.onInit();
+    reportController.refresh();
   }
 
   @override
@@ -301,7 +302,7 @@ class _MyReportState extends State<MyReport> {
                           GetX<ReportController>(
                             builder: (controller) {
                               return Text(
-                                '달성률 ${(controller.daily.value / controller.goal.value).toStringAsFixed(2)}%',
+                                '달성률 ${(controller.daily.value / controller.goal.value * 100).toStringAsFixed(2)}%',
                                 style: const TextStyle(
                                   fontSize: 17.5,
                                   fontWeight: FontWeight.bold,
