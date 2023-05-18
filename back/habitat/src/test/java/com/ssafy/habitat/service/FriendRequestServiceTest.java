@@ -70,8 +70,8 @@ class FriendRequestServiceTest {
     @DisplayName("친구신청 유효성 검사 테스트(이미 보낸 신청)")
     void checkFriendRequestPossible_WhenFriendRequestAlreadySent_ThrowException() {
         // Given
-        User fromUser = new User();
-        User toUser = new User();
+        User fromUser = User.builder().userKey("user1").build();
+        User toUser = User.builder().userKey("user2").build();
         FriendRequest newFriendRequest = FriendRequest.builder().from(fromUser).to(toUser).build();
         when(friendRequestRepository.findByFromAndToAndStatus(fromUser, toUser, 0)).thenReturn(Optional.of(newFriendRequest));
 
@@ -87,8 +87,8 @@ class FriendRequestServiceTest {
     @DisplayName("친구신청 유효성 검사 테스트(가능)")
     void checkFriendRequestPossible_AllPossible() {
         // Given
-        User fromUser = new User();
-        User toUser = new User();
+        User fromUser = User.builder().userKey("user1").build();
+        User toUser = User.builder().userKey("user2").build();
         FriendRequest newFriendRequest = FriendRequest.builder().from(fromUser).to(toUser).build();
         when(friendRequestRepository.findByFromAndToAndStatus(fromUser, toUser, 0)).thenReturn(Optional.empty());
 
@@ -158,8 +158,8 @@ class FriendRequestServiceTest {
     @DisplayName("친구신청 수락/거절 유효성 테스트")
     void checkFriendRequestAuthorization() {
         // Given
-        User user1 = new User();
-        User user2 = new User();
+        User user1 = User.builder().userKey("user1").build();
+        User user2 = User.builder().userKey("user2").build();
         FriendRequest friendRequest = FriendRequest.builder().from(user2).to(user1).status(0).build();
 
         // When & Then
@@ -191,8 +191,8 @@ class FriendRequestServiceTest {
     @DisplayName("친구신청 수락/거절 유효성 테스트(이미 처리가 끝난 친구신청)")
     void checkFriendRequestAuthorization_WhenFriendRequestIsAlreadyHandled_ThrowException() {
         // Given
-        User user1 = new User();
-        User user2 = new User();
+        User user1 = User.builder().userKey("user1").build();
+        User user2 = User.builder().userKey("user2").build();
         FriendRequest friendRequest = FriendRequest.builder().from(user2).to(user1).status(1).build();
 
         // When & Then
