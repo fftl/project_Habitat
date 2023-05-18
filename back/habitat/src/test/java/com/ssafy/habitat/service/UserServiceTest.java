@@ -95,7 +95,7 @@ class UserServiceTest {
     void friendCodeCheck_ValidCode_ReturnFalse() {
         // Given
         String newFriendCode = "friend123";
-        when(userRepository.findByFriendCode(newFriendCode)).thenReturn(null);
+        when(userRepository.findByFriendCode(newFriendCode)).thenReturn(Optional.empty());
 
         // When
         boolean result = userService.friendCodeCheck(newFriendCode);
@@ -125,7 +125,7 @@ class UserServiceTest {
     void socialKeyCheck_NotExistingSocialKey_ReturnTrue() {
         // Given
         String socialKey = "social123";
-        when(userRepository.findBySocialKey(socialKey)).thenReturn(null);
+        when(userRepository.findBySocialKey(socialKey)).thenReturn(Optional.empty());
 
         // When
         boolean result = userService.socialKeyCheck(socialKey);
