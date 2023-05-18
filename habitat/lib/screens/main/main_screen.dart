@@ -72,6 +72,8 @@ class MainScreen extends StatelessWidget {
                         "drink": controller.water.value,
                         "drinkType": controller.type,
                       });
+                      rewardcontroller.flowerConllectionUpdate();
+                      rewardController.flowerInfoUpdate();
                       return Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(180),
@@ -135,15 +137,12 @@ class MainScreen extends StatelessWidget {
                                 color: Colors.white,
                               ),
                             ),
-                            Positioned(
-                              bottom: 80,
-                              child: Text(
-                                "/ ${controller.goal}ml",
-                                style: const TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white70,
-                                ),
+                            Text(
+                              "/ ${controller.goal}ml",
+                              style: const TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white70,
                               ),
                             ),
                             const WaterLogInputModal(),

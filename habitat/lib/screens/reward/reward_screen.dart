@@ -49,6 +49,9 @@ class RewardScreen extends StatelessWidget {
                 height: 72,
               ),
               const MwLine(),
+              const SizedBox(
+                height: 72,
+              ),
               GetX<RewardController>(
                 builder: (controller) {
                   return Row(
