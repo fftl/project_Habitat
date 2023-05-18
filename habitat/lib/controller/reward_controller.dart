@@ -37,6 +37,7 @@ class RewardController extends GetxController {
       List flowerCollection = <Map<String, dynamic>>[];
       flowerCollection =
           await response.map((dynamic item) => item).toList() ?? [];
+      collection.clear();
       for (var value in flowerCollection) {
         collection.add(value);
       }
