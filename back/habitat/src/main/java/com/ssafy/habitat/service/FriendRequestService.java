@@ -72,7 +72,7 @@ public class FriendRequestService {
         LOGGER.info("checkFriendRequestAuthorization() : 친구신청 처리의 유효성 검사");
 
         // 해당 유저에게 귀속된 친구신청이 아닌 경우
-        if(user != friendRequest.getTo()) {
+        if(user.getUserKey() != friendRequest.getTo().getUserKey()) {
             throw new CustomException(ErrorCode.FRIEND_REQUEST_NOT_FOR_USER);
         }
 
