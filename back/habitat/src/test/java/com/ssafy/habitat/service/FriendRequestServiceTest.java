@@ -173,9 +173,9 @@ class FriendRequestServiceTest {
     @DisplayName("친구신청 수락/거절 유효성 테스트(해당 유저에게 귀속된 신청 아님)")
     void checkFriendRequestAuthorization_WhenFriendRequestNotForUser_ThrowException() {
         // Given
-        User user1 = new User();
-        User user2 = new User();
-        User user3 = new User();
+        User user1 = User.builder().userKey("user1").build();
+        User user2 = User.builder().userKey("user2").build();
+        User user3 = User.builder().userKey("user3").build();
         FriendRequest friendRequest = FriendRequest.builder().from(user2).to(user3).build();
 
         // When & Then
