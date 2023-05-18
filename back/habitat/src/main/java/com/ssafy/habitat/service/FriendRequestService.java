@@ -31,7 +31,7 @@ public class FriendRequestService {
         LOGGER.info("checkFriendRequestPossible() : 친구신청 가능 여부 확인");
 
         // 나 자신에게 친구신청을 하는 경우
-        if(newFriendRequest.getTo() == newFriendRequest.getFrom()) {
+        if(newFriendRequest.getTo().getUserKey() == newFriendRequest.getFrom().getUserKey()) {
             throw new CustomException(ErrorCode.FRIEND_REQUEST_NOT_FOR_MYSELF);
         }
 
@@ -72,7 +72,7 @@ public class FriendRequestService {
         LOGGER.info("checkFriendRequestAuthorization() : 친구신청 처리의 유효성 검사");
 
         // 해당 유저에게 귀속된 친구신청이 아닌 경우
-        if(user.getUserKey() != friendRequest.getTo().getUserKey()) {
+        if(!user.getUserKey().equals(friendRequest.getTo().getUserKey())) {
             throw new CustomException(ErrorCode.FRIEND_REQUEST_NOT_FOR_USER);
         }
 
