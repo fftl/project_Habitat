@@ -84,6 +84,10 @@ dependencies {
 	implementation ("com.fasterxml.jackson.core:jackson-databind")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
 
+	//for objectMapper
+	implementation("org.springframework.boot:spring-boot-starter-json:2.7.5")
+
+
 }
 
 tasks.withType<Test> {

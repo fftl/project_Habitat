@@ -14,7 +14,6 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 		org.springframework.cloud.aws.autoconfigure.context.ContextStackAutoConfiguration.class,
 		org.springframework.cloud.aws.autoconfigure.context.ContextRegionProviderAutoConfiguration.class
 })
-@EnableJpaRepositories(basePackages = {"com.ssafy.habitat.repository"})
 @EnableCaching
 public class HabitatApplication {
 
