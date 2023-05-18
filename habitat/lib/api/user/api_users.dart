@@ -42,6 +42,7 @@ void patchUserModifyGoal({
   Map<String, dynamic>? body,
 }) {
   baseApi(
+    body: body,
     path: 'users/modify/goal',
     requestType: RequestType.patch,
     success: success,
@@ -56,6 +57,7 @@ void changeUserNickname({
   Map<String, dynamic>? body,
 }) {
   baseApi(
+    body: body,
     path: 'users/modify',
     requestType: RequestType.patch,
     success: success,
