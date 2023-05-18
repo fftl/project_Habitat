@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:habitat/api/user/api_users.dart';
+import 'package:http/http.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,9 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
     if (googleUser != null) {
       String socialKey = googleUser.id;
       Future futuerMapData = postUserLogin(socialKey);
-      Map<String, String> headerData = await futuerMapData;
-      debugPrint("accessToken : ${headerData['accesstoken']}");
-      debugPrint("refreshToken : ${headerData['refreshtoken']}");
+      Response responseData = await futuerMapData;
+      var bodyData = jsonDecode(responseData.body.toString());
+      var headerData = responseData.headers;
+      debugPrint("accessToken : ${headerData['accessToken']}");
+      debugPrint("refreshToken : ${headerData['refreshToken']}");
+      debugPrint("userKey : ${headerData['userKey']}");
       await LoginScreen.storage.write(
         key: 'accessToken',
         value: headerData['accesstoken'],
@@ -30,6 +36,10 @@ class _LoginScreenState extends State<LoginScreen> {
       await LoginScreen.storage.write(
         key: 'refreshToken',
         value: headerData['refreshtoken'],
+      );
+      await LoginScreen.storage.write(
+        key: 'userKey',
+        value: bodyData['userKey'],
       );
       return true;
     } else {

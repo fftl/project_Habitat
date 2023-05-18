@@ -57,7 +57,7 @@ class CoasterController extends GetxController {
       if (returnValue) {
         List<BluetoothService> bleService = await device.discoverServices();
         Map<String, String> notifyDatas = {};
-
+        debugPrint("연결완료");
         for (BluetoothService service in bleService) {
           for (BluetoothCharacteristic c in service.characteristics) {
             await device.requestMtu(223);

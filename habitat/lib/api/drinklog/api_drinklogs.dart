@@ -71,3 +71,29 @@ void postAddAutoDrinkLog({
     fail: fail,
   );
 }
+
+void getWeeklyIntake({
+  required dynamic Function(dynamic) success,
+  required Function(String error) fail,
+  Map<String, String>? body,
+}) {
+  baseApi(
+    path: 'drinkLogs/week/total',
+    requestType: RequestType.get,
+    success: success,
+    fail: fail,
+  );
+}
+
+void getMonthlyIntake({
+  required dynamic Function(dynamic) success,
+  required Function(String error) fail,
+  Map<String, String>? body,
+}) {
+  baseApi(
+    path: 'drinkLogs/month/total',
+    requestType: RequestType.get,
+    success: success,
+    fail: fail,
+  );
+}
