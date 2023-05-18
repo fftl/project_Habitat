@@ -76,7 +76,7 @@ public class RewardService {
                     .user(user)
                     .exp(0)
                     .lv(0)
-                    .flowerCnt(flowerCnt+1)
+                    .flowerCnt(flowerCnt+2)
                     .build();
             plantingService.addPlanting(newPlanting);
 
