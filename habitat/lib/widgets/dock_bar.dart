@@ -7,6 +7,9 @@ class DockBar extends StatelessWidget {
 
   final rewardController = Get.put(RewardController());
 
+class _DockBarState extends State<DockBar> {
+  final reportController = Get.put(ReportController());
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,13 +17,22 @@ class DockBar extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          DockBarTab(
-            tabname: "report",
-            tablocate: "/report",
-            tabicon: Icons.my_library_books_outlined,
+          GestureDetector(
+            onTap: () {
+              // reportController.refresh();
+              reportController.goalUpdate();
+              reportController.dailyUpdate();
+              reportController.weeklyIntakeUpdate();
+              reportController.monthlyIntakeUpdate();
+            },
+            child: const DockBarTab(
+              tabname: "report",
+              tablocate: "/report",
+              tabicon: Icons.my_library_books_outlined,
+            ),
           ),
           DockBarTab(
             tabname: "reward",
@@ -46,6 +58,7 @@ class DockBar extends StatelessWidget {
       ),
     );
   }
+},
 }
 
 class DockBarTab extends StatelessWidget {
