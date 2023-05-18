@@ -124,7 +124,7 @@ class MainScreen extends StatelessWidget {
         ),
         panelBuilder: () => MainPanelWidget(scrollController: scrollController),
       ),
-      bottomNavigationBar: const DockBar(),
+      bottomNavigationBar: DockBar(),
     );
   }
 }

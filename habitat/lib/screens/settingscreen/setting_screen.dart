@@ -115,7 +115,7 @@ class SettingScreen extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: const DockBar(),
+      bottomNavigationBar: DockBar(),
     );
   }
 }

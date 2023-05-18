@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:habitat/controller/reward_controller.dart';
 
-class DockBar extends StatefulWidget {
-  const DockBar({super.key});
+class DockBar extends StatelessWidget {
+  DockBar({super.key});
 
-  @override
-  State<DockBar> createState() => _DockBarState();
-}
+  final rewardController = Get.put(RewardController());
 
-class _DockBarState extends State<DockBar> {
   @override
   Widget build(BuildContext context) {
     return Container(

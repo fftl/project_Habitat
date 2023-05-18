@@ -192,7 +192,7 @@ class RewardScreen extends StatelessWidget {
           scrollController: scrollController,
         ),
       ),
-      bottomNavigationBar: const DockBar(),
+      bottomNavigationBar: DockBar(),
     );
   }
 }

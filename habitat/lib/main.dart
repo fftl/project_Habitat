@@ -3,8 +3,6 @@ import 'package:habitat/screens/alarm/notification.dart';
 import 'package:habitat/screens/login/login_screen.dart';
 import 'package:habitat/screens/main/main_screen.dart';
 import 'package:habitat/screens/onboarding/onboarding_screen.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/screens/coaster/coaster_connect_screen.dart';
@@ -22,8 +20,8 @@ void main() async {
 
   await NotificationService.initializeNotification();
 
-  final WebSocketChannel channel = IOWebSocketChannel.connect(
-      'ws://k8a704.p.ssafy.io/api/websocket/{userKey}');
+  // final WebSocketChannel channel = IOWebSocketChannel.connect(
+  //     'ws://k8a704.p.ssafy.io/api/websocket/{userKey}');
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 

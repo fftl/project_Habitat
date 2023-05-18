@@ -81,13 +81,17 @@ class CoasterController extends GetxController {
                   if (notifyDatas.containsKey(c.uuid.toString())) {
                     // notify 데이터가 존재한다면
                     if (notifyDatas[c.uuid.toString()]!.isNotEmpty) {
-                      coasterData.value =
-                          bluetoothDataParsing(notifyDatas[c.uuid.toString()]!);
-
-                      await waterController.drinkWaterAuto({
-                        "drink": water,
-                        "drinkType": type,
-                      });
+                      if (notifyDatas[c.uuid.toString()]!.contains('\n')) {
+                        debugPrint('누적된 블루투스 데이터가 들어옵니다');
+                        coasterData.value = notifyDatas[c.uuid.toString()]!;
+                      } else {
+                        coasterData.value = bluetoothDataParsing(
+                            notifyDatas[c.uuid.toString()]!);
+                        await waterController.drinkWaterAuto({
+                          "drink": water,
+                          "drinkType": type,
+                        });
+                      }
                     }
                   }
                 });
