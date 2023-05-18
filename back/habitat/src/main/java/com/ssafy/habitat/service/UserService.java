@@ -52,11 +52,11 @@ public class UserService implements UserDetailsService {
     public boolean friendCodeCheck(String newFriendCode) {
         LOGGER.info("friendCodeCheck() : 친구코드의 유효성 검사");
 
-        return userRepository.findByFriendCode(newFriendCode) != null;}
+        return userRepository.findByFriendCode(newFriendCode).orElse(null) != null;}
     public boolean socialKeyCheck(String socialKey) {
         LOGGER.info("socialKeyCheck() : 소셜키의 유효성 검사");
 
-        return userRepository.findBySocialKey(socialKey) == null;}
+        return userRepository.findBySocialKey(socialKey).orElse(null) == null;}
 
     public User getByFriendCode(String code) {
         LOGGER.info("getByFriendCode() : 친구코드로 유저 조회하여 반환");
