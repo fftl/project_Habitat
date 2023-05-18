@@ -70,18 +70,6 @@ class requestfriendlist extends StatelessWidget {
     required this.delete,
   });
 
-  requestOk(Map<String, dynamic> body) {
-    int requestCode = body['friendRequestCode'];
-    postFriendRequest(
-        body: body,
-        success: (response) {
-          debugPrint("전송성공 : $response");
-        },
-        fail: (e) {
-          debugPrint("에러발생 : $e");
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -128,6 +116,16 @@ class requestfriendlist extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
+                        debugPrint(friendRequestKey.toString());
+
+                        okFriendRequest(
+                            body: {'friendRequestKey': friendRequestKey},
+                            success: (response) {
+                              debugPrint("전송성공 : $response");
+                            },
+                            fail: (e) {
+                              debugPrint("에러발생 : $e");
+                            });
                         debugPrint('수락보냄');
                         delete(friendRequestKey);
                       },
@@ -143,8 +141,8 @@ class requestfriendlist extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        putFriendRequest(
-                            body: friendRequestKey,
+                        cancelFriendRequest(
+                            body: {'friendRequestKey': friendRequestKey},
                             success: (res) {
                               debugPrint('거절됨');
                             },

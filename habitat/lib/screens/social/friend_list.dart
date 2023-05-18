@@ -2,35 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:habitat/controller/social_controller.dart';
 
-class friendslistWidget extends StatefulWidget {
+class friendslistWidget extends StatelessWidget {
   final ScrollController scrollcontroller;
 
-  const friendslistWidget({super.key, required this.scrollcontroller});
-
-  @override
-  State<friendslistWidget> createState() => _friendslistWidgetState();
-}
-
-class _friendslistWidgetState extends State<friendslistWidget> {
-  // final List<FriendRequestModel> _friendList = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // _loadFriendRequestList();
-  }
+  friendslistWidget({super.key, required this.scrollcontroller});
 
   // Future<void> _loadFriendRequestList() async {
-  // List<FriendRequestModel> friendrequestlist =
-  // await ApiFriendRequestList().getRequestFriendList('asdf');
-
-  // setState(() {
-  // _friendRequestList = friendrequestlist;
-  // });
-  // }
-
   final controller = Get.put(SocialController());
+
   @override
   Widget build(BuildContext context) {
     return GetX<SocialController>(builder: (controller) {
@@ -38,13 +17,13 @@ class _friendslistWidgetState extends State<friendslistWidget> {
         return ListView.separated(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            controller: widget.scrollcontroller,
+            controller: scrollcontroller,
             itemBuilder: (context, index) {
               return friendslist(
                 userKey: controller.friendslist[index]['userKey'],
                 nickname: controller.friendslist[index]['nickname'],
                 imgUrl: controller.friendslist[index]['imgUrl'],
-                recent: controller.friendslist[index]['recent'],
+                recent: controller.friendslist[index]['recent'] ?? '',
               );
             },
             separatorBuilder: (context, index) => const SizedBox(
@@ -61,8 +40,8 @@ class _friendslistWidgetState extends State<friendslistWidget> {
 }
 
 class friendslist extends StatelessWidget {
-  final String userKey, nickname, imgUrl, recent;
-  const friendslist({
+  String userKey, nickname, imgUrl, recent;
+  friendslist({
     super.key,
     required this.userKey,
     required this.nickname,

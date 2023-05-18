@@ -1,18 +1,29 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:habitat/controller/coaster_controller.dart';
+import 'package:habitat/controller/social_controller.dart';
 import 'package:habitat/controller/water_controller.dart';
 import 'package:habitat/screens/main/main_panelwidget.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 import 'package:habitat/widgets/waterlog_input_modal.dart';
 import 'package:sliding_up_panel2/sliding_up_panel2.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
-class MainScreen extends StatelessWidget {
-  MainScreen({super.key});
+const storage = FlutterSecureStorage();
 
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
   final ScrollController scrollController = ScrollController();
 
   final PanelController panelController = PanelController();
@@ -20,6 +31,32 @@ class MainScreen extends StatelessWidget {
   final waterController = Get.put(WaterController());
 
   final coasterController = Get.put(CoasterController());
+
+  final socialController = Get.put(SocialController());
+
+  WebSocketChannel? channel;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserKey();
+    socialController.getSocketMessage();
+  }
+
+  getUserKey() async {
+    Future<String?> getuserKey = storage.read(key: 'userKey');
+    String? userKey = await getuserKey;
+    Future<String?> accessToken = storage.read(key: "accessToken");
+    String? authorization = await accessToken;
+
+    channel = IOWebSocketChannel.connect(
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer $authorization",
+      },
+      'ws://k8a704.p.ssafy.io:8081/api/websocket/$userKey',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +90,18 @@ class MainScreen extends StatelessWidget {
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              StreamBuilder(
+                stream: channel?.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final data = snapshot.data as String;
+                    debugPrint(data);
+                    return Text(data);
+                  } else {
+                    return const Text('데이터 없음');
+                  }
+                },
+              ),
               const SizedBox(
                 height: 72,
               ),

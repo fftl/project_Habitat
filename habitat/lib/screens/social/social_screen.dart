@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:habitat/api/friends/api_sendrequestcode.dart';
 import 'package:habitat/controller/social_controller.dart';
+import 'package:habitat/screens/social/friend_list.dart';
 import 'package:habitat/screens/social/friend_request_list.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 
@@ -163,9 +164,9 @@ class SocialScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              // friendslistWidget(
-              //   controller: scrollController,
-              // )
+              friendslistWidget(
+                scrollcontroller: scrollController,
+              )
             ],
           ),
         ),

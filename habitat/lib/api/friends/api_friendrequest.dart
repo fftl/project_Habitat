@@ -15,14 +15,14 @@ void getRequestFriends({
 }
 
 // 친구 요청 수락
-void postFriendRequest({
+void okFriendRequest({
   required dynamic Function(dynamic) success,
   required Function(String error) fail,
   Map<String, dynamic>? body,
 }) {
   baseApi(
     path: 'friends/request/ok',
-    requestType: RequestType.post,
+    requestType: RequestType.put,
     body: body,
     success: success,
     fail: fail,
@@ -30,10 +30,10 @@ void postFriendRequest({
 }
 
 // 친구 요청 거절
-void putFriendRequest({
+void cancelFriendRequest({
   required dynamic Function(dynamic) success,
   required Function(String error) fail,
-  dynamic body,
+  Map<String, dynamic>? body,
 }) {
   baseApi(
     path: 'friends/request/cancel',
