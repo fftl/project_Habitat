@@ -21,16 +21,16 @@ class _WaterLogInputModalState extends State<WaterLogInputModal> {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return IconButton(
       style: const ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(Colors.blue),
       ),
       onPressed: () {
         _showdialog(context);
       },
-      child: const Text(
-        "물 마시기",
-        style: TextStyle(color: Colors.white),
+      icon: const Icon(
+        Icons.add,
+        size: 32,
       ),
     );
   }

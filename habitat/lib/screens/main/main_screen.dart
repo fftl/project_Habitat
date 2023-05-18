@@ -57,14 +57,33 @@ class MainScreen extends StatelessWidget {
               ),
               const MwLine(),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(180),
-                        color: Colors.amber),
-                    padding: const EdgeInsets.all(8),
-                    child: const Icon(Icons.bluetooth_outlined),
+                  GetX<CoasterController>(
+                    builder: (controller) {
+                      return Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(180),
+                            color: controller.connectDeviceState.value
+                                ? Colors.blue
+                                : Colors.blueGrey.shade200),
+                        margin: const EdgeInsets.only(right: 42, top: 12),
+                        child: IconButton(
+                          onPressed: () {
+                            if (controller.connectDeviceState.value) {
+                              controller.disconnectDevice();
+                            } else {
+                              Get.find<CoasterController>().scanDevice();
+                            }
+                          },
+                          icon: Icon(Icons.bluetooth_outlined,
+                              size: 28,
+                              color: controller.connectDeviceState.value
+                                  ? Colors.black
+                                  : Colors.grey.shade800),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -93,23 +112,31 @@ class MainScreen extends StatelessWidget {
                         selectedStepSize: 30,
                         // roundedCap: (_, __) => false,
                       ),
-                      Text(
-                        "${controller.water}ml",
-                        style: const TextStyle(
-                          fontSize: 52,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                      ),
                       Positioned(
-                        bottom: 80,
-                        child: Text(
-                          "/ ${controller.goal}ml",
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white70,
-                          ),
+                        bottom: 60,
+                        child: Column(
+                          children: [
+                            Text(
+                              "${controller.water}ml",
+                              style: const TextStyle(
+                                fontSize: 52,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 80,
+                              child: Text(
+                                "/ ${controller.goal}ml",
+                                style: const TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white70,
+                                ),
+                              ),
+                            ),
+                            const WaterLogInputModal(),
+                          ],
                         ),
                       )
                     ],
@@ -117,7 +144,7 @@ class MainScreen extends StatelessWidget {
                 },
               ),
               const SizedBox(
-                height: 10,
+                height: 50,
               ),
               GetX<WaterController>(
                 builder: (controller) {
@@ -126,12 +153,13 @@ class MainScreen extends StatelessWidget {
                   );
                 },
               ),
-              const WaterLogInputModal(),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/bluetooth');
-                  },
-                  child: const Text("코스터연결")),
+
+              // ElevatedButton(
+              //   onPressed: () {
+              //     Navigator.pushNamed(context, '/bluetooth');
+              //   },
+              //   child: const Text("코스터연결"),
+              // ),
             ],
           ),
         ),

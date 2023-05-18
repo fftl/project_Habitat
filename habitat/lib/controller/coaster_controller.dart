@@ -14,6 +14,7 @@ class CoasterController extends GetxController {
 
   RxString coasterStatus = '연결 대기중'.obs;
   RxString coasterData = '데이터 아무것도 없다'.obs;
+  RxBool connectDeviceState = false.obs;
 
   int time = 0;
   String type = '';
@@ -35,6 +36,7 @@ class CoasterController extends GetxController {
           if (element.device.name == '랼랴') {
             coasterStatus.value = '률류 연결!!!';
             device = element.device;
+            connectDeviceState.value = true;
             await connectDevice();
             return;
           }
@@ -103,6 +105,15 @@ class CoasterController extends GetxController {
         }
       }
     });
+  }
+
+  void disconnectDevice() {
+    try {
+      device.disconnect();
+      connectDeviceState.value = false;
+    } catch (e) {
+      debugPrint("연결 해제 오류");
+    }
   }
 
   String bluetoothDataParsing(String str) {
