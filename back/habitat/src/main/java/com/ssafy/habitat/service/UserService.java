@@ -10,6 +10,7 @@ import org.hibernate.annotations.FetchMode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -73,6 +74,7 @@ public class UserService implements UserDetailsService {
         return findUser;
     }
 
+    @CacheEvict(value="User", key="#user.userKey")
     public User addUser(User user){
         LOGGER.info("addUser() : 새로운 유저 등록");
 
