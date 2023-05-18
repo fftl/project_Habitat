@@ -92,18 +92,6 @@ class _MainScreenState extends State<MainScreen> {
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              StreamBuilder(
-                stream: channel?.stream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final data = snapshot.data as String;
-                    debugPrint(data);
-                    return Text(data);
-                  } else {
-                    return const Text('데이터 없음');
-                  }
-                },
-              ),
               const SizedBox(
                 height: 72,
               ),

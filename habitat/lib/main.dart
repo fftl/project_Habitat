@@ -1,7 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:get/get.dart';
-import 'package:habitat/controller/social_controller.dart';
 import 'package:habitat/screens/alarm/notification.dart';
 import 'package:habitat/screens/coaster/coaster_connect_screen.dart';
 import 'package:habitat/screens/loading/loading_screen.dart';
@@ -13,8 +10,6 @@ import 'package:habitat/screens/report/report_screen.dart';
 import 'package:habitat/screens/reward/reward_screen.dart';
 import 'package:habitat/screens/settingscreen/setting_screen.dart';
 import 'package:habitat/screens/social/social_screen.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 
@@ -26,28 +21,28 @@ void main() async {
 
   await NotificationService.initializeNotification();
 
-  final socialController = Get.put(SocialController());
+  // final socialController = Get.put(SocialController());
 
   // socialController.getSocketMessage();
 
-  const storage = FlutterSecureStorage();
-  String? userKey;
+  // const storage = FlutterSecureStorage();
+  // String? userKey;
 
-  // getUserKey() async {
-  Future<String?> getuserKey = storage.read(key: 'userKey');
-  userKey = await getuserKey;
-  Future<String?> accessToken = storage.read(key: "accessToken");
-  String? authorization = await accessToken;
-  debugPrint('웹소켓유저키$userKey');
-  // }
+  // // getUserKey() async {
+  // Future<String?> getuserKey = storage.read(key: 'userKey');
+  // userKey = await getuserKey;
+  // Future<String?> accessToken = storage.read(key: "accessToken");
+  // String? authorization = await accessToken;
+  // debugPrint('웹소켓유저키$userKey');
+  // // }
 
-  final WebSocketChannel channel = IOWebSocketChannel.connect(
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer $authorization",
-    },
-    'ws://k8a704.p.ssafy.io:8081/api/websocket/$userKey',
-  );
+  // final WebSocketChannel channel = IOWebSocketChannel.connect(
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     "Authorization": "Bearer $authorization",
+  //   },
+  //   'ws://k8a704.p.ssafy.io:8081/api/websocket/$userKey',
+  // );
   // final WebSocketChannel channel = IOWebSocketChannel.connect(
   //     'ws://k8a704.p.ssafy.io/api/websocket/$userKey');
 
