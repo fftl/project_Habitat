@@ -19,11 +19,6 @@ class _SettingProfileState extends State<SettingProfile> {
   final ImagePicker _picker = ImagePicker();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,

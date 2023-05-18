@@ -30,7 +30,15 @@ class _SettingWaterState extends State<SettingWater> {
   onSubmitButton() {
     cal();
     print(_weightEditController.text);
-    ApiUsers().patchUserModifyGoal('asdf', cal());
+    // ApiUsers().patchUserModifyGoal('asdf', cal());
+    patchUserModifyGoal(
+        body: {'goal': cal()},
+        success: (res) {
+          debugPrint('성공 $res');
+        },
+        fail: (e) {
+          debugPrint('에러 $e');
+        });
 
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => SettingScreen()));

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:habitat/screens/alarm/alarm_screen.dart';
 import 'package:habitat/screens/settingscreen/coaster_connect.dart';
 import 'package:habitat/screens/settingscreen/modify_goal_screen.dart';
 import 'package:habitat/screens/settingscreen/setting_cash.dart';
@@ -63,11 +62,11 @@ class SettingScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(right: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Image.network(
                             controller.profileImg.value,
                             // "https://your-habitat.s3.ap-northeast-2.amazonaws.com/static/default.png",
-                            width: 48,
+                            width: 43,
                           ),
                         ),
                         Column(
@@ -76,11 +75,14 @@ class SettingScreen extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  controller.name.value,
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
+                                SizedBox(
+                                  width: 200,
+                                  child: Text(
+                                    controller.name.value,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ),
                                 IconButton(
@@ -152,12 +154,6 @@ class _settingboxState extends State<settingbox> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const AlarmPage()));
-              },
-              child: const Text('test')),
           const Text(
             "목표설정",
             style: TextStyle(

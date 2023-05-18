@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:habitat/screens/alarm/notification.dart';
-import 'package:habitat/screens/alarm/notification_button.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
+
+const storage = FlutterSecureStorage();
+
+Future<String?> userKey = storage.read(key: 'userKey');
+
+final WebSocketChannel channel =
+    IOWebSocketChannel.connect('ws://k8a704.p.ssafy.io/api/websocket/$userKey');
 
 class AlarmPage extends StatefulWidget {
   const AlarmPage({super.key});
@@ -11,22 +20,30 @@ class AlarmPage extends StatefulWidget {
 
 class _AlarmPageState extends State<AlarmPage> {
   @override
-  void initState() {
-    // 초기화
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: NotificationButton(
-              text: 'notification',
-              onPressed: () async {
-                await NotificationService.showNotification(
-                    title: 'test', body: 'body');
-              })),
+          child:
+              // NotificationButton(
+              //     text: 'notification',
+              //     onPressed: () async {
+              //       await NotificationService.showNotification(
+              //           title: 'test', body: 'body');
+              //     },
+              StreamBuilder(
+        stream: channel.stream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final data = snapshot.data as String;
+            NotificationService.showNotification(title: 'Habit@', body: data);
+            NotificationService.onNotificationCreatedMethod(snapshot.data);
+            debugPrint(data);
+            return Text(data);
+          } else {
+            return const Text('데이터 없음');
+          }
+        },
+      )),
     );
   }
 }

@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:habitat/api/friends/api_sendrequestcode.dart';
 import 'package:habitat/controller/social_controller.dart';
+import 'package:habitat/screens/social/friend_list.dart';
+import 'package:habitat/screens/social/friend_request_list.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 
-class SocialScreen extends StatefulWidget {
-  const SocialScreen({super.key});
-
-  @override
-  State<SocialScreen> createState() => _SocialScreenState();
-}
-
-class _SocialScreenState extends State<SocialScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
+class SocialScreen extends StatelessWidget {
+  SocialScreen({super.key});
 
   final ScrollController scrollController = ScrollController();
 
@@ -81,7 +74,7 @@ class _SocialScreenState extends State<SocialScreen> {
                                 onPressed: () {
                                   Clipboard.setData(ClipboardData(
                                       text: controller.userCode.value));
-                                  if (!mounted) return;
+                                  // if (!mounted) return;
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(const SnackBar(
                                     content: Text('Copied to clipboard'),
@@ -120,7 +113,16 @@ class _SocialScreenState extends State<SocialScreen> {
                             borderRadius: BorderRadius.circular(30.0),
                           ),
                         ),
-                        onPressed: onSubmitButton,
+                        onPressed: () {
+                          postRequestCode(
+                              body: tec.text,
+                              success: (response) {
+                                debugPrint("전송성공 : $response");
+                              },
+                              fail: (e) {
+                                debugPrint("에러발생 : $e");
+                              });
+                        },
                         child: const Text('확인')),
                     // IconButton(
                     //   onPressed: () {
@@ -147,9 +149,9 @@ class _SocialScreenState extends State<SocialScreen> {
                   ),
                 ],
               ),
-              // friendsRequestlistWidget(
-              //   controller: scrollController,
-              // ),
+              friendsRequestListWidget(
+                scrollcontroller: scrollController,
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -162,9 +164,9 @@ class _SocialScreenState extends State<SocialScreen> {
                   ),
                 ],
               ),
-              // friendslistWidget(
-              //   controller: scrollController,
-              // )
+              friendslistWidget(
+                scrollcontroller: scrollController,
+              )
             ],
           ),
         ),

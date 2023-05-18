@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+// import 'package:habitat/api/user/api_users.dart';
+import 'package:get/get.dart';
 import 'package:habitat/api/user/api_users.dart';
+import 'package:habitat/controller/user_controller.dart';
 
 class ModifyGoalScreen extends StatelessWidget {
   ModifyGoalScreen({super.key});
 
   TextEditingController tec = TextEditingController();
 
+  final controller = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +47,15 @@ class ModifyGoalScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff47799B)),
               onPressed: () {
-                ApiUsers().patchUserModifyGoal('asdf', double.parse(tec.text));
+                patchUserModifyGoal(
+                    body: {'goal': double.parse(tec.text)},
+                    success: (res) {
+                      debugPrint('성공');
+                    },
+                    fail: (e) {
+                      debugPrint('에러');
+                    });
+                // ApiUsers().patchUserModifyGoal('asdf', double.parse(tec.text));
               },
               child: const Text('목표 음수량 설정하기'))
         ],

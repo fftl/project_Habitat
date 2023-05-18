@@ -58,6 +58,18 @@ class UserController extends GetxController {
     );
   }
 
+  userGoalChange(Map<String, dynamic> goal) {
+    patchUserModifyGoal(
+      body: goal,
+      success: (res) {
+        debugPrint('성공 : $res');
+      },
+      fail: (error) {
+        debugPrint(error);
+      },
+    );
+  }
+
   userNicknameChange(Map<String, dynamic> nick) {
     changeUserNickname(
       body: nick,
