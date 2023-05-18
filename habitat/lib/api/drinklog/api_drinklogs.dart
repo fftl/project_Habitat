@@ -75,7 +75,7 @@ void postAddAutoDrinkLog({
 void getWeeklyIntake({
   required dynamic Function(dynamic) success,
   required Function(String error) fail,
-  Map<String, String>? body,
+  Map<String, dynamic>? body,
 }) {
   baseApi(
     path: 'drinkLogs/week/total',
@@ -88,7 +88,7 @@ void getWeeklyIntake({
 void getMonthlyIntake({
   required dynamic Function(dynamic) success,
   required Function(String error) fail,
-  Map<String, String>? body,
+  Map<String, dynamic>? body,
 }) {
   baseApi(
     path: 'drinkLogs/month/total',
