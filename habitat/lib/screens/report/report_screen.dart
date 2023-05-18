@@ -17,6 +17,12 @@ class _ReportScreenState extends State<ReportScreen> {
   final reportController = Get.put(ReportController());
 
   @override
+  void initState() {
+    super.initState();
+    reportController.onInit();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
