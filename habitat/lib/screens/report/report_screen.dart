@@ -20,6 +20,10 @@ class _ReportScreenState extends State<ReportScreen> {
   void initState() {
     super.initState();
     reportController.onInit();
+    reportController.goalUpdate();
+    reportController.dailyUpdate();
+    reportController.weeklyIntakeUpdate();
+    reportController.monthlyIntakeUpdate();
   }
 
   @override
