@@ -171,7 +171,7 @@ class SocialScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const DockBar(),
+      bottomNavigationBar: DockBar(),
     );
   }
 }

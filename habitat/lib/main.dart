@@ -48,6 +48,8 @@ void main() async {
     },
     'ws://k8a704.p.ssafy.io:8081/api/websocket/$userKey',
   );
+  // final WebSocketChannel channel = IOWebSocketChannel.connect(
+  //     'ws://k8a704.p.ssafy.io/api/websocket/$userKey');
 
   GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
   runApp(
@@ -64,7 +66,6 @@ void main() async {
       initialRoute: '/',
       routes: {
         '/': (context) => const LoginBridge(),
-        // '/': (context) => MainScreen(),
         '/onboarding': (context) => const OnboardingScreen(),
         '/login': (context) => const LoginScreen(),
         '/main': (context) => const MainScreen(),

@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:habitat/controller/report_controller.dart';
 import 'package:get/get.dart';
+import 'package:habitat/controller/reward_controller.dart';
 
-class DockBar extends StatefulWidget {
-  const DockBar({super.key});
+class DockBar extends StatelessWidget {
+  DockBar({super.key});
 
-  @override
-  State<DockBar> createState() => _DockBarState();
-}
-
-class _DockBarState extends State<DockBar> {
-  final reportController = Get.put(ReportController());
+  final rewardController = Get.put(RewardController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,23 +14,9 @@ class _DockBarState extends State<DockBar> {
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          GestureDetector(
-            onTap: () {
-              // reportController.refresh();
-              reportController.goalUpdate();
-              reportController.dailyUpdate();
-              reportController.weeklyIntakeUpdate();
-              reportController.monthlyIntakeUpdate();
-            },
-            child: const DockBarTab(
-              tabname: "report",
-              tablocate: "/report",
-              tabicon: Icons.my_library_books_outlined,
-            ),
-          ),
           DockBarTab(
             tabname: "reward",
             tablocate: "/reward",

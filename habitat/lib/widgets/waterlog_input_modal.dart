@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:habitat/controller/reward_controller.dart';
 import 'package:habitat/controller/water_controller.dart';
 
 class WaterLogInputModal extends StatefulWidget {
@@ -19,18 +22,20 @@ class _WaterLogInputModalState extends State<WaterLogInputModal> {
   // 마신 음수량
   var drink = 0;
 
+  final rewardController = Get.put(RewardController());
+
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return IconButton(
       style: const ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(Colors.blue),
       ),
       onPressed: () {
         _showdialog(context);
       },
-      child: const Text(
-        "물 마시기",
-        style: TextStyle(color: Colors.white),
+      icon: const Icon(
+        Icons.add,
+        size: 32,
       ),
     );
   }
@@ -88,14 +93,21 @@ class _WaterLogInputModalState extends State<WaterLogInputModal> {
                   ),
                   const SizedBox(height: 5),
                   TextButton(
-                    onPressed: () {
-                      Get.find<WaterController>().drinkWater(
+                    onPressed: () async {
+                      await Get.find<WaterController>().drinkWater(
                         {
                           "drink": drink,
                           "drinkType": drinkType,
                         },
                       );
-                      Navigator.pop(context);
+                      Timer(const Duration(milliseconds: 100), () async {
+                        await Get.find<RewardController>()
+                            .flowerConllectionUpdate();
+                        await Get.find<RewardController>().flowerInfoUpdate();
+                      });
+                      if (context.mounted) {
+                        Navigator.pop(context);
+                      }
                     },
                     child: const Text('전송'),
                   ),

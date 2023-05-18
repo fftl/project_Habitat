@@ -150,14 +150,18 @@ class _CoasterConnectState extends State<CoasterConnect> {
       scanResultList.clear();
     });
 
+    debugPrint("블루투스 스캔 시작");
     _isScanning = true;
     //스캔 시작 제한시간 5초
     await flutterBlue.startScan(timeout: const Duration(seconds: 5));
     // 스캔 결과 할당
     flutterBlue.scanResults.listen(
       (results) {
+        debugPrint("검색이 되는가? : $results");
+
         setState(() {
           for (var element in results) {
+            debugPrint("블루투스 기기 검색 : ${element.device.name}");
             if (element.device.name != '') {
               if (scanResultList
                       .indexWhere((e) => e.device.id == element.device.id) <
