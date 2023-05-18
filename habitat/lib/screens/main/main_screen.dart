@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:habitat/controller/coaster_controller.dart';
+import 'package:habitat/controller/reward_controller.dart';
 import 'package:habitat/controller/water_controller.dart';
 import 'package:habitat/screens/main/main_panelwidget.dart';
 import 'package:habitat/widgets/dock_bar.dart';
@@ -19,6 +20,8 @@ class MainScreen extends StatelessWidget {
   final waterController = Get.put(WaterController());
 
   final coasterController = Get.put(CoasterController());
+
+  final rewardcontroller = Get.put(RewardController());
 
   @override
   Widget build(BuildContext context) {
@@ -61,6 +64,14 @@ class MainScreen extends StatelessWidget {
                 children: [
                   GetX<CoasterController>(
                     builder: (controller) {
+                      WaterController waterController =
+                          Get.find<WaterController>();
+                      RewardController rewardController =
+                          Get.find<RewardController>();
+                      waterController.drinkWater({
+                        "drink": controller.water.value,
+                        "drinkType": controller.type,
+                      });
                       return Container(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(180),
@@ -73,7 +84,7 @@ class MainScreen extends StatelessWidget {
                             if (controller.connectDeviceState.value) {
                               controller.disconnectDevice();
                             } else {
-                              Get.find<CoasterController>().scanDevice();
+                              controller.scanDevice();
                             }
                           },
                           icon: Icon(Icons.bluetooth_outlined,

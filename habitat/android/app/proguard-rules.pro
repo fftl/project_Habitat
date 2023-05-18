@@ -6,4 +6,5 @@
 -keep class io.flutter.**  { *; }
 -keep class io.flutter.plugins.**  { *; }
 -keep class io.flutter.plugins.flutter_blue_plus.**  { *; }
+-keep class com.boskokg.flutter_blue_plus.** { *; }
 -dontwarn io.flutter.embedding.**

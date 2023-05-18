@@ -3,14 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
-import 'package:habitat/controller/water_controller.dart';
 
 class CoasterController extends GetxController {
   FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
   // 연결상태 저장용
   BluetoothDeviceState deviceState = BluetoothDeviceState.disconnected;
-  final WaterController waterController = WaterController();
-  final waterController2 = Get.put(WaterController());
 
   RxString coasterStatus = '연결 대기중'.obs;
   RxString coasterData = '데이터 아무것도 없다'.obs;
@@ -18,7 +15,7 @@ class CoasterController extends GetxController {
 
   int time = 0;
   String type = '';
-  int water = 0;
+  RxInt water = 0.obs;
 
   late BluetoothDevice device;
 
@@ -33,7 +30,7 @@ class CoasterController extends GetxController {
       (results) async {
         for (var element in results) {
           debugPrint("률루가 들어왔을까??? ${element.device.name}");
-          if (element.device.name == '랼랴') {
+          if (element.device.name == '랼랴랴') {
             coasterStatus.value = '률류 연결!!!';
             device = element.device;
             connectDeviceState.value = true;
@@ -63,7 +60,6 @@ class CoasterController extends GetxController {
         for (BluetoothService service in bleService) {
           for (BluetoothCharacteristic c in service.characteristics) {
             await device.requestMtu(223);
-            // WaterController().drinkwater(100);
 
             if (!c.isNotifying) {
               try {
@@ -89,10 +85,6 @@ class CoasterController extends GetxController {
                       } else {
                         coasterData.value = bluetoothDataParsing(
                             notifyDatas[c.uuid.toString()]!);
-                        await waterController.drinkWaterAuto({
-                          "drink": water,
-                          "drinkType": type,
-                        });
                       }
                     }
                   }
@@ -131,7 +123,7 @@ class CoasterController extends GetxController {
     }
 
     time = int.parse(splitData[0]);
-    water = int.parse(splitData[1]);
+    water.value = int.parse(splitData[1]);
     debugPrint("시간 : $time, 타입 : $type, 마신 양 : $water");
 
     return "시간 : $time, 타입 : $type, 양 : $water";
