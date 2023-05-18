@@ -43,9 +43,9 @@ class IntakeData {
   IntakeData(
       this.date, this.waterIntake, this.caffeineIntake, this.noncaffeineIntake);
   String date;
-  double waterIntake;
-  double caffeineIntake;
-  double noncaffeineIntake;
+  num waterIntake;
+  num caffeineIntake;
+  num noncaffeineIntake;
 }
 
 class MyReport extends StatefulWidget {
@@ -80,8 +80,8 @@ class _MyReportState extends State<MyReport> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    num screenHeight = MediaQuery.of(context).size.height;
+    num screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
       decoration: const BoxDecoration(
@@ -125,9 +125,9 @@ class _MyReportState extends State<MyReport> {
 
                     for (int i = 0; i < controller.weekly.length; i++) {
                       String date = controller.weekly[i]['date'];
-                      double waterIntake = controller.weekly[i]['waterDrink'];
-                      double caffeineIntake = controller.weekly[i]['cafeDrink'];
-                      double noncaffeineIntake =
+                      num waterIntake = controller.weekly[i]['waterDrink'];
+                      num caffeineIntake = controller.weekly[i]['cafeDrink'];
+                      num noncaffeineIntake =
                           controller.weekly[i]['nonCafeDrink'];
                       chartData.add(IntakeData(date, waterIntake,
                           caffeineIntake, noncaffeineIntake));
@@ -136,7 +136,7 @@ class _MyReportState extends State<MyReport> {
                     return SfCartesianChart(
                       trackballBehavior: _trackballBehavior,
                       title: ChartTitle(
-                        text: "소영쏘's drink",
+                        text: "나의 물마시기 기록",
                         textStyle: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -366,15 +366,15 @@ class _MyReportState extends State<MyReport> {
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: GetX<ReportController>(
                         builder: (controller) {
-                          double target = 0;
+                          num target = 0;
 
                           for (int i = 0; i < controller.weekly.length; i++) {
                             target =
                                 target + controller.weekly[i]['waterDrink'];
                           }
 
-                          String formatTarget(double target) {
-                            double dividedTarget = target / 1000;
+                          String formatTarget(num target) {
+                            num dividedTarget = target / 1000;
 
                             if (target < 10) {
                               return NumberFormat("0.000", "en_US")
@@ -410,7 +410,7 @@ class _MyReportState extends State<MyReport> {
                         children: [
                           GetX<ReportController>(
                             builder: (controller) {
-                              double target = 0;
+                              num target = 0;
 
                               for (int i = 0;
                                   i < controller.weekly.length;
@@ -419,8 +419,8 @@ class _MyReportState extends State<MyReport> {
                                     controller.weekly[i]['nonCafeDrink'];
                               }
 
-                              String formatTarget(double target) {
-                                double dividedTarget = target / 1000;
+                              String formatTarget(num target) {
+                                num dividedTarget = target / 1000;
 
                                 if (target < 10) {
                                   return NumberFormat("0.000", "en_US")
@@ -458,7 +458,7 @@ class _MyReportState extends State<MyReport> {
                         children: [
                           GetX<ReportController>(
                             builder: (controller) {
-                              double target = 0;
+                              num target = 0;
 
                               for (int i = 0;
                                   i < controller.weekly.length;
@@ -467,8 +467,8 @@ class _MyReportState extends State<MyReport> {
                                     target + controller.weekly[i]['cafeDrink'];
                               }
 
-                              String formatTarget(double target) {
-                                double dividedTarget = target / 1000;
+                              String formatTarget(num target) {
+                                num dividedTarget = target / 1000;
 
                                 if (target < 10) {
                                   return NumberFormat("0.000", "en_US")
@@ -542,15 +542,15 @@ class _MyReportState extends State<MyReport> {
                       padding: const EdgeInsets.symmetric(horizontal: 20.0),
                       child: GetX<ReportController>(
                         builder: (controller) {
-                          double target = 0;
+                          num target = 0;
 
                           for (int i = 0; i < controller.monthly.length; i++) {
                             target =
                                 target + controller.monthly[i]['waterDrink'];
                           }
 
-                          String formatTarget(double target) {
-                            double dividedTarget = target / 1000;
+                          String formatTarget(num target) {
+                            num dividedTarget = target / 1000;
 
                             if (target < 10) {
                               return NumberFormat("0.000", "en_US")
@@ -586,7 +586,7 @@ class _MyReportState extends State<MyReport> {
                         children: [
                           GetX<ReportController>(
                             builder: (controller) {
-                              double target = 0;
+                              num target = 0;
 
                               for (int i = 0;
                                   i < controller.monthly.length;
@@ -595,8 +595,8 @@ class _MyReportState extends State<MyReport> {
                                     controller.monthly[i]['nonCafeDrink'];
                               }
 
-                              String formatTarget(double target) {
-                                double dividedTarget = target / 1000;
+                              String formatTarget(num target) {
+                                num dividedTarget = target / 1000;
 
                                 if (target < 10) {
                                   return NumberFormat("0.000", "en_US")
@@ -634,7 +634,7 @@ class _MyReportState extends State<MyReport> {
                         children: [
                           GetX<ReportController>(
                             builder: (controller) {
-                              double target = 0;
+                              num target = 0;
 
                               for (int i = 0;
                                   i < controller.monthly.length;
@@ -643,8 +643,8 @@ class _MyReportState extends State<MyReport> {
                                     target + controller.monthly[i]['cafeDrink'];
                               }
 
-                              String formatTarget(double target) {
-                                double dividedTarget = target / 1000;
+                              String formatTarget(num target) {
+                                num dividedTarget = target / 1000;
 
                                 if (target < 10) {
                                   return NumberFormat("0.000", "en_US")
