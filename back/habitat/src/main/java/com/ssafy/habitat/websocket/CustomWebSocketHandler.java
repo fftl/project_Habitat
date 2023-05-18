@@ -27,6 +27,7 @@ public class CustomWebSocketHandler implements WebSocketHandler {
         String userKey = session.getUri().getPath().split("/")[3];
         sessions.put(userKey, session);
 
+        LOGGER.info("웹소켓 연결 : "+userKey);
         session.sendMessage(new TextMessage("안녕하세요! - Habit@"));
     }
 
