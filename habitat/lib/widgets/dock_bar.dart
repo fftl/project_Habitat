@@ -18,6 +18,11 @@ class DockBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           DockBarTab(
+            tabname: "report",
+            tablocate: "/report",
+            tabicon: Icons.my_library_books_outlined,
+          ),
+          DockBarTab(
             tabname: "reward",
             tablocate: "/reward",
             tabicon: Icons.emoji_events_outlined,
