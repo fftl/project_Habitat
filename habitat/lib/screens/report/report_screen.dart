@@ -161,7 +161,8 @@ class _MyReportState extends State<MyReport> {
 
                           //요기
 
-                          xValueMapper: (IntakeData data, _) => data.date,
+                          xValueMapper: (IntakeData data, _) =>
+                              data.date.substring(data.date.length - 5),
                           yValueMapper: (IntakeData data, _) =>
                               data.waterIntake,
                           dataLabelSettings: const DataLabelSettings(
@@ -179,7 +180,8 @@ class _MyReportState extends State<MyReport> {
 
                           //요기
 
-                          xValueMapper: (IntakeData data, _) => data.date,
+                          xValueMapper: (IntakeData data, _) =>
+                              data.date.substring(data.date.length - 5),
                           yValueMapper: (IntakeData data, _) =>
                               data.caffeineIntake,
                           dataLabelSettings: const DataLabelSettings(
@@ -197,7 +199,8 @@ class _MyReportState extends State<MyReport> {
 
                           //요기
 
-                          xValueMapper: (IntakeData data, _) => data.date,
+                          xValueMapper: (IntakeData data, _) =>
+                              data.date.substring(data.date.length - 5),
                           yValueMapper: (IntakeData data, _) =>
                               data.noncaffeineIntake,
                           dataLabelSettings: const DataLabelSettings(
@@ -220,7 +223,7 @@ class _MyReportState extends State<MyReport> {
                             const MajorTickLines(color: Colors.transparent),
                         labelRotation: 305,
                         labelStyle: const TextStyle(
-                          fontSize: 8,
+                          fontSize: 10,
                         ),
                         rangePadding: ChartRangePadding.none,
                       ),
