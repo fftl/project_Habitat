@@ -42,7 +42,7 @@ class WaterController extends GetxController {
 
   drinkWater(Map<String, dynamic> waterData) {
     int drinkwater = waterData['drink'];
-    if (drinkwater < 0) {
+    if (drinkwater <= 0) {
       debugPrint("0보다 적은 양의 물은 마실 수 없습니다.");
     } else {
       postAddDrinkLog(

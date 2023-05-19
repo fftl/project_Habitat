@@ -45,11 +45,12 @@ class _LoginBridgeState extends State<LoginBridge> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
-        child: Text(
-          'loading...',
-          style: TextStyle(fontSize: 32),
+        child: SizedBox(
+          height: 180,
+          child: Image.asset('lib/assets/images/characters/blueMangWull.png'),
         ),
       ),
     );

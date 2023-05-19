@@ -7,14 +7,26 @@ import 'package:habitat/widgets/mw_line.dart';
 import 'package:sliding_up_panel2/sliding_up_panel2.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
-class RewardScreen extends StatelessWidget {
-  RewardScreen({super.key});
+class RewardScreen extends StatefulWidget {
+  const RewardScreen({super.key});
 
+  @override
+  State<RewardScreen> createState() => _RewardScreenState();
+}
+
+class _RewardScreenState extends State<RewardScreen> {
   final ScrollController scrollController = ScrollController();
 
   final PanelController panelController = PanelController();
 
   final rewardController = Get.put(RewardController());
+
+  @override
+  void initState() {
+    super.initState();
+    rewardController.onInit();
+    rewardController.refresh();
+  }
 
   @override
   Widget build(BuildContext context) {

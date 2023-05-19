@@ -3,7 +3,7 @@ import 'package:habitat/api/base_url.dart';
 void postRequestCode({
   required dynamic Function(dynamic) success,
   required Function(String error) fail,
-  dynamic body,
+  Map<String, dynamic>? body,
 }) {
   baseApi(
     path: 'friends/request/code',
