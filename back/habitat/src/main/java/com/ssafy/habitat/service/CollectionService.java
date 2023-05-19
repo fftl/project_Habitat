@@ -26,7 +26,7 @@ public class CollectionService {
         this.collectionRepository = collectionRepository;
     }
 
-    @Cacheable(value="CollectionList", key="#user.userKey")
+    //@Cacheable(value="CollectionList", key="#user.userKey")
     public List<Collection> getCollectionList(User user) {
         // 유저의 획득한 꽃 목록 조회
         LOGGER.info("getCollectionList() : 유저의 획득한 꽃 목록 조회");
@@ -36,9 +36,9 @@ public class CollectionService {
     }
 
     @Caching( evict = {
-            @CacheEvict(value="CollectionCnt", key="#newCollection.user.userKey"),
-            @CacheEvict(value="CollectionList", key="#newCollection.user.userKey"),
-            @CacheEvict(value="UserFlowerStateList", key="#newCollection.user.userKey")
+            //@CacheEvict(value="CollectionCnt", key="#newCollection.user.userKey"),
+            //@CacheEvict(value="CollectionList", key="#newCollection.user.userKey"),
+            //@CacheEvict(value="UserFlowerStateList", key="#newCollection.user.userKey")
     })
     public void addCollection(Collection newCollection) {
         // 획득한 꽃 collection 등록
@@ -46,7 +46,7 @@ public class CollectionService {
         collectionRepository.save(newCollection);
     }
 
-    @Cacheable(value="CollectionCnt", key="#user.userKey")
+    //@Cacheable(value="CollectionCnt", key="#user.userKey")
     public int getCollectionCnt(User user) {
         LOGGER.info("getCollectionCnt() : 유저의 수확한 꽃 개수 조회");
 

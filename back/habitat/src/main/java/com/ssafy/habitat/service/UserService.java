@@ -32,7 +32,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    @Cacheable(value = "User", key = "#userKey", cacheManager = "cacheManager")
+    //@Cacheable(value = "User", key = "#userKey", cacheManager = "cacheManager")
         public User getUser(String userKey) {
         LOGGER.info("getUser() : 유저키로 유저 조회하여 반환");
 
@@ -74,7 +74,7 @@ public class UserService implements UserDetailsService {
         return findUser;
     }
 
-    @CacheEvict(value="User", key="#user.userKey")
+    //@CacheEvict(value="User", key="#user.userKey")
     public User addUser(User user){
         LOGGER.info("addUser() : 새로운 유저 등록");
 

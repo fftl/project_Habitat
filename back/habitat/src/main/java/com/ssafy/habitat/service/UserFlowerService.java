@@ -37,8 +37,8 @@ public class UserFlowerService {
     }
 
     @Caching( evict = {
-            @CacheEvict(value="UnlockedUserFlower", key="#unlockedUserFlower.user.userKey"),
-            @CacheEvict(value="UserFlowerStateList", key="#user.userKey")
+            //@CacheEvict(value="UnlockedUserFlower", key="#unlockedUserFlower.user.userKey"),
+            //@CacheEvict(value="UserFlowerStateList", key="#user.userKey")
     })
     public void unlockUserFlower(UserFlower unlockedUserFlower) {
         LOGGER.info("unlockUserFlower() : 해금된 유저-꽃 관계 수정");
@@ -57,7 +57,7 @@ public class UserFlowerService {
 
 
 
-    @Cacheable(value = "UnlockedFlowerList", key="#user.userKey")
+    //@Cacheable(value = "UnlockedFlowerList", key="#user.userKey")
     public List<UserFlower> getUnlockedFlowerList(User user) {
         LOGGER.info("getUnlockedFlowerList() : 유저의 해금된 꽃 목록 반환");
 

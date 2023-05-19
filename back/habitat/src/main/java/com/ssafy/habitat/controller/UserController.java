@@ -290,6 +290,8 @@ public class UserController {
         } else {
 
             User getUser = userService.getBySocialKey(request.getSocialKey());
+
+            System.out.println("비밀번호!>> " + encoder.encode(getUser.getUserKey()));
             //여기까지 성공
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(getUser.getUserKey(), getUser.getUserKey(), AuthorityUtils.createAuthorityList("USER"));
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);

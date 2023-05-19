@@ -27,7 +27,7 @@ public class FriendService {
         this.friendRepository = friendRepository;
     }
 
-    @Cacheable(value = "FriendList", key = "#user.getUserKey()", cacheManager = "cacheManager", sync = true)
+    //@Cacheable(value = "FriendList", key = "#user.getUserKey()", cacheManager = "cacheManager", sync = true)
     public List<User> getFriendList(User user) {
         LOGGER.info("getFriendList() : 유저의 친구 목록 반환");
 
@@ -54,7 +54,7 @@ public class FriendService {
         }
     }
 
-    @CacheEvict(value = "FriendList", key = "#newFriend.myId.userKey")
+    //@CacheEvict(value = "FriendList", key = "#newFriend.myId.userKey")
     public void addFriend(Friend newFriend) {
         LOGGER.info("addFriend() : 새로운 친구관계 등록");
 
