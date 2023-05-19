@@ -296,12 +296,12 @@ public class UserController {
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(getUser.getUserKey(), getUser.getUserKey(), AuthorityUtils.createAuthorityList("USER"));
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-            tokenInfo = tokenProvider.createToken(authentication);
-            getUser.setRefreshKey(tokenInfo.getRefreshToken());
+//            tokenInfo = tokenProvider.createToken(authentication);
+//            getUser.setRefreshKey(tokenInfo.getRefreshToken());
             userService.addUser(getUser);
 
-            httpServletResponse.setHeader("AccessToken", tokenInfo.getAccessToken());
-            httpServletResponse.setHeader("RefreshToken", tokenInfo.getRefreshToken());
+            httpServletResponse.setHeader("AccessToken", getUser.getRefreshKey());
+            httpServletResponse.setHeader("RefreshToken", getUser.getRefreshKey());
 
             HashMap<String, String> response = new HashMap<>();
             response.put("userKey", getUser.getUserKey());
