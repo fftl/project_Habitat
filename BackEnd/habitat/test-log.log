@@ -339,3 +339,266 @@ java.lang.IllegalArgumentException: A granted authority textual representation i
 2023-05-19 11:23:41.943  INFO 12284 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-05-19 11:23:41.950  INFO 12284 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2023-05-19 11:23:42.355  INFO 12284 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-22 09:47:15.898  INFO 12628 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 12628 (C:\lee\my\S08P31A704\BackEnd\habitat\build\classes\java\main started by SSAFY in C:\lee\my\S08P31A704\BackEnd\habitat)
+2023-05-22 09:47:15.902  INFO 12628 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-22 09:47:15.956  INFO 12628 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-22 09:47:15.957  INFO 12628 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-22 09:47:16.609  INFO 12628 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-22 09:47:16.609  INFO 12628 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-22 09:47:16.788  INFO 12628 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 170 ms. Found 12 JPA repository interfaces.
+2023-05-22 09:47:17.290  INFO 12628 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#6efc4ee4' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 09:47:17.291  INFO 12628 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#adc40cc' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 09:47:17.296  INFO 12628 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#68e87459' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 09:47:17.298  INFO 12628 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 09:47:17.298  INFO 12628 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 09:47:18.023  INFO 12628 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-22 09:47:18.034  INFO 12628 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-22 09:47:18.034  INFO 12628 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-22 09:47:18.115  INFO 12628 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-22 09:47:18.116  INFO 12628 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2159 ms
+2023-05-22 09:47:18.313  INFO 12628 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-22 09:47:18.378  INFO 12628 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-22 09:47:18.570  INFO 12628 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-22 09:47:18.691  INFO 12628 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-22 09:47:19.112  INFO 12628 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-22 09:47:19.146  INFO 12628 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-22 09:47:20.385  INFO 12628 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-22 09:47:20.403  INFO 12628 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-22 09:47:21.569  WARN 12628 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-22 09:47:21.892  INFO 12628 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@62076b5b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@591c89ab, org.springframework.security.web.context.SecurityContextPersistenceFilter@6f8adb6f, org.springframework.security.web.header.HeaderWriterFilter@7d43f3bb, org.springframework.security.web.authentication.logout.LogoutFilter@2badae8d, com.ssafy.habitat.config.JwtFilter@19431be3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1b404682, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@45bb7790, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@11a743a6, org.springframework.security.web.session.SessionManagementFilter@139b1409, org.springframework.security.web.access.ExceptionTranslationFilter@1dc3e9ad, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@62d7c65]
+2023-05-22 09:47:21.898  WARN 12628 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-22 09:47:21.899  INFO 12628 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-22 09:47:21.928  INFO 12628 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-22 09:47:22.432  INFO 12628 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-22 09:47:22.790  INFO 12628 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-22 09:47:22.792  INFO 12628 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-22 09:47:22.812  INFO 12628 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-22 09:47:22.845  INFO 12628 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-22 09:47:23.017  INFO 12628 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 7.519 seconds (JVM running for 8.039)
+2023-05-22 09:47:46.185  INFO 12628 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-22 09:47:46.186  INFO 12628 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-22 09:47:46.187  INFO 12628 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-22 09:50:19.530  INFO 12628 --- [http-nio-8080-exec-5] c.s.habitat.controller.UserController    : login() : 유저 로그인
+2023-05-22 09:50:19.538  INFO 12628 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.UserService    : socialKeyCheck() : 소셜키의 유효성 검사
+2023-05-22 09:50:20.187  INFO 12628 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.UserService    : userKeyCheck() : 유저키의 유효성 검사
+2023-05-22 09:50:20.275  INFO 12628 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.UserService    : friendCodeCheck() : 친구코드의 유효성 검사
+2023-05-22 09:50:20.371  INFO 12628 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.UserService    : addUser() : 새로운 유저 등록
+2023-05-22 09:50:20.582  INFO 12628 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-22 09:50:20.601  INFO 12628 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.FlowerService  : getFlowerList() : 모든 꽃 목록 반환
+2023-05-22 09:50:20.658  INFO 12628 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:50:20.713  INFO 12628 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:50:20.765  INFO 12628 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:50:20.803  INFO 12628 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:50:20.840  INFO 12628 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:50:20.873  INFO 12628 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:50:20.915  INFO 12628 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:50:20.950  INFO 12628 --- [http-nio-8080-exec-5] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:50:20.988  INFO 12628 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.FlowerService  : getFlower() : 꽃 객체 반환
+2023-05-22 09:50:21.023  INFO 12628 --- [http-nio-8080-exec-5] c.ssafy.habitat.service.PlantingService  : addPlanting() : 새로운 키우기 꽃 등록
+2023-05-22 09:50:21.143  INFO 12628 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.UserService    : loadUserByUsername() : 유저 키로 조회
+2023-05-22 09:50:21.354  INFO 12628 --- [http-nio-8080-exec-5] com.ssafy.habitat.service.UserService    : addUser() : 새로운 유저 등록
+2023-05-22 09:52:23.998  INFO 12628 --- [http-nio-8080-exec-7] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-22 09:52:24.000  INFO 12628 --- [http-nio-8080-exec-7] com.ssafy.habitat.config.JwtFilter       : Security Context에 'm1clMkWjCTTxxRt' 인증 정보를 저장했습니다, uri: /api/users
+2023-05-22 09:52:24.002  INFO 12628 --- [http-nio-8080-exec-7] c.s.habitat.controller.UserController    : getUser() : 유저 조회
+2023-05-22 09:52:24.019  INFO 12628 --- [http-nio-8080-exec-7] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-22 09:56:11.683  INFO 12628 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-22 09:56:11.684  INFO 12628 --- [http-nio-8080-exec-1] com.ssafy.habitat.config.JwtFilter       : Security Context에 'dewd63oFfd4r5UN' 인증 정보를 저장했습니다, uri: /api/users
+2023-05-22 09:56:11.685  INFO 12628 --- [http-nio-8080-exec-1] c.s.habitat.controller.UserController    : getUser() : 유저 조회
+2023-05-22 09:56:11.726  INFO 12628 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-22 09:56:57.495  INFO 12628 --- [http-nio-8080-exec-8] c.s.habitat.controller.UserController    : login() : 유저 로그인
+2023-05-22 09:56:57.495  INFO 12628 --- [http-nio-8080-exec-8] com.ssafy.habitat.service.UserService    : socialKeyCheck() : 소셜키의 유효성 검사
+2023-05-22 09:56:57.561  INFO 12628 --- [http-nio-8080-exec-8] com.ssafy.habitat.service.UserService    : userKeyCheck() : 유저키의 유효성 검사
+2023-05-22 09:56:57.664  INFO 12628 --- [http-nio-8080-exec-8] com.ssafy.habitat.service.UserService    : friendCodeCheck() : 친구코드의 유효성 검사
+2023-05-22 09:56:57.745  INFO 12628 --- [http-nio-8080-exec-8] com.ssafy.habitat.service.UserService    : addUser() : 새로운 유저 등록
+2023-05-22 09:56:57.955  INFO 12628 --- [http-nio-8080-exec-8] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-22 09:56:58.020  INFO 12628 --- [http-nio-8080-exec-8] com.ssafy.habitat.service.FlowerService  : getFlowerList() : 모든 꽃 목록 반환
+2023-05-22 09:56:58.176  INFO 12628 --- [http-nio-8080-exec-8] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:56:58.296  INFO 12628 --- [http-nio-8080-exec-8] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:56:58.456  INFO 12628 --- [http-nio-8080-exec-8] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:56:58.652  INFO 12628 --- [http-nio-8080-exec-8] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:56:58.829  INFO 12628 --- [http-nio-8080-exec-8] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:56:58.880  INFO 12628 --- [http-nio-8080-exec-8] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:56:59.028  INFO 12628 --- [http-nio-8080-exec-8] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:56:59.152  INFO 12628 --- [http-nio-8080-exec-8] c.s.habitat.service.UserFlowerService    : addUserFlower() : 새로운 유저-꽃 관계 등록
+2023-05-22 09:56:59.260  INFO 12628 --- [http-nio-8080-exec-8] com.ssafy.habitat.service.FlowerService  : getFlower() : 꽃 객체 반환
+2023-05-22 09:56:59.360  INFO 12628 --- [http-nio-8080-exec-8] c.ssafy.habitat.service.PlantingService  : addPlanting() : 새로운 키우기 꽃 등록
+2023-05-22 09:56:59.455  INFO 12628 --- [http-nio-8080-exec-8] com.ssafy.habitat.service.UserService    : loadUserByUsername() : 유저 키로 조회
+2023-05-22 09:56:59.691  INFO 12628 --- [http-nio-8080-exec-8] com.ssafy.habitat.service.UserService    : addUser() : 새로운 유저 등록
+2023-05-22 09:57:49.903  INFO 12628 --- [http-nio-8080-exec-4] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-22 09:57:49.904  INFO 12628 --- [http-nio-8080-exec-4] com.ssafy.habitat.config.JwtFilter       : Security Context에 'LTKstWF2UX0CcQM' 인증 정보를 저장했습니다, uri: /api/users
+2023-05-22 09:57:49.905  INFO 12628 --- [http-nio-8080-exec-4] c.s.habitat.controller.UserController    : getUser() : 유저 조회
+2023-05-22 09:57:49.920  INFO 12628 --- [http-nio-8080-exec-4] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-22 09:59:00.258  INFO 12628 --- [http-nio-8080-exec-9] c.s.habitat.controller.UserController    : login() : 유저 로그인
+2023-05-22 09:59:00.259  INFO 12628 --- [http-nio-8080-exec-9] com.ssafy.habitat.service.UserService    : socialKeyCheck() : 소셜키의 유효성 검사
+2023-05-22 09:59:00.290  INFO 12628 --- [http-nio-8080-exec-9] com.ssafy.habitat.service.UserService    : getBySocialKey() : 소셜키로 유저 조회하여 반환
+2023-05-22 09:59:00.356  INFO 12628 --- [http-nio-8080-exec-9] com.ssafy.habitat.service.UserService    : loadUserByUsername() : 유저 키로 조회
+2023-05-22 09:59:00.474  INFO 12628 --- [http-nio-8080-exec-9] com.ssafy.habitat.service.UserService    : addUser() : 새로운 유저 등록
+2023-05-22 09:59:19.869  INFO 2816 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 2816 (C:\lee\my\S08P31A704\BackEnd\habitat\build\classes\java\main started by SSAFY in C:\lee\my\S08P31A704\BackEnd\habitat)
+2023-05-22 09:59:19.878  INFO 2816 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-22 09:59:19.931  INFO 2816 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-22 09:59:19.931  INFO 2816 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-22 09:59:20.546  INFO 2816 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-22 09:59:20.547  INFO 2816 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-22 09:59:20.696  INFO 2816 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 142 ms. Found 12 JPA repository interfaces.
+2023-05-22 09:59:21.173  INFO 2816 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#1d730890' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 09:59:21.174  INFO 2816 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#1a457684' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 09:59:21.179  INFO 2816 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#200acdaf' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 09:59:21.181  INFO 2816 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 09:59:21.181  INFO 2816 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 09:59:21.747  INFO 2816 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-22 09:59:21.757  INFO 2816 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-22 09:59:21.758  INFO 2816 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-22 09:59:21.838  INFO 2816 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-22 09:59:21.839  INFO 2816 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1907 ms
+2023-05-22 09:59:22.024  INFO 2816 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-22 09:59:22.073  INFO 2816 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-22 09:59:22.237  INFO 2816 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-22 09:59:22.339  INFO 2816 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-22 09:59:22.661  INFO 2816 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-22 09:59:22.689  INFO 2816 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-22 09:59:23.919  INFO 2816 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-22 09:59:23.928  INFO 2816 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-22 09:59:25.009  WARN 2816 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-22 09:59:25.230  INFO 2816 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5fb62ed, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6c0f87fa, org.springframework.security.web.context.SecurityContextPersistenceFilter@38bc3edd, org.springframework.security.web.header.HeaderWriterFilter@4dafc13c, org.springframework.security.web.authentication.logout.LogoutFilter@297c0ff5, com.ssafy.habitat.config.JwtFilter@441cbc36, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7ad191de, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@69ba8ed1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5ddfde12, org.springframework.security.web.session.SessionManagementFilter@1f51969a, org.springframework.security.web.access.ExceptionTranslationFilter@5fc8c634, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7c393503]
+2023-05-22 09:59:25.240  WARN 2816 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-22 09:59:25.241  INFO 2816 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-22 09:59:25.264  INFO 2816 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-22 09:59:25.636  INFO 2816 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-22 09:59:25.913  INFO 2816 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-22 09:59:25.914  INFO 2816 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-22 09:59:25.933  INFO 2816 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-22 09:59:25.961  INFO 2816 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-22 09:59:26.101  INFO 2816 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 6.602 seconds (JVM running for 7.084)
+2023-05-22 10:03:00.335  INFO 2816 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-22 10:03:00.336  INFO 2816 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-22 10:03:00.337  INFO 2816 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-22 10:03:52.970  INFO 2816 --- [http-nio-8080-exec-10] c.s.habitat.controller.UserController    : login() : 유저 로그인
+2023-05-22 10:03:52.976  INFO 2816 --- [http-nio-8080-exec-10] com.ssafy.habitat.service.UserService    : socialKeyCheck() : 소셜키의 유효성 검사
+2023-05-22 10:03:53.115  INFO 2816 --- [http-nio-8080-exec-10] com.ssafy.habitat.service.UserService    : getBySocialKey() : 소셜키로 유저 조회하여 반환
+2023-05-22 10:03:53.243  INFO 2816 --- [http-nio-8080-exec-10] com.ssafy.habitat.service.UserService    : loadUserByUsername() : 유저 키로 조회
+2023-05-22 10:03:53.392  INFO 2816 --- [http-nio-8080-exec-10] com.ssafy.habitat.service.UserService    : addUser() : 새로운 유저 등록
+2023-05-22 10:04:13.243  INFO 2816 --- [http-nio-8080-exec-3] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-22 10:04:13.251 ERROR 2816 --- [http-nio-8080-exec-3] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+
+java.lang.IllegalArgumentException: A granted authority textual representation is required
+	at org.springframework.util.Assert.hasText(Assert.java:289) ~[spring-core-5.3.27.jar:5.3.27]
+	at org.springframework.security.core.authority.SimpleGrantedAuthority.<init>(SimpleGrantedAuthority.java:39) ~[spring-security-core-5.7.8.jar:5.7.8]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195) ~[na:na]
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474) ~[na:na]
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:913) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:578) ~[na:na]
+	at com.ssafy.habitat.config.TokenProvider.getAuthentication(TokenProvider.java:100) ~[main/:na]
+	at com.ssafy.habitat.config.JwtFilter.accessProcess(JwtFilter.java:118) ~[main/:na]
+	at com.ssafy.habitat.config.JwtFilter.doFilterInternal(JwtFilter.java:60) ~[main/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.27.jar:5.3.27]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.27.jar:5.3.27]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:112) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:82) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.27.jar:5.3.27]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.27.jar:5.3.27]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:346) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:221) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:186) ~[spring-security-web-5.7.8.jar:5.7.8]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:354) ~[spring-web-5.3.27.jar:5.3.27]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:267) ~[spring-web-5.3.27.jar:5.3.27]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-5.3.27.jar:5.3.27]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.27.jar:5.3.27]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-5.3.27.jar:5.3.27]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.27.jar:5.3.27]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201) ~[spring-web-5.3.27.jar:5.3.27]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:117) ~[spring-web-5.3.27.jar:5.3.27]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:178) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:153) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:481) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:389) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:926) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1791) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.74.jar:9.0.74]
+	at java.base/java.lang.Thread.run(Thread.java:829) ~[na:na]
+
+2023-05-22 10:09:44.795  INFO 2816 --- [http-nio-8080-exec-7] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-22 10:09:44.796  INFO 2816 --- [http-nio-8080-exec-7] com.ssafy.habitat.config.JwtFilter       : Security Context에 'dewd63oFfd4r5UN' 인증 정보를 저장했습니다, uri: /api/users
+2023-05-22 10:09:44.797  INFO 2816 --- [http-nio-8080-exec-7] c.s.habitat.controller.UserController    : getUser() : 유저 조회
+2023-05-22 10:09:44.815  INFO 2816 --- [http-nio-8080-exec-7] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-22 10:15:25.464  INFO 2816 --- [http-nio-8080-exec-10] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-22 10:15:25.466  INFO 2816 --- [http-nio-8080-exec-10] com.ssafy.habitat.config.JwtFilter       : Security Context에 'dewd63oFfd4r5UN' 인증 정보를 저장했습니다, uri: /api/users
+2023-05-22 10:15:25.467  INFO 2816 --- [http-nio-8080-exec-10] c.s.habitat.controller.UserController    : getUser() : 유저 조회
+2023-05-22 10:15:25.484  INFO 2816 --- [http-nio-8080-exec-10] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
+2023-05-22 10:33:08.997  INFO 3920 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Starting HabitatApplication using Java 11.0.19 on dmlee with PID 3920 (C:\lee\my\S08P31A704\BackEnd\habitat\build\classes\java\main started by SSAFY in C:\lee\my\S08P31A704\BackEnd\habitat)
+2023-05-22 10:33:09.000  INFO 3920 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : No active profile set, falling back to 1 default profile: "default"
+2023-05-22 10:33:09.048  INFO 3920 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-22 10:33:09.048  INFO 3920 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-22 10:33:09.658  INFO 3920 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-05-22 10:33:09.658  INFO 3920 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-22 10:33:09.811  INFO 3920 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 144 ms. Found 12 JPA repository interfaces.
+2023-05-22 10:33:10.280  INFO 3920 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#67d121e8' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 10:33:10.281  INFO 3920 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#4306b533' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 10:33:10.286  INFO 3920 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean '(inner bean)#7000d257' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 10:33:10.288  INFO 3920 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 10:33:10.288  INFO 3920 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2023-05-22 10:33:10.849  INFO 3920 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-22 10:33:10.859  INFO 3920 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-22 10:33:10.859  INFO 3920 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.74]
+2023-05-22 10:33:10.948  INFO 3920 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-22 10:33:10.948  INFO 3920 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1899 ms
+2023-05-22 10:33:11.135  INFO 3920 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-22 10:33:11.188  INFO 3920 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.15.Final
+2023-05-22 10:33:11.347  INFO 3920 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2023-05-22 10:33:11.435  INFO 3920 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-22 10:33:11.800  INFO 3920 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-22 10:33:11.831  INFO 3920 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2023-05-22 10:33:13.107  INFO 3920 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-22 10:33:13.117  INFO 3920 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-22 10:33:14.189  WARN 3920 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-22 10:33:14.418  INFO 3920 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@41af4bf, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@505f8f24, org.springframework.security.web.context.SecurityContextPersistenceFilter@1262866a, org.springframework.security.web.header.HeaderWriterFilter@477ebf94, org.springframework.security.web.authentication.logout.LogoutFilter@46394b35, com.ssafy.habitat.config.JwtFilter@611671af, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@34b7e08b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@dace8da, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@58fc0a92, org.springframework.security.web.session.SessionManagementFilter@3510f46a, org.springframework.security.web.access.ExceptionTranslationFilter@61abe435, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5680999d]
+2023-05-22 10:33:14.425  WARN 3920 --- [restartedMain] o.s.s.c.a.web.builders.WebSecurity       : You are asking Spring Security to ignore Ant [pattern='/favicon.ico']. This is not recommended -- please use permitAll via HttpSecurity#authorizeHttpRequests instead.
+2023-05-22 10:33:14.425  INFO 3920 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will not secure Ant [pattern='/favicon.ico']
+2023-05-22 10:33:14.451  INFO 3920 --- [restartedMain] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2023-05-22 10:33:14.821  INFO 3920 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-22 10:33:15.098  INFO 3920 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-22 10:33:15.099  INFO 3920 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2023-05-22 10:33:15.117  INFO 3920 --- [restartedMain] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2023-05-22 10:33:15.148  INFO 3920 --- [restartedMain] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2023-05-22 10:33:15.285  INFO 3920 --- [restartedMain] com.ssafy.habitat.HabitatApplication     : Started HabitatApplication in 6.662 seconds (JVM running for 7.137)
+2023-05-22 10:35:31.172  INFO 3920 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-05-22 10:35:31.173  INFO 3920 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-05-22 10:35:31.175  INFO 3920 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2023-05-22 10:35:31.244  INFO 3920 --- [http-nio-8080-exec-1] c.s.habitat.controller.UserController    : login() : 유저 로그인
+2023-05-22 10:35:31.253  INFO 3920 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.UserService    : socialKeyCheck() : 소셜키의 유효성 검사
+2023-05-22 10:35:31.442  INFO 3920 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.UserService    : getBySocialKey() : 소셜키로 유저 조회하여 반환
+2023-05-22 10:35:31.595  INFO 3920 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.UserService    : loadUserByUsername() : 유저 키로 조회
+2023-05-22 10:35:31.823  INFO 3920 --- [http-nio-8080-exec-1] com.ssafy.habitat.service.UserService    : addUser() : 새로운 유저 등록
+2023-05-22 10:35:48.917  INFO 3920 --- [http-nio-8080-exec-3] com.ssafy.habitat.config.JwtFilter       : 일반 요청에 대해 토큰을 검증합니다.
+2023-05-22 10:35:48.920  INFO 3920 --- [http-nio-8080-exec-3] com.ssafy.habitat.config.JwtFilter       : Security Context에 'kH0SB1qybMCfUd4' 인증 정보를 저장했습니다, uri: /api/users
+2023-05-22 10:35:48.922  INFO 3920 --- [http-nio-8080-exec-3] c.s.habitat.controller.UserController    : getUser() : 유저 조회
+2023-05-22 10:35:48.939  INFO 3920 --- [http-nio-8080-exec-3] com.ssafy.habitat.service.UserService    : getUser() : 유저키로 유저 조회하여 반환
