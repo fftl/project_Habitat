@@ -133,6 +133,7 @@ class _MyReportState extends State<MyReport> {
                       title: ChartTitle(
                         text: "나의 물마시기 기록",
                         textStyle: const TextStyle(
+                          fontFamily: "SeoulNamsan",
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
