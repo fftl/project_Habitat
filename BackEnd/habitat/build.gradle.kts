@@ -84,6 +84,12 @@ dependencies {
 	implementation ("com.fasterxml.jackson.core:jackson-databind")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
 
+	//for firebase
+	implementation("com.google.firebase:firebase-admin:9.1.1")
+	implementation("com.squareup.okhttp3:okhttp:4.10.0")
+
+
+
 }
 
 tasks.withType<Test> {
