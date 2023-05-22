@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:habitat/controller/report_controller.dart';
 import 'package:habitat/controller/reward_controller.dart';
 
 class DockBar extends StatelessWidget {
@@ -7,7 +8,6 @@ class DockBar extends StatelessWidget {
 
   final rewardController = Get.put(RewardController());
 
-class _DockBarState extends State<DockBar> {
   final reportController = Get.put(ReportController());
 
   @override
@@ -33,27 +33,27 @@ class _DockBarState extends State<DockBar> {
               tabicon: Icons.my_library_books_outlined,
             ),
           ),
-          DockBarTab(
+          const DockBarTab(
             tabname: "report",
             tablocate: "/report",
             tabicon: Icons.my_library_books_outlined,
           ),
-          DockBarTab(
+          const DockBarTab(
             tabname: "reward",
             tablocate: "/reward",
             tabicon: Icons.emoji_events_outlined,
           ),
-          DockBarTab(
+          const DockBarTab(
             tabname: "home",
             tablocate: "/main",
             tabicon: Icons.home_rounded,
           ),
-          DockBarTab(
+          const DockBarTab(
             tabname: "social",
             tablocate: "/social",
             tabicon: Icons.people_alt_outlined,
           ),
-          DockBarTab(
+          const DockBarTab(
             tabname: "setting",
             tablocate: "/setting",
             tabicon: Icons.settings_outlined,
@@ -62,7 +62,6 @@ class _DockBarState extends State<DockBar> {
       ),
     );
   }
-},
 }
 
 class DockBarTab extends StatelessWidget {
