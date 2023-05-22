@@ -20,7 +20,7 @@ baseApi({
   Map<String, dynamic>? body,
 }) async {
   String url = "http://k8a704.p.ssafy.io:8081/api/$path";
-  Future<String?> accessToken = storage.read(key: "accessToken");
+  Future<String?> accessToken = storage.read(key: "refreshToken");
   // Future<String?> refreshToken = storage.read(key: "refreshToken");
   String? authorization = await accessToken;
 

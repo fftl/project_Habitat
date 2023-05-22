@@ -16,12 +16,13 @@ class CoasterController extends GetxController {
   int time = 0;
   String type = '';
   RxInt water = 0.obs;
+  int cnt = 0;
 
   late BluetoothDevice device;
 
   void scanDevice() async {
     // 스캔 결과 초기화
-
+    cnt = 0;
     coasterStatus.value = '연결 중...';
     //스캔 시작 제한시간 5초
     await flutterBlue.startScan(timeout: const Duration(seconds: 5));
@@ -79,6 +80,10 @@ class CoasterController extends GetxController {
                   if (notifyDatas.containsKey(c.uuid.toString())) {
                     // notify 데이터가 존재한다면
                     if (notifyDatas[c.uuid.toString()]!.isNotEmpty) {
+                      cnt++;
+                      if (cnt > 50) {
+                        disconnectDevice();
+                      }
                       if (notifyDatas[c.uuid.toString()]!.contains('\n')) {
                         debugPrint('누적된 블루투스 데이터가 들어옵니다');
                         coasterData.value = notifyDatas[c.uuid.toString()]!;

@@ -26,9 +26,6 @@ class _LoginScreenState extends State<LoginScreen> {
       Response responseData = await futuerMapData;
       var bodyData = jsonDecode(responseData.body.toString());
       var headerData = responseData.headers;
-      debugPrint("accessToken : ${headerData['accessToken']}");
-      debugPrint("refreshToken : ${headerData['refreshToken']}");
-      debugPrint("userKey : ${headerData['userKey']}");
       await LoginScreen.storage.write(
         key: 'accessToken',
         value: headerData['accesstoken'],
@@ -41,6 +38,10 @@ class _LoginScreenState extends State<LoginScreen> {
         key: 'userKey',
         value: bodyData['userKey'],
       );
+      debugPrint("headerData : $headerData");
+      debugPrint("accessToken : ${headerData['accesstoken']}");
+      debugPrint("refreshToken : ${headerData['refreshtoken']}");
+      debugPrint("userKey : ${headerData['userKey']}");
       return true;
     } else {
       return false;
