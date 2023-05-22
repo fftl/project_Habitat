@@ -12,53 +12,64 @@ class MainPanelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetX<WaterController>(builder: (controller) {
-      if (controller.waterlog.isNotEmpty) {
-        return Column(
-          children: [
-            const SizedBox(
-              height: 50,
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Text(
-                  "water log",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.w600,
+    return GetX<WaterController>(
+      builder: (controller) {
+        if (controller.waterlog.isNotEmpty) {
+          return Column(
+            children: [
+              const SizedBox(
+                height: 50,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    "water log",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 350,
-              child: ListView.separated(
-                padding: const EdgeInsets.symmetric(horizontal: 60),
-                controller: scrollController,
-                itemCount: controller.waterlog.length,
-                itemBuilder: (context, index) {
-                  return WaterLog(
-                      drink: controller.waterlog[index]['drink'],
-                      drinkType: controller.waterlog[index]['drinkType'],
-                      createdAt: controller.waterlog[index]['createdAt']);
-                },
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 10,
+              SizedBox(
+                height: 350,
+                child: ListView.separated(
+                  padding: const EdgeInsets.symmetric(horizontal: 60),
+                  controller: scrollController,
+                  itemCount: controller.waterlog.length,
+                  itemBuilder: (context, index) {
+                    return WaterLog(
+                        drink: controller.waterlog[index]['drink'],
+                        drinkType: controller.waterlog[index]['drinkType'],
+                        createdAt: controller.waterlog[index]['createdAt']);
+                  },
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 10,
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+        return const Padding(
+          padding: EdgeInsets.only(top: 20),
+          child: SizedBox(
+            height: 50,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Text(
+                "water log",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
-          ],
+          ),
         );
-      }
-      return const Text(
-        "non data",
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.w600,
-        ),
-      );
-    });
+      },
+    );
   }
 }
 

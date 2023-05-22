@@ -105,9 +105,11 @@ class _MainScreenState extends State<MainScreen> {
                           Get.find<WaterController>();
                       RewardController rewardController =
                           Get.find<RewardController>();
+
+                      int coasterWaterData = controller.water.value;
                       waterController.drinkWater({
-                        "drink": controller.water.value,
-                        "drinkType": controller.type,
+                        "drink": coasterWaterData,
+                        "drinkType": 'w',
                       });
                       rewardcontroller.flowerConllectionUpdate();
                       rewardController.flowerInfoUpdate();

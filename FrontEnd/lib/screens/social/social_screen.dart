@@ -7,9 +7,14 @@ import 'package:habitat/screens/social/friend_list.dart';
 import 'package:habitat/screens/social/friend_request_list.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 
-class SocialScreen extends StatelessWidget {
-  SocialScreen({super.key});
+class SocialScreen extends StatefulWidget {
+  const SocialScreen({super.key});
 
+  @override
+  State<SocialScreen> createState() => _SocialScreenState();
+}
+
+class _SocialScreenState extends State<SocialScreen> {
   final ScrollController scrollController = ScrollController();
 
   final socialController = Get.put(SocialController());
@@ -17,6 +22,13 @@ class SocialScreen extends StatelessWidget {
   TextEditingController tec = TextEditingController();
 
   onSubmitButton() {}
+
+  @override
+  void initState() {
+    super.initState();
+    socialController.onInit();
+    socialController.refresh();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +127,7 @@ class SocialScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           postRequestCode(
-                              body: tec.text,
+                              body: {'friendCode': tec.text},
                               success: (response) {
                                 debugPrint("전송성공 : $response");
                               },
