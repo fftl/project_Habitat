@@ -67,8 +67,9 @@ class _MwLineState extends State<MwLine> {
           ),
           IconButton(
             onPressed: onChangeLine,
-            icon: Image.asset('lib/assets/images/characters/blueMangWull.png'),
-            iconSize: 52,
+            icon: Image.asset(
+                'lib/assets/images/characters/blueDoubleLineMangWull.png'),
+            iconSize: 58,
             padding: const EdgeInsets.only(left: 18),
           )
         ],

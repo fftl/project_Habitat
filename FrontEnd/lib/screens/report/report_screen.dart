@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habitat/widgets/mw_line.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:habitat/widgets/dock_bar.dart';
 import 'package:habitat/screens/settingscreen/modify_goal_screen.dart';
@@ -91,6 +92,13 @@ class _MyReportState extends State<MyReport> {
       ),
       child: ListView(
         children: [
+          const SizedBox(
+            height: 52,
+          ),
+          const MwLine(),
+          const SizedBox(
+            height: 10,
+          ),
           Align(
             alignment: Alignment.center,
             child: Container(
@@ -133,6 +141,7 @@ class _MyReportState extends State<MyReport> {
                       title: ChartTitle(
                         text: "나의 물마시기 기록",
                         textStyle: const TextStyle(
+                          fontFamily: "SeoulNamsan",
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),

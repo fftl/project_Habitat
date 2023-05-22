@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:habitat/controller/coaster_controller.dart';
 import 'package:habitat/controller/social_controller.dart';
@@ -106,35 +107,54 @@ class _MainScreenState extends State<MainScreen> {
                       RewardController rewardController =
                           Get.find<RewardController>();
 
-                      int coasterWaterData = controller.water.value;
-                      waterController.drinkWater({
-                        "drink": coasterWaterData,
-                        "drinkType": 'w',
-                      });
-                      rewardcontroller.flowerConllectionUpdate();
-                      rewardController.flowerInfoUpdate();
-                      return Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(180),
-                            color: controller.connectDeviceState.value
-                                ? Colors.blue
-                                : Colors.blueGrey.shade200),
-                        margin: const EdgeInsets.only(right: 42, top: 12),
-                        child: IconButton(
-                          onPressed: () {
-                            if (controller.connectDeviceState.value) {
-                              controller.disconnectDevice();
-                            } else {
-                              controller.scanDevice();
-                            }
+                      if (controller.connectDataState.value) {
+                        int coasterWaterData = controller.water.value;
+                        String coasterTypeData = controller.type;
+                        waterController.drinkWater({
+                          "drink": coasterWaterData,
+                          "drinkType": coasterTypeData,
+                        });
+                        rewardcontroller.flowerConllectionUpdate();
+                        rewardController.flowerInfoUpdate();
+                      }
+
+                      if (controller.coasterStatus.value == "standby") {
+                        return SpinKitFadingCircle(
+                          itemBuilder: (BuildContext context, int index) {
+                            return DecoratedBox(
+                              decoration: BoxDecoration(
+                                color: index.isEven ? Colors.red : Colors.green,
+                              ),
+                            );
                           },
-                          icon: Icon(Icons.bluetooth_outlined,
-                              size: 28,
-                              color: controller.connectDeviceState.value
-                                  ? Colors.black
-                                  : Colors.grey.shade800),
-                        ),
-                      );
+                        );
+                      } else {
+                        return Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(180),
+                              color: controller.connectDeviceState.value ==
+                                      "connect"
+                                  ? Colors.blue
+                                  : Colors.blueGrey.shade200),
+                          margin: const EdgeInsets.only(right: 42, top: 12),
+                          child: IconButton(
+                            onPressed: () {
+                              if (controller.connectDeviceState.value ==
+                                  "connect") {
+                                controller.disconnectDevice();
+                              } else {
+                                controller.scanDevice();
+                              }
+                            },
+                            icon: Icon(Icons.bluetooth_outlined,
+                                size: 28,
+                                color: controller.connectDeviceState.value ==
+                                        "connect"
+                                    ? Colors.black
+                                    : Colors.grey.shade800),
+                          ),
+                        );
+                      }
                     },
                   ),
                 ],

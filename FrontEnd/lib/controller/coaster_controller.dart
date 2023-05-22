@@ -11,7 +11,9 @@ class CoasterController extends GetxController {
 
   RxString coasterStatus = '연결 대기중'.obs;
   RxString coasterData = '데이터 아무것도 없다'.obs;
-  RxBool connectDeviceState = false.obs;
+  RxString connectDeviceState = "disconnect".obs;
+  // disconnect, standby, connect
+  RxBool connectDataState = false.obs;
 
   int time = 0;
   String type = '';
@@ -24,6 +26,8 @@ class CoasterController extends GetxController {
     // 스캔 결과 초기화
     cnt = 0;
     coasterStatus.value = '연결 중...';
+    // 연결상태 : 대기
+    connectDeviceState.value = "standby";
     //스캔 시작 제한시간 5초
     await flutterBlue.startScan(timeout: const Duration(seconds: 5));
     // 스캔 결과 할당
@@ -34,7 +38,7 @@ class CoasterController extends GetxController {
           if (element.device.name == '랼랴랴') {
             coasterStatus.value = '률류 연결!!!';
             device = element.device;
-            connectDeviceState.value = true;
+            connectDeviceState.value = "connect";
             await connectDevice();
             return;
           }
@@ -42,6 +46,7 @@ class CoasterController extends GetxController {
         coasterStatus.value = '블루투스를 찾을 수 없습니다.';
       },
     );
+    connectDeviceState.value = "disconnect";
   }
 
   connectDevice() async {
@@ -86,6 +91,7 @@ class CoasterController extends GetxController {
                       }
                       if (notifyDatas[c.uuid.toString()]!.contains('\n')) {
                         debugPrint('누적된 블루투스 데이터가 들어옵니다');
+                        connectDataState.value = true;
                         coasterData.value = notifyDatas[c.uuid.toString()]!;
                       } else {
                         coasterData.value = bluetoothDataParsing(
@@ -98,6 +104,7 @@ class CoasterController extends GetxController {
                 debugPrint('error ${c.uuid} $e');
               }
             }
+            connectDataState.value = false;
           }
         }
       }
@@ -107,7 +114,7 @@ class CoasterController extends GetxController {
   void disconnectDevice() {
     try {
       device.disconnect();
-      connectDeviceState.value = false;
+      connectDeviceState.value = "disconnect";
     } catch (e) {
       debugPrint("연결 해제 오류");
     }
