@@ -2,7 +2,7 @@
 #include <Adafruit_NeoPixel.h>
 //고정적으로 사용할 내용을 미리 선언
 #define LED_PIN 12     //네오픽셀에 신호를 줄 핀번호
-#define LED_COUNT 9  //아두이노에 연결된 네오픽셀의 개수
+#define LED_COUNT 8  //아두이노에 연결된 네오픽셀의 개수
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_RGBW + NEO_KHZ800);
 void colorWipe(uint32_t color, int wait, int gauge);
 void rainbow(int wait, int num);
@@ -10,18 +10,17 @@ void rainbow(int wait, int num);
 
 ////---------압력센서---------////
 const int pressSensor = 26;    // SIG를 26번 핀에 연결
-float init_water=0;
-float init_coffee=0;
-float init_noncoffee=0;
-float drink_before=0;
-float drink_now=0;
-int changeliter=0;
+// int init_water=0;
+// int init_coffee=0;
+// int init_noncoffee=0;
+int drink_before=0;
+int drink_now=0;
 int total_drink=0;
 int sensing_flag = 0;
 int ble_send=0; // 데이터 전송 관련 Flag
-int send_flag=0;
 int value_sum=0;
 int value_cnt=0;
+int save_average=0;
 int cork=0;
 int init_flag =0;
 int drink_time_alarm1=0;
@@ -40,7 +39,7 @@ char drink_type='w';
 
 ////---------타이머---------////
 #include "esp_system.h"
-unsigned long Sec, Min, Hour, time5sec, time5min;
+unsigned long Sec, Min, Hour;
 unsigned long timeVal=0;
 
 
@@ -200,21 +199,20 @@ void setup() {
   Sec = 0;
   Min = 0;
   Hour = 0;
-  time5sec = 0;
-  time5min = 0;
 }
 
 void loop() {
   if(user_exist==1){
     ////--------압력센서--------////
     // 센서값 받아오면 now_drink에 저장
-    int presssensor_value = map(analogRead(pressSensor), 0, 2000, 1, 1000);
-    int FSR = exp(0.00327*presssensor_value); //0.00467
-    Serial.print("FSR : ");
-    Serial.println(FSR);    
-    float Gram = 18.5*FSR;
-    Serial.print("Gram : ");
-    Serial.println(Gram); 
+    int presssensor_value = analogRead(pressSensor);
+    int gram = 7.7712*exp(0.0022*presssensor_value);
+
+    Serial.print("presssensor_value : ");
+    Serial.println(presssensor_value);
+    Serial.print("gram : ");
+    Serial.println(gram);
+
 
     ////--------터치센서---------////
     int touch_water_state = digitalRead (watertouch);   // 터치센서의 입력값을 state라는 변수에 저장
@@ -226,13 +224,13 @@ void loop() {
     if(touch_noncoffee_state==HIGH) noncoffeecnt++;
 
     // cork가 누르는 압력이 최대 600 == 컵이 있는 경우
-    if(FSR > 5)
+    if(gram > 80)
     {
       // 영점조절  
       if(watercnt>=2)
       {
         // 터치센서 동작하게되면 압력센서 출력값이 올라감
-        init_water = 18.5*(FSR);
+        drink_before = gram;
 
         // 터치센서 변수 초기화
         watercnt=0;
@@ -242,10 +240,8 @@ void loop() {
         // led색상 변경
         Serial.println("water");
         drink_type = 'w';
-        colorWipe(strip.Color(0, 0, 205), 50, 9); // blue
+        colorWipe(strip.Color(0, 0, 205), 50, LED_COUNT); // blue
 
-
-        // drink_before = init_water;
         value_sum=0;
         value_cnt=0;
         init_flag=1;
@@ -254,7 +250,7 @@ void loop() {
       else if(coffeecnt>=1)
       {
         // 터치센서 동작하게되면 압력센서 출력값이 올라감
-        init_coffee = 18.5*(FSR);
+        drink_before = gram;
 
         // 터치센서 변수 초기화
         watercnt=0;
@@ -264,9 +260,8 @@ void loop() {
         // led색상 변경
         Serial.println("coffee");
         drink_type = 'c';
-        colorWipe(strip.Color(0, 220, 220), 50, 9); //pink
+        colorWipe(strip.Color(0, 220, 220), 50, LED_COUNT); //pink
 
-        // drink_before = init_coffee;
         value_sum=0;
         value_cnt=0;
         init_flag=1;
@@ -275,8 +270,7 @@ void loop() {
       else if(noncoffeecnt>=1)
       {
         // 터치센서 동작하게되면 압력센서 출력값이 올라감
-        
-        init_noncoffee = 18.5*(FSR);
+        drink_before = gram;
 
         // 터치센서 변수 초기화
         watercnt=0;
@@ -286,9 +280,8 @@ void loop() {
         // led색상 변경
         Serial.println("noncoffee");
         drink_type = 'd';
-        colorWipe(strip.Color(255, 255, 0), 50, 9); //yellow
+        colorWipe(strip.Color(255, 255, 0), 50, LED_COUNT); //yellow
 
-        // drink_before = init_noncoffee;
         value_sum=0;
         value_cnt=0;
         init_flag=1;
@@ -296,56 +289,63 @@ void loop() {
       }
 
       // 영점 세팅 이후에 물을 마신 후의 데이터 처리
-      if(sensing_flag == 1)
+      // 이전의 무게와 15그램 차이가 있어야함
+      if(sensing_flag == 1 && drink_before - gram >=15)
       {
-        if(value_cnt > 1)
+        // 3초뒤
+        if(value_cnt > 3)
         {
-          // drink_now = value_sum/(value_cnt-3);
-          // changeLiter(drink_now);
-          // Serial.println("change");
-          // value_sum=0;
-          // value_cnt=0;
-          // sensing_flag=0;
-          // init_flag=1;
-          // drink_before = drink_now;
-          changeliter = random(60, 150);
-          drink_now = changeliter;
-          total_drink += changeliter;
+          Serial.print("drink_before : ");
+          Serial.print(drink_before);
+          Serial.print("value : ");
+          Serial.print(value_sum / 3);
+          save_average = value_sum / 3;
+          drink_now = drink_before - (value_sum / 3);
+          total_drink += drink_now;
+          Serial.print("drink_now : ");
+          Serial.print(drink_now);
+
           Serial.print("total : ");
           Serial.print(total_drink);
           Serial.print("Goal : ");
           Serial.println(Goal);
 
-          value_cnt = 0;
+          value_cnt=0;
+          value_sum=0;
 
           // 물을 마셨을 경우 알람 타이머 초기화
           drink_time_alarm1=0;
           drink_time_alarm1=0;
 
+          // 음료가 담긴 컵이 올라온 값을 센싱하면 계산 중단
           sensing_flag=0;
+          // 센싱된 값 전송
           ble_send=1;
 
           ///---------NeoPixel---------////
           if(Goal <= total_drink) rainbow(5, 4);// 게이지 상승 
           else if(Goal*0.8 < total_drink && total_drink <= Goal*0.9)    colorWipe(strip.Color(100, 100, 100), 50, 8);
-          else if(Goal*0.7 < total_drink && total_drink <= Goal*0.8)    colorWipe(strip.Color(100, 100, 100), 50, 7);
-          else if(Goal*0.6 < total_drink && total_drink <= Goal*0.7)    colorWipe(strip.Color(255, 255, 255), 50, 6);
-          else if(Goal*0.5 < total_drink && total_drink <= Goal*0.6)    colorWipe(strip.Color(255, 255, 255), 50, 5);
-          else if(Goal*0.4 < total_drink && total_drink <= Goal*0.5)    colorWipe(strip.Color(255, 255, 255), 50, 4);
-          else if(Goal*0.3 < total_drink && total_drink <= Goal*0.4)    colorWipe(strip.Color(255, 255, 255), 50, 3);
-          else if(Goal*0.2 < total_drink && total_drink <= Goal*0.3)    colorWipe(strip.Color(255, 255, 255), 50, 2);
-          else if(Goal*0.1 < total_drink && total_drink <= Goal*0.2)    colorWipe(strip.Color(255, 255, 255), 50, 1);
-
-          Serial.print("Goal정도 : ");
-          Serial.println(total_drink);
+          else if(Goal*0.7 < total_drink && total_drink <= Goal*0.8)    colorWipe(strip.Color(100, 100, 100), 50, 8);
+          else if(Goal*0.6 < total_drink && total_drink <= Goal*0.7)    colorWipe(strip.Color(255, 255, 255), 50, 7);
+          else if(Goal*0.5 < total_drink && total_drink <= Goal*0.6)    colorWipe(strip.Color(255, 255, 255), 50, 6);
+          else if(Goal*0.4 < total_drink && total_drink <= Goal*0.5)    colorWipe(strip.Color(255, 255, 255), 50, 5);
+          else if(Goal*0.3 < total_drink && total_drink <= Goal*0.4)    colorWipe(strip.Color(255, 255, 255), 50, 4);
+          else if(Goal*0.2 < total_drink && total_drink <= Goal*0.3)    colorWipe(strip.Color(255, 255, 255), 50, 3);
+          else if(Goal*0.1 < total_drink && total_drink <= Goal*0.2)    colorWipe(strip.Color(255, 255, 255), 50, 2);
+          else if(total_drink <= Goal*0.1)    colorWipe(strip.Color(255, 255, 255), 50, 1);
+ 
         }
-
+        else
+        {
+          value_sum+=gram;
+        }
         value_cnt++;
+
       }
 
     }
     // 음료를 마시기 위해 컵을 들었음(가정)
-    else if(FSR < 6 && init_flag==1)
+    else if(gram <= 80 && init_flag==1)
     {
       sensing_flag = 1;
       Serial.println("check");
@@ -365,7 +365,7 @@ void loop() {
         {
           for(int i = 0; i<3; i++)
           {
-            colorWipe(strip.Color(0, 255, 0), 50, 9);
+            colorWipe(strip.Color(0, 255, 0), 50, LED_COUNT);
             delay(500);
           } 
           drink_time_alarm1 = 0;
@@ -373,36 +373,26 @@ void loop() {
         }
       }
     }
-    // 음료가 없음
-    else if(FSR < 6 )
-    {
-      cork = 37;
-    }
 
-    
-    time5sec++;
-    if(time5sec==60){
-      time5sec=0;
-      time5min++;
-    }
 
     ////---------블루투스---------////
     // 연결이 잘 되고 있는 상황
     // 데이터 갱신 후 notification
     if(deviceConnected){
       // 물을 마셨음이 확인되면 플러터에 전송
-      //  && time5min%3==0 && time5sec == 0
       if(drink_before != drink_now && ble_send==1){
         String min_data = "0";
-        String stst = (String)changeliter;
+        String stst = (String)drink_now;
         String data = min_data + drink_type + stst;
         const char* Data = data.c_str();
         Serial.println(Data);
         pCharacteristic->setValue(Data);
         pCharacteristic->notify();
         delay(3);   // client가 올바르게 정보를 수산할 수 있도록 여유의 시간(레퍼런스에서 3ms)  
-        drink_before = drink_now;
-        Serial.println("sending");    
+        drink_before = save_average;
+        Serial.println("sending");  
+        // 데이터 전송 후 0으로 초기화
+        ble_send=0;  
       }
     }
     // 이전에 연결한 기록이 있는 상태에서 연결이 끊긴 상황
@@ -455,35 +445,23 @@ void loop() {
       // 으로 데이터 저장
       if(drink_before != drink_now && ble_send==1){
         min_data = (String)Min;
-        String drink_st = (String)changeliter;
+        String drink_st = (String)drink_now;
         data = min_data + drink_type + drink_st + newline;
         const char* Data = data.c_str();
 
         appendFile("/drink_log.txt", Data);
 
-        drink_before = drink_now; 
-        
+        drink_before = save_average; 
+        // 데이터 전송 후 0으로 초기화
+        ble_send=0;
       }
     }
-    Serial.print("presssensor_value");
-    Serial.println(presssensor_value);
+
     delay(1000);
   }
   
 }
 
-////---------압력센서--------////
-// void changeLiter(int drink){
-//   int now_drink = drink_before - drink;
-//   changeliter = 18.5 * now_drink;
-//   total_drink += changeliter;
-//   send_flag = 1;
-  
-//   Serial.print("nowdrink: ");
-//   Serial.println(now_drink);
-//   Serial.print("changeliter: ");
-//   Serial.println(changeliter);
-// }
 
 ////---------SPIFFS---------////
 
