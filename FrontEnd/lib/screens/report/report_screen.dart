@@ -26,18 +26,6 @@ class _ReportScreenState extends State<ReportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text(
-          "Report 리포트",
-          style: TextStyle(
-              color: Color(0xff002B20),
-              fontSize: 28,
-              fontWeight: FontWeight.w600),
-        ),
-        automaticallyImplyLeading: false,
-        elevation: 0,
-      ),
       body: const SafeArea(
         child: MyReport(),
       ),

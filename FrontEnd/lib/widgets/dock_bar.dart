@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:habitat/controller/report_controller.dart';
 import 'package:habitat/controller/reward_controller.dart';
 
 class DockBar extends StatelessWidget {
   DockBar({super.key});
 
   final rewardController = Get.put(RewardController());
-
-  final reportController = Get.put(ReportController());
 
   @override
   Widget build(BuildContext context) {
@@ -17,43 +14,30 @@ class DockBar extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
-      child: Row(
+      child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          GestureDetector(
-            onTap: () {
-              reportController.goalUpdate();
-              reportController.dailyUpdate();
-              reportController.weeklyIntakeUpdate();
-              reportController.monthlyIntakeUpdate();
-            },
-            child: const DockBarTab(
-              tabname: "report",
-              tablocate: "/report",
-              tabicon: Icons.my_library_books_outlined,
-            ),
-          ),
-          const DockBarTab(
+          DockBarTab(
             tabname: "report",
             tablocate: "/report",
             tabicon: Icons.my_library_books_outlined,
           ),
-          const DockBarTab(
+          DockBarTab(
             tabname: "reward",
             tablocate: "/reward",
             tabicon: Icons.emoji_events_outlined,
           ),
-          const DockBarTab(
+          DockBarTab(
             tabname: "home",
             tablocate: "/main",
             tabicon: Icons.home_rounded,
           ),
-          const DockBarTab(
+          DockBarTab(
             tabname: "social",
             tablocate: "/social",
             tabicon: Icons.people_alt_outlined,
           ),
-          const DockBarTab(
+          DockBarTab(
             tabname: "setting",
             tablocate: "/setting",
             tabicon: Icons.settings_outlined,
