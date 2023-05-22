@@ -397,7 +397,7 @@ void loop() {
         String stst = (String)changeliter;
         String data = min_data + drink_type + stst;
         const char* Data = data.c_str();
-
+        Serial.println(Data);
         pCharacteristic->setValue(Data);
         pCharacteristic->notify();
         delay(3);   // client가 올바르게 정보를 수산할 수 있도록 여유의 시간(레퍼런스에서 3ms)  
