@@ -36,6 +36,7 @@ class SocialController extends GetxController {
   getSocialRequest() {
     getRequestFriends(
       success: (res) async {
+        requestfriendslist.clear();
         List temp = <Map<String, dynamic>>[];
         temp = await res.map((dynamic item) => item).toList() ?? [];
         for (var value in temp) {
@@ -52,6 +53,7 @@ class SocialController extends GetxController {
   getSocialList() {
     getFriendsList(
       success: (res) async {
+        friendslist.clear();
         List temp = <Map<String, dynamic>>[];
         temp = await res.map((dynamic item) => item).toList() ?? [];
         for (var value in temp) {

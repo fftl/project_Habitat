@@ -51,6 +51,7 @@ void main() async {
     MaterialApp(
       navigatorKey: navigatorKey,
       title: "habit@",
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "SeoulNamsan",
         primaryColor: const Color(0xFF78C6F7),
@@ -65,8 +66,8 @@ void main() async {
         '/login': (context) => const LoginScreen(),
         '/main': (context) => const MainScreen(),
         '/report': (context) => const ReportScreen(),
-        '/reward': (context) => const RewardScreen(),
-        '/social': (context) => const SocialScreen(),
+        '/reward': (context) => RewardScreen(),
+        '/social': (context) => SocialScreen(),
         '/setting': (context) => SettingScreen(),
         '/loading': (context) => const LoadingScreen(),
         '/bluetooth': (context) => CoasterConnectScreen(),
