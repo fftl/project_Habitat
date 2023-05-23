@@ -2,14 +2,14 @@
 #include <Adafruit_NeoPixel.h>
 //고정적으로 사용할 내용을 미리 선언
 #define LED_PIN 12     //네오픽셀에 신호를 줄 핀번호
-#define LED_COUNT 8  //아두이노에 연결된 네오픽셀의 개수
+#define LED_COUNT 10  //아두이노에 연결된 네오픽셀의 개수
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_RGBW + NEO_KHZ800);
 void colorWipe(uint32_t color, int wait, int gauge);
 void rainbow(int wait, int num);
 // GRB
 
 ////---------압력센서---------////
-const int pressSensor = 26;    // SIG를 26번 핀에 연결
+const int pressSensor = 35;    // SIG를 35번 핀에 연결
 // int init_water=0;
 // int init_coffee=0;
 // int init_noncoffee=0;
@@ -224,7 +224,7 @@ void loop() {
     if(touch_noncoffee_state==HIGH) noncoffeecnt++;
 
     // cork가 누르는 압력이 최대 600 == 컵이 있는 경우
-    if(gram > 80)
+    if(gram > 60)
     {
       // 영점조절  
       if(watercnt>=2)
@@ -246,6 +246,7 @@ void loop() {
         value_cnt=0;
         init_flag=1;
         ble_send=0;
+        gram-=30;
       }
       else if(coffeecnt>=1)
       {
@@ -266,6 +267,7 @@ void loop() {
         value_cnt=0;
         init_flag=1;
         ble_send=0;
+        gram-=30;
       }
       else if(noncoffeecnt>=1)
       {
@@ -286,6 +288,7 @@ void loop() {
         value_cnt=0;
         init_flag=1;
         ble_send=0;
+        gram-=30;
       }
 
       // 영점 세팅 이후에 물을 마신 후의 데이터 처리
@@ -324,7 +327,7 @@ void loop() {
 
           ///---------NeoPixel---------////
           if(Goal <= total_drink) rainbow(5, 4);// 게이지 상승 
-          else if(Goal*0.8 < total_drink && total_drink <= Goal*0.9)    colorWipe(strip.Color(100, 100, 100), 50, 8);
+          else if(Goal*0.8 < total_drink && total_drink <= Goal*0.9)    colorWipe(strip.Color(100, 100, 100), 50, 9);
           else if(Goal*0.7 < total_drink && total_drink <= Goal*0.8)    colorWipe(strip.Color(100, 100, 100), 50, 8);
           else if(Goal*0.6 < total_drink && total_drink <= Goal*0.7)    colorWipe(strip.Color(255, 255, 255), 50, 7);
           else if(Goal*0.5 < total_drink && total_drink <= Goal*0.6)    colorWipe(strip.Color(255, 255, 255), 50, 6);
@@ -345,7 +348,7 @@ void loop() {
 
     }
     // 음료를 마시기 위해 컵을 들었음(가정)
-    else if(gram <= 80 && init_flag==1)
+    else if(gram <= 60 && init_flag==1)
     {
       sensing_flag = 1;
       Serial.println("check");
