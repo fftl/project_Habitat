@@ -224,13 +224,13 @@ void loop() {
     if(touch_noncoffee_state==HIGH) noncoffeecnt++;
 
     // cork가 누르는 압력이 최대 600 == 컵이 있는 경우
-    if(gram > 60)
+    if(gram > 40)
     {
       // 영점조절  
-      if(watercnt>=2)
+      if(watercnt>=1)
       {
         // 터치센서 동작하게되면 압력센서 출력값이 올라감
-        drink_before = gram;
+        drink_before = gram/8;
 
         // 터치센서 변수 초기화
         watercnt=0;
@@ -246,12 +246,12 @@ void loop() {
         value_cnt=0;
         init_flag=1;
         ble_send=0;
-        gram-=30;
+        gram=120;
       }
       else if(coffeecnt>=1)
       {
         // 터치센서 동작하게되면 압력센서 출력값이 올라감
-        drink_before = gram;
+        drink_before = gram/8;
 
         // 터치센서 변수 초기화
         watercnt=0;
@@ -267,12 +267,12 @@ void loop() {
         value_cnt=0;
         init_flag=1;
         ble_send=0;
-        gram-=30;
+        gram=120;
       }
       else if(noncoffeecnt>=1)
       {
         // 터치센서 동작하게되면 압력센서 출력값이 올라감
-        drink_before = gram;
+        drink_before = gram/8;
 
         // 터치센서 변수 초기화
         watercnt=0;
@@ -288,7 +288,7 @@ void loop() {
         value_cnt=0;
         init_flag=1;
         ble_send=0;
-        gram-=30;
+        gram=120;
       }
 
       // 영점 세팅 이후에 물을 마신 후의 데이터 처리
@@ -348,7 +348,7 @@ void loop() {
 
     }
     // 음료를 마시기 위해 컵을 들었음(가정)
-    else if(gram <= 60 && init_flag==1)
+    else if(gram <= 40 && init_flag==1)
     {
       sensing_flag = 1;
       Serial.println("check");
