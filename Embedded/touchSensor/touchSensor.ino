@@ -13,13 +13,9 @@ void loop() {
   state = digitalRead (touchsensor); 
   if(state == HIGH)
   {
-    cnt++;
-  }
-  if(cnt>=2)
-  {
     Serial.println("w");
-    cnt=0;
   }
+  
 
   delay(1000);
 }
