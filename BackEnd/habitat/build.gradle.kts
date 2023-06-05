@@ -84,6 +84,12 @@ dependencies {
 	implementation ("com.fasterxml.jackson.core:jackson-databind")
 	implementation("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
 
+
+	// for Prometheus
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+
+
 }
 
 tasks.withType<Test> {
